@@ -1,4 +1,4 @@
-package test;
+package testen;
 
 //import static org.junit.Assert.assertNotNull;
 //import static org.junit.Assert.assertThrows;
