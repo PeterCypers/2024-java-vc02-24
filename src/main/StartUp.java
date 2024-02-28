@@ -13,7 +13,7 @@ public class StartUp extends Application {
     public void start(Stage stage) {
 		Gebruiker gebruiker = new Gebruiker(1,null, 
 				"mijn@email", "wachtwoord", "Bas", true, 
-				new Adres("Belgie", "9000", "Gent", "straat", "10"));
+				new Adres("Belgie","Gent", "9000", "straat", "10"));
 		BestellingController bc = new BestellingController(gebruiker);
         Scene scene = new Scene(new BestellingsSchermController(bc));
         stage.setScene(scene);

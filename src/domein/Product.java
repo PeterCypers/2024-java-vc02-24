@@ -20,6 +20,9 @@ public class Product {
 	
 	//setters
 	private void setNaam(String naam) {
+		if(naam == null || !naam.matches("([A-z][a-z]+\\s?)+"))
+			throw new IllegalArgumentException("Naam product incorrect");
+		
 		this.naam = naam;
 	}
 	
@@ -33,11 +36,29 @@ public class Product {
 		this.inStock = inStock;
 	}
 	
-	private void setEenheidsprijs(double eenheidsprijs) {
+	private void setEenheidsprijs(Double eenheidsprijs) {
 		if (eenheidsprijs <= 0)
 			throw new IllegalArgumentException("Eenheidsprijs moet strikt positief zijn");
 		this.eenheidsprijs = eenheidsprijs;
 	}
+	public Double getTotaalPrijs(){
+		return aantal * eenheidsprijs;
+	}
+	public String getNaam() {
+	    return naam;
+	}
+
+	public int getAantal() {
+	    return aantal;
+	}
+
+	public double getEenheidsprijs() {
+	    return eenheidsprijs;
+	}
+	public boolean isInStock() {
+	    return inStock;
+	}
+	
 	
 	public String toString() {
 		return String.format("%s, %d, %s, %.2f, %.2f", naam, aantal, inStock, eenheidsprijs, totalePrijs);
