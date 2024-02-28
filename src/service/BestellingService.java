@@ -6,5 +6,5 @@ import domein.Bestelling;
 import domein.Gebruiker;
 
 public interface BestellingService {
-	public List<Bestelling> getBestellingen(Gebruiker leverancier);
+	public abstract List<Bestelling> getBestellingen(Gebruiker leverancier);
 }

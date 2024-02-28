@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-public class StartUp extends Application {
+public class BestellingenSchermOpstart extends Application {
 	
 	@Override
     public void start(Stage stage) {
@@ -28,6 +28,6 @@ public class StartUp extends Application {
     }
 
 	public static void main(String... args) {
-        Application.launch(StartUp.class, args);
+        Application.launch(BestellingenSchermOpstart.class, args);
     }
 }

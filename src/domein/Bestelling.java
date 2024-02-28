@@ -1,7 +1,5 @@
 package domein;
 
-import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
-
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -20,9 +18,10 @@ public class Bestelling {
 	private OrderStatus orderStatus;
 	private BetalingsStatus betalingStatus;
 	private Klant klant;
-	private List<Product> producten = Arrays.asList(new Product("Inkt", 2, true, 2.30, 4.60),
-				new Product("Bekers", 10, false, 3.00, 30),
-				new Product("Cola", 20, true, 1.45, 29)
+	//voorlopig word hier de lijst met producten gevuld
+	private List<Product> producten = Arrays.asList(new Product("Inkt", 2, Stock.STOCK, 2.30),
+				new Product("Bekers", 10, Stock.ORDER, 3.00),
+				new Product("Cola", 20, Stock.STOCK, 1.45)
 			);
 	
 	//Voor tabelView
@@ -44,12 +43,37 @@ public class Bestelling {
 		setOrderStatus(orderStatus);
 		setBetalingStatus(betalingStatus);
 	}
+	
+	private double berekenTotalBedrag() {
+		return producten.stream().mapToDouble(p -> p.getTotalePrijs()).sum();
+	}
 
 	//getters
-	public String getKlantName() {
-		return klant.getName();
+	public int getOrderId() {
+		return orderId;
+	}
+
+	public Date getDatumGeplaats() {
+		return datumGeplaats;
+	}
+
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
+	}
+
+	public BetalingsStatus getBetalingStatus() {
+		return betalingStatus;
 	}
 	
+	public Klant getKlant() {
+		return klant;
+	}
+	
+	public List<Product> getProducten(){
+		return this.producten;
+	}
+
+	//setters
 	private void setKlant(Klant klant) {
 		this.klant = klant;
 	}
@@ -58,10 +82,6 @@ public class Bestelling {
 		this.producten = producten;
 	}
 
-	public List<Product> getProducten(){
-		return this.producten;
-	}
-	
 	//voor tabelView
 	private void setOrderId(int oId) {
 		orderID.set(oId);
@@ -99,29 +119,14 @@ public class Bestelling {
 		return betalingsstatus;
 	}
 	
+	public String getKlantName() {
+		return klant.getName();
+	}
+	
 	public String toString() {
-		Float bedrag = 100.35f;
 		return String.format("Naam: %s%nContactgevevens: %s%n%nOrder ID: %d%nDatum geplaatst: %s%nLeveradres: %s%n%n" + 
 								"Orderstatus: %s%nBetalingsstatus: %s%nBetalingsherinnering: %s%n%nTotale bedrag: € %.2f", 
 								klant.getName(), klant.getContactgegevens(), orderId, datumGeplaats, klant.getAdres(),
-								orderStatus, betalingStatus, "todo", bedrag);
+								orderStatus, betalingStatus, "todo",  berekenTotalBedrag());
 	}
-	
-	/*
-	 * Naam klant + contactgevevens 
-
-Order ID 
-
-Datum geplaatst 
-
-Leveradres 
-
-Orderstatus 
-
-Betalingsstatus + datum laatste betalingsherinnering 
-
-Overzicht van producten (naam, aantal, in stock, eenheidsprijs, totale prijs product) 
-
-Totale orderbedrag 
-	 */
 }

@@ -18,9 +18,9 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="900.0" type="Pane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox prefHeight="400.0" prefWidth="900.0">
+      <VBox prefHeight="400.0" prefWidth="900.0" spacing="5.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="900.0" style="-fx-background-color: E85757;">
+            <HBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="900.0" style="-fx-background-color: E85757;">
                <children>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -37,10 +37,13 @@
                   </TextField>
                   <Button fx:id="btnZoek" mnemonicParsing="false" onAction="#btnZoek" text="Zoek">
                      <HBox.margin>
-                        <Insets right="130.0" />
+                        <Insets right="200.0" />
                      </HBox.margin>
                   </Button>
-                  <Label fx:id="lbNaamIngelogd" />
+                  <Label fx:id="lbNaamIngelogd">
+                     <HBox.margin>
+                        <Insets left="100.0" />
+                     </HBox.margin></Label>
                </children>
             </HBox>
             <HBox prefHeight="26.0" prefWidth="900.0" style="-fx-background-color: FFFFFF;">
@@ -97,7 +100,11 @@
                   </GridPane>
                </children>
             </HBox>
+            <Label fx:id="lbError" prefHeight="18.0" prefWidth="902.0" textFill="RED" />
          </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </VBox>
    </children>
 </fx:root>

@@ -21,9 +21,10 @@ public class BestellingServiceMock implements BestellingService {
 	private List<Bestelling> bestellingen = Arrays.asList(
 			new Bestelling(49111, new Date(), OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
 			new Bestelling(49112, new Date(), OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, klanten.get(1)),
-			new Bestelling(49113, new Date(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.BETAALD, klanten.get(2)),
 			new Bestelling(49114, new Date(), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(0)),
+			new Bestelling(49113, new Date(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.BETAALD, klanten.get(2)),
 			new Bestelling(49115, new Date(), OrderStatus.GELEVERD, BetalingsStatus.BETAALD, klanten.get(2))
+			
 	);
 
 	@Override

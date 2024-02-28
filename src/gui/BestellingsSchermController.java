@@ -23,53 +23,56 @@ import javafx.scene.layout.Pane;
 
 
 public class BestellingsSchermController extends Pane {
-	 @FXML
-	    private TextField txfZoeken;
+	@FXML
+	private TextField txfZoeken;
 
-	    @FXML
-	    private Button btnZoek;
+	@FXML
+	private Button btnZoek;
 
-	    @FXML
-	    private Label lbNaamIngelogd;
+	@FXML
+	private Label lbNaamIngelogd;
 
-	    @FXML
-	    private Button btnOverzichtBestellingen;
+	@FXML
+	private Button btnOverzichtBestellingen;
 
-	    @FXML
-	    private HBox hbElementen;
+	@FXML
+	private HBox hbElementen;
 
-	    @FXML
-	    private Label lbOverzichtBestellingen;
+	@FXML
+	private Label lbOverzichtBestellingen;
 
-	    @FXML
-	    private Label lbDetailsBestelling;
+	@FXML
+	private Label lbDetailsBestelling;
 
-	    @FXML
-	    private Label lbOverzichtProduct;
+	@FXML
+	private Label lbOverzichtProduct;
 
-	    @FXML
-	    private TableView<Bestelling> tbvBestellingen;
+	@FXML
+	private TableView<Bestelling> tbvBestellingen;
 
-	    @FXML
-	    private TableColumn<Bestelling, Number> tbcOrderID;
+	@FXML
+	private TableColumn<Bestelling, Number> tbcOrderID;
 
-	    @FXML
-	    private TableColumn<Bestelling, Date> tbcDatum;
+	@FXML
+	private TableColumn<Bestelling, Date> tbcDatum;
 
-	    @FXML
-	    private TableColumn<Bestelling, String> tbcKlant;
+	@FXML
+	private TableColumn<Bestelling, String> tbcKlant;
 
-	    @FXML
-	    private TableColumn<Bestelling, OrderStatus> tbcOrderstatus;
+	@FXML
+	private TableColumn<Bestelling, OrderStatus> tbcOrderstatus;
 
-	    @FXML
-	    private TableColumn<Bestelling, BetalingsStatus> tbcBetalingsstatus;
+	@FXML
+	private TableColumn<Bestelling, BetalingsStatus> tbcBetalingsstatus;
 
-	    @FXML
-	    private TextArea txaDetailsBestelling;
+	@FXML
+	private TextArea txaDetailsBestelling;
 
-	    @FXML
-	    private TextArea txaProducten;
+	@FXML
+	private TextArea txaProducten;
+	
+	@FXML
+    private Label lbError;	//voor errors te tonen
 	
 	private BestellingController bc;
 
@@ -79,12 +82,12 @@ public class BestellingsSchermController extends Pane {
         loader.setRoot(this);
     	loader.setController(this);
         try {
-        	//lbNaamIngelogd.setText(bc.getNaamGebruiker()); //naam van de ingelogde gebruiker
             loader.load();
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
         
+        lbNaamIngelogd.setText(bc.getNaamGebruiker()); //naam van de ingelogde gebruiker
         //Vulled de cellen van de tableView
         tbcOrderID.setCellValueFactory(cellData -> cellData.getValue().orderIdProperty());
         tbcDatum.setCellValueFactory(cellData -> cellData.getValue().datumProperty());
