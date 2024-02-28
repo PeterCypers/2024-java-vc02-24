@@ -1,6 +1,7 @@
 package domein;
 
 public class Gebruiker {
+	private Bestelling bestellingen;
 	private int gebruikerId;
 	private Rol rol;
 	private String emailadres;

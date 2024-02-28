@@ -14,4 +14,8 @@ public class Adres {
 		this.straat = straat;
 		this.straatNr = straatNr;
 	}
+	
+	public String toString() {
+		return String.format("%s %s %s %s %s", straat, straatNr, stad, postcode, land);
+	}
 }
