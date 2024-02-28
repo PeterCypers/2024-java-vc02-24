@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.NoSuchElementException;
 
 import domein.AanmeldController;
+import domein.BestellingController;
 import domein.Gebruiker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -84,7 +85,8 @@ public class AanmeldSchermController extends Pane {
     }
     
     private void toonVolgendScherm(Gebruiker gebruiker) {
-    	BestellingSchermController bestellingSchermController = new BestellingSchermController(gebruiker);
+    	BestellingController bc = new BestellingController(gebruiker);
+    	BestellingsSchermController bestellingSchermController = new BestellingsSchermController(bc);
 		Stage stage = (Stage) this.getScene().getWindow();
 		stage.setScene(new Scene(bestellingSchermController));
     }
