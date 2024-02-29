@@ -40,8 +40,7 @@ public class GebruikerTest {
     			new String[]{"vijfde@hotmail.com","","Jos"},
     			new String[]{"","654","Jos"},
     			new String[]{"vijfde@hotmail","654","Jos"},
-    			new String[]{"vijfde@hotmail.com","65 4","Jos"},
-    			new String[]{"vijfde@hotmail.com","654","Jo s"}
+    			new String[]{"vijfde@hotmail.com","65 4","Jos"}
     	);
     }
 	

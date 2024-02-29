@@ -65,7 +65,8 @@ public class Product {
 	public double getEenheidsprijs() {
 	    return eenheidsprijs;
 	}
-	public boolean isInStock() {
+	
+	public Stock isInStock() {
 	    return inStock;
 	}
 	

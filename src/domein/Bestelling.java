@@ -1,10 +1,7 @@
 package domein;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.EnumSet;
 import java.util.List;
 
 import javafx.beans.property.IntegerProperty;
@@ -65,10 +62,6 @@ public class Bestelling {
 	public Klant getKlant() {
 		return klant;
 	}
-	
-	public List<Product> getProducten(){
-		return this.producten;
-	}
 
 	//setters
 	private void setKlant(Klant klant) {
@@ -125,10 +118,6 @@ public class Bestelling {
 		orderStatus = oStatus;
 	}
 	
-	public OrderStatus getOrderStatus() {
-		return this.orderStatus;
-	}
-	
 	public IntegerProperty orderIdProperty() {
 		return orderID;
 	}
@@ -147,10 +136,6 @@ public class Bestelling {
 	
 	public SimpleObjectProperty<BetalingsStatus> betalingsstatusProperty() {
 		return betalingsstatus;
-	}
-	
-	public String getKlantName() {
-		return klant.getName();
 	}
 	
 	public String toString() {
