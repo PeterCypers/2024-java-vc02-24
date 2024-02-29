@@ -1,7 +1,5 @@
 package domein;
 
-import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -36,10 +34,6 @@ public class Bestelling {
 	
 	//constructor
 	public Bestelling(int orderId, Date datumGeplaats, OrderStatus orderStatus, BetalingsStatus betalingStatus, Klant klant) {
-//		this.orderId = orderId;
-//		this.datumGeplaats = datumGeplaats;
-//		this.orderStatus = orderStatus;
-//		this.betalingStatus = betalingStatus;
 		setKlant(klant);
 		setOrderId(orderId);
 		setDatumGeplaats(datumGeplaats);
@@ -79,8 +73,6 @@ public class Bestelling {
 	}
 
 	private void setDatumGeplaats(Date date) {
-		if (date.before(new Date()))
-			throw new IllegalArgumentException();
 		datum.set(date);
 		datumGeplaats = date;
 	}

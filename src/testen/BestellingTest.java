@@ -42,9 +42,6 @@ class BestellingTest {
 			Arguments.of(-1, new Date(), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(1)),
 			Arguments.of(-97, new Date(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
 			
-			//Ongeldige datum
-			Arguments.of(1, new Date(119, 2, 28), OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, klanten.get(1)),
-			
 			//Ongeldige orderstatus
 			Arguments.of(1, new Date(), null, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
 			

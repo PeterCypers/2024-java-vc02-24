@@ -39,7 +39,7 @@ public class Gebruiker {
 			throw new IllegalArgumentException("Emailadres mag niet leeg zijn!");
 		}
 		
-		String emailRegex = "^[a-zA-Z0-9]+@[a-zA-Z]+\\.[a-zA-Z]+$";
+		String emailRegex = "^[a-zA-Z0-9]+\\.?[a-zA-Z0-9]*@[a-zA-Z]+\\.[a-zA-Z]+$";
 	    if (!email.matches(emailRegex)) {
 	        throw new IllegalArgumentException("Ongeldig e-mailadres!");
 	    }
