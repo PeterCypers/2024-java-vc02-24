@@ -27,10 +27,6 @@ public class Gebruiker {
 			throw new IllegalArgumentException("Gebruikersnaam mag niet leeg zijn!");
 		}
 		
-		if (naam.chars().anyMatch(c -> c == ' ')) {
-			throw new IllegalArgumentException("Ongeldige gebruikersnaam!");
-		}
-		
 		this.naam = naam;
 	}
 	
