@@ -46,6 +46,8 @@ public class AanmeldSchermController extends Pane {
     	} catch (NoSuchElementException nsee) {
     		System.out.println("Gebruiker niet gevonden, controleer of email/wachtwoord juist zijn.");
     		lblError.setText("Gebruiker niet gevonden, controleer of email/wachtwoord juist zijn.");
+    	} catch (IllegalArgumentException iae) {
+    		lblError.setText(iae.getMessage());
     	}
     }
     
