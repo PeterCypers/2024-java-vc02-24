@@ -16,7 +16,7 @@ public class BestellingenRaadplegenTesten {
 	public void beforeEach() {
 		Gebruiker g = new Gebruiker(9, null, "jan.jansens@hotmail.com", 
 				"java", "Jan Jansens", true, 
-				new Adres("België", "Gent", "9000", "Veldstraat", "56"));
+				new Adres("Belgie", "Gent", "9000", "Veldstraat", "56"));
 		this.bb = new BestellingBeheerder(g);
 	}
 	

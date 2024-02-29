@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import domein.Adres;
 import domein.Bestelling;
 import domein.BetalingsStatus;
 import domein.Gebruiker;
@@ -13,9 +14,9 @@ import domein.OrderStatus;
 public class BestellingServiceMock implements BestellingService {
 	
 	private List<Klant> klanten = Arrays.asList(
-			new Klant("Klant1", "klant1@hotmail.com", "Belgie", "Gent", "9000", "Straat", "2"),
-			new Klant("Klant2", "klant2@hotmail.com","Belgie", "Gent", "9000", "Regen", "5"),
-			new Klant("Klant3", "klant3@hotmail.com","Belgie", "Gent", "9000", "Licht", "10")
+			new Klant("KlantA", "klant1@hotmail.com",new Adres( "Belgie", "Gent", "9000", "Straat", "2")),
+			new Klant("KlantB", "klant2@hotmail.com",new Adres("Belgie", "Gent", "9000", "Regen", "5")),
+			new Klant("KlantC", "klant3@hotmail.com",new Adres("Belgie", "Gent", "9000", "Licht", "10"))
 			);
 	
 	private List<Bestelling> bestellingen = Arrays.asList(

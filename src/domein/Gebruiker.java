@@ -16,14 +16,17 @@ public class Gebruiker {
 		setEmail(email);
 		setRol(rol);
 		setWachtwoord(wachtwoord);
+		setIsActief(isActief);
 		
 		this.gebruikerId = gebruikerId;
-		this.isActief = isActief;
 		this.adres = adres;
 	}
 	
 	private void setNaam(String naam) {
-		//TODO controle op naam
+		if (naam == null || naam.isBlank()) {
+			throw new IllegalArgumentException("Gebruikersnaam mag niet leeg zijn!");
+		}
+		
 		this.naam = naam;
 	}
 	
@@ -32,8 +35,16 @@ public class Gebruiker {
 	}
 	
 	private void setEmail(String email) {
-		//TODO controle op email
-		this.emailadres = email;
+		if (email == null || email.isBlank()) {
+			throw new IllegalArgumentException("Emailadres mag niet leeg zijn!");
+		}
+		
+		String emailRegex = "^[a-zA-Z0-9]+\\.?[a-zA-Z0-9]*@[a-zA-Z]+\\.[a-zA-Z]+$";
+	    if (!email.matches(emailRegex)) {
+	        throw new IllegalArgumentException("Ongeldig e-mailadres!");
+	    }
+	    
+	    this.emailadres = email;
 	}
 	
 	public String getEmail() {
@@ -41,7 +52,14 @@ public class Gebruiker {
 	}
 	
 	private void setWachtwoord(String wachtwoord) {
-		//TODO controle op wachtwoord
+		if (wachtwoord == null || wachtwoord.isBlank()) {
+			throw new IllegalArgumentException("Wachtwoord mag niet leeg zijn!");
+		}
+		
+		if (wachtwoord.chars().anyMatch(c -> c == ' ')) {
+			throw new IllegalArgumentException("Ongeldig wachtwoord!");
+		}
+		
 		this.wachtwoord = wachtwoord;
 	}
 	
@@ -51,7 +69,18 @@ public class Gebruiker {
 	
 	//public setter
 	public void setRol(Rol rol) {
-		//TODO rolcontrole en logic
 		this.rol = rol;
+	}
+	
+	public Rol getRol() {
+		return rol;
+	}
+	
+	public void setIsActief(boolean isActief) {
+		this.isActief = isActief;
+	}
+
+	public boolean getIsActief() {
+		return isActief;
 	}
 }
