@@ -1,13 +1,30 @@
 package domein;
 
-public class Product {
+import java.io.Serializable;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+
+@Entity
+public class Product implements Serializable {
 	
-	//attributen
+	private static final long serialVersionUID = 1L;
+
+	@Id
 	private String naam;
+	
 	private int aantal;
-	private Stock inStock;
+	
 	private double eenheidsprijs;
+	
 	private double totalePrijs;
+	
+	@Enumerated(EnumType.STRING)
+	private Stock inStock;
+	
+	public Product() {}
 	
 	//constructor
 	public Product(String naam, int aantal, Stock inStock, double eenheidsprijs) {
@@ -29,7 +46,7 @@ public class Product {
 
 	//setters
 	private void setNaam(String naam) {
-		if(naam == null || !naam.matches("([A-z][a-z]+\\s?)+"))
+		if(naam == null || !naam.matches("([A-Za-z]+\\s?)+"))
 			throw new IllegalArgumentException("Naam product incorrect");
 		
 		this.naam = naam;

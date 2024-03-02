@@ -1,15 +1,51 @@
 package domein;
 
-public class Gebruiker {
-	private Bestelling bestellingen;
+import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
+
+@Entity
+@NamedQueries({
+    @NamedQuery(name = "Gebruiker.meldAan",
+                         query = "SELECT g FROM Gebruiker g"
+                         		+ " WHERE g.emailadres = :emailadres"
+                         		+ " AND g.wachtwoord = :wachtwoord")
+})      
+public class Gebruiker implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int gebruikerId;
+	
+	@OneToMany(cascade=CascadeType.PERSIST)
+	private List<Bestelling> bestellingen;
+	
+	@Enumerated(EnumType.STRING)
 	private Rol rol;
+	
 	private String emailadres;
 	private String wachtwoord;
 	private String naam;
 	private boolean isActief;
+	
+	@Embedded
 	private Adres adres;
 	
+	public Gebruiker() {}
 
 	public Gebruiker(int gebruikerId, Rol rol, String email, String wachtwoord, String naam, boolean isActief, Adres adres) {
 		setNaam(naam);
@@ -82,5 +118,13 @@ public class Gebruiker {
 
 	public boolean getIsActief() {
 		return isActief;
+	}
+	
+	public void setBestellingen(List<Bestelling> bestellingen) {
+		this.bestellingen = bestellingen;
+	}
+	
+	public List<Bestelling> getBestellingen() {
+		return bestellingen.stream().collect(Collectors.toUnmodifiableList());
 	}
 }

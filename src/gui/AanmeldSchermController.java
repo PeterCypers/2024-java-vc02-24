@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import domein.AanmeldController;
 import domein.BestellingController;
 import domein.Gebruiker;
+import jakarta.persistence.EntityNotFoundException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,7 +44,7 @@ public class AanmeldSchermController extends Pane {
     		Gebruiker g = meldAan(txfEmail.getText(), pwdField.getText());
     		System.out.printf("%s gevonden met naam: %s", g.getClass().getSimpleName(), g.getNaam());
     		toonVolgendScherm(g);
-    	} catch (NoSuchElementException nsee) {
+    	} catch (EntityNotFoundException enfe) {
     		System.out.println("Gebruiker niet gevonden, controleer of email/wachtwoord juist zijn.");
     		lblError.setText("Gebruiker niet gevonden, controleer of email/wachtwoord juist zijn.");
     	} catch (IllegalArgumentException iae) {

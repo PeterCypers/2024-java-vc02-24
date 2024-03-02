@@ -1,17 +1,16 @@
 package domein;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
-import service.AanmeldService;
-import service.AanmeldServiceMock;
+import service.GebruikerService;
+import service.GebruikerServiceDbImpl;
 
 public class AanmeldController {
 	
-	private final AanmeldService ams;
+	private final GebruikerService gs;
 	
 	public AanmeldController() {
-		ams = new AanmeldServiceMock();
+		gs = new GebruikerServiceDbImpl();
 	}
 	
 	//implementatie correct? gebruiker class hashcode+equals om op equality te controlleren -> wacht op vervolg
@@ -25,6 +24,6 @@ public class AanmeldController {
 		return gevondenGebruiker;
 		*/
 		
-		return ams.meldGebruikerAan(emailadres, wachtwoord);
+		return gs.meldGebruikerAan(emailadres, wachtwoord);
 	}
 }

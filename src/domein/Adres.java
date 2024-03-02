@@ -1,11 +1,16 @@
 package domein;
 
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class Adres {
 	String land;
 	String stad;
 	String postcode;
 	String straat;
 	String straatNr;
+	
+	public Adres() {}
 	
 	public Adres(String land, String stad, String postcode, String straat, String straatNr) {
 		setLand(land);

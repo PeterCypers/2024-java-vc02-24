@@ -1,42 +1,76 @@
 package domein;
 
-import java.util.Arrays;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.StringProperty;
 
-public class Bestelling {
+@Entity
+@NamedQueries({
+    @NamedQuery(name = "Bestelling.vindPerLeverancier",
+                         query = "SELECT b FROM Bestelling b"
+                         		+ " WHERE b.leverancier = :leverancier")
+})      
+public class Bestelling implements Serializable {
 	
-	//attributen
+	private static final long serialVersionUID = 1L;
+
+	@Id
 	private int orderId;
-	private Date datumGeplaats;
-	private OrderStatus orderStatus;
-	private BetalingsStatus betalingStatus;
+	
+	@ManyToMany(cascade=CascadeType.PERSIST)
+	private List<Product> producten;
+	
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	private Klant klant;
-	//voorlopig word hier de lijst met producten gevuld
-	private List<Product> producten = Arrays.asList(new Product("Inkt", 2, Stock.STOCK, 2.30),
-				new Product("Bekers", 10, Stock.ORDER, 3.00),
-				new Product("Cola", 20, Stock.STOCK, 1.45)
-			);
+	
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	private Gebruiker leverancier;
+	
+	private Date datumGeplaatst;
+	
+	@Enumerated(EnumType.STRING)
+	private OrderStatus orderStatus;
+	
+	@Enumerated(EnumType.STRING)
+	private BetalingsStatus betalingStatus;
 	
 	//Voor tabelView
+	@Transient
 	private final SimpleIntegerProperty orderID = new SimpleIntegerProperty();
+	@Transient
 	private final ObjectProperty<Date> datum = new SimpleObjectProperty<>(this, "datum");
+	@Transient
 	private final SimpleObjectProperty<OrderStatus> orderstatus = new SimpleObjectProperty<OrderStatus>();
+	@Transient
 	private final SimpleObjectProperty<BetalingsStatus> betalingsstatus = new SimpleObjectProperty<BetalingsStatus>();
 	
+	public Bestelling() {}
+	
 	//constructor
-	public Bestelling(int orderId, Date datumGeplaats, OrderStatus orderStatus, BetalingsStatus betalingStatus, Klant klant) {
+	public Bestelling(int orderId, Date datumGeplaats, OrderStatus orderStatus, BetalingsStatus betalingStatus, Klant klant, List<Product> producten) {
 		setKlant(klant);
 		setOrderId(orderId);
 		setDatumGeplaats(datumGeplaats);
 		setOrderStatus(orderStatus);
 		setBetalingStatus(betalingStatus);
+		setProducten(producten);
 	}
 	
 	private double berekenTotalBedrag() {
@@ -48,7 +82,7 @@ public class Bestelling {
 	}
 
 	public Date getDatumGeplaats() {
-		return datumGeplaats;
+		return datumGeplaatst;
 	}
 
 	public OrderStatus getOrderStatus() {
@@ -83,7 +117,6 @@ public class Bestelling {
 	private void setOrderId(int oId) {
 		if (oId <= 0)
 			throw new IllegalArgumentException("OrderId moet strikt positief zijn");
-		orderID.set(oId);
 		orderId = oId;
 	}
 	
@@ -92,18 +125,16 @@ public class Bestelling {
 	}
 
 	private void setDatumGeplaats(Date date) {
-		datum.set(date);
-		datumGeplaats = date;
+		datumGeplaatst = date;
 	}
 	
 	public Date getDatumGeplaatst() {
-		return this.datumGeplaats;
+		return this.datumGeplaatst;
 	}
 
 	private void setBetalingStatus(BetalingsStatus bStatus) {
 		if (bStatus == null)
 			throw new IllegalArgumentException("Betalingsstatus is niet meegegeven");
-		betalingsstatus.set(bStatus);
 		betalingStatus = bStatus;
 	}
 	
@@ -114,15 +145,24 @@ public class Bestelling {
 	private void setOrderStatus(OrderStatus oStatus) {
 		if (oStatus == null)
 			throw new IllegalArgumentException("Orderstatus is niet meegegeven");
-		orderstatus.set(oStatus);
 		orderStatus = oStatus;
 	}
 	
+	public Gebruiker getLeverancier() {
+		return leverancier;
+	}
+	
+	public void setLeverancier(Gebruiker leverancier) {
+		this.leverancier = leverancier;
+	}
+	
 	public IntegerProperty orderIdProperty() {
+		orderID.set(orderId);
 		return orderID;
 	}
 	
 	public ObjectProperty<Date> datumProperty() {
+		datum.set(datumGeplaatst);
 		return datum;
 	}
 	
@@ -131,17 +171,19 @@ public class Bestelling {
 	}
 	
 	public SimpleObjectProperty<OrderStatus> orderstatusProperty() {
+		orderstatus.set(orderStatus);
 		return orderstatus;
 	}
 	
 	public SimpleObjectProperty<BetalingsStatus> betalingsstatusProperty() {
+		betalingsstatus.set(betalingStatus);
 		return betalingsstatus;
 	}
 	
 	public String toString() {
 		return String.format("Naam: %s%nContactgevevens: %s%n%nOrder ID: %d%nDatum geplaatst: %s%nLeveradres: %s%n%n" + 
 								"Orderstatus: %s%nBetalingsstatus: %s%nBetalingsherinnering: %s%n%nTotale bedrag: € %.2f", 
-								klant.getName(), klant.getContactgegevens(), orderId, datumGeplaats, klant.getAdres(),
+								klant.getName(), klant.getContactgegevens(), orderId, datumGeplaatst, klant.getAdres(),
 								orderStatus, betalingStatus, "todo",  berekenTotalBedrag());
 	}
 }

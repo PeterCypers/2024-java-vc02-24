@@ -12,4 +12,5 @@ open module Java_vc02_24 {
 		requires org.junit.jupiter.api;
 		requires org.mockito.junit.jupiter;
 		requires org.mockito;
+		requires org.junit.jupiter.params;
 }

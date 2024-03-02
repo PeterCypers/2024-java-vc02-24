@@ -1,5 +1,6 @@
 package testen;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,8 @@ import domein.Bestelling;
 import domein.BetalingsStatus;
 import domein.Klant;
 import domein.OrderStatus;
+import domein.Product;
+import domein.Stock;
 
 class BestellingTest {
 
@@ -22,6 +25,11 @@ class BestellingTest {
 	static List<Klant> klanten = Arrays.asList(
 			new Klant("Bas Stokmans","klant1@hotmail.com", new Adres("Land", "Stad", "1234", "Straat", "1")),
 			new Klant("Tiemen Deroose","klant2@hotmail.com", new Adres("Land", "Stad", "12345", "Straat", "20"))
+	);
+	static List<Product> producten = Arrays.asList(
+			new Product("productA", 1000, Stock.STOCK, 500.0),
+			new Product("productB", 50000, Stock.STOCK, 4.99),
+			new Product("productC", 2100, Stock.STOCK, 19.99)
 	);
 	
 	@SuppressWarnings("deprecation")
@@ -56,7 +64,7 @@ class BestellingTest {
 	@ParameterizedTest
 	@MethodSource("geldigeBestellingen")
 	void test_nieuweBestelling_geldigeWaarden(int orderId, Date datum, OrderStatus oStatus, BetalingsStatus bStatus, Klant klant) {
-		this.bestelling = new Bestelling(orderId, datum, oStatus, bStatus, klant);
+		this.bestelling = new Bestelling(orderId, datum, oStatus, bStatus, klant, producten);
 		
 		Assertions.assertEquals(orderId, this.bestelling.getOrderId());
 		Assertions.assertEquals(datum, this.bestelling.getDatumGeplaatst());
@@ -68,7 +76,7 @@ class BestellingTest {
 	@ParameterizedTest
 	@MethodSource("ongeldigeBestellingen")
 	void test_nieuweBestelling_ongeldigeWaarden(int orderId, Date datum, OrderStatus oStatus, BetalingsStatus bStatus, Klant klant) {
-		Assertions.assertThrows(IllegalArgumentException.class, () -> new Bestelling(orderId, datum, oStatus, bStatus, klant));
+		Assertions.assertThrows(IllegalArgumentException.class, () -> new Bestelling(orderId, datum, oStatus, bStatus, klant, producten));
 	}
 
 }

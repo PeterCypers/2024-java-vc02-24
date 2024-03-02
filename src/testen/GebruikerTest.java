@@ -21,6 +21,7 @@ import domein.AanmeldController;
 import domein.Adres;
 import domein.Gebruiker;
 import domein.Rol;
+import jakarta.persistence.EntityNotFoundException;
 
 public class GebruikerTest {
 	
@@ -76,7 +77,7 @@ public class GebruikerTest {
 	@ParameterizedTest
 	@MethodSource("gegevensOnbekendeGebruikers")
 	public void test_GebruikerAanmelden_OngeldigeGegevens(String emailadres, String wachtwoord) {
-		assertThrows(NoSuchElementException.class, () -> ac.meldGebruikerAan(emailadres, wachtwoord));
+		assertThrows(EntityNotFoundException.class, () -> ac.meldGebruikerAan(emailadres, wachtwoord));
 	}
 	
 	@Test

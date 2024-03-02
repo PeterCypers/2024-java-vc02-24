@@ -1,14 +1,13 @@
 package domein;
 
 import java.util.Comparator;
-import java.util.NoSuchElementException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import service.BestellingService;
-import service.BestellingServiceMock;
+import service.BestellingServiceDbImpl;
 
 public class BestellingBeheerder {
 	private ObservableList<Bestelling> bestellingen;
@@ -38,7 +37,7 @@ public class BestellingBeheerder {
 	
 	
 	public BestellingBeheerder(Gebruiker leverancier) {
-		bestellingService = new BestellingServiceMock();
+		bestellingService = new BestellingServiceDbImpl();
 		bestellingen = FXCollections.observableArrayList(bestellingService.getBestellingen(leverancier));
 		filteredBestellingen = new FilteredList<>(bestellingen, b -> true);     
         sortedBestellingen = new SortedList<>(filteredBestellingen, orderSorted);
