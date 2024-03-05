@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane style="-fx-background-color: FFFFFF; -fx-background-image: url(../images/backgroundAdmin.png)" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <VBox prefHeight="400.0" prefWidth="600.0" spacing="5.0">
+         <children>
+            <HBox prefHeight="28.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="txfFilterBedrijven" promptText="filter bedrijven" />
+                  <Button mnemonicParsing="false" onAction="#filterBedrijven" text="Zoek" />
+               </children>
+            </HBox>
+            <GridPane prefHeight="370.0" style="-fx-background-color: FFFFFF;">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="117.59998168945313" minHeight="0.0" prefHeight="21.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="326.3999746322632" minHeight="10.0" prefHeight="319.40003662109376" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="39.39995117187499" minHeight="1.6000122070312273" prefHeight="26.59996337890624" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Overzicht bedrijven" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lbDetailsBedrijf" text="Details bedrijf" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lbOverzichtAccounts" text="Overzicht accounts" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="tbvOverzichtBedrijven" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: FFFFFF;" GridPane.rowIndex="1">
+                    <columns>
+                      <TableColumn fx:id="tbcNaam" prefWidth="75.0" text="Naam" />
+                      <TableColumn fx:id="tbcSector" prefWidth="75.0" text="Sector" />
+                        <TableColumn fx:id="tbcAdres" prefWidth="75.0" text="Adres" />
+                        <TableColumn fx:id="tbcAantalKlanten" prefWidth="75.0" text="Aantal klanten" />
+                        <TableColumn fx:id="tbcIsActief" prefWidth="75.0" text="Actief" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <VBox fx:id="vbDetailsBedrijf" prefHeight="200.0" prefWidth="100.0" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <TextField fx:id="txfLogo" />
+                        <ImageView fx:id="imgLogo" fitHeight="75.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <TextField fx:id="txfNaam" />
+                        <TextField fx:id="txfSector" />
+                        <TextField fx:id="txfAdres" />
+                        <TextField fx:id="txfBetalingsmogelijkheid" />
+                        <TextField fx:id="txfBetaalinfo" />
+                        <TextField fx:id="txfContact" />
+                        <TextField fx:id="txfBtwNummer" />
+                     </children>
+                  </VBox>
+                  <TextArea fx:id="txaAccounts" editable="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: FFFFFF;" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="2">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#bedrijfDeactiveren" text="deactiveren" />
+                        <Button mnemonicParsing="false" onAction="#bedrijfToevoegen" text="add bedrijf" />
+                     </children>
+                  </HBox>
+               </children>
+            </GridPane>
+         </children>
+         <padding>
+            <Insets left="5.0" right="5.0" />
+         </padding>
+      </VBox>
+   </center>
+</BorderPane>

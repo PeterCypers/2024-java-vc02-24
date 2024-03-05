@@ -88,10 +88,9 @@ public class AanmeldSchermController extends Pane {
     }
     
     private void toonVolgendScherm(Gebruiker gebruiker) {
-    	BestellingController bc = new BestellingController(gebruiker);
-    	BestellingsSchermController bestellingSchermController = new BestellingsSchermController(bc);
+    	HoofdSchermController hoofdScherm = new HoofdSchermController(gebruiker); //veranderd als bc gebruiker bij houd
 		Stage stage = (Stage) this.getScene().getWindow();
-		stage.setScene(new Scene(bestellingSchermController));
+		stage.setScene(new Scene(hoofdScherm));
     }
     
 }

@@ -11,14 +11,13 @@ public class StartUpGui extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			//DomeinController dc = new DomeinController();
 			AanmeldController ac = new AanmeldController();
 			
 			Scene scene = new Scene(new AanmeldSchermController(ac));
-			
-//			primaryStage.setTitle("TipCalculator");
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("B2B Portal");
 			primaryStage.show();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

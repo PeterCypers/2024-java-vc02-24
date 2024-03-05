@@ -73,7 +73,7 @@ public class Bestelling implements Serializable {
 		setProducten(producten);
 	}
 	
-	private double berekenTotalBedrag() {
+	public double berekenTotalBedrag() {
 		return producten.stream().mapToDouble(p -> p.getTotalePrijs()).sum();
 	}
 
