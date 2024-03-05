@@ -14,9 +14,9 @@ import domein.OrderStatus;
 public class BestellingServiceMock implements BestellingService {
 	
 	private List<Klant> klanten = Arrays.asList(
-			new Klant("KlantA", "klant1@hotmail.com",new Adres( "Belgie", "Gent", "9000", "Straat", "2")),
-			new Klant("KlantB", "klant2@hotmail.com",new Adres("Belgie", "Gent", "9000", "Regen", "5")),
-			new Klant("KlantC", "klant3@hotmail.com",new Adres("Belgie", "Gent", "9000", "Licht", "10"))
+			new Klant("KlantA","logobedrijf.png", "+32123456789", "klant1@hotmail.com",new Adres( "Belgie", "Gent", "9000", "Straat", "2")),
+			new Klant("KlantB","logobedrijf.png", "+32123456789", "klant2@hotmail.com",new Adres("Belgie", "Gent", "9000", "Regen", "5")),
+			new Klant("KlantC","logobedrijf.png", "+32123456789", "klant3@hotmail.com",new Adres("Belgie", "Gent", "9000", "Licht", "10"))
 			);
 	
 	private List<Bestelling> bestellingen = Arrays.asList(
