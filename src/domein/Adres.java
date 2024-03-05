@@ -20,11 +20,10 @@ public class Adres {
 		setStad(stad);
 	}
 	public void setLand(String land) {
-	    
-	    String landRegex = "^[a-zA-Z\\s-]+$"; 
-	    if (land == null || land.isEmpty() ||!land.matches(landRegex)) {
+	    if (land == null || land.isEmpty()) {
 	        throw new IllegalArgumentException("Ongeldige landnaam!");
 	    }
+	    
 	    this.land = land;
 	}
 	
@@ -59,7 +58,7 @@ public class Adres {
 	}
 
 	public void setStad(String stad) {
-		if(stad == null || !stad.matches("([A-z]+[^\\n]?)+\\D"))
+		if(stad == null || !stad.matches("([a-zA-Z]+[\s]?)+"))
 			throw new IllegalArgumentException("Stad incorrect!");
 		
 		this.stad = stad;

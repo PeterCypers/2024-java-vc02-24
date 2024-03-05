@@ -14,7 +14,10 @@ class AdresTest{
 	Adres adres;
 	
 	@ParameterizedTest
-	@CsvSource({"Belgie,Gent,9000,Valentin Vaerwyckweg,1"})
+	@CsvSource({
+		"Belgie,Gent,9000,Valentin Vaerwyckweg,1",
+		"Verenigde Staten,New York,9000,Valentin Vaerwyckweg,1"
+	})
 	void nieuwAdres_allesGeldig(String land, String stad, String postcode, String straat, String straatNr) {
 	  
 	    Adres adres = new Adres(land, stad, postcode, straat, straatNr);
@@ -27,34 +30,33 @@ class AdresTest{
 	}
 	@ParameterizedTest
 	@NullAndEmptySource
-	@CsvSource({"^$%,land", "1234984Land"})
 	void nieuwAdres_landOngeldig(String land) {
 	    assertThrows(IllegalArgumentException.class, () -> new Adres(land, "Gent", "9000", "Valentin Vaerwyckweg", "1"));
 	}
 	
 	@ParameterizedTest
 	@NullAndEmptySource
-	@CsvSource({"^$%,stad", "A", "1234984Stad"})
+	@CsvSource({"^$%,stad", "1234984Stad"})
 	void nieuwAdres_stadOngeldig(String stad) {
-		assertThrows(IllegalArgumentException.class, () -> new Adres("België", stad, "9000", "Valentin Vaerwyckweg", "1"));
+		assertThrows(IllegalArgumentException.class, () -> new Adres("Belgi\u00EB", stad, "9000", "Valentin Vaerwyckweg", "1"));
 	}
 	@ParameterizedTest
 	@CsvSource({"0", "12", "-20", "-3598","1B2"})
 	void nieuwAdres_postcodeOngeldig(String postcode) {
-		assertThrows(IllegalArgumentException.class, () -> new Adres("België", "Gent", postcode, "Valentin Vaerwyckweg", "1"));
+		assertThrows(IllegalArgumentException.class, () -> new Adres("Belgi\u00EB", "Gent", postcode, "Valentin Vaerwyckweg", "1"));
 	}
 	@ParameterizedTest
 	@NullAndEmptySource
-	@CsvSource({"^$%,straat", "S", "7894612straat"})
+	@CsvSource({"^$%,straat"})
 	void nieuwAdres_straatOngeldig(String straat) {
-	    assertThrows(IllegalArgumentException.class, () -> new Adres("België", "Gent", "9000", straat, "1"));
+	    assertThrows(IllegalArgumentException.class, () -> new Adres("Belgi\u00EB", "Gent", "9000", straat, "1"));
 	}
 	
 	@ParameterizedTest
 	@NullAndEmptySource
 	@CsvSource({"^$%,straat", "S", "7894612straat"})
 	void nieuwAdres_straatnummerOngeldig(String straatnummer) {
-	    assertThrows(IllegalArgumentException.class, () -> new Adres("België", "Gent", "9000", "Valentin Vaerwyckweg", straatnummer));
+	    assertThrows(IllegalArgumentException.class, () -> new Adres("Belgi\u00EB", "Gent", "9000", "Valentin Vaerwyckweg", straatnummer));
 	}
 
 

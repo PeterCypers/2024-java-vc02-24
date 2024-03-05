@@ -34,12 +34,12 @@ public class PopulateDb extends Application {
 	
 	private List<Gebruiker> maakMockData() {
 		Adres[] adressen = {
-				new Adres("Belgie","Brussels","1000","Kerkstraat","1"),
+				new Adres("Belgi\u00EB","Brussels","1000","Kerkstraat","1"),
 				new Adres("Verenigde Staten","New York","10001","Broadway","20"),
 				new Adres("Nederland","Rotterdam","3011","Wolfshoek","7"),
-				new Adres("Belgie", "Gent", "9000", "Straat", "2"),
-				new Adres("Belgie", "Gent", "9000", "Regen", "5"),
-				new Adres("Belgie", "Gent", "9000", "Licht", "10")
+				new Adres("Belgi\u00EB", "Gent", "9000", "Straat", "2"),
+				new Adres("Belgi\u00EB", "Gent", "9000", "Regen", "5"),
+				new Adres("Belgi\u00EB", "Gent", "9000", "Licht", "10")
 		};
 		
 		//gebruikerId, rol, email, wachtwoord, naam, isActief, adres

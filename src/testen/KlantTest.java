@@ -24,7 +24,7 @@ class KlantTest {
 			Arguments.of("Tiemen Deroose","logobedrijf.png", "+32123456789","klant2@hotmail.com", new Adres("Land", "Stad", "12345", "Straat", "20")));
 	}
 	static Stream<String> naam_fout() {
-		return Stream.of("B4s", "T0 M_n", "=", "5325", "*¨%£", "P/ter");
+		return Stream.of("B4s", "T0 M_n", "=", "5325", "*\u00EB%\u20AC", "P/ter");
 	}
 	static Stream<String> contact_fout() {
 	    return Stream.of("email@hotmail", "klant2@hotmail", "klant3@gmail.com", "klant4@hotmail.be", "@hotmail.com", "klant5hotmail.com");
