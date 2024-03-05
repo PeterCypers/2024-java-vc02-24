@@ -52,9 +52,9 @@ public class PopulateDb extends Application {
 		);
 		
 		List<Klant> klanten = Arrays.asList(
-				new Klant("KlantA", "klant1@hotmail.com", adressen[4]),
-				new Klant("KlantB", "klant2@hotmail.com", adressen[3]),
-				new Klant("KlantC", "klant3@hotmail.com", adressen[5])
+				new Klant("KlantA", "https://clipground.com/images/placeholder-logo-5.png", "+32123456789", "klant1@hotmail.com", adressen[4]),
+				new Klant("KlantB", "https://clipground.com/images/placeholder-logo-5.png", "+32123454321", "klant2@hotmail.com", adressen[3]),
+				new Klant("KlantC", "https://clipground.com/images/placeholder-logo-5.png", "+32987654321", "klant3@hotmail.com", adressen[5])
 		);
 		
 		List<Product> producten = List.of(

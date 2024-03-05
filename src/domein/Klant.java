@@ -36,7 +36,7 @@ public class Klant implements Serializable {
 	public Klant() {}
 	
 	//constructor
-	public Klant(String naam,String logoPad, String telefoonnummer, String contact, Adres adres) {
+	public Klant(String naam, String logoPad, String telefoonnummer, String contact, Adres adres) {
 		this.naam = naam;
 		setContact(contact);
 		setKlantNaam(naam);
