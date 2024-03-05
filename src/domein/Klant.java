@@ -23,6 +23,8 @@ public class Klant implements Serializable {
 	
 	@Embedded
 	private Adres adres;
+	private String logoPad;
+	private String telefoonnummer;
 	
 	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<Bestelling> bestellingen;
@@ -34,11 +36,14 @@ public class Klant implements Serializable {
 	public Klant() {}
 	
 	//constructor
-	public Klant(String naam, String contact, Adres adres) {
+	public Klant(String naam,String logoPad, String telefoonnummer, String contact, Adres adres) {
+		this.naam = naam;
 		setContact(contact);
 		setKlantNaam(naam);
 		setAdres(adres);
-		setBestellingen(bestellingen);
+		setLogoPad(logoPad);
+		setTelefoonnummer(telefoonnummer);
+		
 	}
 	
 	private void setKlantNaam(String name) {
@@ -56,6 +61,35 @@ public class Klant implements Serializable {
 		
 	}
 	
+
+	public String getLogoPad() {
+		return logoPad;
+	}
+
+	public void setLogoPad(String logoPad) {
+		if (logoPad == null || logoPad.isEmpty())
+			throw new IllegalArgumentException("Ongeldig logo");
+		
+		this.logoPad = logoPad;
+	}
+
+	public String getTelefoonnummer() {
+		return telefoonnummer;
+	}
+	
+
+	public void setTelefoonnummer(String telefoonnummer) {
+		
+		String PhoneRegex = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$";
+
+
+		if(telefoonnummer == null || !telefoonnummer.matches(PhoneRegex))
+			throw new IllegalArgumentException("Telefoonnummer ongeldig.");
+			
+		this.telefoonnummer = telefoonnummer;
+		this.telefoonnummer = telefoonnummer;
+	}
+
 	public StringProperty getNaam() {
 		naamKlant.set(naam);
 		return naamKlant;

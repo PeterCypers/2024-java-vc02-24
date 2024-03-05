@@ -23,8 +23,8 @@ class BestellingTest {
 
 	Bestelling bestelling;
 	static List<Klant> klanten = Arrays.asList(
-			new Klant("Bas Stokmans","klant1@hotmail.com", new Adres("Land", "Stad", "1234", "Straat", "1")),
-			new Klant("Tiemen Deroose","klant2@hotmail.com", new Adres("Land", "Stad", "12345", "Straat", "20"))
+			new Klant("Bas Stokmans","logobedrijf.png", "+32123456789","klant1@hotmail.com", new Adres("Land", "Stad", "1234", "Straat", "1")),
+			new Klant("Tiemen Deroose","logobedrijf.png", "+32123456789","klant2@hotmail.com", new Adres("Land", "Stad", "12345", "Straat", "20"))
 	);
 	static List<Product> producten = Arrays.asList(
 			new Product("productA", 1000, Stock.STOCK, 500.0),
