@@ -4,6 +4,7 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import domein.*;
 import javafx.application.Application;
@@ -100,11 +101,16 @@ public class PopulateDb extends Application {
 			mockGebruikers.get(i).setBestellingen(bestellingen.get(i));
 		}
 		
-		bestellingen.forEach((bestellingList) -> {
-			bestellingList.forEach(bestelling -> {
-				bestelling.getKlant().setBestellingen(bestellingList);
-			});
-		});
+		for (int i = 0; i < klanten.size(); i++) {
+			int huidigeKlantIndex = i;
+			
+			List<Bestelling> bestellingenVoorKlant = bestellingen.stream()
+					.flatMap(lijst -> lijst.stream())
+					.filter(bestelling -> bestelling.getKlant() == klanten.get(huidigeKlantIndex))
+					.collect(Collectors.toList());
+			
+			klanten.get(i).setBestellingen(bestellingenVoorKlant);
+		}
 		
 		return mockGebruikers;
 	}
