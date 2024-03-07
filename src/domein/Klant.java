@@ -7,12 +7,20 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Klant.vindPerLeverancier",
+                         query = "SELECT DISTINCT k FROM Klant k "
+                        		+ "JOIN k.bestellingen b "
+                         		+ "WHERE b.leverancier = :leverancier")
+})
 public class Klant implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -124,5 +132,12 @@ public class Klant implements Serializable {
 	
 	public String getAdresString() {
 		return adres.toString();
+	}
+	
+	@Override
+	public String toString() {
+		//TODO: logo dit stuur ik door als herinnering, maar vermoed andere implementatie verwacht
+		return String.format("Naam: %s - Contact: %s - Adres: %s - Logopath: %s - telNr: %s",
+				naam, contact, adres, logoPad, telefoonnummer);
 	}
 }

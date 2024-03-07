@@ -1,4 +1,4 @@
-package service;
+package service.gebruiker;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import domein.Gebruiker;
 import domein.Rol;
 import jakarta.persistence.EntityNotFoundException;
+import service.GenericDaoJpa;
 
 public class GebruikerServiceDbImpl implements GebruikerService {
 	

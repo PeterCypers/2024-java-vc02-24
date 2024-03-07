@@ -1,4 +1,4 @@
-package service;
+package service.gebruiker;
 
 import java.util.List;
 import java.util.NoSuchElementException;

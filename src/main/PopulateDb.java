@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 import domein.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import service.GebruikerService;
-import service.GebruikerServiceDbImpl;
+import service.gebruiker.GebruikerService;
+import service.gebruiker.GebruikerServiceDbImpl;
 
 public class PopulateDb extends Application {
 	

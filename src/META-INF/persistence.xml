@@ -14,7 +14,7 @@
       <property name="jakarta.persistence.jdbc.user" value="SDP2-2324-VC02"/>
       <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="jakarta.persistence.jdbc.password" value="q4X9eD0u1ze+S7q0D"/>
-      <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
+      <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>

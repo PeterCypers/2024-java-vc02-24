@@ -6,8 +6,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import service.BestellingService;
-import service.BestellingServiceDbImpl;
+import service.bestelling.BestellingService;
+import service.bestelling.BestellingServiceDbImpl;
 
 public class BestellingBeheerder {
 	private ObservableList<Bestelling> bestellingen;

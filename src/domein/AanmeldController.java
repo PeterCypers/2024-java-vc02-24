@@ -2,8 +2,8 @@ package domein;
 
 import java.util.NoSuchElementException;
 
-import service.GebruikerService;
-import service.GebruikerServiceDbImpl;
+import service.gebruiker.GebruikerService;
+import service.gebruiker.GebruikerServiceDbImpl;
 
 public class AanmeldController {
 	

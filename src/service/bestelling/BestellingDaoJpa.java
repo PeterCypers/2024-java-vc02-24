@@ -1,4 +1,4 @@
-package service;
+package service.bestelling;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import domein.Bestelling;
 import domein.Gebruiker;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.NoResultException;
+import service.GenericDaoJpa;
 
 public class BestellingDaoJpa extends GenericDaoJpa<Bestelling> implements BestellingDao {
     public BestellingDaoJpa() {

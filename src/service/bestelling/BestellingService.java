@@ -1,4 +1,4 @@
-package service;
+package service.bestelling;
 
 import java.util.List;
 

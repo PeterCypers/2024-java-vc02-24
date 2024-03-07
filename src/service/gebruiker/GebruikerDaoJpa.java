@@ -1,8 +1,9 @@
-package service;
+package service.gebruiker;
 
 import domein.Gebruiker;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.NoResultException;
+import service.GenericDaoJpa;
 
 public class GebruikerDaoJpa extends GenericDaoJpa<Gebruiker> implements GebruikerDao  {
     public GebruikerDaoJpa() {
