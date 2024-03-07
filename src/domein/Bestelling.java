@@ -1,7 +1,7 @@
 package domein;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -43,7 +43,7 @@ public class Bestelling implements Serializable {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Gebruiker leverancier;
 	
-	private Date datumGeplaatst;
+	private LocalDate datumGeplaatst;
 	
 	@Enumerated(EnumType.STRING)
 	private OrderStatus orderStatus;
@@ -55,7 +55,7 @@ public class Bestelling implements Serializable {
 	@Transient
 	private final SimpleIntegerProperty orderID = new SimpleIntegerProperty();
 	@Transient
-	private final ObjectProperty<Date> datum = new SimpleObjectProperty<>(this, "datum");
+	private final ObjectProperty<LocalDate> datum = new SimpleObjectProperty<>(this, "datum");
 	@Transient
 	private final SimpleObjectProperty<OrderStatus> orderstatus = new SimpleObjectProperty<OrderStatus>();
 	@Transient
@@ -64,7 +64,7 @@ public class Bestelling implements Serializable {
 	public Bestelling() {}
 	
 	//constructor
-	public Bestelling(int orderId, Date datumGeplaats, OrderStatus orderStatus, BetalingsStatus betalingStatus, Klant klant, List<Product> producten) {
+	public Bestelling(int orderId, LocalDate datumGeplaats, OrderStatus orderStatus, BetalingsStatus betalingStatus, Klant klant, List<Product> producten) {
 		setKlant(klant);
 		setOrderId(orderId);
 		setDatumGeplaats(datumGeplaats);
@@ -81,7 +81,7 @@ public class Bestelling implements Serializable {
 		return klant.getName();
 	}
 
-	public Date getDatumGeplaats() {
+	public LocalDate getDatumGeplaats() {
 		return datumGeplaatst;
 	}
 
@@ -124,11 +124,11 @@ public class Bestelling implements Serializable {
 		return this.orderId;
 	}
 
-	private void setDatumGeplaats(Date date) {
+	private void setDatumGeplaats(LocalDate date) {
 		datumGeplaatst = date;
 	}
 	
-	public Date getDatumGeplaatst() {
+	public LocalDate getDatumGeplaatst() {
 		return this.datumGeplaatst;
 	}
 
@@ -161,7 +161,7 @@ public class Bestelling implements Serializable {
 		return orderID;
 	}
 	
-	public ObjectProperty<Date> datumProperty() {
+	public ObjectProperty<LocalDate> datumProperty() {
 		datum.set(datumGeplaatst);
 		return datum;
 	}

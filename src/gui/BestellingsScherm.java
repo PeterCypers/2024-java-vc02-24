@@ -1,7 +1,7 @@
 package gui;
 
 import java.io.IOException;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.stream.Collectors;
 
 import domein.Bestelling;
@@ -39,7 +39,7 @@ public class BestellingsScherm {
     private TableColumn<Bestelling, Number> tbcOrderId;
 
     @FXML
-    private TableColumn<Bestelling, Date> tbcDatum; //moet nog veranderd worden
+    private TableColumn<Bestelling, LocalDate> tbcDatum; //moet nog veranderd worden
 
     @FXML
     private TableColumn<Bestelling, String> tbcKlant;
@@ -133,12 +133,12 @@ public class BestellingsScherm {
 	}
 	
 	private void toonDetailsBestelling(int index) {
-		Date datum = bc.getBestellingen().get(index).getDatumGeplaats();
+		LocalDate datum = bc.getBestellingen().get(index).getDatumGeplaats();
 		
 		txfNaam.setText(bc.getBestellingen().get(index).getKlantName());
 		txfContactgegevens.setText(bc.getBestellingen().get(index).getKlant().getContactgegevens());
 		txfOrderId.setText(String.format("%d", bc.getBestellingen().get(index).getOrderId()));
-		txfDatum.setText(String.format("%d/%d/%d", datum.getDate(), datum.getMonth(), datum.getYear()));
+		txfDatum.setText(String.format("%s-%s-%s",datum.getYear() , datum.getMonthValue(), datum.getDayOfMonth()));
 		txfLeveradres.setText(bc.getBestellingen().get(index).getKlant().getAdres().toString());
 		txfOrderstatus.setText(bc.getBestellingen().get(index).getOrderStatus().toString());
 		txfBetalingsstatus.setText(bc.getBestellingen().get(index).getBetalingsStatus().toString());

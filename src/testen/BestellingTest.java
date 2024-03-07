@@ -2,7 +2,7 @@ package testen;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -32,38 +32,38 @@ class BestellingTest {
 			new Product("productC", 2100, Stock.STOCK, 19.99)
 	);
 	
-	@SuppressWarnings("deprecation")
+
 	static Stream<Arguments> geldigeBestellingen(){
 		return Stream.of(
-			Arguments.of(1, new Date(124, 3, 17), OrderStatus.GELEVERD, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
-			Arguments.of(2, new Date(124, 5, 28), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(1)),
-			Arguments.of(3, new Date(124, 2, 30), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
-			Arguments.of(4, new Date(124, 12, 31), OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, klanten.get(1))
+			Arguments.of(1, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
+			Arguments.of(2, LocalDate.of(124, 5, 28), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(1)),
+			Arguments.of(3, LocalDate.of(124, 2, 30), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
+			Arguments.of(4, LocalDate.of(124, 12, 31), OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, klanten.get(1))
 		);
 	}
 	
-	@SuppressWarnings("deprecation")
+
 	static Stream<Arguments> ongeldigeBestellingen(){
 		return Stream.of(
 			//Ongeldig orderId
-			Arguments.of(0, new Date(), OrderStatus.GELEVERD, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
-			Arguments.of(-1, new Date(), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(1)),
-			Arguments.of(-97, new Date(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
+			Arguments.of(0, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
+			Arguments.of(-1, LocalDate.now(), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(1)),
+			Arguments.of(-97, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
 			
 			//Ongeldige orderstatus
-			Arguments.of(1, new Date(), null, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
+			Arguments.of(1, LocalDate.now(), null, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
 			
 			//Ongeldige betalingsstatus
-			Arguments.of(1, new Date(), OrderStatus.GELEVERD, null, klanten.get(0)),
+			Arguments.of(1, LocalDate.now(), OrderStatus.GELEVERD, null, klanten.get(0)),
 			
 			//Ongeldige klant
-			Arguments.of(1, new Date(), OrderStatus.ONDERWEG, BetalingsStatus.NIET_BETAALD, null)
+			Arguments.of(1, LocalDate.now(), OrderStatus.ONDERWEG, BetalingsStatus.NIET_BETAALD, null)
 		);
 	}
 	
 	@ParameterizedTest
 	@MethodSource("geldigeBestellingen")
-	void test_nieuweBestelling_geldigeWaarden(int orderId, Date datum, OrderStatus oStatus, BetalingsStatus bStatus, Klant klant) {
+	void test_nieuweBestelling_geldigeWaarden(int orderId, LocalDate datum, OrderStatus oStatus, BetalingsStatus bStatus, Klant klant) {
 		this.bestelling = new Bestelling(orderId, datum, oStatus, bStatus, klant, producten);
 		
 		Assertions.assertEquals(orderId, this.bestelling.getOrderId());
@@ -75,7 +75,7 @@ class BestellingTest {
 	
 	@ParameterizedTest
 	@MethodSource("ongeldigeBestellingen")
-	void test_nieuweBestelling_ongeldigeWaarden(int orderId, Date datum, OrderStatus oStatus, BetalingsStatus bStatus, Klant klant) {
+	void test_nieuweBestelling_ongeldigeWaarden(int orderId, LocalDate datum, OrderStatus oStatus, BetalingsStatus bStatus, Klant klant) {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> new Bestelling(orderId, datum, oStatus, bStatus, klant, producten));
 	}
 

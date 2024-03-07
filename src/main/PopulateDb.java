@@ -2,7 +2,7 @@ package main;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -70,22 +70,22 @@ public class PopulateDb extends Application {
 		
 		List<List<Bestelling>> bestellingen = Arrays.asList(
 				List.of(
-					new Bestelling(49111, new Date(), OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD, klanten.get(0), producten.subList(0, sr.nextInt(1, producten.size()))),
-					new Bestelling(49112, new Date(), OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, klanten.get(1), producten.subList(0, sr.nextInt(1, producten.size())))
+					new Bestelling(49111, LocalDate.now(), OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD, klanten.get(0), producten.subList(0, sr.nextInt(1, producten.size()))),
+					new Bestelling(49112, LocalDate.now(), OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, klanten.get(1), producten.subList(0, sr.nextInt(1, producten.size())))
 				),
 				List.of(
-					new Bestelling(49114, new Date(), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(0), producten.subList(0, sr.nextInt(1, producten.size()))),
-					new Bestelling(49113, new Date(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.BETAALD, klanten.get(2), producten.subList(0, sr.nextInt(1, producten.size()))),
-					new Bestelling(49115, new Date(), OrderStatus.GELEVERD, BetalingsStatus.BETAALD, klanten.get(2), producten.subList(0, sr.nextInt(1, producten.size())))
-				),
-				List.of(
-					
+					new Bestelling(49114, LocalDate.now(), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(0), producten.subList(0, sr.nextInt(1, producten.size()))),
+					new Bestelling(49113, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.BETAALD, klanten.get(2), producten.subList(0, sr.nextInt(1, producten.size()))),
+					new Bestelling(49115, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.BETAALD, klanten.get(2), producten.subList(0, sr.nextInt(1, producten.size())))
 				),
 				List.of(
 					
 				),
 				List.of(
-					new Bestelling(49116, new Date(), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(1), producten.subList(0, sr.nextInt(1, producten.size())))
+					
+				),
+				List.of(
+					new Bestelling(49116, LocalDate.now(), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(1), producten.subList(0, sr.nextInt(1, producten.size())))
 				)
 		);
 		
