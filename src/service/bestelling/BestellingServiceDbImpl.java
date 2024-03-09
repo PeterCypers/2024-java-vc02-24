@@ -1,19 +1,21 @@
 package service.bestelling;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import domein.Bestelling;
 import domein.Gebruiker;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 
 public class BestellingServiceDbImpl implements BestellingService {
 	
 	private BestellingDaoJpa bestellingDao;
 	
 	public BestellingServiceDbImpl() {
-		bestellingDao = new BestellingDaoJpa();
+		// bestellingDao = new BestellingDaoJpa();
+		setBestellingDaoJpa(new BestellingDaoJpa());
+	}
+	
+	public void setBestellingDaoJpa(BestellingDaoJpa bestellingDao) {
+		this.bestellingDao = bestellingDao;
 	}
 
 	@Override

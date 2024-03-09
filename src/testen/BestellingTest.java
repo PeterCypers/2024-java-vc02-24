@@ -1,15 +1,18 @@
 package testen;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import domein.Adres;
 import domein.Bestelling;
@@ -18,10 +21,20 @@ import domein.Klant;
 import domein.OrderStatus;
 import domein.Product;
 import domein.Stock;
+import service.bestelling.BestellingDaoJpa;
+import service.bestelling.BestellingServiceDbImpl;
 
+@ExtendWith(MockitoExtension.class)
 class BestellingTest {
 
 	Bestelling bestelling;
+	
+	@Mock
+	private BestellingDaoJpa bestellingDaoJpaDummy;
+	
+	@InjectMocks
+	private BestellingServiceDbImpl bestellingServiceDbImpl;
+	
 	static List<Klant> klanten = Arrays.asList(
 			new Klant("Bas Stokmans","logobedrijf.png", "+32123456789","klant1@hotmail.com", new Adres("Land", "Stad", "1234", "Straat", "1")),
 			new Klant("Tiemen Deroose","logobedrijf.png", "+32123456789","klant2@hotmail.com", new Adres("Land", "Stad", "12345", "Straat", "20"))
@@ -77,6 +90,11 @@ class BestellingTest {
 	@MethodSource("ongeldigeBestellingen")
 	void test_nieuweBestelling_ongeldigeWaarden(int orderId, LocalDate datum, OrderStatus oStatus, BetalingsStatus bStatus, Klant klant) {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> new Bestelling(orderId, datum, oStatus, bStatus, klant, producten));
+	}
+	
+	@ParameterizedTest
+	public void test_wijzigBestelling() {
+		
 	}
 
 }
