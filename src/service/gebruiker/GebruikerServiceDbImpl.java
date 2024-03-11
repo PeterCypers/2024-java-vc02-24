@@ -13,7 +13,12 @@ public class GebruikerServiceDbImpl implements GebruikerService {
 	private GebruikerDaoJpa gebruikerDao;
 	
 	public GebruikerServiceDbImpl() {
-		gebruikerDao = new GebruikerDaoJpa();
+		//gebruikerDao = new GebruikerDaoJpa();
+		setGebruikerDaoJpa(new GebruikerDaoJpa());
+	}
+	
+	public void setGebruikerDaoJpa(GebruikerDaoJpa gebruikerDaoJpa) {
+		this.gebruikerDao = gebruikerDaoJpa;
 	}
 
 	@Override
