@@ -65,16 +65,10 @@ class KlantenRaadplegenTest {
 		Mockito.when(klantDaoJpa.vindPerLeverancier(gebruiker)).thenReturn(klanten);
 		
 		List<Klant> klanten = klantServiceDbImpl.getKlanten(gebruiker);
-		Assertions.assertTrue(klanten.size() != 0);	
+		Assertions.assertTrue(klanten.size() != 0);
 		Assertions.assertEquals(verwachteNaam, klanten.get(0).getName());
 		Assertions.assertEquals(verwachteNaam, klanten.get(1).getName());
 		
 		Mockito.verify(klantDaoJpa).vindPerLeverancier(gebruiker);
 	}
-	
-	@Test
-	public void test_raadplegenKlant() {
-		
-	}
-
 }
