@@ -1,9 +1,9 @@
 package main;
 
-import java.security.SecureRandom;
 import java.util.Arrays;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import domein.*;
 import service.gebruiker.GebruikerService;
