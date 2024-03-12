@@ -115,7 +115,7 @@ public class GebruikerTest {
 	
 	@ParameterizedTest
 	@CsvSource({
-		"mark@outlook.com,1234",
+		"mark@outlook.be,1234",
 		"mike@gmail.com,1234",
 		"kim@gmail.com,1234"
 	})
@@ -153,6 +153,14 @@ public class GebruikerTest {
 	static Stream<Arguments> klantLogin(){
 		return Stream.of(
 				Arguments.of("derde@hotmail.com", "1234", true, Rol.KLANT)
+		);
+	}
+	
+	static Stream<Gebruiker> gebruikers(){
+		return Stream.of(
+				new Gebruiker(7, Rol.LEVERANCIER, "test@hotmail.com", "1234", "Test Persoon", true, new Adres("Land", "Stad", "1234", "Straat", "1")),
+				new Gebruiker(8, Rol.KLANT, "test2@hotmail.com", "1234", "Test Persoon2", true, new Adres("Land", "Stad", "1234", "Straat", "1")),
+				new Gebruiker(9, Rol.ADMINISTRATOR, "test3@gmail.com", "1234", "Test Persoon3", true, new Adres("Land", "Stad", "1234", "Straat", "1"))
 		);
 	}
 	
@@ -195,6 +203,12 @@ public class GebruikerTest {
 		
 		assertThrows(IllegalArgumentException.class, () -> gebruikerServiceDbImpl.meldGebruikerAan(email, wachtwoord));
 	}
+	
+//	@ParameterizedTest
+//	@MethodSource("gebruikers")
+//	public void test_gebruikerToevoegen(String email, String wachtwoord, boolean isActief, Rol rol) {
+//		Mockito.when(gebruikerDaoJpaMock.insert(null));
+//	}
 	
 }
 
