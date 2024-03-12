@@ -32,7 +32,7 @@ public class BestellingBeheerder {
 	private final Comparator<Bestelling> bijBetalingStatus = (b1, b2)
 			-> b1.getBetalingStatus().toString().compareToIgnoreCase(b2.getBetalingStatus().toString());
 			
-	private final Comparator<Bestelling> orderSorted = bijOrderId.thenComparing(bijDatum)
+	private final Comparator<Bestelling> orderSorted = bijDatum.thenComparing(bijOrderId)
 			.thenComparing(bijKlant).thenComparing(bijOrderStatus).thenComparing(bijBetalingStatus);
 	
 	
@@ -56,11 +56,11 @@ public class BestellingBeheerder {
               
             //filter text
             String lowerCaseValue = filterValue.toLowerCase();
-            return bestelling.getKlantName().toLowerCase().contains(lowerCaseValue) //filter op klant naam
-            		|| bestelling.getOrderStatus().toString().toLowerCase().contains(lowerCaseValue) //filter op orderstatus
-            		|| bestelling.getBetalingStatus().toString().toLowerCase().contains(lowerCaseValue); //filter op betalingsstatus
-            
-        }
-        );
+            return Integer.toString(bestelling.getOrderId()).equals(lowerCaseValue)	//filter op OrderID
+            		|| bestelling.getDatumGeplaats().toString().toLowerCase().equals(lowerCaseValue)	//filter op Datum
+            		||bestelling.getKlantName().toLowerCase().equals(lowerCaseValue) //filter op Klantnaam
+            		|| bestelling.getOrderStatus().toString().toLowerCase().equals(lowerCaseValue) //filter op Orderstatus
+            		|| bestelling.getBetalingStatus().toString().toLowerCase().equals(lowerCaseValue); //filter op Betalingsstatus
+        });
     }
 }

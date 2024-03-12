@@ -2,6 +2,7 @@ package domein;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
@@ -11,8 +12,13 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 
 @Entity
 @NamedQueries({
@@ -40,6 +46,8 @@ public class Klant implements Serializable {
 	//voor tableView
 	@Transient
 	private final SimpleStringProperty naamKlant = new SimpleStringProperty();
+	@Transient
+	private final SimpleIntegerProperty openstaandeBestellingen = new SimpleIntegerProperty();
 	
 	public Klant() {}
 	
@@ -125,12 +133,40 @@ public class Klant implements Serializable {
 		return bestellingen;
 	}
 	
+	public List<Bestelling> getBestellingenPerLeverancier(Gebruiker leverancier) {
+		return bestellingen.stream().filter(b -> b.getLeverancier().equals(leverancier)).collect(Collectors.toUnmodifiableList());
+	}
+	
 	public void setBestellingen(List<Bestelling> bestellingen) {
 		this.bestellingen = bestellingen;
 	}
 	
 	public String getAdresString() {
 		return adres.toString();
+	}
+	
+	public List<Bestelling> getOpenstaandeBestellingen(Gebruiker leverancier) {
+		List<Bestelling> openstaand = getBestellingenPerLeverancier(leverancier).stream().filter(b -> 
+			!(b.getOrderStatus().equals(OrderStatus.GELEVERD))
+		).collect(Collectors.toList());
+		return openstaand;
+	}
+	
+	public int getAantalOpenstaandeBestellingen(Gebruiker leverancier) {
+		return getOpenstaandeBestellingen(leverancier).size();
+	}
+	
+	public IntegerProperty openstaandeBestellingenProperty(Gebruiker leverancier) {
+		openstaandeBestellingen.set(getAantalOpenstaandeBestellingen(leverancier));
+		return openstaandeBestellingen;
+	}
+	
+
+	public ObservableList<Bestelling> getObservableListBestellingen(Gebruiker leverancier) {
+		ObservableList<Bestelling> bestellingsList = FXCollections.observableArrayList(
+				getBestellingenPerLeverancier(leverancier)
+		);
+		return bestellingsList;
 	}
 	
 	@Override

@@ -15,11 +15,18 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 @Entity
 @NamedQueries({
@@ -55,11 +62,15 @@ public class Bestelling implements Serializable {
 	@Transient
 	private final SimpleIntegerProperty orderID = new SimpleIntegerProperty();
 	@Transient
-	private final ObjectProperty<LocalDate> datum = new SimpleObjectProperty<>(this, "datum");
+	private final SimpleObjectProperty<LocalDate> datum = new SimpleObjectProperty<LocalDate>(); //(this, "datum");
+	@Transient
+	private final SimpleStringProperty klantnaam = new SimpleStringProperty();
 	@Transient
 	private final SimpleObjectProperty<OrderStatus> orderstatus = new SimpleObjectProperty<OrderStatus>();
 	@Transient
 	private final SimpleObjectProperty<BetalingsStatus> betalingsstatus = new SimpleObjectProperty<BetalingsStatus>();
+	@Transient
+	private final SimpleDoubleProperty orderbedrag = new SimpleDoubleProperty();
 	
 	public Bestelling() {}
 	
@@ -156,6 +167,7 @@ public class Bestelling implements Serializable {
 		this.leverancier = leverancier;
 	}
 	
+	//tableView
 	public IntegerProperty orderIdProperty() {
 		orderID.set(orderId);
 		return orderID;
@@ -166,24 +178,30 @@ public class Bestelling implements Serializable {
 		return datum;
 	}
 	
-	public StringProperty naamProperty() {
-		return klant.getNaam();
+	public StringProperty klantNaamProperty() {
+		klantnaam.set(klant.getName());
+		return klantnaam;
 	}
 	
-	public SimpleObjectProperty<OrderStatus> orderstatusProperty() {
+	public ObjectProperty<OrderStatus> orderstatusProperty() {
 		orderstatus.set(orderStatus);
 		return orderstatus;
 	}
 	
-	public SimpleObjectProperty<BetalingsStatus> betalingsstatusProperty() {
+	public ObjectProperty<BetalingsStatus> betalingsstatusProperty() {
 		betalingsstatus.set(betalingStatus);
 		return betalingsstatus;
 	}
 	
-	public String toString() {
-		return String.format("Naam: %s%nContactgevevens: %s%n%nOrder ID: %d%nDatum geplaatst: %s%nLeveradres: %s%n%n" + 
-								"Orderstatus: %s%nBetalingsstatus: %s%nBetalingsherinnering: %s%n%nTotale bedrag: € %.2f", 
-								klant.getName(), klant.getContactgegevens(), orderId, datumGeplaatst, klant.getAdres(),
-								orderStatus, betalingStatus, "todo",  berekenTotalBedrag());
+	public DoubleProperty orderbedragProperty() {
+		orderbedrag.set(berekenTotalBedrag());
+		return orderbedrag;
+	}
+	
+	public ObservableList<Product> getObservableListProducten(){
+		ObservableList<Product> productenList = FXCollections.observableArrayList(producten);
+		FilteredList<Product> filteredProducten = new FilteredList<>(productenList, p -> true);
+		SortedList<Product> sortedProducten = new SortedList<>(filteredProducten);
+		return sortedProducten;
 	}
 }

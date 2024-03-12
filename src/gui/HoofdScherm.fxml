@@ -13,12 +13,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="800.0" type="javafx.scene.layout.BorderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="650.0" minWidth="800.0" type="javafx.scene.layout.BorderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <Label fx:id="lbErrors" textFill="RED" BorderPane.alignment="CENTER" />
    </bottom>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <VBox minHeight="625.0" minWidth="800.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="600.0" spacing="5.0">
                <children>
@@ -29,7 +29,7 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <BorderPane fx:id="borderpane" prefHeight="407.0" prefWidth="600.0">
+            <BorderPane fx:id="borderpane" minHeight="600.0" minWidth="800.0">
                <center>
                   <VBox fx:id="vbox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
                </center></BorderPane>

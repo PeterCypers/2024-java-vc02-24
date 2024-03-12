@@ -41,7 +41,9 @@ public class HoofdSchermController extends BorderPane{
 
     @FXML
     void overzichtKlanten(ActionEvent event) {
-    	
+    	vbox.getChildren().clear();
+    	KlantenScherm controller = new KlantenScherm(this);
+    	vbox.getChildren().add(controller.geefNode());
     }
     
     Gebruiker gebruiker;

@@ -27,5 +27,4 @@ public class KlantController {
 	public void getFilteredList(String zoekterm) {
 		klantBeheerder.changeFilter(zoekterm);
 	}
-
 }

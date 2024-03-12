@@ -1,25 +1,26 @@
 package gui;
-
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.stream.Collectors;
 
 import domein.Bestelling;
 import domein.BestellingController;
 import domein.BetalingsStatus;
 import domein.OrderStatus;
 import domein.Product;
+import domein.Stock;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-
+import javafx.scene.layout.GridPane;
 
 public class BestellingsScherm {
 
@@ -39,7 +40,7 @@ public class BestellingsScherm {
     private TableColumn<Bestelling, Number> tbcOrderId;
 
     @FXML
-    private TableColumn<Bestelling, LocalDate> tbcDatum; //moet nog veranderd worden
+    private TableColumn<Bestelling, LocalDate> tbcDatum;
 
     @FXML
     private TableColumn<Bestelling, String> tbcKlant;
@@ -51,49 +52,92 @@ public class BestellingsScherm {
     private TableColumn<Bestelling, BetalingsStatus> tbcBetalingsstatus;
 
     @FXML
-    private VBox vbBestellingDetails;
+    private TableView<Product> tbvOverzichtProducten;
+
+    @FXML
+    private TableColumn<Product, String> tbcNaam;
+
+    @FXML
+    private TableColumn<Product, Number> tbcAantal;
+
+    @FXML
+    private TableColumn<Product, Stock> tbcInStock;
+
+    @FXML
+    private TableColumn<Product, Number> tbcEenheidsprijs;
+
+    @FXML
+    private TableColumn<Product, Number> tbcPrijs;
+
+    @FXML
+    private GridPane gpDetailsBestelling;
 
     @FXML
     private TextField txfNaam;
 
     @FXML
-    private TextField txfContactgegevens;
+    private TextField txfEmail;
 
     @FXML
-    private TextField txfOrderId;
+    private TextField txfTelefoon;
+
+    @FXML
+    private TextField txfOrderID;
 
     @FXML
     private TextField txfDatum;
 
     @FXML
-    private TextField txfLeveradres;
+    private TextField txfAdresLijn1;
 
     @FXML
-    private TextField txfOrderstatus;
+    private TextField txfAdresLijn2;
 
     @FXML
-    private TextField txfBetalingsstatus;
+    private DatePicker dpBetalingsherinnering;
 
     @FXML
-    private TextField txfBetalingsherinnering;
+    private TextField txfBetalingsherringering;
 
     @FXML
     private TextField txfBedrag;
 
     @FXML
-    private TextArea txaOverzichtProducten;
-    
-    private BestellingController bc;
-    private HoofdSchermController hoofdScherm;
-    private Node node;
-    
+    private TextField txfFilterProducten;
+
     @FXML
-    void Zoeken(ActionEvent event) { 
+    private Button btnZoekProducten;
+
+    @FXML
+    void filterBestelling(ActionEvent event) {
     	bc.getFilterdList(txfFilterBestelling.getText());
     	toonBestelling(false);	//bij het zoeken dat alleen bestellingen getoont worden
-    	//txfZoeken.setText("");	//Om de zoekbalk leeg maken
     }
 
+    @FXML
+    void filterProducten(ActionEvent event) {
+    	String keyword = txfFilterProducten.getText();
+    	  if (keyword.equals("")) {
+    		  tbvOverzichtProducten.setItems(bc.getBestellingen().get(index).getObservableListProducten());
+    	 } else {
+    	     ObservableList<Product> filteredData = FXCollections.observableArrayList();
+    	     String lowerCaseValue = keyword.toLowerCase();
+    	     for (Product product : bc.getBestellingen().get(index).getObservableListProducten()) {
+    	         if(product.getNaam().toLowerCase().equals(lowerCaseValue)	//filter op naam van het product
+    	        		 || Integer.toString(product.getAantal()).equals(lowerCaseValue)	//filter op aantal
+    	        		 || product.isInStock().toString().toLowerCase().equals(lowerCaseValue)	//filter op in stock
+    	        		 || Double.toString(product.getEenheidsprijs()).contains(lowerCaseValue)	//filter op eenheidsprijs
+    	        		 || Double.toString(product.getTotalePrijs()).contains(lowerCaseValue))	//filter op totale prijs
+    	             filteredData.add(product);
+    	     }
+    	     tbvOverzichtProducten.setItems(filteredData);
+    	   }
+    }
+
+    private BestellingController bc;
+    private HoofdSchermController hoofdScherm;
+    private int index;
+    private Node node;
 
 	public BestellingsScherm(HoofdSchermController hoofdScherm) {
 		this.hoofdScherm = hoofdScherm;
@@ -116,7 +160,7 @@ public class BestellingsScherm {
         tbvOverzichtBestellingen.getSelectionModel().selectedItemProperty().
         addListener((observableValue, oudBestelling, nieuwBestelling) -> {
             if (nieuwBestelling != null) {
-                int index = tbvOverzichtBestellingen.getSelectionModel().getSelectedIndex();
+                index = tbvOverzichtBestellingen.getSelectionModel().getSelectedIndex();
                 toonDetailsBestelling(index);	//toon de details van de gekozen bestelling op deze index
             }
         });
@@ -125,7 +169,7 @@ public class BestellingsScherm {
 	private void tableView() {
 		tbcOrderId.setCellValueFactory(cellData -> cellData.getValue().orderIdProperty());
         tbcDatum.setCellValueFactory(cellData -> cellData.getValue().datumProperty());
-        tbcKlant.setCellValueFactory(cellData -> cellData.getValue().naamProperty());
+        tbcKlant.setCellValueFactory(cellData -> cellData.getValue().klantNaamProperty());
         tcbOrderstatus.setCellValueFactory(cellData -> cellData.getValue().orderstatusProperty());
         tbcBetalingsstatus.setCellValueFactory(cellData -> cellData.getValue().betalingsstatusProperty());
         
@@ -136,25 +180,37 @@ public class BestellingsScherm {
 		LocalDate datum = bc.getBestellingen().get(index).getDatumGeplaats();
 		
 		txfNaam.setText(bc.getBestellingen().get(index).getKlantName());
-		txfContactgegevens.setText(bc.getBestellingen().get(index).getKlant().getContactgegevens());
-		txfOrderId.setText(String.format("%d", bc.getBestellingen().get(index).getOrderId()));
+		txfEmail.setText(bc.getBestellingen().get(index).getKlant().getContactgegevens());
+		txfTelefoon.setText(bc.getBestellingen().get(index).getKlant().getTelefoonnummer());
+		txfOrderID.setText(String.format("%d", bc.getBestellingen().get(index).getOrderId()));
 		txfDatum.setText(String.format("%s-%s-%s",datum.getYear() , datum.getMonthValue(), datum.getDayOfMonth()));
-		txfLeveradres.setText(bc.getBestellingen().get(index).getKlant().getAdres().toString());
-		txfOrderstatus.setText(bc.getBestellingen().get(index).getOrderStatus().toString());
-		txfBetalingsstatus.setText(bc.getBestellingen().get(index).getBetalingsStatus().toString());
-		txfBetalingsherinnering.setText("todo"); //TODO
+		txfAdresLijn1.setText(bc.getBestellingen().get(index).getKlant().getAdres().toStringLijn1());
+		txfAdresLijn2.setText(bc.getBestellingen().get(index).getKlant().getAdres().toStringLijn2());
+		txfBetalingsherringering.setText("todo"); //TODO 
 		txfBedrag.setText(String.format("€%.2f", bc.getBestellingen().get(index).berekenTotalBedrag()));
 		
-		txaOverzichtProducten.setText(bc.getBestellingen().get(index).getProducten().stream().map(Product::toString).collect(Collectors.joining("\n")));
+		tableViewProducten(index);
 		
 		toonBestelling(true);
 	}
 	
+	private void tableViewProducten(int index) {
+		tbcNaam.setCellValueFactory(cellData -> cellData.getValue().naamProperty());
+		tbcAantal.setCellValueFactory(cellData -> cellData.getValue().aantalProperty());
+		tbcInStock.setCellValueFactory(cellData -> cellData.getValue().stockProperty());
+		tbcEenheidsprijs.setCellValueFactory(cellData -> cellData.getValue().eenheidsprijsProperty());
+		tbcPrijs.setCellValueFactory(cellData -> cellData.getValue().totalePrijsProperty());
+		
+		tbvOverzichtProducten.setItems(bc.getBestellingen().get(index).getObservableListProducten());
+	}
+	
 	private void toonBestelling(Boolean status) {
-		vbBestellingDetails.setVisible(status);
-		txaOverzichtProducten.setVisible(status);
-		lbOverzichtProducten.setVisible(status);
 		lbBestellingDetails.setVisible(status);
+		gpDetailsBestelling.setVisible(status);
+		lbOverzichtProducten.setVisible(status);
+		tbvOverzichtProducten.setVisible(status);
+		txfFilterProducten.setVisible(status);
+		btnZoekProducten.setVisible(status);
 	}
     
 	public Node geefNode() {

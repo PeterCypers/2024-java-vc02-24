@@ -16,6 +16,8 @@ public class KlantBeheerder {
 	
 	private KlantService klantService;
 	
+	private Gebruiker leverancier;
+	
 	//sort op String naam (er is ook een SimpleStringProperty naamKlant)
 	private final Comparator<Klant> opNaam = (k1, k2)
 			-> k1.getName().compareToIgnoreCase(k2.getName());
@@ -27,6 +29,8 @@ public class KlantBeheerder {
 		klanten = FXCollections.observableArrayList(klantService.getKlanten(leverancier));
 		filteredKlanten = new FilteredList<>(klanten, k -> true);
 		sortedKlanten = new SortedList<>(filteredKlanten, opNaam);
+		
+		this.leverancier = leverancier;
 	}
 	
 	public ObservableList<Klant> getKlanten() {
@@ -34,16 +38,16 @@ public class KlantBeheerder {
 	}
 	
 	public void changeFilter(String filterValue) {
-		
 		filteredKlanten.setPredicate(klant -> {
 			// If filter text is empty, display all customers.
 			if (filterValue == null || filterValue.isBlank()) {
 				return true;
 			}
 			
-			//filter text -> meerdere filters(TODO) -> zie BestellingBeheerder
+			//filter text
 			String lowerCaseValue = filterValue.toLowerCase();
-			return klant.getName().toLowerCase().contains(lowerCaseValue);
+			return klant.getName().toLowerCase().equals(lowerCaseValue) 
+					|| Integer.toString(klant.getAantalOpenstaandeBestellingen(leverancier)).equals(filterValue);
 			
 		});
 	}
