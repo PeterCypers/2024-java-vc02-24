@@ -20,9 +20,11 @@ import jakarta.persistence.OneToMany;
 @NamedQueries({
     @NamedQuery(name = "Gebruiker.meldAan",
                          query = "SELECT g FROM Gebruiker g"
-                         		+ " WHERE g.emailadres = :emailadres"
-                         		+ " AND g.wachtwoord = :wachtwoord")
-})      
+                                 + " WHERE g.emailadres = :emailadres"
+                                 + " AND g.wachtwoord = :wachtwoord"
+                                 + " AND (g.rol = domein.Rol.ADMINISTRATOR OR g.rol = domein.Rol.LEVERANCIER)")
+})
+      
 public class Gebruiker implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

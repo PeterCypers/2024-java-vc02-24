@@ -2,11 +2,14 @@ package gui;
 
 import java.io.IOException;
 
+import domein.BetalingsStatus;
 import domein.Gebruiker;
+import domein.OrderStatus;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -31,6 +34,11 @@ public class HoofdSchermController extends BorderPane{
 
     @FXML
     private Button btnOverzichtKlanten;
+    @FXML
+    private ComboBox<OrderStatus> cbxOrderStatus;
+    @FXML
+    private ComboBox<BetalingsStatus> cbxBetalingsStatus;
+
 
     @FXML
     void overzichtBestellingen(ActionEvent event) {
@@ -43,6 +51,7 @@ public class HoofdSchermController extends BorderPane{
     void overzichtKlanten(ActionEvent event) {
     	
     }
+    
     
     Gebruiker gebruiker;
 

@@ -13,6 +13,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -69,10 +71,11 @@ public class BestellingsScherm {
     private TextField txfLeveradres;
 
     @FXML
-    private TextField txfOrderstatus;
+    private ChoiceBox<OrderStatus> choiceboxOrderStatus;
 
     @FXML
-    private TextField txfBetalingsstatus;
+    private ChoiceBox<BetalingsStatus> choiceboxBestellingsStatus;
+
 
     @FXML
     private TextField txfBetalingsherinnering;
@@ -90,9 +93,29 @@ public class BestellingsScherm {
     @FXML
     void Zoeken(ActionEvent event) { 
     	bc.getFilterdList(txfFilterBestelling.getText());
-    	toonBestelling(false);	//bij het zoeken dat alleen bestellingen getoont worden
-    	//txfZoeken.setText("");	//Om de zoekbalk leeg maken
+    	toonBestelling(false);	
     }
+    @FXML
+    public void initialize() {
+        initializeStatusChoiceBoxes();
+    }
+
+    private void initializeStatusChoiceBoxes() {
+        choiceboxOrderStatus.getItems().setAll(OrderStatus.values());
+        choiceboxBestellingsStatus.getItems().setAll(BetalingsStatus.values());
+
+        choiceboxOrderStatus.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            handleStatusChange();
+        });
+        choiceboxBestellingsStatus.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            handleStatusChange();
+        });
+    }
+    
+    
+    
+    
+    
 
 
 	public BestellingsScherm(HoofdSchermController hoofdScherm) {
@@ -134,14 +157,17 @@ public class BestellingsScherm {
 	
 	private void toonDetailsBestelling(int index) {
 		Date datum = bc.getBestellingen().get(index).getDatumGeplaats();
+		Bestelling selectedBestelling = tbvOverzichtBestellingen.getItems().get(index);
+
 		
 		txfNaam.setText(bc.getBestellingen().get(index).getKlantName());
-		txfContactgegevens.setText(bc.getBestellingen().get(index).getKlant().getContactgegevens());
-		txfOrderId.setText(String.format("%d", bc.getBestellingen().get(index).getOrderId()));
-		txfDatum.setText(String.format("%d/%d/%d", datum.getDate(), datum.getMonth(), datum.getYear()));
-		txfLeveradres.setText(bc.getBestellingen().get(index).getKlant().getAdres().toString());
-		txfOrderstatus.setText(bc.getBestellingen().get(index).getOrderStatus().toString());
-		txfBetalingsstatus.setText(bc.getBestellingen().get(index).getBetalingsStatus().toString());
+	    txfContactgegevens.setText(bc.getBestellingen().get(index).getKlant().getContactgegevens());
+	    txfOrderId.setText(String.format("%d", bc.getBestellingen().get(index).getOrderId()));
+	    txfDatum.setText(String.format("%td/%tm/%tY", datum, datum, datum));
+	    txfLeveradres.setText(bc.getBestellingen().get(index).getKlant().getAdres().toString());
+	    choiceboxOrderStatus.setValue(selectedBestelling.getOrderStatus());
+	    choiceboxBestellingsStatus.setValue(selectedBestelling.getBetalingStatus());
+		
 		txfBetalingsherinnering.setText("todo"); //TODO
 		txfBedrag.setText(String.format("€%.2f", bc.getBestellingen().get(index).berekenTotalBedrag()));
 		
@@ -156,9 +182,30 @@ public class BestellingsScherm {
 		lbOverzichtProducten.setVisible(status);
 		lbBestellingDetails.setVisible(status);
 	}
+	private void handleStatusChange() {
+        Bestelling selectedBestelling = tbvOverzichtBestellingen.getSelectionModel().getSelectedItem();
+        if (selectedBestelling == null || choiceboxOrderStatus.getValue() == null|| choiceboxBestellingsStatus.getValue() == null ) {
+        	return;
+        }
+        if (selectedBestelling != null)	{
+            selectedBestelling.setOrderStatus(choiceboxOrderStatus.getValue());
+            selectedBestelling.setBetalingStatus(choiceboxBestellingsStatus.getValue());
+        
+            bc.updateBestelling(selectedBestelling); 
+            tbvOverzichtBestellingen.refresh();
+        }
+        
+        
+    }
     
 	public Node geefNode() {
 	    return node;
 	}
+	
+	
+
+	
+	
+	
 
 }

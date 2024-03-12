@@ -1,15 +1,21 @@
 package domein;
 
 import javafx.collections.ObservableList;
+import service.BestellingService;
+import service.BestellingServiceDbImpl;
 
 public class BestellingController {
 	
 	private BestellingBeheerder bestellingBeheerder;
 	private Gebruiker gebruiker;
+	private BestellingService bestellingService;
+
 	
 	public BestellingController(Gebruiker leverancier) {
 		this.gebruiker = leverancier;
 		bestellingBeheerder = new BestellingBeheerder(gebruiker);
+		this.bestellingService = new BestellingServiceDbImpl();
+		
 	}
 	
 	public ObservableList<Bestelling> getBestellingen() {
@@ -26,5 +32,10 @@ public class BestellingController {
 
 	public void getFilterdList(String zoekterm) {
 		bestellingBeheerder.changeFilter(zoekterm);
+	}
+	public void updateBestelling(Bestelling bestelling) {
+	    
+	    bestellingService.updateBestelling(bestelling);
+	    // Mogelijk wil je de UI of een lijst met bestellingen updaten na de wijziging
 	}
 }
