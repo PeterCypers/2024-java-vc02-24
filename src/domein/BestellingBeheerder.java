@@ -21,7 +21,7 @@ public class BestellingBeheerder {
 			-> b1.orderIdProperty().toString().compareToIgnoreCase(b2.orderIdProperty().toString());
 	
 	private final Comparator<Bestelling> bijDatum = (b1, b2)
-			-> b1.getDatumGeplaats().toString().compareToIgnoreCase(b2.getDatumGeplaats().toString());
+			-> b2.getDatumGeplaats().toString().compareToIgnoreCase(b1.getDatumGeplaats().toString());
 	
 	private final Comparator<Bestelling> bijKlant = (b1, b2)
 	            -> b1.getKlantName().compareToIgnoreCase(b2.getKlantName());

@@ -1,8 +1,8 @@
 package domein;
 
 import javafx.collections.ObservableList;
-import service.BestellingService;
-import service.BestellingServiceDbImpl;
+import service.bestelling.BestellingService;
+import service.bestelling.BestellingServiceDbImpl;
 
 public class BestellingController {
 	

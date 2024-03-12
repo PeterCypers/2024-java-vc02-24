@@ -150,7 +150,7 @@ public class PopulateDb {
 				),
 				List.of(
 						new Bestelling(
-								50001, LocalDate.now(), 
+								50001, LocalDate.now().plusDays(1), 
 								OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, 
 								klanten.get(2),
 								Arrays.asList(
@@ -158,7 +158,7 @@ public class PopulateDb {
 								)
 						),
 						new Bestelling(
-								50002, LocalDate.now(), 
+								50002, LocalDate.now().plusDays(5), 
 								OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, 
 								klanten.get(3),
 								Arrays.asList(
@@ -167,7 +167,7 @@ public class PopulateDb {
 								)
 						),
 						new Bestelling(
-								50003, LocalDate.now(),
+								50003, LocalDate.now().minusDays(3),
 								OrderStatus.GELEVERD, BetalingsStatus.BETAALD,
 								klanten.get(5),
 								Arrays.asList(

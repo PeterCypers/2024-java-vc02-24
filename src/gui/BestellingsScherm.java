@@ -133,7 +133,7 @@ public class BestellingsScherm {
     	     ObservableList<Product> filteredData = FXCollections.observableArrayList();
     	     String lowerCaseValue = keyword.toLowerCase();
     	     for (Product product : bc.getBestellingen().get(index).getObservableListProducten()) {
-    	         if(product.getNaam().toLowerCase().equals(lowerCaseValue)	//filter op naam van het product
+    	         if(product.getNaam().toLowerCase().contains(lowerCaseValue)	//filter op naam van het product
     	        		 || Integer.toString(product.getAantal()).equals(lowerCaseValue)	//filter op aantal
     	        		 || product.isInStock().toString().toLowerCase().equals(lowerCaseValue)	//filter op in stock
     	        		 || Double.toString(product.getEenheidsprijs()).contains(lowerCaseValue)	//filter op eenheidsprijs
@@ -148,18 +148,12 @@ public class BestellingsScherm {
         choiceboxBestellingsStatus.getItems().setAll(BetalingsStatus.values());
 
         choiceboxOrderStatus.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            handleStatusChange();
+            handleOrderStatusChange();
         });
         choiceboxBestellingsStatus.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            handleStatusChange();
+            handleBetalingStatusChange();
         });
     }
-    
-    
-    
-    
-    
-
 
     private BestellingController bc;
     private HoofdSchermController hoofdScherm;
@@ -242,20 +236,29 @@ public class BestellingsScherm {
 		txfFilterProducten.setVisible(status);
 		btnZoekProducten.setVisible(status);
 	}
-	private void handleStatusChange() {
+	
+	private void handleOrderStatusChange() {
         Bestelling selectedBestelling = tbvOverzichtBestellingen.getSelectionModel().getSelectedItem();
-        if (selectedBestelling == null || choiceboxOrderStatus.getValue() == null|| choiceboxBestellingsStatus.getValue() == null ) {
+        if (selectedBestelling == null || choiceboxOrderStatus.getValue() == null ) {
         	return;
         }
-        if (selectedBestelling != null)	{
-            selectedBestelling.setOrderStatus(choiceboxOrderStatus.getValue());
-            selectedBestelling.setBetalingStatus(choiceboxBestellingsStatus.getValue());
         
-            bc.updateBestelling(selectedBestelling); 
-            tbvOverzichtBestellingen.refresh();
+        selectedBestelling.setOrderStatus(choiceboxOrderStatus.getValue());
+    
+        bc.updateBestelling(selectedBestelling); 
+        tbvOverzichtBestellingen.refresh();
+	}
+	
+	private void handleBetalingStatusChange() {
+        Bestelling selectedBestelling = tbvOverzichtBestellingen.getSelectionModel().getSelectedItem();
+        if (selectedBestelling == null || choiceboxBestellingsStatus.getValue() == null ) {
+        	return;
         }
         
-        
+        selectedBestelling.setBetalingStatus(choiceboxBestellingsStatus.getValue());
+    
+        bc.updateBestelling(selectedBestelling); 
+        tbvOverzichtBestellingen.refresh();
     }
     
 	public Node geefNode() {
