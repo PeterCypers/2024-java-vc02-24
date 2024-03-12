@@ -143,7 +143,7 @@ public class Bestelling implements Serializable {
 		return this.datumGeplaatst;
 	}
 
-	private void setBetalingStatus(BetalingsStatus bStatus) {
+	public void setBetalingStatus(BetalingsStatus bStatus) {
 		if (bStatus == null)
 			throw new IllegalArgumentException("Betalingsstatus is niet meegegeven");
 		betalingStatus = bStatus;
@@ -153,7 +153,7 @@ public class Bestelling implements Serializable {
 		return this.betalingStatus;
 	}
 
-	private void setOrderStatus(OrderStatus oStatus) {
+	public void setOrderStatus(OrderStatus oStatus) {
 		if (oStatus == null)
 			throw new IllegalArgumentException("Orderstatus is niet meegegeven");
 		orderStatus = oStatus;

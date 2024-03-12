@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -92,9 +93,14 @@ public class BestellingsScherm {
 
     @FXML
     private TextField txfAdresLijn2;
+    @FXML
+    private ChoiceBox<OrderStatus> choiceboxOrderStatus;
 
     @FXML
     private DatePicker dpBetalingsherinnering;
+    @FXML
+    private ChoiceBox<BetalingsStatus> choiceboxBestellingsStatus;
+
 
     @FXML
     private TextField txfBetalingsherringering;
@@ -112,6 +118,10 @@ public class BestellingsScherm {
     void filterBestelling(ActionEvent event) {
     	bc.getFilterdList(txfFilterBestelling.getText());
     	toonBestelling(false);	//bij het zoeken dat alleen bestellingen getoont worden
+    }
+    @FXML
+    public void initialize() {
+        initializeStatusChoiceBoxes();
     }
 
     @FXML
@@ -133,6 +143,23 @@ public class BestellingsScherm {
     	     tbvOverzichtProducten.setItems(filteredData);
     	   }
     }
+    private void initializeStatusChoiceBoxes() {
+        choiceboxOrderStatus.getItems().setAll(OrderStatus.values());
+        choiceboxBestellingsStatus.getItems().setAll(BetalingsStatus.values());
+
+        choiceboxOrderStatus.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            handleStatusChange();
+        });
+        choiceboxBestellingsStatus.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            handleStatusChange();
+        });
+    }
+    
+    
+    
+    
+    
+
 
     private BestellingController bc;
     private HoofdSchermController hoofdScherm;
@@ -178,6 +205,7 @@ public class BestellingsScherm {
 	
 	private void toonDetailsBestelling(int index) {
 		LocalDate datum = bc.getBestellingen().get(index).getDatumGeplaats();
+		Bestelling selectedBestelling = tbvOverzichtBestellingen.getItems().get(index);
 		
 		txfNaam.setText(bc.getBestellingen().get(index).getKlantName());
 		txfEmail.setText(bc.getBestellingen().get(index).getKlant().getContactgegevens());
@@ -187,6 +215,8 @@ public class BestellingsScherm {
 		txfAdresLijn1.setText(bc.getBestellingen().get(index).getKlant().getAdres().toStringLijn1());
 		txfAdresLijn2.setText(bc.getBestellingen().get(index).getKlant().getAdres().toStringLijn2());
 		txfBetalingsherringering.setText("todo"); //TODO 
+	    choiceboxOrderStatus.setValue(selectedBestelling.getOrderStatus());
+	    choiceboxBestellingsStatus.setValue(selectedBestelling.getBetalingStatus());
 		txfBedrag.setText(String.format("€%.2f", bc.getBestellingen().get(index).berekenTotalBedrag()));
 		
 		tableViewProducten(index);
@@ -212,9 +242,30 @@ public class BestellingsScherm {
 		txfFilterProducten.setVisible(status);
 		btnZoekProducten.setVisible(status);
 	}
+	private void handleStatusChange() {
+        Bestelling selectedBestelling = tbvOverzichtBestellingen.getSelectionModel().getSelectedItem();
+        if (selectedBestelling == null || choiceboxOrderStatus.getValue() == null|| choiceboxBestellingsStatus.getValue() == null ) {
+        	return;
+        }
+        if (selectedBestelling != null)	{
+            selectedBestelling.setOrderStatus(choiceboxOrderStatus.getValue());
+            selectedBestelling.setBetalingStatus(choiceboxBestellingsStatus.getValue());
+        
+            bc.updateBestelling(selectedBestelling); 
+            tbvOverzichtBestellingen.refresh();
+        }
+        
+        
+    }
     
 	public Node geefNode() {
 	    return node;
 	}
+	
+	
+
+	
+	
+	
 
 }

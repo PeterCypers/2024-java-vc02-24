@@ -20,4 +20,11 @@ public class BestellingServiceDbImpl implements BestellingService {
 	public List<Bestelling> getBestellingen(Gebruiker leverancier) {
 		return bestellingDao.vindPerLeverancier(leverancier);
 	}
+	@Override
+    public void updateBestelling(Bestelling bestelling) {
+        
+        GenericDaoJpa.startTransaction();
+        bestellingDao.update(bestelling); 
+        GenericDaoJpa.commitTransaction();
+	}
 }

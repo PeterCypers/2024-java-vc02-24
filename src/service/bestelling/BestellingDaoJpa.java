@@ -22,5 +22,17 @@ public class BestellingDaoJpa extends GenericDaoJpa<Bestelling> implements Beste
 		} catch (NoResultException nre) {
 			throw new EntityNotFoundException();
 		}
+		
+		
+	}
+	public void updateBestelling(Bestelling bestelling) {
+	    GenericDaoJpa.startTransaction();
+	    try {
+	        update(bestelling); 
+	        GenericDaoJpa.commitTransaction();
+	    } catch(Exception ex) {
+	        System.out.println(ex.getMessage());
+	        GenericDaoJpa.rollbackTransaction();
+	    }
 	}
 }

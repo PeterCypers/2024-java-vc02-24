@@ -2,11 +2,14 @@ package gui;
 
 import java.io.IOException;
 
+import domein.BetalingsStatus;
 import domein.Gebruiker;
+import domein.OrderStatus;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -45,6 +48,7 @@ public class HoofdSchermController extends BorderPane{
     	KlantenScherm controller = new KlantenScherm(this);
     	vbox.getChildren().add(controller.geefNode());
     }
+    
     
     Gebruiker gebruiker;
 

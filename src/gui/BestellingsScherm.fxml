@@ -123,8 +123,8 @@
                         <TextField fx:id="txfDatum" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <TextField fx:id="txfAdresLijn1" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <TextField fx:id="txfAdresLijn2" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <ChoiceBox fx:id="choiceboxOrderStatus" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <ChoiceBox fx:id="choiceboxBestellingsStatus" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <DatePicker fx:id="dpBetalingsherinnering" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                         <TextField fx:id="txfBetalingsherringering" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                         <TextField fx:id="txfBedrag" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="12" />
