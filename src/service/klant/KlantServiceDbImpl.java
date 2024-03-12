@@ -9,7 +9,12 @@ public class KlantServiceDbImpl implements KlantService {
 	private KlantDaoJpa klantDao;
 	
 	public KlantServiceDbImpl() {
-		klantDao = new KlantDaoJpa();
+		// klantDao = new KlantDaoJpa();
+		setKlantDaoJpa(new KlantDaoJpa());
+	}
+	
+	public void setKlantDaoJpa(KlantDaoJpa klantDao) {
+		this.klantDao = klantDao;
 	}
 	
 	@Override

@@ -11,7 +11,12 @@ public class BestellingServiceDbImpl implements BestellingService {
 	private BestellingDaoJpa bestellingDao;
 	
 	public BestellingServiceDbImpl() {
-		bestellingDao = new BestellingDaoJpa();
+		// bestellingDao = new BestellingDaoJpa();
+		setBestellingDaoJpa(new BestellingDaoJpa());
+	}
+	
+	public void setBestellingDaoJpa(BestellingDaoJpa bestellingDao) {
+		this.bestellingDao = bestellingDao;
 	}
 
 	@Override
