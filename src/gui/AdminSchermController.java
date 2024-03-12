@@ -11,21 +11,17 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-
-public class HoofdSchermController extends BorderPane{
+public class AdminSchermController extends BorderPane {
 
     @FXML
     private Label lbNaam;
 
     @FXML
-    private Button btnOverzichtBestellingen;
-    
-    @FXML
-    private Button btnOverzichtKlanten;
+    private Label lbBeheerbedrijf;
 
     @FXML
-    private BorderPane borderpane;
-    
+    private Button btnBeheerBedrijf;
+
     @FXML
     private VBox vbox;
 
@@ -33,22 +29,17 @@ public class HoofdSchermController extends BorderPane{
     private Label lbError;
 
     @FXML
-    void overzichtBestellingen(ActionEvent event) {
+    void beheerBedrijf(ActionEvent event) {
     	vbox.getChildren().clear();
-    	BestellingsScherm controller = new BestellingsScherm(this);
+    	BedrijvenScherm controller = new BedrijvenScherm(this);
     	vbox.getChildren().add(controller.geefNode());
-    }
-
-    @FXML
-    void overzichtKlanten(ActionEvent event) {
-    	
     }
     
     Gebruiker gebruiker;
 
-	public HoofdSchermController(Gebruiker gebruiker) {
+	public AdminSchermController(Gebruiker gebruiker) {
 		this.gebruiker = gebruiker;
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("HoofdScherm.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminScherm.fxml"));
         loader.setRoot(this);
     	loader.setController(this);
         try {
@@ -59,9 +50,10 @@ public class HoofdSchermController extends BorderPane{
         
         lbNaam.setText(gebruiker.getNaam());
 	}
-	
+    
+
 	public Gebruiker getGebruiker() {
 		return gebruiker;
 	}
-    
+
 }

@@ -88,9 +88,21 @@ public class AanmeldSchermController extends Pane {
     }
     
     private void toonVolgendScherm(Gebruiker gebruiker) {
-    	HoofdSchermController hoofdScherm = new HoofdSchermController(gebruiker); //veranderd als bc gebruiker bij houd
-		Stage stage = (Stage) this.getScene().getWindow();
-		stage.setScene(new Scene(hoofdScherm));
+    	switch (gebruiker.getRol()) {		
+    	case LEVERANCIER: {
+    		HoofdSchermController hoofdScherm = new HoofdSchermController(gebruiker); //veranderd als bc gebruiker bij houd
+    		Stage stage = (Stage) this.getScene().getWindow();
+    		stage.setScene(new Scene(hoofdScherm));
+		}
+    	case ADMINISTRATOR: {
+    		AdminSchermController adminScherm = new AdminSchermController(gebruiker);
+    		Stage stage = (Stage) this.getScene().getWindow();
+    		stage.setScene(new Scene(adminScherm));
+    	}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + gebruiker.getRol());
+		}
+    	
     }
     
 }

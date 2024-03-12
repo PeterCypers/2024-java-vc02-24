@@ -1,4 +1,4 @@
-package service;
+package service.bedrijf;
 
 import java.util.List;
 import domein.Bedrijf;

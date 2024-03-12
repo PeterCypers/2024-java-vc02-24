@@ -15,13 +15,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Gebruiker.meldAan",
                          query = "SELECT g FROM Gebruiker g"
                          		+ " WHERE g.emailadres = :emailadres"
-                         		+ " AND g.wachtwoord = :wachtwoord")
+                         		+ " AND g.wachtwoord = :wachtwoord"
+                         		+ " AND (g.rol = domein.Rol.ADMINISTRATOR OR g.rol = domein.Rol.LEVERANCIER)")
 })      
 public class Gebruiker implements Serializable {
 	
@@ -45,16 +51,23 @@ public class Gebruiker implements Serializable {
 	@Embedded
 	private Adres adres;
 	
+	//Voor tableView
+	@Transient
+	private final SimpleStringProperty gebruikersnaam = new SimpleStringProperty();
+	@Transient
+	private final SimpleStringProperty wachtWoord = new SimpleStringProperty();
+	@Transient
+	private final SimpleStringProperty actief = new SimpleStringProperty();
+	
 	public Gebruiker() {}
 
-	public Gebruiker(int gebruikerId, Rol rol, String email, String wachtwoord, String naam, boolean isActief, Adres adres) {
+	public Gebruiker(Rol rol, String email, String wachtwoord, String naam, boolean isActief, Adres adres) {
 		setNaam(naam);
 		setEmail(email);
 		setRol(rol);
 		setWachtwoord(wachtwoord);
 		setIsActief(isActief);
 		
-		this.gebruikerId = gebruikerId;
 		this.adres = adres;
 	}
 	
@@ -126,5 +139,26 @@ public class Gebruiker implements Serializable {
 	
 	public List<Bestelling> getBestellingen() {
 		return bestellingen.stream().collect(Collectors.toUnmodifiableList());
+	}
+	
+	//Voor tableView
+	public StringProperty gebruikersnaamProperty() {
+		gebruikersnaam.set(naam);
+		return gebruikersnaam;
+	}
+	
+	public StringProperty wachtwoordProperty() {
+		wachtWoord.set(wachtwoord);
+		return wachtWoord;
+	}
+	
+	public StringProperty actiefProperty() {
+		if(isActief == true) {
+			actief.set("ja");
+		} else {
+			actief.set("nee");
+		}
+		
+		return actief;
 	}
 }

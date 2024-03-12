@@ -1,7 +1,9 @@
 package domein;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -11,11 +13,15 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Transient;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 @Entity
 @NamedQueries ({
@@ -35,18 +41,26 @@ public class Bedrijf implements Serializable {
 	private Adres adres;
 	
 	private String betalingsmogelijkhedenEnInfo;
+
+	private String logo;
 	
-	private String contact;
+	private String emailadres;
+	
+	private String telefoonnummer;
 	
 	private String btwNr;
 	
 	private boolean isActief;
 	
-	@ManyToMany(cascade=CascadeType.PERSIST)
-	private List<Klant> klanten;
+	@OneToOne(cascade=CascadeType.PERSIST)
+	private Klant klant;
+	
+	@OneToOne(cascade=CascadeType.PERSIST)
+	private Gebruiker leverancierGebruiker;
+	
+	@OneToOne(cascade=CascadeType.PERSIST)
+	private Gebruiker klantGebruiker;
 
-	// klantaccount + leverancier
-	// logo?
 	
 	// Voor tabelView?
 	@Transient
@@ -58,27 +72,33 @@ public class Bedrijf implements Serializable {
 	@Transient
 	private final SimpleIntegerProperty aantalKlantenProp = new SimpleIntegerProperty();
 	@Transient
-	private final SimpleBooleanProperty isActiefProp = new SimpleBooleanProperty();
+	private final SimpleStringProperty isActiefProp = new SimpleStringProperty();
 	
 	public Bedrijf() {}
 	
 	// klanten?
-	public Bedrijf(String naam, String sector, Adres adres, 
-			String betalingsmogelijkhedenEnInfo, String contact, 
+	public Bedrijf(String naam, String logo, String sector, Adres adres, 
+			String betalingsmogelijkhedenEnInfo, String email, String telefoon,
 			String btwNr, boolean isActief) {
 		setNaam(naam);
+		setLogo(logo);
 		setSector(sector);
 		setAdres(adres);
 		setBetalingsMogelijkhedenEnInfo(betalingsmogelijkhedenEnInfo);
-		setContact(contact);
+		setEmail(email);
+		setTelefoon(telefoon);
 		setBtwNr(btwNr);
 		setIsActief(isActief);
 	}
-	
+
 	private void setNaam(String naam) {
 		if (naam.isBlank() || !naam.matches("\\b([\\p{L}\\-'.,]+[ ]*)+")) 
 			throw new IllegalArgumentException("Naam ongeldig.");
 		this.naam = naam;
+	}
+	
+	private void setLogo(String logo) {
+		this.logo = logo;
 	}
 	
 	private void setSector(String sector) {
@@ -99,26 +119,50 @@ public class Bedrijf implements Serializable {
 		this.betalingsmogelijkhedenEnInfo = betalingsmogelijkhedenEnInfo;
 	}
 	
-	private void setContact(String contact) {
-		String emailRegex = "^[a-zA-Z0-9]+@[hH][oO][tT][mM][aA][iI][lL]\\.[cC][oO][mM]$";
-		if (!contact.matches(emailRegex))
-			throw new IllegalArgumentException("Contact ongeldig.");
-		this.contact = contact;
+	private void setEmail(String contact) {
+		if (contact == null || contact.isBlank())
+			throw new IllegalArgumentException("Email ongeldig.");
+		
+		this.emailadres = contact;
+	}
+
+	private void setTelefoon(String telefoon) {
+		if (telefoon == null || telefoon.isBlank())
+			throw new IllegalArgumentException("Telefoon ongeldig.");
+		
+		this.telefoonnummer = telefoon;
+		
 	}
 	
 	private void setBtwNr(String btwNr) {
-		String btwNrRegex = "^BE \\d{4}\\.\\d{3}\\.\\d{3}$";
-		if (btwNr.isBlank() || !btwNr.matches(btwNrRegex))
-			throw new IllegalArgumentException("Btw nummer ongelidg.");
+		if (btwNr == null || btwNr.isBlank())
+			throw new IllegalArgumentException("Btw nummer ongeldig.");
+		
 		this.btwNr = btwNr;
 	}
 	
-	private void setIsActief(boolean isActief) {
+	public void setIsActief(boolean isActief) {
 		this.isActief = isActief;
+	}
+	
+	public void setKlant(Klant klant) {
+		this.klant = klant;
+	}
+	
+	public void setLeverancierGebruiker(Gebruiker gebruiker) {
+		this.leverancierGebruiker = gebruiker;
+	}
+	
+	public void setKlantGebruiker(Gebruiker gebruiker) {
+		this.klantGebruiker = gebruiker;
 	}
 
 	public String getNaam() {
 		return this.naam;
+	}
+	
+	public String getLogo() {
+		return this.logo;
 	}
 
 	public String getSector() {
@@ -133,28 +177,48 @@ public class Bedrijf implements Serializable {
 		return this.betalingsmogelijkhedenEnInfo;
 	}
 
-	public String getContact() {
-		return this.contact;
+	public String getEmail() {
+		return this.emailadres;
+	}
+	
+	public String getTelefoon() {
+		return this.telefoonnummer;
 	}
 
 	public String getBtwNr() {
 		return this.btwNr;
 	}
 
-	public List<Klant> getKlanten() {
-		return this.klanten;
+	public Klant getKlant() {
+		return this.klant;
+	}
+	
+	public Gebruiker getLeverancierGebruiker() {
+		return this.leverancierGebruiker;
+	}
+	
+	public Gebruiker getKlantGebruiker() {
+		return this.klantGebruiker;
 	}
 
 	public boolean getIsActief() {
 		return this.isActief;
 	}
+	
+	//Voor tableView
+	public IntegerProperty getAantalKlantenProp() {
+		int aantalKlanten = getGebruikers().size();
+		
+		this.aantalKlantenProp.set(aantalKlanten);
+		return aantalKlantenProp;
+	}
 
-	public SimpleStringProperty getNaamProp() {
+	public StringProperty getNaamProp() {
 		this.naamProp.set(this.naam);
 		return naamProp;
 	}
 
-	public SimpleStringProperty getSectorProp() {
+	public StringProperty getSectorProp() {
 		this.sectorProp.set(this.sector);
 		return sectorProp;
 	}
@@ -164,21 +228,26 @@ public class Bedrijf implements Serializable {
 		return adresProp;
 	}
 
-	public SimpleIntegerProperty getAantalKlantenProp() {
-		this.aantalKlantenProp.set(this.klanten.size());
-		return aantalKlantenProp;
-	}
-
-	public SimpleBooleanProperty getIsActiefProp() {
-		this.isActiefProp.set(this.isActief);
+	public StringProperty getIsActiefProp() {
+		if(isActief == true) {
+			this.isActiefProp.set("ja");
+		} else {
+			this.isActiefProp.set("nee");
+		}
 		return isActiefProp;
+	}
+	
+	public ObservableList<Gebruiker> getGebruikers(){
+		List<Gebruiker> gebruikers = new ArrayList<>();
+		gebruikers.add(klantGebruiker);
+		gebruikers.add(leverancierGebruiker);
+		return FXCollections.observableArrayList(gebruikers);
 	}
 
 	@Override
 	public String toString() {
 		return "Bedrijf [naam=" + naam + ", sector=" + sector + ", adres=" + adres + ", betalingsmogelijkhedenEnInfo="
-				+ betalingsmogelijkhedenEnInfo + ", contact=" + contact + ", btwNr=" + btwNr + ", isActief=" + isActief
-				+ ", klanten=" + klanten + "]";
+				+ betalingsmogelijkhedenEnInfo + ", contact=" + emailadres + ", btwNr=" + btwNr + ", isActief=" + isActief
+				+ ", klant=" + klant + "]";
 	}
-	
 }

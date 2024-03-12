@@ -43,16 +43,8 @@ public class Adres {
 		this.straatNr = straatNr;
 	}
 	public void setPostcode(String postcode) {
-	    int numericPostcode;
-	    try {
-	        numericPostcode = Integer.parseInt(postcode);
-	    } catch (NumberFormatException e) {
-	        throw new IllegalArgumentException("Postcode moet een numerieke waarde zijn!");
-	    }
-	   
-	    if (numericPostcode < 1000 || numericPostcode > 99999) {
-	        throw new IllegalArgumentException("Postcode incorrect!");
-	    }
+	    if (postcode == null || postcode.isBlank())
+	    	throw new IllegalArgumentException("Postcode incorrect!");
 	   
 	    this.postcode = postcode;
 	}

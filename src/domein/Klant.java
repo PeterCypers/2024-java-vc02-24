@@ -61,12 +61,11 @@ public class Klant implements Serializable {
 		this.naam = name;
 	}
 	public void setContact(String contact) {
-		String emailRegex = "^[a-zA-Z0-9]+@[hH][oO][tT][mM][aA][iI][lL]\\.[cC][oO][mM]$";
-	    if (!contact.matches(emailRegex)) {
+		if (contact == null || contact.isBlank()) {
 	        throw new IllegalArgumentException("Ongeldig e-mailadres!");
 	    }
-	    this.contact = contact;
 		
+	    this.contact = contact;
 	}
 	
 

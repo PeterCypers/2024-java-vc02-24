@@ -5,6 +5,7 @@
              version="3.0">
 <persistence-unit name="delawarePersistence" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>domein.Bedrijf</class>
     <class>domein.Gebruiker</class>
     <class>domein.Bestelling</class>
     <class>domein.Klant</class>

@@ -29,10 +29,6 @@ public class GebruikerServiceDbImpl implements GebruikerService {
 			throw new IllegalArgumentException("Deze gebruiker is gedeactiveerd.");
 		}
 		
-		if (gebruiker.getRol() == Rol.KLANT) {
-			throw new IllegalArgumentException("Een klant mag niet inloggen op dit portaal.");
-		}
-		
 		return gebruiker;
 	}
 
