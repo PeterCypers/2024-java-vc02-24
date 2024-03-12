@@ -107,17 +107,17 @@ public class GebruikerTest {
 	
 	@Test
 	public void test_GebruikerAanmelden_GebruikerIsKlant() {
-		String klantEmailadres = "vierde@hotmail.com";
-		String klantWachtwoord = "321";
+		String klantEmailadres = "mark@outlook.com";
+		String klantWachtwoord = "1234";
 		
 		assertThrows(IllegalArgumentException.class, () -> ac.meldGebruikerAan(klantEmailadres, klantWachtwoord));
 	}
 	
 	@ParameterizedTest
 	@CsvSource({
-		"eerste@hotmail.com,1234",
-		"tweede@hotmail.com,password",
-		"derde@hotmail.com,123abc"
+		"mark@outlook.com,1234",
+		"mike@gmail.com,1234",
+		"kim@gmail.com,1234"
 	})
 	public void test_GebruikerAanmelden_GeldigeGegevens(String emailadres, String wachtwoord) {
 		Gebruiker gebruiker = ac.meldGebruikerAan(emailadres, wachtwoord);
