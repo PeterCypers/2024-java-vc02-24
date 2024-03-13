@@ -128,8 +128,8 @@ public class PopulateDb {
 		List<List<Bestelling>> bestellingen = Arrays.asList(
 				List.of(
 						new Bestelling(
-								49001, LocalDate.now(), 
-								OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD, 
+								49001, LocalDate.now().minusMonths(3), 
+								OrderStatus.GELEVERD, BetalingsStatus.BETAALD, 
 								klanten.get(3),
 								Arrays.asList(
 										new Product("Stella Artois Lager, 12 Pack 11.2 fl. oz. Bottles", 			80, Stock.STOCK, 39.99),
@@ -139,8 +139,8 @@ public class PopulateDb {
 								)
 						),
 						new Bestelling(
-								49002, LocalDate.now(), 
-								OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD, 
+								49002, LocalDate.now().minusDays(1), 
+								OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, 
 								klanten.get(4),
 								Arrays.asList(
 										new Product("Stella Artois Lager, 12 Pack 11.2 fl. oz. Bottles", 	100, Stock.STOCK, 39.99),
@@ -150,15 +150,15 @@ public class PopulateDb {
 				),
 				List.of(
 						new Bestelling(
-								50001, LocalDate.now().plusDays(1), 
-								OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, 
+								50001, LocalDate.now().minusMonths(1), 
+								OrderStatus.GELEVERD, BetalingsStatus.BETAALD, 
 								klanten.get(2),
 								Arrays.asList(
 										new Product("Business Laptop - HP Chrome Enterprise", 	300, Stock.STOCK, 469.00)
 								)
 						),
 						new Bestelling(
-								50002, LocalDate.now().plusDays(5), 
+								50002, LocalDate.now().minusDays(12), 
 								OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, 
 								klanten.get(3),
 								Arrays.asList(
@@ -167,8 +167,8 @@ public class PopulateDb {
 								)
 						),
 						new Bestelling(
-								50003, LocalDate.now().minusDays(3),
-								OrderStatus.GELEVERD, BetalingsStatus.BETAALD,
+								50003, LocalDate.now(),
+								OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD,
 								klanten.get(5),
 								Arrays.asList(
 										new Product("Business Laptop - HP Chrome Enterprise", 	120, Stock.STOCK, 469.00)
@@ -177,8 +177,8 @@ public class PopulateDb {
 				),
 				List.of(
 						new Bestelling(
-								51001, LocalDate.now(), 
-								OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, 
+								51001, LocalDate.now().minusMonths(3), 
+								OrderStatus.GELEVERD, BetalingsStatus.BETAALD, 
 								klanten.get(5),
 								Arrays.asList(
 										new Product("WGG1440KFG Serie 6 Wasmachine 9kg", 10, Stock.ORDER, 899.99),
@@ -186,8 +186,8 @@ public class PopulateDb {
 								)
 						),
 						new Bestelling(
-								51002, LocalDate.now(), 
-								OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, 
+								51002, LocalDate.now().minusDays(25), 
+								OrderStatus.GELEVERD, BetalingsStatus.BETAALD, 
 								klanten.get(6),
 								Arrays.asList(
 										new Product("WGB244A4FG Serie 8 Wasmachine 9kg", 8, Stock.ORDER, 1239.99),
@@ -197,7 +197,7 @@ public class PopulateDb {
 				),
 				List.of(
 						new Bestelling(
-								52001, LocalDate.now(),
+								52001, LocalDate.now().minusMonths(1),
 								OrderStatus.GELEVERD, BetalingsStatus.BETAALD,
 								klanten.get(0),
 								Arrays.asList(
@@ -218,8 +218,8 @@ public class PopulateDb {
 								)
 						),
 						new Bestelling(
-								52002, LocalDate.now(),
-								OrderStatus.GELEVERD, BetalingsStatus.BETAALD,
+								52002, LocalDate.now().minusDays(3),
+								OrderStatus.ONDERWEG, BetalingsStatus.BETAALD,
 								klanten.get(0),
 								Arrays.asList(
 										new Product("Vierkant brood | Wit 800gr", 4, Stock.STOCK, 2.49),
@@ -237,7 +237,7 @@ public class PopulateDb {
 				),
 				List.of(
 						new Bestelling(
-								53001, LocalDate.now(),
+								53001, LocalDate.now().minusMonths(2),
 								OrderStatus.GELEVERD, BetalingsStatus.BETAALD,
 								klanten.get(2),
 								Arrays.asList(
@@ -246,7 +246,7 @@ public class PopulateDb {
 								)
 						),
 						new Bestelling(
-								53002, LocalDate.now(),
+								53002, LocalDate.now().minusMonths(1),
 								OrderStatus.ONDERWEG, BetalingsStatus.BETAALD,
 								klanten.get(6),
 								Arrays.asList(
@@ -254,8 +254,8 @@ public class PopulateDb {
 								)
 						),
 						new Bestelling(
-								53003, LocalDate.now(),
-								OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD,
+								53003, LocalDate.now().minusDays(10),
+								OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.BETAALD,
 								klanten.get(2),
 								Arrays.asList(
 										new Product("408 ALLURE 1.2L PureTech 130 EAT8 S&S Elixir Red", 1, Stock.ORDER, 32805.00)
@@ -272,7 +272,7 @@ public class PopulateDb {
 				),
 				List.of(
 						new Bestelling(
-								54001, LocalDate.now(),
+								54001, LocalDate.now().minusMonths(1),
 								OrderStatus.GELEVERD, BetalingsStatus.BETAALD,
 								klanten.get(0),
 								Arrays.asList(
@@ -280,8 +280,8 @@ public class PopulateDb {
 								)
 						),
 						new Bestelling(
-								54002, LocalDate.now(),
-								OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.BETAALD,
+								54002, LocalDate.now().minusDays(5),
+								OrderStatus.ONDERWEG, BetalingsStatus.BETAALD,
 								klanten.get(6),
 								Arrays.asList(
 										new Product("IVAR 2 section shelving unit, 68 1/2x19 5/8x89 \"", 12, Stock.ORDER, 275.00),
@@ -290,8 +290,8 @@ public class PopulateDb {
 								)
 						),
 						new Bestelling(
-								54003, LocalDate.now(),
-								OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD,
+								54003, LocalDate.now().minusDays(1),
+								OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.BETAALD,
 								klanten.get(1),
 								Arrays.asList(
 										new Product("OMAR 1 section shelving unit, 36 1/4x14 1/8x71 1/4 \"", 8, Stock.STOCK, 79.98),
