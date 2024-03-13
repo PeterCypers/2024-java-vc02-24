@@ -162,7 +162,7 @@ public class BedrijfToevoegenController extends VBox {
             .setKgStraatNummer(txfStraatnummer.getText());
         
         bedrijfBuilder
-        	.setKNaam(txfKlantNaam.getText())
+        	.setKNaam(txfNaam.getText())
         	.setKLogoPad(txfLogo.getText())
         	.setKEmailadres(txfKlantEmailadres.getText())
         	.setKTelefoonNr(txfTelefoonNr.getText())
