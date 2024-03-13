@@ -92,11 +92,13 @@ public class AanmeldSchermController extends Pane {
     	case LEVERANCIER -> {
     		HoofdSchermController hoofdScherm = new HoofdSchermController(gebruiker); //veranderd als bc gebruiker bij houd
     		Stage stage = (Stage) this.getScene().getWindow();
+    		stage.setResizable(true);
     		stage.setScene(new Scene(hoofdScherm));
 		}
     	case ADMINISTRATOR -> {
     		AdminSchermController adminScherm = new AdminSchermController(gebruiker);
     		Stage stage = (Stage) this.getScene().getWindow();
+    		stage.setResizable(true);
     		stage.setScene(new Scene(adminScherm));
     	}
 		default -> throw new IllegalArgumentException("Unexpected value: " + gebruiker.getRol());

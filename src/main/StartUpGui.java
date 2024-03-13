@@ -16,6 +16,7 @@ public class StartUpGui extends Application {
 			Scene scene = new Scene(new AanmeldSchermController(ac));
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("B2B Portal");
+			primaryStage.setResizable(false);
 			primaryStage.show();
 			
 		} catch (Exception e) {
