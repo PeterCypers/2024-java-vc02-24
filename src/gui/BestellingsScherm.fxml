@@ -16,33 +16,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="600.0" minWidth="800.0" style="-fx-background-color: F0EFEF; -fx-background-image: url=(@../images/backgroundLeveransier.png)" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane minHeight="620.0" minWidth="940.0" style="-fx-background-color: F0EFEF; -fx-background-image: url=(@../images/backgroundLeveransier.png)" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <VBox minHeight="560.0" minWidth="800.0" spacing="5.0">
          <children>
-            <HBox minHeight="30.0" minWidth="800.0" spacing="10.0">
-               <children>
-                  <TextField fx:id="txfFilterBestelling" promptText="filter bestelling">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <Button mnemonicParsing="false" onAction="#filterBestelling" text="Zoek" />
-               </children>
-            </HBox>
             <GridPane alignment="CENTER" minHeight="530.0" minWidth="800.0">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="325.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="270.0" prefWidth="278.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="320.0" />
               </columnConstraints>
               <rowConstraints>
+                  <RowConstraints maxHeight="30.0" minHeight="26.0" prefHeight="28.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="26.0" minHeight="22.0" prefHeight="24.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="-Infinity" minHeight="500.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label alignment="CENTER" text="Overzicht bestellingen" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <Label alignment="CENTER" text="Overzicht bestellingen" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -50,17 +40,17 @@
                         <Insets />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="lbBestellingDetails" alignment="CENTER" text="Bestelling details" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <Label fx:id="lbBestellingDetails" alignment="CENTER" text="Bestelling details" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lbOverzichtProducten" alignment="CENTER" text="Overzicht producten" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <Label fx:id="lbOverzichtProducten" alignment="CENTER" text="Overzicht producten" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="tbvOverzichtBestellingen" style="-fx-background-color: F0EFEF;" GridPane.rowIndex="1">
+                  <TableView fx:id="tbvOverzichtBestellingen" style="-fx-background-color: FFFFFF;" GridPane.rowIndex="2">
                     <columns>
                       <TableColumn fx:id="tbcOrderId" prefWidth="75.0" text="Order ID" />
                       <TableColumn fx:id="tbcDatum" prefWidth="75.0" text="Datum" />
@@ -72,7 +62,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <TableView fx:id="tbvOverzichtProducten" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <TableView fx:id="tbvOverzichtProducten" style="-fx-background-color: FFFFFF;" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2">
                     <columns>
                       <TableColumn fx:id="tbcNaam" prefWidth="75.0" text="Naam" />
                       <TableColumn fx:id="tbcAantal" prefWidth="75.0" text="Aantal" />
@@ -84,10 +74,10 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <GridPane fx:id="gpDetailsBestelling" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <GridPane fx:id="gpDetailsBestelling" prefHeight="500.0" prefWidth="293.0" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="124.0" minWidth="120.0" prefWidth="122.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.79998779296875" minWidth="10.0" prefWidth="146.79998779296875" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="148.0" prefWidth="150.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="30.0" minHeight="26.0" prefHeight="28.0" vgrow="SOMETIMES" />
@@ -107,8 +97,14 @@
                      <children>
                         <Label text="Naam: " />
                         <Label text="Contactgegevens:" GridPane.rowIndex="1" />
-                        <Label text="E-mailadres:" GridPane.rowIndex="2" />
-                        <Label text="Telefoonnummer:" GridPane.rowIndex="3" />
+                        <Label text="E-mailadres:" GridPane.rowIndex="2">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></Label>
+                        <Label text="Telefoonnummer:" GridPane.rowIndex="3">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></Label>
                         <Label text="Order ID:" GridPane.rowIndex="4" />
                         <Label text="Datum:" GridPane.rowIndex="5" />
                         <Label text="Leveradres:" GridPane.rowIndex="6" />
@@ -116,24 +112,37 @@
                         <Label text="Betalingsstatus:" GridPane.rowIndex="9" />
                         <Label text="Betalingsherinnering:" GridPane.rowIndex="10" />
                         <Label text="Totale bedrag: " GridPane.rowIndex="12" />
-                        <TextField fx:id="txfNaam" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" />
-                        <TextField fx:id="txfEmail" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="txfTelefoon" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="txfOrderID" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="txfDatum" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="txfAdresLijn1" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField fx:id="txfAdresLijn2" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <ChoiceBox fx:id="choiceboxOrderStatus" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <ChoiceBox fx:id="choiceboxBestellingsStatus" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <TextField fx:id="txfNaam" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" />
+                        <TextField fx:id="txfEmail" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="txfTelefoon" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="txfOrderID" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="txfDatum" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="txfAdresLijn1" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="txfAdresLijn2" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <ChoiceBox fx:id="choiceboxOrderStatus" prefWidth="150.0" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <ChoiceBox fx:id="choiceboxBestellingsStatus" prefWidth="150.0" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <DatePicker fx:id="dpBetalingsherinnering" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                        <TextField fx:id="txfBetalingsherringering" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                        <TextField fx:id="txfBedrag" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                        <TextField fx:id="txfBetalingsherringering" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <TextField fx:id="txfBedrag" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                      </children>
+                     <GridPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </GridPane.margin>
                   </GridPane>
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <HBox minHeight="30.0" minWidth="100.0" spacing="10.0" GridPane.columnIndex="2">
                      <children>
                         <TextField fx:id="txfFilterProducten" promptText="fitler product" visible="false" />
                         <Button fx:id="btnZoekProducten" mnemonicParsing="false" onAction="#filterProducten" text="Zoek" visible="false" />
+                     </children>
+                  </HBox>
+                  <HBox minHeight="30.0" minWidth="100.0" spacing="10.0">
+                     <children>
+                        <TextField fx:id="txfFilterBestelling" promptText="filter bestelling">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#filterBestelling" text="Zoek" />
                      </children>
                   </HBox>
                </children>

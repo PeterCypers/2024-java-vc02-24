@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="600.0" minWidth="800.0" style="-fx-background-color: F0EFEF; -fx-background-image: url=(@../images/backgroundLeveransier.png)" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane minHeight="620.0" minWidth="940.0" style="-fx-background-color: F0EFEF; -fx-background-image: url=(@../images/backgroundLeveransier.png)" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <Label text="Klanten raadplegen" BorderPane.alignment="CENTER_LEFT">
          <font>
@@ -26,15 +26,6 @@
    <center>
       <VBox minHeight="550.0" minWidth="800.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="28.0" spacing="5.0">
-               <children>
-                  <TextField fx:id="txfFilerKlanten" promptText="filter klanten" />
-                  <Button mnemonicParsing="false" onAction="#filterOverzichtKlanten" text="Filter" />
-               </children>
-               <VBox.margin>
-                  <Insets left="5.0" />
-               </VBox.margin>
-            </HBox>
             <GridPane minHeight="500.0" minWidth="800.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" />
@@ -42,27 +33,28 @@
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
+                  <RowConstraints maxHeight="30.0" minHeight="25.0" prefHeight="28.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="30.0" minHeight="25.0" prefHeight="28.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="324.800032043457" minHeight="500.0" prefHeight="316.00001373291013" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="30.0" minHeight="26.0" prefHeight="28.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Overzicht klanten" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <Label text="Overzicht klanten" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lbDetailsKlant" text="Details klant" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <Label fx:id="lbDetailsKlant" text="Details klant" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lbBestellingen" text="Bestellingen" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <Label fx:id="lbBestellingen" text="Bestellingen" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="tbvOverzichtKlanten" minHeight="200.0" minWidth="200.0" prefHeight="378.0" prefWidth="267.0" style="-fx-background-color: FFFFFF;" GridPane.rowIndex="1">
+                  <TableView fx:id="tbvOverzichtKlanten" style="-fx-background-color: FFFFFF;" GridPane.rowIndex="2">
                     <columns>
                       <TableColumn fx:id="tbcNaam" prefWidth="122.39999389648438" text="Naam" />
                       <TableColumn fx:id="tbcAantalOpenstaand" prefWidth="164.80001831054688" text="Openstaande bestellingen" />
@@ -71,10 +63,10 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <GridPane fx:id="gpDetailsKlant" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <GridPane fx:id="gpDetailsKlant" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="102.0" minWidth="98.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.20001220703125" minWidth="10.0" prefWidth="169.20001220703125" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="108.0" prefWidth="110.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="166.0" prefWidth="168.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="30.0" minHeight="25.0" prefHeight="28.0" vgrow="SOMETIMES" />
@@ -91,17 +83,23 @@
                         <Label text="Logo: " GridPane.rowIndex="1" />
                         <Label text="Adres:" GridPane.rowIndex="3" />
                         <Label text="Contactgegevens:" GridPane.rowIndex="5" />
-                        <Label text="E-mailadres:" GridPane.rowIndex="6" />
-                        <Label text="Telefoonnummer:" GridPane.rowIndex="7" />
+                        <Label text="E-mailadres:" GridPane.rowIndex="6">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></Label>
+                        <Label text="Telefoonnummer:" GridPane.rowIndex="7">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></Label>
                         <ImageView fx:id="imgvLogo" fitHeight="110.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
-                        <TextField fx:id="txfNaam" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" />
-                        <TextField fx:id="txfAdresLijn1" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="txfAdresLijn2" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="txfEmail" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField fx:id="txfTelefoonnummer" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="txfNaam" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" />
+                        <TextField fx:id="txfAdresLijn1" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="txfAdresLijn2" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="txfEmail" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="txfTelefoonnummer" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                      </children>
                   </GridPane>
-                  <TableView fx:id="tbvBestellingen" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: F0EFEF;" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <TableView fx:id="tbvBestellingen" style="-fx-background-color: FFFFFF;" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2">
                     <columns>
                       <TableColumn fx:id="tbcOrderId" prefWidth="75.0" text="Order Id" />
                       <TableColumn fx:id="tbcDatum" prefWidth="75.0" text="Datum" />
@@ -113,11 +111,20 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <HBox minHeight="30.0" minWidth="100.0" spacing="10.0" GridPane.columnIndex="2">
                      <children>
                         <TextField fx:id="txfFilterBestellingen" promptText="filter bestellingen" visible="false" />
                         <Button fx:id="btnFilterBestellingen" mnemonicParsing="false" onAction="#filterOverzichtBestellingen" text="Filter" visible="false" />
                      </children>
+                  </HBox>
+                  <HBox minHeight="30.0" minWidth="100.0" spacing="5.0">
+                     <children>
+                        <TextField fx:id="txfFilerKlanten" promptText="filter klanten" />
+                        <Button mnemonicParsing="false" onAction="#filterOverzichtKlanten" text="Filter" />
+                     </children>
+                     <GridPane.margin>
+                        <Insets left="5.0" />
+                     </GridPane.margin>
                   </HBox>
                </children>
             </GridPane>
