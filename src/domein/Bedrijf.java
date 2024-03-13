@@ -129,7 +129,7 @@ public class Bedrijf implements Serializable {
 			throw new IllegalArgumentException("Emailadres mag niet leeg zijn");
 		
 		String emailRegex = "^[a-zA-Z0-9]+\\.?[a-zA-Z0-9]*@[a-zA-Z]+\\.[a-zA-Z]+$";
-	    if (email.matches(emailRegex)) {
+	    if (!email.matches(emailRegex)) {
 	        throw new IllegalArgumentException("Emailadres van het bedrijf is ongeldig");
 	    }
 		
