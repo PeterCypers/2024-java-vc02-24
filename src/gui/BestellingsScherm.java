@@ -208,7 +208,7 @@ public class BestellingsScherm {
 		txfDatum.setText(String.format("%s-%s-%s",datum.getYear() , datum.getMonthValue(), datum.getDayOfMonth()));
 		txfAdresLijn1.setText(bc.getBestellingen().get(index).getKlant().getAdres().toStringLijn1());
 		txfAdresLijn2.setText(bc.getBestellingen().get(index).getKlant().getAdres().toStringLijn2());
-		txfBetalingsherringering.setText("todo"); //TODO 
+		txfBetalingsherringering.setText(""); //TODO 
 	    choiceboxOrderStatus.setValue(selectedBestelling.getOrderStatus());
 	    choiceboxBestellingsStatus.setValue(selectedBestelling.getBetalingStatus());
 		txfBedrag.setText(String.format("€%.2f", bc.getBestellingen().get(index).berekenTotalBedrag()));

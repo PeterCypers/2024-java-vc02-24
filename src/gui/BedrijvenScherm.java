@@ -198,10 +198,10 @@ public class BedrijvenScherm {
 		
 		txfNaam.setText(bc.getBedrijven().get(index).getNaam());
 		txfSector.setText(bc.getBedrijven().get(index).getSector());
-		txfAdresLijn1.setText(bc.getBedrijven().get(index).getAdres().toString());
-		txfAdresLijn2.setText(bc.getBedrijven().get(index).getAdres().toString());
+		txfAdresLijn1.setText(bc.getBedrijven().get(index).getAdres().toStringLijn1());
+		txfAdresLijn2.setText(bc.getBedrijven().get(index).getAdres().toStringLijn2());
 		txfBetalingsmogelijkheid.setText(bc.getBedrijven().get(index).getBetalingsmogelijkhedenEnInfo());
-		txfBetalingsinfo.setText("todo");
+		txfBetalingsinfo.setText("");
 		txfEmailadres.setText(bc.getBedrijven().get(index).getEmail());
 		txfTelefoonnummer.setText(bc.getBedrijven().get(index).getTelefoon());
 		txfBTWNummer.setText(bc.getBedrijven().get(index).getBtwNr());
