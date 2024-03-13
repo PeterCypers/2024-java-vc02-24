@@ -33,11 +33,14 @@ public class Klant implements Serializable {
 	
 	@Id
 	private String naam;
+	
 	private String contact;
 	
 	@Embedded
 	private Adres adres;
+	
 	private String logoPad;
+	
 	private String telefoonnummer;
 	
 	@OneToMany(cascade = CascadeType.PERSIST)
@@ -62,20 +65,31 @@ public class Klant implements Serializable {
 		
 	}
 	
+	public String getNaam() {
+		return naam;
+	}
+	
 	private void setKlantNaam(String name) {
+		if(name == null || naam.isBlank())
+	        throw new IllegalArgumentException("Klantnaam mag niet leeg zijn");
+		
 		if(name == null || !name.matches("\\b([\\p{L}\\-'.,]+[ ]*)+"))
-	        throw new IllegalArgumentException("Ongeldige naam.");
+	        throw new IllegalArgumentException("Ongeldige klantnaam");
 		
 		this.naam = name;
 	}
-	public void setContact(String contact) {
-		if (contact == null || contact.isBlank()) {
-	        throw new IllegalArgumentException("Ongeldig e-mailadres!");
-	    }
-		
-	    this.contact = contact;
+	
+	public String getContactgegevens() {
+		return contact;
 	}
 	
+	public void setContact(String email) {
+		if (email == null || email.isBlank()) {
+	        throw new IllegalArgumentException("Emailadres van de klant mag niet leeg zijn");
+	    }
+		
+	    this.contact = email;
+	}
 
 	public String getLogoPad() {
 		return logoPad;
@@ -83,7 +97,7 @@ public class Klant implements Serializable {
 
 	public void setLogoPad(String logoPad) {
 		if (logoPad == null || logoPad.isEmpty())
-			throw new IllegalArgumentException("Ongeldig logo");
+			throw new IllegalArgumentException("Bedrijfslogo mag niet leeg zijn");
 		
 		this.logoPad = logoPad;
 	}
@@ -92,30 +106,17 @@ public class Klant implements Serializable {
 		return telefoonnummer;
 	}
 	
-
 	public void setTelefoonnummer(String telefoonnummer) {
+		if(telefoonnummer == null || telefoonnummer.isBlank())
+			throw new IllegalArgumentException("Telefoonnummer van de klant mag niet leeg zijn");
 		
 		String PhoneRegex = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$";
 
-
 		if(telefoonnummer == null || !telefoonnummer.matches(PhoneRegex))
-			throw new IllegalArgumentException("Telefoonnummer ongeldig.");
+			throw new IllegalArgumentException("Telefoonnummer van de klant is ongeldig");
 			
 		this.telefoonnummer = telefoonnummer;
 		this.telefoonnummer = telefoonnummer;
-	}
-
-	public StringProperty getNaam() {
-		naamKlant.set(naam);
-		return naamKlant;
-	}
-	
-	public String getName() {
-		return naam;
-	}
-	
-	public String getContactgegevens() {
-		return contact;
 	}
 	
 	public Adres getAdres() {
@@ -124,7 +125,7 @@ public class Klant implements Serializable {
 	
 	public void setAdres(Adres adres) {
 		if(adres == null)
-			throw new IllegalArgumentException("Adres ongeldig.");
+			throw new IllegalArgumentException("Adres van de klant is ongeldig");
 		
 		this.adres = adres;
 	}
@@ -133,16 +134,22 @@ public class Klant implements Serializable {
 		return bestellingen;
 	}
 	
-	public List<Bestelling> getBestellingenPerLeverancier(Gebruiker leverancier) {
-		return bestellingen.stream().filter(b -> b.getLeverancier().equals(leverancier)).collect(Collectors.toUnmodifiableList());
-	}
-	
 	public void setBestellingen(List<Bestelling> bestellingen) {
 		this.bestellingen = bestellingen;
 	}
 	
-	public String getAdresString() {
-		return adres.toString();
+	public StringProperty getName() {
+		naamKlant.set(naam);
+		return naamKlant;
+	}
+	
+	public IntegerProperty openstaandeBestellingenProperty(Gebruiker leverancier) {
+		openstaandeBestellingen.set(getAantalOpenstaandeBestellingen(leverancier));
+		return openstaandeBestellingen;
+	}
+	
+	public List<Bestelling> getBestellingenPerLeverancier(Gebruiker leverancier) {
+		return bestellingen.stream().filter(b -> b.getLeverancier().equals(leverancier)).collect(Collectors.toUnmodifiableList());
 	}
 	
 	public List<Bestelling> getOpenstaandeBestellingen(Gebruiker leverancier) {
@@ -156,17 +163,15 @@ public class Klant implements Serializable {
 		return getOpenstaandeBestellingen(leverancier).size();
 	}
 	
-	public IntegerProperty openstaandeBestellingenProperty(Gebruiker leverancier) {
-		openstaandeBestellingen.set(getAantalOpenstaandeBestellingen(leverancier));
-		return openstaandeBestellingen;
-	}
-	
-
 	public ObservableList<Bestelling> getObservableListBestellingen(Gebruiker leverancier) {
 		ObservableList<Bestelling> bestellingsList = FXCollections.observableArrayList(
 				getBestellingenPerLeverancier(leverancier)
 		);
 		return bestellingsList;
+	}
+	
+	public String getAdresString() {
+		return adres.toString();
 	}
 	
 	@Override

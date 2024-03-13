@@ -264,11 +264,5 @@ public class BestellingsScherm {
 	public Node geefNode() {
 	    return node;
 	}
-	
-	
-
-	
-	
-	
 
 }

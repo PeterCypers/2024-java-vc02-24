@@ -152,7 +152,7 @@ public class KlantenScherm {
 	}
 	
 	private void tableViewKlanten() {
-		tbcNaam.setCellValueFactory(cellData -> cellData.getValue().getNaam());
+		tbcNaam.setCellValueFactory(cellData -> cellData.getValue().getName());
 		tbcAantalOpenstaand.setCellValueFactory(cellData -> cellData.getValue().openstaandeBestellingenProperty(hoofdScherm.getGebruiker()));
 		
 		tbvOverzichtKlanten.setItems(kc.getKlanten());
@@ -163,7 +163,7 @@ public class KlantenScherm {
 			imgvLogo.setImage(new Image(kc.getKlanten().get(index).getLogoPad()));
 		}).start();
 		
-		txfNaam.setText(kc.getKlanten().get(index).getName());
+		txfNaam.setText(kc.getKlanten().get(index).getNaam());
 		txfAdresLijn1.setText(kc.getKlanten().get(index).getAdres().toStringLijn1());
 		txfAdresLijn2.setText(kc.getKlanten().get(index).getAdres().toStringLijn2());
 		txfEmail.setText(kc.getKlanten().get(index).getContactgegevens());

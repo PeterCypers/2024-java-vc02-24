@@ -45,8 +45,8 @@ public class AanmeldSchermController extends Pane {
     		System.out.printf("%s gevonden met naam: %s", g.getClass().getSimpleName(), g.getNaam());
     		toonVolgendScherm(g);
     	} catch (EntityNotFoundException enfe) {
-    		System.out.println("Gebruiker niet gevonden, controleer of email/wachtwoord juist zijn.");
-    		lblError.setText("Gebruiker niet gevonden, controleer of email/wachtwoord juist zijn.");
+    		System.out.println("Gebruiker niet gevonden, controleer de email en wachtwoord combinatie");
+    		lblError.setText("Gebruiker niet gevonden, controleer de email en wachtwoord combinatie");
     	} catch (IllegalArgumentException iae) {
     		lblError.setText(iae.getMessage());
     	}

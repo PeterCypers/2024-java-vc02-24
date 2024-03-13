@@ -14,47 +14,55 @@ public class Adres {
 	
 	public Adres(String land, String stad, String postcode, String straat, String straatNr) {
 		setLand(land);
+		setStad(stad);
+		setPostcode(postcode);
 		setStraatnaam(straat);
 		setStraatnummer(straatNr);
-		setPostcode(postcode);
-		setStad(stad);
 	}
+	
 	public void setLand(String land) {
 	    if (land == null || land.isEmpty()) {
-	        throw new IllegalArgumentException("Ongeldige landnaam!");
+	        throw new IllegalArgumentException("Land mag niet leeg zijn");
 	    }
 	    
 	    this.land = land;
 	}
 	
 	public void setStraatnaam(String straat) {
-	    
-	    if (straat == null || straat.isEmpty() || straat.matches(".*[!@#$%^&*(),.?\":{}|<>].*")) {
-	        throw new IllegalArgumentException("Straatnaam incorrect!");
+	    if (straat == null || straat.isEmpty()) {
+	        throw new IllegalArgumentException("Straat mag niet leeg zijn");
 	    }
 	    
 	    this.straat = straat;
 	}
 	
 	public void setStraatnummer(String straatNr) {
-		if(straatNr == null || !straatNr.matches("([0-9]+[A-Z]?)"))
-			throw new IllegalArgumentException("Straatnummer incorrect!");
+		if(straatNr == null || straatNr.isBlank())
+			throw new IllegalArgumentException("Straatnummer mag niet leeg zijn");
+		
+		if(!straatNr.matches("([0-9]+[A-Z]?)"))
+			throw new IllegalArgumentException("Ongeldig straatnummer");
 		
 		this.straatNr = straatNr;
 	}
+	
 	public void setPostcode(String postcode) {
 	    if (postcode == null || postcode.isBlank())
-	    	throw new IllegalArgumentException("Postcode incorrect!");
+	    	throw new IllegalArgumentException("Postcode mag niet leeg zijn");
 	   
 	    this.postcode = postcode;
 	}
 
 	public void setStad(String stad) {
-		if(stad == null || !stad.matches("([a-zA-Z]+[\s]?)+"))
-			throw new IllegalArgumentException("Stad incorrect!");
+	    if (stad == null || stad.isBlank())
+	    	throw new IllegalArgumentException("Stad mag niet leeg zijn");
+		
+		if(!stad.matches("([a-zA-Z]+[\s]?)+"))
+			throw new IllegalArgumentException("Ongeldige stad");
 		
 		this.stad = stad;
 	}
+	
     public String getLand() {
         return land;
     }

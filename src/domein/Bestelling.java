@@ -89,7 +89,7 @@ public class Bestelling implements Serializable {
 	}
 
 	public String getKlantName() {
-		return klant.getName();
+		return klant.getNaam();
 	}
 
 	public LocalDate getDatumGeplaats() {
@@ -179,7 +179,7 @@ public class Bestelling implements Serializable {
 	}
 	
 	public StringProperty klantNaamProperty() {
-		klantnaam.set(klant.getName());
+		klantnaam.set(klant.getNaam());
 		return klantnaam;
 	}
 	

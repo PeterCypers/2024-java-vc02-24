@@ -92,43 +92,53 @@ public class Bedrijf implements Serializable {
 	}
 
 	private void setNaam(String naam) {
-		if (naam.isBlank() || !naam.matches("\\b([\\p{L}\\-'.,]+[ ]*)+")) 
-			throw new IllegalArgumentException("Naam ongeldig.");
+		if (naam == null || naam.isBlank()) 
+			throw new IllegalArgumentException("Bedrijfsnaam mag niet leeg zijn");
+		
+		if (!naam.matches("\\b([\\p{L}\\-'.,]+[ ]*)+")) 
+			throw new IllegalArgumentException("Bedrijfsnaam is ongeldig");
 		this.naam = naam;
 	}
 	
 	private void setLogo(String logo) {
+		if (logo == null || logo.isBlank()) 
+			throw new IllegalArgumentException("Bedrijfslogo mag niet leeg zijn");
 		this.logo = logo;
 	}
 	
 	private void setSector(String sector) {
-		if (sector.isBlank())
-			throw new IllegalArgumentException("Sector ongeldig.");
+		if (sector == null || sector.isBlank())
+			throw new IllegalArgumentException("Sector van het bedrijf mag niet leeg zijn");
 		this.sector = sector;
 	}
 	
 	private void setAdres(Adres adres) {
 		if (adres == null)
-			throw new IllegalArgumentException("Adres ongeldig.");
+			throw new IllegalArgumentException("Adres van het bedrijf is ongeldig");
 		this.adres = adres;
 	}
 	
 	private void setBetalingsMogelijkhedenEnInfo(String betalingsmogelijkhedenEnInfo) {
 		if (betalingsmogelijkhedenEnInfo.isBlank())
-			throw new IllegalArgumentException("Betalingsmogelijkheden en -info ongeldig.");
+			throw new IllegalArgumentException("Betalingsmogelijkheden en -info ongeldig");
 		this.betalingsmogelijkhedenEnInfo = betalingsmogelijkhedenEnInfo;
 	}
 	
-	private void setEmail(String contact) {
-		if (contact == null || contact.isBlank())
-			throw new IllegalArgumentException("Email ongeldig.");
+	private void setEmail(String email) {
+		if (email == null || email.isBlank())
+			throw new IllegalArgumentException("Emailadres mag niet leeg zijn");
 		
-		this.emailadres = contact;
+		String emailRegex = "^[a-zA-Z0-9]+\\.?[a-zA-Z0-9]*@[a-zA-Z]+\\.[a-zA-Z]+$";
+	    if (email.matches(emailRegex)) {
+	        throw new IllegalArgumentException("Emailadres van het bedrijf is ongeldig");
+	    }
+		
+		this.emailadres = email;
 	}
 
 	private void setTelefoon(String telefoon) {
 		if (telefoon == null || telefoon.isBlank())
-			throw new IllegalArgumentException("Telefoon ongeldig.");
+			throw new IllegalArgumentException("Telefoonnummer van het bedrijf mag niet leeg zijn");
 		
 		this.telefoonnummer = telefoon;
 		
@@ -136,7 +146,7 @@ public class Bedrijf implements Serializable {
 	
 	private void setBtwNr(String btwNr) {
 		if (btwNr == null || btwNr.isBlank())
-			throw new IllegalArgumentException("Btw nummer ongeldig.");
+			throw new IllegalArgumentException("BTW nummer mag niet leeg zijn");
 		
 		this.btwNr = btwNr;
 	}

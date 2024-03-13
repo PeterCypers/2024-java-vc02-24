@@ -20,7 +20,7 @@ public class KlantBeheerder {
 	
 	//sort op String naam (er is ook een SimpleStringProperty naamKlant)
 	private final Comparator<Klant> opNaam = (k1, k2)
-			-> k1.getName().compareToIgnoreCase(k2.getName());
+			-> k1.getNaam().compareToIgnoreCase(k2.getNaam());
 
 	//TODO extra sorteringen -> zie BestellingBeheerder
 			
@@ -46,7 +46,7 @@ public class KlantBeheerder {
 			
 			//filter text
 			String lowerCaseValue = filterValue.toLowerCase();
-			return klant.getName().toLowerCase().equals(lowerCaseValue) 
+			return klant.getNaam().toLowerCase().equals(lowerCaseValue) 
 					|| Integer.toString(klant.getAantalOpenstaandeBestellingen(leverancier)).equals(filterValue);
 			
 		});

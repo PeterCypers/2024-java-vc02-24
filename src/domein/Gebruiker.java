@@ -71,74 +71,73 @@ public class Gebruiker implements Serializable {
 		this.adres = adres;
 	}
 	
-	private void setNaam(String naam) {
-		if (naam == null || naam.isBlank()) {
-			throw new IllegalArgumentException("Gebruikersnaam mag niet leeg zijn!");
-		}
-		
-		this.naam = naam;
-	}
-	
 	public String getNaam() {
 		return naam;
 	}
 	
-	private void setEmail(String email) {
-		if (email == null || email.isBlank()) {
-			throw new IllegalArgumentException("Emailadres mag niet leeg zijn!");
+	private void setNaam(String naam) {
+		if (naam == null || naam.isBlank()) {
+			throw new IllegalArgumentException("Gebruikersnaam mag niet leeg zijn");
 		}
 		
-		String emailRegex = "^[a-zA-Z0-9]+\\.?[a-zA-Z0-9]*@[a-zA-Z]+\\.[a-zA-Z]+$";
-	    if (!email.matches(emailRegex)) {
-	        throw new IllegalArgumentException("Ongeldig e-mailadres!");
-	    }
-	    
-	    this.emailadres = email;
+		this.naam = naam;
 	}
 	
 	public String getEmail() {
 		return emailadres;
 	}
 	
-	private void setWachtwoord(String wachtwoord) {
-		if (wachtwoord == null || wachtwoord.isBlank()) {
-			throw new IllegalArgumentException("Wachtwoord mag niet leeg zijn!");
+	private void setEmail(String email) {
+		if (email == null || email.isBlank()) {
+			throw new IllegalArgumentException("Emailadres van de gebruiker mag niet leeg zijn");
 		}
 		
-		if (wachtwoord.chars().anyMatch(c -> c == ' ')) {
-			throw new IllegalArgumentException("Ongeldig wachtwoord!");
-		}
-		
-		this.wachtwoord = wachtwoord;
+		String emailRegex = "^[a-zA-Z0-9]+\\.?[a-zA-Z0-9]*@[a-zA-Z]+\\.[a-zA-Z]+$";
+	    if (!email.matches(emailRegex)) {
+	        throw new IllegalArgumentException("Emailadres van de gebruiker is ongeldig");
+	    }
+	    
+	    this.emailadres = email;
 	}
 	
 	public String getWachtwoord() {
 		return this.wachtwoord;
 	}
 	
-	//public setter
-	public void setRol(Rol rol) {
-		this.rol = rol;
+	private void setWachtwoord(String wachtwoord) {
+		if (wachtwoord == null || wachtwoord.isBlank()) {
+			throw new IllegalArgumentException("Wachtwoord van de gebruiker mag niet leeg zijn");
+		}
+		
+		if (wachtwoord.contains(" ")) {
+			throw new IllegalArgumentException("Wachtwoord van de gebruiker is ongeldig");
+		}
+		
+		this.wachtwoord = wachtwoord;
 	}
 	
 	public Rol getRol() {
 		return rol;
 	}
 	
-	public void setIsActief(boolean isActief) {
-		this.isActief = isActief;
+	public void setRol(Rol rol) {
+		this.rol = rol;
 	}
-
+	
 	public boolean getIsActief() {
 		return isActief;
 	}
 	
-	public void setBestellingen(List<Bestelling> bestellingen) {
-		this.bestellingen = bestellingen;
+	public void setIsActief(boolean isActief) {
+		this.isActief = isActief;
 	}
 	
 	public List<Bestelling> getBestellingen() {
 		return bestellingen.stream().collect(Collectors.toUnmodifiableList());
+	}
+	
+	public void setBestellingen(List<Bestelling> bestellingen) {
+		this.bestellingen = bestellingen;
 	}
 	
 	//Voor tableView

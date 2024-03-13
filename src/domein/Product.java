@@ -33,8 +33,6 @@ public class Product implements Serializable {
 	
 	private double eenheidsprijs;
 	
-	private double totalePrijs;
-	
 	@Enumerated(EnumType.STRING)
 	private Stock inStock;
 	
@@ -58,59 +56,49 @@ public class Product implements Serializable {
 		setAantal(aantal);
 		setInStock(inStock);
 		setEenheidsprijs(eenheidsprijs);
-		berekenTotalePrijs(aantal, eenheidsprijs);
 	}
 	
-	private void berekenTotalePrijs(int aantal, double eenheidsprijs) {
-		totalePrijs = aantal * eenheidsprijs;
+	public String getNaam() {
+	    return naam;
 	}
 	
-	//getters
-	public double getTotalePrijs() {
-		return totalePrijs;
-	}
-
-	//setters
 	private void setNaam(String naam) {
 		if(naam == null || naam.isBlank())
-			throw new IllegalArgumentException("Naam product incorrect");
+			throw new IllegalArgumentException("Productsnaam mag niet leeg zijn");
 		
 		this.naam = naam;
 	}
 	
-
+	public int getAantal() {
+	    return aantal;
+	}
+	
 	private void setAantal(int aantal) {
 		if (aantal < 0)
-			throw new IllegalArgumentException("Aantal moet positief zijn");
+			throw new IllegalArgumentException("Aantal van een product moet positief zijn");
 		this.aantal = aantal;
+	}
+	
+	public Stock isInStock() {
+	    return inStock;
 	}
 	
 	private void setInStock(Stock inStock) {
 		this.inStock = inStock;
 	}
 	
-	private void setEenheidsprijs(Double eenheidsprijs) {
-		if (eenheidsprijs <= 0)
-			throw new IllegalArgumentException("Eenheidsprijs moet strikt positief zijn");
-		this.eenheidsprijs = eenheidsprijs;
-	}
-	public Double getTotaalPrijs(){
-		return aantal * eenheidsprijs;
-	}
-	public String getNaam() {
-	    return naam;
-	}
-
-	public int getAantal() {
-	    return aantal;
-	}
-
 	public double getEenheidsprijs() {
 	    return eenheidsprijs;
 	}
 	
-	public Stock isInStock() {
-	    return inStock;
+	private void setEenheidsprijs(Double eenheidsprijs) {
+		if (eenheidsprijs <= 0)
+			throw new IllegalArgumentException("Eenheidsprijs van een product moet strikt positief zijn");
+		this.eenheidsprijs = eenheidsprijs;
+	}
+
+	public double getTotalePrijs(){
+		return aantal * eenheidsprijs;
 	}
 	
 	//Voor tableView
@@ -135,12 +123,12 @@ public class Product implements Serializable {
 	}
 	
 	public DoubleProperty totalePrijsProperty() {
-		totaalPrijs.set(totalePrijs);
+		totaalPrijs.set(getTotalePrijs());
 		return totaalPrijs;
 	}
 	
 	public String toString() {
-		return String.format("%s, %d, %s, %.2f, %.2f", naam, aantal, inStock, eenheidsprijs, totalePrijs);
+		return String.format("%s, %d, %s, %.2f, %.2f", naam, aantal, inStock, eenheidsprijs, getTotalePrijs());
 	}
 
 }

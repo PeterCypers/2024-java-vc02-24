@@ -31,7 +31,7 @@ public class GebruikerServiceDbImpl implements GebruikerService {
 		Gebruiker gebruiker = gebruikerDao.meldAan(emailadres, wachtwoord);
 		
 		if (!gebruiker.getIsActief()) {
-			throw new IllegalArgumentException("Deze gebruiker is gedeactiveerd.");
+			throw new IllegalArgumentException("Deze gebruiker werd gedeactiveerd");
 		}
 		
 		return gebruiker;

@@ -24,7 +24,7 @@ public class PopulateDb {
 		bedrijfData.forEach((b) -> {
 			// Controle op data
 			System.out.println(b.getNaam());
-			System.out.println("- " + b.getKlant().getName() + "- " + b.getKlantGebruiker().getNaam() + "- " + b.getLeverancierGebruiker().getNaam());
+			System.out.println("- " + b.getKlant().getNaam() + "- " + b.getKlantGebruiker().getNaam() + "- " + b.getLeverancierGebruiker().getNaam());
 			b.getLeverancierGebruiker().getBestellingen().forEach(bes -> {
 				System.out.println(" -> " + bes.getOrderId());
 			});
@@ -100,29 +100,29 @@ public class PopulateDb {
 		List<Gebruiker> gebruikers = Arrays.asList(
 				new Gebruiker(Rol.ADMINISTRATOR, "joris@outlook.com", "1234", "Joris", 			true, adressen[0]),
 				new Gebruiker(Rol.LEVERANCIER, 	"mark@outlook.be", "1234", "Mark", 				true, adressen[1]),
-				new Gebruiker(Rol.KLANT, 		"mark@outlook.be", "1234", "Mark", 				true, adressen[1]),
+				new Gebruiker(Rol.KLANT, 		"michel@outlook.be", "1234", "Michel", 			true, adressen[1]),
 				new Gebruiker(Rol.LEVERANCIER, 	"mike@gmail.com", "1234", "Mike", 				true, adressen[2]),
-				new Gebruiker(Rol.KLANT, 		"mike@gmail.com", "1234", "Mike", 				true, adressen[2]),
+				new Gebruiker(Rol.KLANT, 		"jake@gmail.com", "1234", "Jake", 				true, adressen[2]),
 				new Gebruiker(Rol.LEVERANCIER, 	"julia@web.de", "1234", "Julia", 				true, adressen[3]),
-				new Gebruiker(Rol.KLANT, 		"julia@web.de", "1234", "Julia", 				true, adressen[3]),
+				new Gebruiker(Rol.KLANT, 		"kurt@web.de", "1234", "Kurt", 					true, adressen[3]),
 				new Gebruiker(Rol.LEVERANCIER, 	"kim@gmail.com", "1234", "Kim", 				true, adressen[4]),
-				new Gebruiker(Rol.KLANT, 		"kim@gmail.com", "1234", "Kim", 				true, adressen[4]),
+				new Gebruiker(Rol.KLANT, 		"laura@gmail.com", "1234", "Laura", 			true, adressen[4]),
 				new Gebruiker(Rol.LEVERANCIER, 	"christophe@outlook.com", "1234", "Christophe", true, adressen[5]),
-				new Gebruiker(Rol.KLANT, 		"christophe@outlook.com", "1234", "Christophe", true, adressen[5]),
+				new Gebruiker(Rol.KLANT, 		"jean@outlook.com", "1234", "Jean",				true, adressen[5]),
 				new Gebruiker(Rol.LEVERANCIER, 	"matilda@outlook.com", "1234", "Matilda", 		true, adressen[6]),
-				new Gebruiker(Rol.KLANT, 		"matilda@outlook.com", "1234", "Matilda", 		true, adressen[6]),
+				new Gebruiker(Rol.KLANT, 		"erik@outlook.com", "1234", "Erik", 			true, adressen[6]),
 				new Gebruiker(Rol.LEVERANCIER, 	"francesca@outlook.com", "1234", "Francesca", 	true, adressen[7]),
-				new Gebruiker(Rol.KLANT, 		"francesca@outlook.com", "1234", "Francesca", 	true, adressen[7])
+				new Gebruiker(Rol.KLANT, 		"sandra@outlook.com", "1234", "Sandra", 		true, adressen[7])
 		);
 		
 		List<Klant> klanten = Arrays.asList(
-				new Klant("Mark", "https://logodix.com/logo/2066282.png", 		"+32974178174", "mark@outlook.be", adressen[1]),
-				new Klant("Mike", "https://logodix.com/logo/4934.png",			"(212)912-0384", "mike@gmail.com", adressen[2]),
-				new Klant("Julia", "https://logodix.com/logo/9541.png",	 		"+496591799946", "julia@web.de", adressen[3]),
-				new Klant("Kim", "https://logodix.com/logo/420832.png", 		"+31659267802", "kim@gmail.com", adressen[4]),
-				new Klant("Christophe", "https://logodix.com/logo/9436.png", 	"+33124311738", "christophe@outlook.com", adressen[5]),
-				new Klant("Matilda", "https://logodix.com/logo/470339.png", 	"+462252869831", "matilda@outlook.com", adressen[6]),
-				new Klant("Francesca", "https://logodix.com/logo/7528.jpg", 	"+393713432912", "francesca@outlook.com", adressen[7])
+				new Klant("Stella Artois", "https://logodix.com/logo/2066282.png", 		"+32974178174", "mark@outlook.be", adressen[1]),
+				new Klant("Hewlett-Packard", "https://logodix.com/logo/4934.png",			"(212)912-0384", "mike@gmail.com", adressen[2]),
+				new Klant("Bosch", "https://logodix.com/logo/9541.png",	 		"+496591799946", "julia@web.de", adressen[3]),
+				new Klant("Ahold Delhaize", "https://logodix.com/logo/420832.png", 		"+31659267802", "kim@gmail.com", adressen[4]),
+				new Klant("Peugeot", "https://logodix.com/logo/9436.png", 	"+33124311738", "christophe@outlook.com", adressen[5]),
+				new Klant("Ikea", "https://logodix.com/logo/470339.png", 	"+462252869831", "matilda@outlook.com", adressen[6]),
+				new Klant("Giorgio Armani", "https://logodix.com/logo/7528.jpg", 	"+393713432912", "francesca@outlook.com", adressen[7])
 		);
 		
 		List<List<Bestelling>> bestellingen = Arrays.asList(
