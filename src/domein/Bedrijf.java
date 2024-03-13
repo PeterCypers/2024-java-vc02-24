@@ -68,7 +68,7 @@ public class Bedrijf implements Serializable {
 	@Transient
 	private final SimpleStringProperty sectorProp = new SimpleStringProperty();
 	@Transient
-	private final ObjectProperty<Adres> adresProp = new SimpleObjectProperty<>(this, "adresProp");
+	private final SimpleStringProperty adresProp = new SimpleStringProperty();
 	@Transient
 	private final SimpleIntegerProperty aantalKlantenProp = new SimpleIntegerProperty();
 	@Transient
@@ -223,8 +223,8 @@ public class Bedrijf implements Serializable {
 		return sectorProp;
 	}
 
-	public ObjectProperty<Adres> getAdresProp() {
-		this.adresProp.set(this.adres);
+	public StringProperty getAdresProp() {
+		this.adresProp.set(this.adres.toString());
 		return adresProp;
 	}
 

@@ -82,5 +82,9 @@ public class Adres {
 	public String toStringLijn2() {
 		return String.format("%s %s %s", stad, postcode, land);
 	}
+	
+	public String toString() {
+		return String.format("%s %s %s %s %s", straat, straatNr, stad, postcode, land);
+	}
 
 }

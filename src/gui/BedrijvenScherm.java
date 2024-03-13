@@ -51,7 +51,7 @@ public class BedrijvenScherm {
 	private TableColumn<Bedrijf, String> tbcSector;
 
 	@FXML
-	private TableColumn<Bedrijf, Adres> tbcAdres;
+	private TableColumn<Bedrijf, String> tbcAdres;
 
 	@FXML
 	private TableColumn<Bedrijf, Number> tbcAantalKlanten;
