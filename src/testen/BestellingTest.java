@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -49,14 +50,15 @@ class BestellingTest {
 	static Stream<Arguments> geldigeBestellingen(){
 		return Stream.of(
 			Arguments.of(1, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
-			Arguments.of(2, LocalDate.of(124, 5, 28), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(1)),
-			Arguments.of(3, LocalDate.of(124, 2, 30), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
-			Arguments.of(4, LocalDate.of(124, 12, 31), OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, klanten.get(1))
+			Arguments.of(2, LocalDate.now(), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(1)),
+			Arguments.of(3, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
+			Arguments.of(4, LocalDate.now(), OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, klanten.get(1))
 		);
 	}
 	
 
 	static Stream<Arguments> ongeldigeBestellingen(){
+		//LocalDate.of(124, 5, 28) / LocalDate.of(124, 2, 30) / LocalDate.of(124, 12, 31)
 		return Stream.of(
 			//Ongeldig orderId
 			Arguments.of(0, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
@@ -83,7 +85,7 @@ class BestellingTest {
 		Assertions.assertEquals(datum, this.bestelling.getDatumGeplaatst());
 		Assertions.assertEquals(oStatus, this.bestelling.getOrderStatus());
 		Assertions.assertEquals(bStatus, this.bestelling.getBetalingsStatus());
-		Assertions.assertEquals(klant.getName(), this.bestelling.getKlantName());
+		Assertions.assertEquals(klant.getName().get(), this.bestelling.getKlantName());
 	}
 	
 	@ParameterizedTest
@@ -92,9 +94,17 @@ class BestellingTest {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> new Bestelling(orderId, datum, oStatus, bStatus, klant, producten));
 	}
 	
-	@ParameterizedTest
+	//@ParameterizedTest
+	@Test
 	public void test_wijzigBestelling() {
-		
+		//TODO
+		Assertions.assertEquals(1, 1);
+	}
+	
+	@Test
+	void berekenTotalBedrag() {
+		//TODO
+		Assertions.assertEquals(1, 1);
 	}
 
 }

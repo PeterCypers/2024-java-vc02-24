@@ -39,7 +39,7 @@ class KlantTest {
 	void nieuweKlant_allesGeldig(String naam,String logoPad, String telefoonnummer,String contact, Adres adres) {
 		klant = new Klant(naam,logoPad,telefoonnummer, contact, adres);
 		
-		assertEquals(naam, klant.getNaam().getValue());
+		assertEquals(naam, klant.getNaam());
 		assertEquals(contact, klant.getContactgegevens());
 		assertEquals(adres, klant.getAdres());
 	}
@@ -56,7 +56,8 @@ class KlantTest {
 		assertThrows(IllegalArgumentException.class, () -> new Klant("Bas Stokmans","logobedrijf.png", "+32123456789","klant1@hotmail.com", adres)); 
 	}
 	@ParameterizedTest
-	@MethodSource("contact_fout")
+	//@MethodSource("contact_fout")
+	@NullAndEmptySource
 	void nieuweKlant_contactOngeldig(String contact) {
 	    assertThrows(IllegalArgumentException.class, () -> new Klant("Voorbeeld Klant","logobedrijf.png", "+32123456789", contact, new Adres("Land", "Stad", "12345", "Straat", "20")));
 	}

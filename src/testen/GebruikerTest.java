@@ -81,7 +81,6 @@ public class GebruikerTest {
 	public void test_GebruikerAanmaken_verkeerdeGegevens(String email, String wachtwoord, String naam) {
 		assertThrows(IllegalArgumentException.class, 
 				() -> new Gebruiker(
-						5, 
 						Rol.LEVERANCIER, 
 						email, 
 						wachtwoord,
@@ -129,11 +128,11 @@ public class GebruikerTest {
 	/*********/
 	
 	static List<Gebruiker> gebruikers = Arrays.asList(
-			new Gebruiker(1, Rol.LEVERANCIER, "eerste@hotmail.com", "1234", "Jasper Vandenbroucke", true, new Adres("Land", "Stad", "1234", "Straat", "1")),
-			new Gebruiker(2, Rol.LEVERANCIER, "tweede@hotmail.com", "1234", "Tiemen Deroose", true, new Adres("Land", "Stad", "1234", "Straat", "1")),
-			new Gebruiker(3, Rol.LEVERANCIER, "derde@hotmail.com", "1234", "Mohisha Van Damme", true, new Adres("Land", "Stad", "1234", "Straat", "1")),
-			new Gebruiker(4, Rol.LEVERANCIER, "vierde@hotmail.com", "1234", "Peter Cypers", true, new Adres("Land", "Stad", "1234", "Straat", "1")),
-			new Gebruiker(5, Rol.LEVERANCIER, "vijfde@hotmail.com", "1234", "Bas Stokmans", true, new Adres("Land", "Stad", "1234", "Straat", "1"))
+			new Gebruiker(Rol.LEVERANCIER, "eerste@hotmail.com", "1234", "Jasper Vandenbroucke", true, new Adres("Land", "Stad", "1234", "Straat", "1")),
+			new Gebruiker(Rol.LEVERANCIER, "tweede@hotmail.com", "1234", "Tiemen Deroose", true, new Adres("Land", "Stad", "1234", "Straat", "1")),
+			new Gebruiker(Rol.LEVERANCIER, "derde@hotmail.com", "1234", "Mohisha Van Damme", true, new Adres("Land", "Stad", "1234", "Straat", "1")),
+			new Gebruiker(Rol.LEVERANCIER, "vierde@hotmail.com", "1234", "Peter Cypers", true, new Adres("Land", "Stad", "1234", "Straat", "1")),
+			new Gebruiker(Rol.LEVERANCIER, "vijfde@hotmail.com", "1234", "Bas Stokmans", true, new Adres("Land", "Stad", "1234", "Straat", "1"))
 	);
 	
 	static Stream<Arguments> onbekendeLogin() {
@@ -158,9 +157,9 @@ public class GebruikerTest {
 	
 	static Stream<Gebruiker> gebruikers(){
 		return Stream.of(
-				new Gebruiker(7, Rol.LEVERANCIER, "test@hotmail.com", "1234", "Test Persoon", true, new Adres("Land", "Stad", "1234", "Straat", "1")),
-				new Gebruiker(8, Rol.KLANT, "test2@hotmail.com", "1234", "Test Persoon2", true, new Adres("Land", "Stad", "1234", "Straat", "1")),
-				new Gebruiker(9, Rol.ADMINISTRATOR, "test3@gmail.com", "1234", "Test Persoon3", true, new Adres("Land", "Stad", "1234", "Straat", "1"))
+				new Gebruiker(Rol.LEVERANCIER, "test@hotmail.com", "1234", "Test Persoon", true, new Adres("Land", "Stad", "1234", "Straat", "1")),
+				new Gebruiker(Rol.KLANT, "test2@hotmail.com", "1234", "Test Persoon2", true, new Adres("Land", "Stad", "1234", "Straat", "1")),
+				new Gebruiker(Rol.ADMINISTRATOR, "test3@gmail.com", "1234", "Test Persoon3", true, new Adres("Land", "Stad", "1234", "Straat", "1"))
 		);
 	}
 	
@@ -186,7 +185,7 @@ public class GebruikerTest {
 	@MethodSource("inactieveLogin")
 	public void test_meldGebruikerAan_inactieveGebruiker(String email, String wachtwoord, boolean isActief, Rol rol) {
 		Mockito.when(gebruikerDaoJpaMock.meldAan(email, wachtwoord)).thenReturn(
-				new Gebruiker(1, rol, email, wachtwoord, "Test persoon", isActief, 
+				new Gebruiker(rol, email, wachtwoord, "Test persoon", isActief, 
 						new Adres("Land", "Stad", "1234", "Straat", "1"))
 		);
 		
@@ -197,7 +196,7 @@ public class GebruikerTest {
 	@MethodSource("klantLogin")
 	public void test_meldGebruikerAan_klantLogin(String email, String wachtwoord, boolean isActief, Rol rol) {
 		Mockito.when(gebruikerDaoJpaMock.meldAan(email, wachtwoord)).thenReturn(
-				new Gebruiker(1, rol, email, wachtwoord, "Test persoon", isActief, 
+				new Gebruiker(rol, email, wachtwoord, "Test persoon", isActief, 
 						new Adres("Land", "Stad", "1234", "Straat", "1"))
 		);
 		

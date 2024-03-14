@@ -34,13 +34,16 @@ public class BestellingBeheerder {
 			
 	private final Comparator<Bestelling> orderSorted = bijDatum.thenComparing(bijOrderId)
 			.thenComparing(bijKlant).thenComparing(bijOrderStatus).thenComparing(bijBetalingStatus);
-	
-	
-	public BestellingBeheerder(Gebruiker leverancier) {
-		bestellingService = new BestellingServiceDbImpl();
+	//Mockito-injection
+	public BestellingBeheerder(Gebruiker leverancier, BestellingService bs) {
+		bestellingService = bs;
 		bestellingen = FXCollections.observableArrayList(bestellingService.getBestellingen(leverancier));
 		filteredBestellingen = new FilteredList<>(bestellingen, b -> true);     
         sortedBestellingen = new SortedList<>(filteredBestellingen, orderSorted);
+	}
+	
+	public BestellingBeheerder(Gebruiker leverancier) {
+		this(leverancier, new BestellingServiceDbImpl());
 	}
 	
 	public ObservableList<Bestelling> getBestellingen() {
