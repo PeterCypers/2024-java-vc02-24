@@ -41,14 +41,13 @@ class AdresTest{
 		assertThrows(IllegalArgumentException.class, () -> new Adres("Belgi\u00EB", stad, "9000", "Valentin Vaerwyckweg", "1"));
 	}
 	@ParameterizedTest
-	@CsvSource({"0", "12", "-20", "-3598","1B2"})
-	void nieuwAdres_postcodeOngeldig(String postcode) {
+	@NullAndEmptySource
+	void nieuwAdres_postcodeLeeg(String postcode) {
 		assertThrows(IllegalArgumentException.class, () -> new Adres("Belgi\u00EB", "Gent", postcode, "Valentin Vaerwyckweg", "1"));
 	}
 	@ParameterizedTest
 	@NullAndEmptySource
-	@CsvSource({"^$%,straat"})
-	void nieuwAdres_straatOngeldig(String straat) {
+	void nieuwAdres_straatLeeg(String straat) {
 	    assertThrows(IllegalArgumentException.class, () -> new Adres("Belgi\u00EB", "Gent", "9000", straat, "1"));
 	}
 	

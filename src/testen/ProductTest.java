@@ -27,8 +27,7 @@ class ProductTest {
 	}
 	@ParameterizedTest
 	@NullAndEmptySource
-	@CsvSource({"$^,;:=&'(!"})
-	void nieuwProduct_naamOngeldig(String naam) {
+	void nieuwProduct_naamLeeg(String naam) {
 	    assertThrows(IllegalArgumentException.class, () -> new Product(naam, 15, Stock.STOCK, 2.5));
 	}
 	

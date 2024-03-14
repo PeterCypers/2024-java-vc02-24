@@ -59,16 +59,17 @@ class KlantenRaadplegenTest {
 	private Gebruiker gebruiker = new Gebruiker(Rol.LEVERANCIER, "jasper.vandenbroucke@hotmail.com", "1234", 
 			"Jasper Vandenbroucke", true, new Adres("België", "Gent", "9000", "Veldstraat", "56"));
 	
-	@ParameterizedTest
-	@CsvSource({"Bas Stokmans", "Tiemen Deroose"})
-	public void test_raadplegenKlanten(String verwachteNaam) {
+	@Test
+	public void test_raadplegenKlanten() {
 		Mockito.when(klantDaoJpa.vindPerLeverancier(gebruiker)).thenReturn(klanten);
 
 		List<Klant> klanten = klantServiceDbImpl.getKlanten(gebruiker);
+
 		Assertions.assertTrue(klanten.size() != 0);
-		Assertions.assertEquals(verwachteNaam, klanten.get(0).getName().get());
-		Assertions.assertEquals(verwachteNaam, klanten.get(1).getName().get());
-		
+
+		Assertions.assertEquals("Bas Stokmans", klanten.get(0).getName().get());
+		Assertions.assertEquals("Tiemen Deroose", klanten.get(1).getName().get());
+
 		Mockito.verify(klantDaoJpa).vindPerLeverancier(gebruiker);
 	}
 }
