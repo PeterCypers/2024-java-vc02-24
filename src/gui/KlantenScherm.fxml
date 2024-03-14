@@ -15,18 +15,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="620.0" minWidth="940.0" style="-fx-background-color: F0EFEF; -fx-background-image: url=(@../images/backgroundLeveransier.png)" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane minHeight="630.0" minWidth="1054.0" style="-fx-background-color: F0EFEF; -fx-background-image: url=(@../images/backgroundLeveransier.png)" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <Label text="Klanten raadplegen" BorderPane.alignment="CENTER_LEFT">
          <font>
             <Font size="20.0" />
          </font>
+         <padding>
+            <Insets left="2.0" />
+         </padding>
       </Label>
    </top>
    <center>
-      <VBox minHeight="550.0" minWidth="800.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <VBox minHeight="600.0" minWidth="1054.0" spacing="5.0" styleClass="background-Leverancier" stylesheets="@../images/style.css" BorderPane.alignment="CENTER">
          <children>
-            <GridPane minHeight="500.0" minWidth="800.0">
+            <GridPane hgap="10.0" minHeight="600.0" minWidth="1054.0" vgap="5.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" />
@@ -54,7 +57,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="tbvOverzichtKlanten" style="-fx-background-color: FFFFFF;" GridPane.rowIndex="2">
+                  <TableView fx:id="tbvOverzichtKlanten" style="-fx-background-color: transparent;" GridPane.rowIndex="2">
                     <columns>
                       <TableColumn fx:id="tbcNaam" prefWidth="122.39999389648438" text="Naam" />
                       <TableColumn fx:id="tbcAantalOpenstaand" prefWidth="164.80001831054688" text="Openstaande bestellingen" />
@@ -63,7 +66,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <GridPane fx:id="gpDetailsKlant" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <GridPane fx:id="gpDetailsKlant" style="-fx-border-color: AAA9A9;" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="108.0" prefWidth="110.0" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="166.0" prefWidth="168.0" />
@@ -79,27 +82,48 @@
                         <RowConstraints maxHeight="30.0" minHeight="25.0" prefHeight="28.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Naam:" />
-                        <Label text="Logo: " GridPane.rowIndex="1" />
-                        <Label text="Adres:" GridPane.rowIndex="3" />
-                        <Label text="Contactgegevens:" GridPane.rowIndex="5" />
+                        <Label text="Naam:">
+                           <GridPane.margin>
+                              <Insets left="2.0" />
+                           </GridPane.margin></Label>
+                        <Label text="Logo: " GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="2.0" />
+                           </GridPane.margin></Label>
+                        <Label text="Adres:" GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets left="2.0" />
+                           </GridPane.margin></Label>
+                        <Label text="Contactgegevens:" GridPane.rowIndex="5">
+                           <GridPane.margin>
+                              <Insets left="2.0" />
+                           </GridPane.margin></Label>
                         <Label text="E-mailadres:" GridPane.rowIndex="6">
                            <padding>
                               <Insets left="10.0" />
-                           </padding></Label>
+                           </padding>
+                           <GridPane.margin>
+                              <Insets left="2.0" />
+                           </GridPane.margin></Label>
                         <Label text="Telefoonnummer:" GridPane.rowIndex="7">
                            <padding>
                               <Insets left="10.0" />
-                           </padding></Label>
-                        <ImageView fx:id="imgvLogo" fitHeight="110.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
-                        <TextField fx:id="txfNaam" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" />
-                        <TextField fx:id="txfAdresLijn1" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="txfAdresLijn2" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="txfEmail" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField fx:id="txfTelefoonnummer" editable="false" style="-fx-background-color: FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets left="2.0" />
+                           </GridPane.margin></Label>
+                        <ImageView fx:id="imgvLogo" fitHeight="110.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="2.0" />
+                           </GridPane.margin></ImageView>
+                        <TextField fx:id="txfNaam" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" />
+                        <TextField fx:id="txfAdresLijn1" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="txfAdresLijn2" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="txfEmail" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="txfTelefoonnummer" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                      </children>
                   </GridPane>
-                  <TableView fx:id="tbvBestellingen" style="-fx-background-color: FFFFFF;" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <TableView fx:id="tbvBestellingen" style="-fx-background-color: transparent;" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2">
                     <columns>
                       <TableColumn fx:id="tbcOrderId" prefWidth="75.0" text="Order Id" />
                       <TableColumn fx:id="tbcDatum" prefWidth="75.0" text="Datum" />
@@ -129,6 +153,9 @@
                </children>
             </GridPane>
          </children>
+         <opaqueInsets>
+            <Insets left="2.0" />
+         </opaqueInsets>
       </VBox>
    </center>
 </BorderPane>

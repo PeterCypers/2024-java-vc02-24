@@ -1,0 +1,38 @@
+.table-row-cell:selected {
+   -fx-background-color: B73E3E;
+   -fx-text-fill: FFFFFF;
+}
+
+.background-Leverancier {
+	-fx-background-image: url("backgroundLeveransier.png");
+	-fx-background-size: 95%;
+}
+
+.background-Admin {
+	-fx-background-image: url("backgroundAdmin.png");
+	-fx-background-size: 95%;
+}
+
+/* Menu bar */
+.menu:showing {
+	-fx-background-color: ED463C;
+}
+
+/* Change the link color to FF6464 on hover */
+.menu:hover {
+  -fx-background-color: FF6464;
+}
+
+.button{
+	-fx-border-color: none;
+	-fx-backgroun-color: FFFFFF;
+	
+}
+
+.button:hover {
+    -fx-background-color: FF6464;
+ }
+ 
+.button:pressed {
+	-fx-background-color: ED463C;
+}

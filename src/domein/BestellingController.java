@@ -33,8 +33,8 @@ public class BestellingController {
 	public void getFilterdList(String zoekterm) {
 		bestellingBeheerder.changeFilter(zoekterm);
 	}
-	public void updateBestelling(Bestelling bestelling) {
-	    
+	
+	public void updateBestelling(Bestelling bestelling) {    
 	    bestellingService.updateBestelling(bestelling);
 	    // Mogelijk wil je de UI of een lijst met bestellingen updaten na de wijziging
 	}
