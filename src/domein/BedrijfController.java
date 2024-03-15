@@ -6,7 +6,7 @@ public class BedrijfController {
 	
 	private BedrijfBeheerder bedrijfBeheerder;
 	
-	public BedrijfController(Gebruiker gebruiker) {
+	public BedrijfController() {
 		this.bedrijfBeheerder = new BedrijfBeheerder();
 	}
 	

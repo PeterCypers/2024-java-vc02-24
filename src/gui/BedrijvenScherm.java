@@ -7,6 +7,7 @@ import domein.Adres;
 import domein.Bedrijf;
 import domein.BedrijfController;
 import domein.Gebruiker;
+import domein.GebruikerHolder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -150,7 +151,7 @@ public class BedrijvenScherm {
 
 	public BedrijvenScherm(AdminSchermController adminSchermController) {
 		this.adminSchermController = adminSchermController;
-		bc = new BedrijfController(adminSchermController.getGebruiker());
+		bc = new BedrijfController();
 		buildGui();
 	}
 	

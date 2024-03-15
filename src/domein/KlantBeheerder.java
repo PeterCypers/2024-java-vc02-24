@@ -16,21 +16,18 @@ public class KlantBeheerder {
 	
 	private KlantService klantService;
 	
-	private Gebruiker leverancier;
-	
 	//sort op String naam (er is ook een SimpleStringProperty naamKlant)
 	private final Comparator<Klant> opNaam = (k1, k2)
 			-> k1.getNaam().compareToIgnoreCase(k2.getNaam());
 
 	//TODO extra sorteringen -> zie BestellingBeheerder
 			
-	public KlantBeheerder(Gebruiker leverancier) {
+	public KlantBeheerder() {
 		klantService = new KlantServiceDbImpl();
-		klanten = FXCollections.observableArrayList(klantService.getKlanten(leverancier));
+		klanten = FXCollections.observableArrayList(klantService.getKlanten(GebruikerHolder.getInstance()));
 		filteredKlanten = new FilteredList<>(klanten, k -> true);
 		sortedKlanten = new SortedList<>(filteredKlanten, opNaam);
 		
-		this.leverancier = leverancier;
 	}
 	
 	public ObservableList<Klant> getKlanten() {
@@ -47,7 +44,7 @@ public class KlantBeheerder {
 			//filter text
 			String lowerCaseValue = filterValue.toLowerCase();
 			return klant.getNaam().toLowerCase().equals(lowerCaseValue) 
-					|| Integer.toString(klant.getAantalOpenstaandeBestellingen(leverancier)).equals(filterValue);
+					|| Integer.toString(klant.getAantalOpenstaandeBestellingen(GebruikerHolder.getInstance())).equals(filterValue);
 			
 		});
 	}

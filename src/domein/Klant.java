@@ -162,7 +162,10 @@ public class Klant implements Serializable {
 	public int getAantalOpenstaandeBestellingen(Gebruiker leverancier) {
 		return getOpenstaandeBestellingen(leverancier).size();
 	}
-	
+	/**
+	 * @param leverancier = singleton aangemeldeGebruiker
+	 * @return ObservableList<Bestelling> van bestellingen van deze leverancier
+	 */
 	public ObservableList<Bestelling> getObservableListBestellingen(Gebruiker leverancier) {
 		ObservableList<Bestelling> bestellingsList = FXCollections.observableArrayList(
 				getBestellingenPerLeverancier(leverancier)

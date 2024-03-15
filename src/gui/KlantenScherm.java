@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import domein.Bestelling;
 import domein.BestellingController;
 import domein.BetalingsStatus;
+import domein.Gebruiker;
+import domein.GebruikerHolder;
 import domein.Klant;
 import domein.KlantController;
 import domein.OrderStatus;
@@ -96,12 +98,13 @@ public class KlantenScherm {
     @FXML
     void filterOverzichtBestellingen(ActionEvent event) {
     	String keyword = txfFilterBestellingen.getText();
+    	Gebruiker aangemeldeGebruiker = GebruikerHolder.getInstance();
     	if(keyword.equals("")) {
-    		tbvBestellingen.setItems(kc.getKlanten().get(index).getObservableListBestellingen(hoofdScherm.getGebruiker()));
+    		tbvBestellingen.setItems(kc.getKlanten().get(index).getObservableListBestellingen(aangemeldeGebruiker));
     	} else {
     		ObservableList<Bestelling> filteredData = FXCollections.observableArrayList();
     		String lowerCaseValue = keyword.toLowerCase();
-    		for(Bestelling bestelling: kc.getKlanten().get(index).getObservableListBestellingen(hoofdScherm.getGebruiker())) {
+    		for(Bestelling bestelling: kc.getKlanten().get(index).getObservableListBestellingen(aangemeldeGebruiker)) {
     			if(bestelling.getOrderStatus().toString().toLowerCase().equals(lowerCaseValue)	//filter op orderstatus
             		|| bestelling.getBetalingStatus().toString().toLowerCase().equals(lowerCaseValue) //filter op betalingsstatus
             		|| bestelling.getDatumGeplaats().toString().toLowerCase().equals(lowerCaseValue)	//filter op datum
@@ -126,7 +129,7 @@ public class KlantenScherm {
 	
 	public KlantenScherm(HoofdSchermController hoofdScherm) {
 		this.hoofdScherm = hoofdScherm;
-		kc  = new KlantController(hoofdScherm.getGebruiker());
+		kc  = new KlantController();
 		buildGui();
 	}
 	
@@ -153,7 +156,7 @@ public class KlantenScherm {
 	
 	private void tableViewKlanten() {
 		tbcNaam.setCellValueFactory(cellData -> cellData.getValue().getName());
-		tbcAantalOpenstaand.setCellValueFactory(cellData -> cellData.getValue().openstaandeBestellingenProperty(hoofdScherm.getGebruiker()));
+		tbcAantalOpenstaand.setCellValueFactory(cellData -> cellData.getValue().openstaandeBestellingenProperty(GebruikerHolder.getInstance()));
 		
 		tbvOverzichtKlanten.setItems(kc.getKlanten());
 	}
@@ -182,7 +185,7 @@ public class KlantenScherm {
 		tbcBetalingsstatus.setCellValueFactory(cellData -> cellData.getValue().betalingsstatusProperty());
 		
 		//tbvBestellingen.setItems(kc.getKlanten().get(index).getObeservableListBestellingen());
-		tbvBestellingen.setItems(kc.getKlanten().get(index).getObservableListBestellingen(hoofdScherm.getGebruiker()));
+		tbvBestellingen.setItems(kc.getKlanten().get(index).getObservableListBestellingen(GebruikerHolder.getInstance()));
 	}
 	
 	private void toonDetails(Boolean status) {

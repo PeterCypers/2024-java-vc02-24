@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import domein.AanmeldController;
 import domein.BestellingController;
 import domein.Gebruiker;
+import domein.GebruikerHolder;
 import jakarta.persistence.EntityNotFoundException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,13 +38,15 @@ public class AanmeldSchermController extends Pane {
     
     @FXML
     void btnLoginOnAction(ActionEvent event) {
-    	//TODO meldAan returns Gebruiker, vermoed transitie naar volgend scherm en neemt gebruiker mee
+
     	System.out.printf("test%nEmail: %s | Wachtwoord: %s%n", txfEmail.getText(), pwdField.getText());
     	
     	try {
-    		Gebruiker g = meldAan(txfEmail.getText(), pwdField.getText());
-    		System.out.printf("%s gevonden met naam: %s", g.getClass().getSimpleName(), g.getNaam());
-    		toonVolgendScherm(g);
+    		meldAan(txfEmail.getText(), pwdField.getText());
+    		Gebruiker aangemeldeGebruiker = GebruikerHolder.getInstance();
+    		System.out.printf("%s gevonden met naam: %s", aangemeldeGebruiker.getClass().getSimpleName(), 
+    				aangemeldeGebruiker.getNaam());
+    		toonVolgendScherm();
     	} catch (EntityNotFoundException enfe) {
     		System.out.println("Gebruiker niet gevonden, controleer de email en wachtwoord combinatie");
     		lblError.setText("Gebruiker niet gevonden, controleer de email en wachtwoord combinatie");
@@ -82,26 +85,31 @@ public class AanmeldSchermController extends Pane {
 			System.out.println("Het scherm kan niet getoond worden");
 		}
     }
-    
-    private Gebruiker meldAan(String emailadres, String wachtwoord) {
-    	return ac.meldGebruikerAan(emailadres, wachtwoord);
+    /** method: ac.meldGebruikerAan(x,y) instantiates singleton GebruikerHolder
+     * 
+     * @param emailadres = testfield input
+     * @param wachtwoord = passwordfield input
+     * @return GebruikerHolder instance of Gebruiker
+     */
+    private void meldAan(String emailadres, String wachtwoord) {
+    	ac.meldGebruikerAan(emailadres, wachtwoord);
     }
     
-    private void toonVolgendScherm(Gebruiker gebruiker) {
-    	switch (gebruiker.getRol()) {		
+    private void toonVolgendScherm() {
+    	switch (GebruikerHolder.getInstance().getRol()) {		
     	case LEVERANCIER -> {
-    		HoofdSchermController hoofdScherm = new HoofdSchermController(gebruiker); //veranderd als bc gebruiker bij houd
+    		HoofdSchermController hoofdScherm = new HoofdSchermController(); //veranderd als bc gebruiker bij houd
     		Stage stage = (Stage) this.getScene().getWindow();
     		stage.setResizable(true);
     		stage.setScene(new Scene(hoofdScherm));
 		}
     	case ADMINISTRATOR -> {
-    		AdminSchermController adminScherm = new AdminSchermController(gebruiker);
+    		AdminSchermController adminScherm = new AdminSchermController();
     		Stage stage = (Stage) this.getScene().getWindow();
     		stage.setResizable(true);
     		stage.setScene(new Scene(adminScherm));
     	}
-		default -> throw new IllegalArgumentException("Unexpected value: " + gebruiker.getRol());
+		default -> throw new IllegalArgumentException("Unexpected value: " + GebruikerHolder.getInstance().getRol());
 		}
     	
     }

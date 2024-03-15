@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 
 import domein.Gebruiker;
+import domein.GebruikerHolder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,11 +35,8 @@ public class AdminSchermController extends BorderPane {
     	BedrijvenScherm controller = new BedrijvenScherm(this);
     	vbox.getChildren().add(controller.geefNode());
     }
-    
-    Gebruiker gebruiker;
 
-	public AdminSchermController(Gebruiker gebruiker) {
-		this.gebruiker = gebruiker;
+	public AdminSchermController() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminScherm.fxml"));
         loader.setRoot(this);
     	loader.setController(this);
@@ -48,12 +46,7 @@ public class AdminSchermController extends BorderPane {
             throw new RuntimeException(ex);
         }
         
-        lbNaam.setText(gebruiker.getNaam());
-	}
-    
-
-	public Gebruiker getGebruiker() {
-		return gebruiker;
+        lbNaam.setText(GebruikerHolder.getInstance().getNaam());
 	}
 
 }

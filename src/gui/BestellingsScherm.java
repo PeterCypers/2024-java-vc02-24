@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import domein.Bestelling;
 import domein.BestellingController;
 import domein.BetalingsStatus;
+import domein.GebruikerHolder;
 import domein.OrderStatus;
 import domein.Product;
 import domein.Stock;
@@ -162,7 +163,7 @@ public class BestellingsScherm {
 
 	public BestellingsScherm(HoofdSchermController hoofdScherm) {
 		this.hoofdScherm = hoofdScherm;
-		bc = new BestellingController(hoofdScherm.getGebruiker());
+		bc = new BestellingController(GebruikerHolder.getInstance());
 		buildGui();
 	}
 	

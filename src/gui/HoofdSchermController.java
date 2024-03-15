@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 
 import domein.Gebruiker;
+import domein.GebruikerHolder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,11 +47,7 @@ public class HoofdSchermController extends BorderPane{
     	vbox.getChildren().add(controller.geefNode());
     }
     
-    
-    Gebruiker gebruiker;
-
-	public HoofdSchermController(Gebruiker gebruiker) {
-		this.gebruiker = gebruiker;
+	public HoofdSchermController() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("HoofdScherm.fxml"));
         loader.setRoot(this);
     	loader.setController(this);
@@ -60,11 +57,7 @@ public class HoofdSchermController extends BorderPane{
             throw new RuntimeException(ex);
         }
         
-        lbNaam.setText(gebruiker.getNaam());
-	}
-	
-	public Gebruiker getGebruiker() {
-		return gebruiker;
+        lbNaam.setText(GebruikerHolder.getInstance().getNaam());
 	}
     
 }

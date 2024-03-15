@@ -14,7 +14,7 @@ public class AanmeldController {
 	}
 	
 	//implementatie correct? gebruiker class hashcode+equals om op equality te controlleren -> wacht op vervolg
-	public Gebruiker meldGebruikerAan(String emailadres, String wachtwoord) throws NoSuchElementException {
+	public /*Gebruiker*/void meldGebruikerAan(String emailadres, String wachtwoord) throws NoSuchElementException {
 		/*
 		List<Gebruiker> geldigeGebruikers = ams.getGebruikers();
 		Gebruiker gevondenGebruiker = null;
@@ -24,6 +24,8 @@ public class AanmeldController {
 		return gevondenGebruiker;
 		*/
 		
-		return gs.meldGebruikerAan(emailadres, wachtwoord);
+		GebruikerHolder.setInstance(gs.meldGebruikerAan(emailadres, wachtwoord));
+		//return gs.meldGebruikerAan(emailadres, wachtwoord);
+		//return GebruikerHolder.getInstance();
 	}
 }

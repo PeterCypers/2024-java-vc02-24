@@ -24,6 +24,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import domein.AanmeldController;
 import domein.Adres;
 import domein.Gebruiker;
+import domein.GebruikerHolder;
 import domein.Rol;
 import jakarta.persistence.EntityNotFoundException;
 import service.gebruiker.GebruikerDaoJpa;
@@ -119,8 +120,8 @@ public class GebruikerTest {
 		"kim@gmail.com,1234"
 	})
 	public void test_GebruikerAanmelden_GeldigeGegevens(String emailadres, String wachtwoord) {
-		Gebruiker gebruiker = ac.meldGebruikerAan(emailadres, wachtwoord);
-		assertNotNull(gebruiker);
+		ac.meldGebruikerAan(emailadres, wachtwoord);
+		assertNotNull(GebruikerHolder.getInstance());
 	}
 	
 	/*********/
