@@ -163,7 +163,7 @@ public class BestellingsScherm {
 
 	public BestellingsScherm(HoofdSchermController hoofdScherm) {
 		this.hoofdScherm = hoofdScherm;
-		bc = new BestellingController(GebruikerHolder.getInstance());
+		bc = new BestellingController();
 		buildGui();
 	}
 	

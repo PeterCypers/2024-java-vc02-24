@@ -42,8 +42,8 @@ public class BestellingBeheerder {
         sortedBestellingen = new SortedList<>(filteredBestellingen, orderSorted);
 	}
 	
-	public BestellingBeheerder(Gebruiker leverancier) {
-		this(leverancier, new BestellingServiceDbImpl());
+	public BestellingBeheerder() {
+		this(GebruikerHolder.getInstance(), new BestellingServiceDbImpl());
 	}
 	
 	public ObservableList<Bestelling> getBestellingen() {
