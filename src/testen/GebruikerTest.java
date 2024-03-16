@@ -110,7 +110,7 @@ public class GebruikerTest {
 		String klantEmailadres = "mark@outlook.com";
 		String klantWachtwoord = "1234";
 		
-		assertThrows(IllegalArgumentException.class, () -> ac.meldGebruikerAan(klantEmailadres, klantWachtwoord));
+		assertThrows(EntityNotFoundException.class, () -> ac.meldGebruikerAan(klantEmailadres, klantWachtwoord));
 	}
 	
 	@ParameterizedTest

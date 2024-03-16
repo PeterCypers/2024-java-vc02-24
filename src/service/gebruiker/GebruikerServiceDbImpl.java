@@ -33,6 +33,8 @@ public class GebruikerServiceDbImpl implements GebruikerService {
 		if (!gebruiker.getIsActief()) {
 			throw new IllegalArgumentException("Deze gebruiker werd gedeactiveerd");
 		}
+		if (gebruiker.getRol() == Rol.KLANT)
+			throw new IllegalArgumentException("Klant mag hier niet inloggen");
 		
 		return gebruiker;
 	}

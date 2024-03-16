@@ -4,6 +4,7 @@ package domein;
  * 
  * feature: [afmelden] -> justify setter
  * new logged-in user overwrites the previous logged-in user
+ * @author peter
  */
 public class GebruikerHolder {
 	
