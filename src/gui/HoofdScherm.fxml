@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -21,18 +20,19 @@
    <center>
       <VBox minHeight="660.0" minWidth="1054.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuBar style="-fx-background-color: FFFFFF;" stylesheets="@../images/style.css">
-              <menus>
-                <Menu mnemonicParsing="false" style="-fx-font-size: 14;" text="Overzicht bestellingen">
-                     <items>
-                      <MenuItem mnemonicParsing="false" onAction="#overzichtBestellingen" text="Overzicht raadplegen" />
-                     </items></Menu>
-                <Menu mnemonicParsing="false" style="-fx-font-size: 14;" text="Overzicht klanten">
-                     <items>
-                      <MenuItem mnemonicParsing="false" onAction="#overzichtKlanten" text=" Overzicht raadplegen" />
-                     </items></Menu>
-              </menus>
-            </MenuBar>
+            <HBox minHeight="37.0" prefHeight="39.0" spacing="10.0" stylesheets="@../images/style.css">
+               <children>
+                  <Button fx:id="btnOverzichtBestellingen" mnemonicParsing="false" onAction="#overzichtBestellingen" text="Overzicht bestellingen">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Button>
+                  <Button fx:id="btnOverzichtKlanten" mnemonicParsing="false" onAction="#overzichtKlanten" text="Overzicht klanten">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
             <BorderPane fx:id="borderpane" minHeight="630.0" minWidth="1054.0" stylesheets="@../images/style.css">
                <center>
                   <VBox fx:id="vbox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />

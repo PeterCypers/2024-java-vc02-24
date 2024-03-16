@@ -22,7 +22,7 @@
             <HBox prefHeight="28.0" spacing="10.0">
                <children>
                   <TextField fx:id="txfFilterBedrijven" promptText="filter bedrijven" />
-                  <Button mnemonicParsing="false" onAction="#filterBedrijven" text="Zoek" />
+                  <Button mnemonicParsing="false" onAction="#filterBedrijven" styleClass="button-default" stylesheets="@../images/style.css" text="Zoek" />
                </children>
             </HBox>
             <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="560.0" minWidth="900.0" style="-fx-background-color: transparent;" VBox.vgrow="SOMETIMES">
@@ -121,15 +121,15 @@
                            <GridPane.margin>
                               <Insets left="2.0" />
                            </GridPane.margin></Label>
-                        <TextField fx:id="txfNaam" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="txfSector" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="txfAdresLijn1" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="txfAdresLijn2" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField fx:id="txfBetalingsmogelijkheid" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <TextField fx:id="txfBetalingsinfo" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <TextField fx:id="txfEmailadres" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                        <TextField fx:id="txfTelefoonnummer" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                        <TextField fx:id="txfBTWNummer" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                        <TextField fx:id="txfNaam" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="txfSector" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="txfAdresLijn1" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="txfAdresLijn2" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="txfBetalingsmogelijkheid" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="txfBetalingsinfo" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TextField fx:id="txfEmailadres" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <TextField fx:id="txfTelefoonnummer" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                        <TextField fx:id="txfBTWNummer" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                         <Label text="E-mailadres:" GridPane.rowIndex="10">
                            <GridPane.margin>
                               <Insets />
@@ -160,8 +160,8 @@
                   </TableView>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="2">
                      <children>
-                        <Button fx:id="btnBedrijfDeactiveren" mnemonicParsing="false" onAction="#bedrijfDeactiveren" text="Bedrijf Deactiveren" />
-                        <Button fx:id="btnBedrijfToevoegen" mnemonicParsing="false" onAction="#bedrijfToevoegen" text="Bedrijf Toevoegen" />
+                        <Button fx:id="btnBedrijfDeactiveren" mnemonicParsing="false" onAction="#bedrijfDeactiveren" styleClass="button-default" stylesheets="@../images/style.css" text="Bedrijf Deactiveren" />
+                        <Button fx:id="btnBedrijfToevoegen" mnemonicParsing="false" onAction="#bedrijfToevoegen" styleClass="button-default" stylesheets="@../images/style.css" text="Bedrijf Toevoegen" />
                      </children>
                   </HBox>
                </children>

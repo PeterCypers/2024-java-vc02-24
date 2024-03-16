@@ -16,9 +16,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="630.0" minWidth="1054.0" style="-fx-background-color: F0EFEF;" styleClass="background-Leverancier" stylesheets="@../images/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane minHeight="630.0" minWidth="1054.0" style="-fx-background-color: F0EFEF;" stylesheets="@../images/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <VBox minHeight="560.0" minWidth="1054.0" spacing="5.0" stylesheets="@../images/style.css">
+      <VBox minHeight="560.0" minWidth="1054.0" spacing="5.0" styleClass="background-Leverancier" stylesheets="@../images/style.css">
          <children>
             <GridPane alignment="CENTER" hgap="10.0" minHeight="570.0" minWidth="1054.0" vgap="5.0">
               <columnConstraints>
@@ -32,7 +32,7 @@
                 <RowConstraints maxHeight="-Infinity" minHeight="500.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label alignment="CENTER" text="Overzicht bestellingen" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <Label alignment="CENTER" style="-fx-background-color: F0EFEF;" text="Overzicht bestellingen" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -157,8 +157,7 @@
                         <TextField fx:id="txfAdresLijn2" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <ChoiceBox fx:id="choiceboxOrderStatus" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: AAA9A9;" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <ChoiceBox fx:id="choiceboxBestellingsStatus" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: AAA9A9;" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                        <DatePicker fx:id="dpBetalingsherinnering" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                        <TextField fx:id="txfBetalingsherringering" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <DatePicker fx:id="dpBetalingsherinnering" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                         <TextField fx:id="txfBedrag" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                      </children>
                      <GridPane.margin>
@@ -168,7 +167,7 @@
                   <HBox minHeight="30.0" minWidth="100.0" spacing="10.0" GridPane.columnIndex="2">
                      <children>
                         <TextField fx:id="txfFilterProducten" promptText="fitler product" visible="false" />
-                        <Button fx:id="btnZoekProducten" mnemonicParsing="false" onAction="#filterProducten" text="Zoek" visible="false" />
+                        <Button fx:id="btnZoekProducten" mnemonicParsing="false" onAction="#filterProducten" styleClass="button-default" stylesheets="@../images/style.css" text="Zoek" visible="false" />
                      </children>
                   </HBox>
                   <HBox minHeight="30.0" minWidth="100.0" spacing="10.0">
@@ -178,7 +177,7 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button mnemonicParsing="false" onAction="#filterBestelling" text="Zoek" />
+                        <Button mnemonicParsing="false" onAction="#filterBestelling" styleClass="button-default" stylesheets="@../images/style.css" text="Zoek" />
                      </children>
                   </HBox>
                </children>

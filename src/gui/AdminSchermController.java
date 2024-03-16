@@ -31,6 +31,7 @@ public class AdminSchermController extends BorderPane {
 
     @FXML
     void beheerBedrijf(ActionEvent event) {
+    	btnBeheerBedrijf.getStyleClass().add("button-selected");
     	vbox.getChildren().clear();
     	BedrijvenScherm controller = new BedrijvenScherm(this);
     	vbox.getChildren().add(controller.geefNode());

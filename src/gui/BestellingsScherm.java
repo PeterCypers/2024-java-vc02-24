@@ -94,17 +94,15 @@ public class BestellingsScherm {
 
     @FXML
     private TextField txfAdresLijn2;
+    
     @FXML
     private ChoiceBox<OrderStatus> choiceboxOrderStatus;
-
-    @FXML
-    private DatePicker dpBetalingsherinnering;
+    
     @FXML
     private ChoiceBox<BetalingsStatus> choiceboxBestellingsStatus;
 
-
     @FXML
-    private TextField txfBetalingsherringering;
+    private DatePicker dpBetalingsherinnering;
 
     @FXML
     private TextField txfBedrag;
@@ -209,7 +207,7 @@ public class BestellingsScherm {
 		txfDatum.setText(String.format("%s-%s-%s",datum.getYear() , datum.getMonthValue(), datum.getDayOfMonth()));
 		txfAdresLijn1.setText(bc.getBestellingen().get(index).getKlant().getAdres().toStringLijn1());
 		txfAdresLijn2.setText(bc.getBestellingen().get(index).getKlant().getAdres().toStringLijn2());
-		txfBetalingsherringering.setText(""); //TODO 
+		dpBetalingsherinnering.setPromptText(""); //TODO 
 	    choiceboxOrderStatus.setValue(selectedBestelling.getOrderStatus());
 	    choiceboxBestellingsStatus.setValue(selectedBestelling.getBetalingStatus());
 		txfBedrag.setText(String.format("€%.2f", bc.getBestellingen().get(index).berekenTotalBedrag()));

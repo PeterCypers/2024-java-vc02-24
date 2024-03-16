@@ -2,7 +2,6 @@ package gui;
 
 import java.io.IOException;
 
-import domein.Gebruiker;
 import domein.GebruikerHolder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,6 +34,8 @@ public class HoofdSchermController extends BorderPane{
 
     @FXML
     void overzichtBestellingen(ActionEvent event) {
+    	btnOverzichtKlanten.getStyleClass().clear();
+    	btnOverzichtBestellingen.getStyleClass().add("button-selected");
     	vbox.getChildren().clear();
     	BestellingsScherm controller = new BestellingsScherm(this);
     	vbox.getChildren().add(controller.geefNode());
@@ -42,6 +43,8 @@ public class HoofdSchermController extends BorderPane{
 
     @FXML
     void overzichtKlanten(ActionEvent event) {
+    	btnOverzichtBestellingen.getStyleClass().clear();
+    	btnOverzichtKlanten.getStyleClass().add("button-selected");
     	vbox.getChildren().clear();
     	KlantenScherm controller = new KlantenScherm(this);
     	vbox.getChildren().add(controller.geefNode());

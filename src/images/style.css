@@ -1,8 +1,36 @@
-.table-row-cell:selected {
-   -fx-background-color: B73E3E;
-   -fx-text-fill: FFFFFF;
+
+/* tableview */
+.table-view:focused{
+   -fx-text-fill: ffffff;
 }
 
+/* header */
+.table-view .column-header-background{
+    -fx-background-color: linear-gradient(#c32828 10%, #ff3333 90%);
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+/*cell */
+.table-view .table-cell{
+    -fx-text-fill: black;
+}
+
+/*row */
+.table-row-cell:selected {
+    -fx-background-color: #f6d5d5;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}
+
+/* background */
 .background-Leverancier {
 	-fx-background-image: url("backgroundLeveransier.png");
 	-fx-background-size: 95%;
@@ -13,26 +41,30 @@
 	-fx-background-size: 95%;
 }
 
-/* Menu bar */
-.menu:showing {
-	-fx-background-color: ED463C;
-}
-
-/* Change the link color to FF6464 on hover */
-.menu:hover {
-  -fx-background-color: FF6464;
-}
-
-.button{
-	-fx-border-color: none;
-	-fx-backgroun-color: FFFFFF;
-	
-}
+/*Button menubar*/
+.button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 5,5,4;
+    -fx-background-insets: 0 0 -1 0,0,1;
+    -fx-padding: 0.0em; 
+ }
 
 .button:hover {
-    -fx-background-color: FF6464;
+	-fx-text-fill: FF6464;
  }
  
-.button:pressed {
-	-fx-background-color: ED463C;
+.button-selected {
+	-fx-background-color: linear-gradient(#eeaaaa 10%, #f6d5d5 90%);
+}
+
+/* button */
+.button-default {
+    -fx-background-color: 
+        #707070,
+        linear-gradient(#fcfcfc, #f3f3f3),
+        linear-gradient(#f2f2f2 0%, #ebebeb 49%, #dddddd 50%, #cfcfcf 100%);
+    -fx-background-insets: 0,1,2;
+    -fx-background-radius: 3,2,1;
+    -fx-padding: 0.25em;
+    -fx-text-fill: black;
 }
