@@ -18,6 +18,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -26,6 +28,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 public class KlantenScherm {
 
@@ -90,32 +93,100 @@ public class KlantenScherm {
     private TableColumn<Bestelling, String> tbcBetalingsstatus;
     
     @FXML
-    private TextField txfFilterBestellingen;
+    private HBox hbFilterbestelling;
 
     @FXML
-    private Button btnFilterBestellingen;
+    private DatePicker dpFilterBestelling;
 
     @FXML
-    void filterOverzichtBestellingen(ActionEvent event) {
-    	String keyword = txfFilterBestellingen.getText();
+    private ChoiceBox<OrderStatus> cbFilterOrderStatus;
+
+    @FXML
+    private ChoiceBox<BetalingsStatus> cbFilterBetalingsStatus;
+
+    @FXML
+    private TextField txfFilterBestelling;
+
+    
+    @FXML
+    public void initialize() {
+        initializeStatusChoiceBoxes();
+    }
+
+    @FXML
+    void filterOverzichtBestellingen(ActionEvent event) {    	
+    	LocalDate datum = dpFilterBestelling.getValue();
+    	OrderStatus orderstatus = cbFilterOrderStatus.getValue();
+    	BetalingsStatus betalingsstatus = cbFilterBetalingsStatus.getValue();
+    	String keyword = txfFilterBestelling.getText();
     	Gebruiker aangemeldeGebruiker = GebruikerHolder.getInstance();
-    	if(keyword.equals("")) {
+    	
+    	if(keyword.equals("") && datum == null && orderstatus == null && betalingsstatus == null) {
     		tbvBestellingen.setItems(kc.getKlanten().get(index).getObservableListBestellingen(aangemeldeGebruiker));
     	} else {
     		ObservableList<Bestelling> filteredData = FXCollections.observableArrayList();
     		String lowerCaseValue = keyword.toLowerCase();
+    		
     		for(Bestelling bestelling: kc.getKlanten().get(index).getObservableListBestellingen(aangemeldeGebruiker)) {
-    			if(bestelling.getOrderStatus().toString().toLowerCase().equals(lowerCaseValue)	//filter op orderstatus
-            		|| bestelling.getBetalingStatus().toString().toLowerCase().equals(lowerCaseValue) //filter op betalingsstatus
-            		|| bestelling.getDatumGeplaats().toString().toLowerCase().equals(lowerCaseValue)	//filter op datum
-            		|| Integer.toString(bestelling.getOrderId()).equals(lowerCaseValue)	//filter op order id
-            		|| Double.toString(bestelling.berekenTotalBedrag()).contains(lowerCaseValue)) //filter op orderbedrag
-    				filteredData.add(bestelling);
+    			if(orderstatus == null && betalingsstatus != null && datum == null && !(lowerCaseValue.equals(""))) {
+    				//betalingsstatus  en text filter
+    				if((bestelling.getBetalingsStatus().equals(betalingsstatus) && Integer.toString(bestelling.getOrderId()).equals(lowerCaseValue))
+    						|| (bestelling.getBetalingsStatus().equals(betalingsstatus) && Double.toString(bestelling.berekenTotalBedrag()).contains(lowerCaseValue)))
+    					filteredData.add(bestelling);
+    			} else if(orderstatus == null && betalingsstatus == null && datum != null && !(lowerCaseValue.equals(""))) {
+    				//datum en text filter 
+    				if((bestelling.getDatumGeplaats().equals(datum) && Integer.toString(bestelling.getOrderId()).equals(lowerCaseValue))
+    						|| (bestelling.getDatumGeplaats().equals(datum) && Double.toString(bestelling.berekenTotalBedrag()).contains(lowerCaseValue)))
+    					filteredData.add(bestelling);
+    			} else if(orderstatus != null && betalingsstatus == null && datum == null && !(lowerCaseValue.equals(""))) {
+    				//orderstatus en text filter 
+    				if((bestelling.getOrderStatus().equals(orderstatus) && Integer.toString(bestelling.getOrderId()).equals(lowerCaseValue))
+    						|| (bestelling.getOrderStatus().equals(orderstatus) && Double.toString(bestelling.berekenTotalBedrag()).contains(lowerCaseValue)))
+    					filteredData.add(bestelling);
+    			} else if(orderstatus == null && betalingsstatus == null && datum == null && !(lowerCaseValue.equals(""))) {
+    				//text filter
+    				if(Integer.toString(bestelling.getOrderId()).equals(lowerCaseValue)
+    						|| Double.toString(bestelling.berekenTotalBedrag()).contains(lowerCaseValue))
+    					filteredData.add(bestelling);
+    			} else if(orderstatus == null && betalingsstatus != null && datum != null && lowerCaseValue.equals("")) {
+    				// betalingsstatus en datum filter
+    				if((bestelling.getBetalingsStatus().equals(betalingsstatus) && bestelling.getDatumGeplaats().equals(datum)))
+    					filteredData.add(bestelling);
+    			} else if(orderstatus != null && betalingsstatus != null && datum == null && lowerCaseValue.equals("")) {
+    				//betalinsstatus en orderstatus filter
+    				if((bestelling.getBetalingsStatus().equals(betalingsstatus) && bestelling.getOrderStatus().equals(orderstatus)))
+    					filteredData.add(bestelling);
+    			} else if(orderstatus == null && betalingsstatus != null && datum == null && lowerCaseValue.equals("")) {
+    				//betalingsstatus filter
+    				if(bestelling.getBetalingsStatus().equals(betalingsstatus) )
+    					filteredData.add(bestelling);
+    			} else if(orderstatus != null && betalingsstatus == null && datum != null && lowerCaseValue.equals("")) {
+    				//orderstatus en datum filter
+    				if((bestelling.getOrderStatus().equals(orderstatus) && bestelling.getDatumGeplaats().equals(datum)))
+    					filteredData.add(bestelling);
+    			} else if(orderstatus != null && betalingsstatus == null && datum == null && lowerCaseValue.equals("")) {
+    				//orderstatus filter
+    				if(bestelling.getOrderStatus().equals(orderstatus))
+    					filteredData.add(bestelling);
+    			} else if(orderstatus == null && betalingsstatus == null && datum != null && lowerCaseValue.equals("")) {
+    				//datum filter
+    				if(bestelling.getDatumGeplaats().equals(datum))
+    					filteredData.add(bestelling);
+    			}
     		}
     		tbvBestellingen.setItems(filteredData);
     	}
+    	
+    	dpFilterBestelling.setValue(null);
+    	cbFilterOrderStatus.setValue(null);
+    	cbFilterBetalingsStatus.setValue(null);
     }
-
+    
+    private void initializeStatusChoiceBoxes() {
+        cbFilterOrderStatus.getItems().setAll(OrderStatus.values());
+        cbFilterBetalingsStatus.getItems().setAll(BetalingsStatus.values());
+    }
+    
 	@FXML
     void filterOverzichtKlanten(ActionEvent event) {
 		kc.getFilteredList(txfFilerKlanten.getText());
@@ -192,8 +263,7 @@ public class KlantenScherm {
 		gpDetailsKlant.setVisible(status);
 		lbBestellingen.setVisible(status);
 		tbvBestellingen.setVisible(status);
-		txfFilterBestellingen.setVisible(status);
-		btnFilterBestellingen.setVisible(status);
+		hbFilterbestelling.setVisible(status);
 	}
 
 	public Node geefNode() {

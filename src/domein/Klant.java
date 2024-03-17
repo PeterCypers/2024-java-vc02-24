@@ -1,6 +1,7 @@
 package domein;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -193,6 +194,13 @@ public class Klant implements Serializable {
 		FilteredList<Bestelling> filteredBestellingen = new FilteredList<>(bestellingsList, b -> true);     
 		SortedList<Bestelling> sortedBestellingen = new SortedList<>(filteredBestellingen, bestellingSorted);
 		return sortedBestellingen;
+	}
+	
+	private FilteredList<Bestelling> getObservableListBestelling(Gebruiker leverancier){
+		ObservableList<Bestelling> bestellingsList = FXCollections.observableArrayList(
+				getBestellingenPerLeverancier(leverancier));
+		FilteredList<Bestelling> filteredBestellingen = new FilteredList<>(bestellingsList, b -> true); 
+		return filteredBestellingen;
 	}
 	
 	//word niet meer gebruikt normaal

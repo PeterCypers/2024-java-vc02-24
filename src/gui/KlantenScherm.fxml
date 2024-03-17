@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -42,17 +44,7 @@
                   <RowConstraints maxHeight="30.0" minHeight="26.0" prefHeight="28.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label style="-fx-background-color: F0EFEF;" text="Overzicht klanten" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lbDetailsKlant" text="Details klant" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lbBestellingen" text="Bestellingen" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <Label fx:id="lbDetailsKlant" text="Details klant" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -135,13 +127,16 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <HBox minHeight="30.0" minWidth="100.0" spacing="10.0" GridPane.columnIndex="2">
+                  <HBox fx:id="hbFilterbestelling" minHeight="30.0" minWidth="100.0" spacing="5.0" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="txfFilterBestellingen" promptText="filter bestellingen" visible="false" />
-                        <Button fx:id="btnFilterBestellingen" mnemonicParsing="false" onAction="#filterOverzichtBestellingen" styleClass="button-default" stylesheets="@../images/style.css" text="Filter" visible="false" />
+                        <DatePicker fx:id="dpFilterBestelling" prefHeight="26.0" prefWidth="119.0" promptText="filter bestelling" />
+                        <ChoiceBox fx:id="cbFilterOrderStatus" prefHeight="26.0" prefWidth="98.0" />
+                        <ChoiceBox fx:id="cbFilterBetalingsStatus" prefHeight="26.0" prefWidth="88.0" />
+                        <TextField fx:id="txfFilterBestelling" prefHeight="26.0" prefWidth="110.0" promptText="filter bestellingen" />
+                        <Button mnemonicParsing="false" onAction="#filterOverzichtBestellingen" styleClass="button-default" stylesheets="@../images/style.css" text="Filter" />
                      </children>
                   </HBox>
-                  <HBox minHeight="30.0" minWidth="100.0" spacing="5.0">
+                  <HBox minHeight="30.0" minWidth="100.0" spacing="5.0" GridPane.rowIndex="1">
                      <children>
                         <TextField fx:id="txfFilerKlanten" promptText="filter klanten" />
                         <Button mnemonicParsing="false" onAction="#filterOverzichtKlanten" styleClass="button-default" stylesheets="@../images/style.css" text="Filter" />
@@ -150,6 +145,16 @@
                         <Insets left="5.0" />
                      </GridPane.margin>
                   </HBox>
+                  <Label fx:id="lbBestellingen" text="Bestellingen" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label style="-fx-background-color: F0EFEF;" text="Overzicht klanten" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
          </children>
