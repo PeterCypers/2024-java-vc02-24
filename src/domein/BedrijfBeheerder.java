@@ -38,26 +38,57 @@ public class BedrijfBeheerder {
 		return sortedBedrijven;
 	}
 
-	public void changeFilter(String filterValue) {
+	public void changeFilter(String filterValue, String filterValue2) {
 		filteredBedrijven.setPredicate(bedrijf -> {
-			if(filterValue == null || filterValue.isEmpty()) {
+			if((filterValue == null || filterValue.isEmpty()) && (filterValue2 == null || filterValue2.isEmpty())) {
 				return true;
 			}
 			
-			if(filterValue.equals("ja")) {
-				return bedrijf.getIsActief() == true;
-			}
-			
-			if(filterValue.equals("nee")) {
-				return bedrijf.getIsActief() == false;
-			}
-			
 			String lowerCaseValue = filterValue.toLowerCase();
-			return bedrijf.getNaam().toLowerCase().contains(lowerCaseValue) 
-					|| bedrijf.getSector().toLowerCase().contains(lowerCaseValue) 
-					|| bedrijf.getAdres().toString().toLowerCase().contains(lowerCaseValue);
+			String lowerCaseValue2 = filterValue2.toLowerCase();
+			
+			if((filterValue != null || !(filterValue.isEmpty())) && (filterValue2 == null || filterValue2.isEmpty())) {
+				if(lowerCaseValue.equals("ja") || lowerCaseValue.equals("nee")) {
+					return filterActief(bedrijf, filterValue);
+				}
+				
+				return bedrijf.getNaam().toLowerCase().contains(lowerCaseValue) 
+						|| bedrijf.getSector().toLowerCase().contains(lowerCaseValue) 
+						|| bedrijf.getAdres().toString().toLowerCase().contains(lowerCaseValue)
+						|| Integer.toString(bedrijf.aantalKlanten()).equals(lowerCaseValue);
+			}
+			
+			if((filterValue != null || !(filterValue.isEmpty())) && (filterValue2 != null || !(filterValue2.isEmpty()))) {
+				return (bedrijf.getNaam().toLowerCase().contains(lowerCaseValue) && bedrijf.getSector().toLowerCase().contains(lowerCaseValue2))
+						|| (bedrijf.getNaam().toLowerCase().contains(lowerCaseValue) && bedrijf.getAdres().toString().toLowerCase().contains(lowerCaseValue2))
+						|| (bedrijf.getNaam().toLowerCase().contains(lowerCaseValue) && Integer.toString(bedrijf.aantalKlanten()).equals(lowerCaseValue2))
+						|| (bedrijf.getNaam().toLowerCase().contains(lowerCaseValue) && filterActief(bedrijf, lowerCaseValue2))
+						|| (bedrijf.getSector().toLowerCase().contains(lowerCaseValue) && bedrijf.getAdres().toString().toLowerCase().contains(lowerCaseValue2))
+						|| (bedrijf.getSector().toLowerCase().contains(lowerCaseValue) && Integer.toString(bedrijf.aantalKlanten()).equals(lowerCaseValue2))
+						|| (bedrijf.getSector().toLowerCase().contains(lowerCaseValue) && filterActief(bedrijf, lowerCaseValue2))
+						|| (bedrijf.getAdres().toString().toLowerCase().contains(lowerCaseValue) && Integer.toString(bedrijf.aantalKlanten()).equals(lowerCaseValue2))
+						|| (bedrijf.getAdres().toString().toLowerCase().contains(lowerCaseValue) && filterActief(bedrijf, lowerCaseValue2))
+						|| (Integer.toString(bedrijf.aantalKlanten()).equals(lowerCaseValue) &&  filterActief(bedrijf, lowerCaseValue2))
+						|| (bedrijf.getNaam().toLowerCase().contains(lowerCaseValue2) && bedrijf.getSector().toLowerCase().contains(lowerCaseValue))
+						|| (bedrijf.getNaam().toLowerCase().contains(lowerCaseValue2) && bedrijf.getAdres().toString().toLowerCase().contains(lowerCaseValue))
+						|| (bedrijf.getNaam().toLowerCase().contains(lowerCaseValue2) && Integer.toString(bedrijf.aantalKlanten()).equals(lowerCaseValue))
+						|| (bedrijf.getNaam().toLowerCase().contains(lowerCaseValue2) && filterActief(bedrijf, lowerCaseValue))
+						|| (bedrijf.getSector().toLowerCase().contains(lowerCaseValue2) && bedrijf.getAdres().toString().toLowerCase().contains(lowerCaseValue))
+						|| (bedrijf.getSector().toLowerCase().contains(lowerCaseValue2) && Integer.toString(bedrijf.aantalKlanten()).equals(lowerCaseValue))
+						|| (bedrijf.getSector().toLowerCase().contains(lowerCaseValue2) && filterActief(bedrijf, lowerCaseValue))
+						|| (bedrijf.getAdres().toString().toLowerCase().contains(lowerCaseValue2) && Integer.toString(bedrijf.aantalKlanten()).equals(lowerCaseValue))
+						|| (bedrijf.getAdres().toString().toLowerCase().contains(lowerCaseValue2) && filterActief(bedrijf, lowerCaseValue))
+						|| (Integer.toString(bedrijf.aantalKlanten()).equals(lowerCaseValue2) &&  filterActief(bedrijf, lowerCaseValue));
+						
+			}
+			return false;
 		});
-		
+	}
+	
+	private boolean filterActief(Bedrijf bedrijf, String filterValue) {
+		if(filterValue.equals("ja"))
+			return bedrijf.getIsActief() == true;
+		return bedrijf.getIsActief() == false;
 	}
 	
 	public void deactiveerBedrijf(Bedrijf bedrijf) {

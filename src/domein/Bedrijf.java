@@ -207,9 +207,13 @@ public class Bedrijf implements Serializable {
 		return this.isActief;
 	}
 	
+	public int aantalKlanten() {
+		return 0; //TODO
+	}
+	
 	//Voor tableView
 	public IntegerProperty getAantalKlantenProp() {
-		int aantalKlanten = getGebruikers().size();
+		int aantalKlanten = 0; //TODO
 		
 		this.aantalKlantenProp.set(aantalKlanten);
 		return aantalKlantenProp;

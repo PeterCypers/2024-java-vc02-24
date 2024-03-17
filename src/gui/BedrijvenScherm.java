@@ -33,8 +33,11 @@ public class BedrijvenScherm {
     @FXML
     private Button btnBedrijfDeactiveren;
 	
-	@FXML
-	private TextField txfFilterBedrijven;
+    @FXML
+    private TextField txfFilterBedrijven;
+
+    @FXML
+    private TextField txfFilterbedrijven2;
 
 	@FXML
 	private Label lbDetailsBedrijf;
@@ -141,7 +144,7 @@ public class BedrijvenScherm {
 
 	@FXML
 	void filterBedrijven(ActionEvent event) {
-		bc.getFilterdList(txfFilterBedrijven.getText());
+		bc.getFilterdList(txfFilterBedrijven.getText(), txfFilterbedrijven2.getText());
 		toonBedrijf(false);
 	}
 

@@ -14,8 +14,8 @@ public class BedrijfController {
 		return this.bedrijfBeheerder.getBedrijven();
 	}
 
-	public void getFilterdList(String filterValue) {
-		bedrijfBeheerder.changeFilter(filterValue);
+	public void getFilterdList(String filterValue, String filterValue2) {
+		bedrijfBeheerder.changeFilter(filterValue, filterValue2);
 	}
 	
 	public void deactiveerBedrijf(Bedrijf bedrijf) {
