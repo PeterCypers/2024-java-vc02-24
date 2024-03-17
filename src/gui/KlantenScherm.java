@@ -84,10 +84,10 @@ public class KlantenScherm {
     private TableColumn<Bestelling, Number> tbcOrderbedrag;
 
     @FXML
-    private TableColumn<Bestelling, OrderStatus> tbcOrderstatus;
+    private TableColumn<Bestelling, String> tbcOrderstatus;
 
     @FXML
-    private TableColumn<Bestelling, BetalingsStatus> tbcBetalingsstatus;
+    private TableColumn<Bestelling, String> tbcBetalingsstatus;
     
     @FXML
     private TextField txfFilterBestellingen;
@@ -184,7 +184,6 @@ public class KlantenScherm {
 		tbcOrderstatus.setCellValueFactory(cellData -> cellData.getValue().orderstatusProperty());
 		tbcBetalingsstatus.setCellValueFactory(cellData -> cellData.getValue().betalingsstatusProperty());
 		
-		//tbvBestellingen.setItems(kc.getKlanten().get(index).getObeservableListBestellingen());
 		tbvBestellingen.setItems(kc.getKlanten().get(index).getObservableListBestellingen(GebruikerHolder.getInstance()));
 	}
 	

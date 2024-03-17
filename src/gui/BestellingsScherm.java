@@ -47,10 +47,10 @@ public class BestellingsScherm {
     private TableColumn<Bestelling, String> tbcKlant;
 
     @FXML
-    private TableColumn<Bestelling, OrderStatus> tcbOrderstatus;
+    private TableColumn<Bestelling, String> tcbOrderstatus;
 
     @FXML
-    private TableColumn<Bestelling, BetalingsStatus> tbcBetalingsstatus;
+    private TableColumn<Bestelling, String> tbcBetalingsstatus;
 
     @FXML
     private TableView<BesteldProduct> tbvOverzichtProducten;
