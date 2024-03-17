@@ -1,5 +1,6 @@
 package domein;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 
 import domein.gebruiker.Gebruiker;
@@ -52,20 +53,59 @@ public class BestellingBeheerder {
 		return sortedBestellingen;
 	}
 	
-	public void changeFilter(String filterValue) {
-        filteredBestellingen.setPredicate(bestelling -> {
-            // If filter text is empty, display all orders.
-            if (filterValue == null || filterValue.isEmpty()) {
-                return true;
-            }
-              
-            //filter text
-            String lowerCaseValue = filterValue.toLowerCase();
-            return Integer.toString(bestelling.getOrderId()).equals(lowerCaseValue)	//filter op OrderID
-            		|| bestelling.getDatumGeplaats().toString().toLowerCase().equals(lowerCaseValue)	//filter op Datum
-            		||bestelling.getKlantName().toLowerCase().equals(lowerCaseValue) //filter op Klantnaam
-            		|| bestelling.getOrderStatus().toString().toLowerCase().equals(lowerCaseValue) //filter op Orderstatus
-            		|| bestelling.getBetalingStatus().toString().toLowerCase().equals(lowerCaseValue); //filter op Betalingsstatus
-        });
+	public void changeFilter(LocalDate filterDate, OrderStatus filterOrderStatus, 
+			BetalingsStatus filterBetalingsStatus, String filterValue) {
+		
+		filteredBestellingen.setPredicate(bestelling -> {
+			if((filterValue.isEmpty() || filterValue == null) && filterDate == null && filterOrderStatus == null 
+					&& filterBetalingsStatus == null) {
+				return true;
+			}
+			
+			String lowerCaseValue = filterValue.toLowerCase();
+			
+			if(filterDate == null && filterBetalingsStatus == null && filterOrderStatus == null) {
+				return filterText(bestelling, lowerCaseValue);
+			}
+			if(filterOrderStatus == null && filterBetalingsStatus == null) {
+				return filterDate(bestelling, filterDate, lowerCaseValue);
+			}
+			if(filterBetalingsStatus == null) {
+				return filterOrderStatus(bestelling, filterOrderStatus, filterDate, lowerCaseValue);
+			}
+			return filterBetalingsStatus(bestelling, filterBetalingsStatus, filterOrderStatus, filterDate, lowerCaseValue);
+		});
+	}
+	
+	private boolean filterBetalingsStatus(Bestelling bestelling, BetalingsStatus filterBetalingsStatus,
+			OrderStatus filterOrderStatus, LocalDate filterDate, String filterValue) {
+		if((filterValue == null || filterValue.isEmpty()) && filterDate == null && filterOrderStatus == null) {
+			return bestelling.getBetalingsStatus().equals(filterBetalingsStatus);
+		}
+		return (bestelling.getBetalingsStatus().equals(filterBetalingsStatus) && filterDate(bestelling, filterDate, filterValue)) //filter op betalingsstatus en Datum
+				|| (bestelling.getBetalingsStatus().equals(filterBetalingsStatus) && filterOrderStatus(bestelling, filterOrderStatus, filterDate, filterValue)) //filter op Betalingsstatus en Orderstatus
+				|| (bestelling.getBetalingsStatus().equals(filterBetalingsStatus) && filterText(bestelling, filterValue)); //filter op Betalingsstatus en text
+	}
+
+	private boolean filterOrderStatus(Bestelling bestelling, OrderStatus filterOrderStatus, LocalDate filterDate,
+			String filterValue) {
+		if((filterValue == null || filterValue.isEmpty()) && filterDate == null) {
+			return bestelling.getOrderStatus().equals(filterOrderStatus);
+		}
+		return (bestelling.getOrderStatus().equals(filterOrderStatus) && filterDate(bestelling, filterDate, filterValue)) //filter op Orderstatus en datum
+				|| (bestelling.getOrderStatus().equals(filterOrderStatus) && filterText(bestelling, filterValue));//filter op OrderStatus en text
+	}
+
+	private boolean filterDate(Bestelling bestelling, LocalDate filterDate, String filterValue) {
+        if(filterValue == null || filterValue.isEmpty()) {
+        	return bestelling.getDatumGeplaats().equals(filterDate);
+        }
+        
+        return bestelling.getDatumGeplaats().equals(filterDate) && filterText(bestelling, filterValue); //filter op Datum en text
+	}
+	
+	private boolean filterText(Bestelling bestelling, String filterValue) {
+		return Integer.toString(bestelling.getOrderId()).equals(filterValue) //filter op OrderID
+            		|| bestelling.getKlantName().toLowerCase().equals(filterValue); //filter op Klantnaam 
     }
 }

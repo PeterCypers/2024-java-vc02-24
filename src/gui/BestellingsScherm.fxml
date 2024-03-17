@@ -32,20 +32,7 @@
                 <RowConstraints maxHeight="-Infinity" minHeight="500.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label alignment="CENTER" style="-fx-background-color: F0EFEF;" text="Overzicht bestellingen" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="lbBestellingDetails" alignment="CENTER" text="Bestelling details" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lbOverzichtProducten" alignment="CENTER" text="Overzicht producten" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <Label fx:id="lbBestellingDetails" alignment="CENTER" text="Bestelling details" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -164,22 +151,36 @@
                         <Insets left="5.0" right="5.0" />
                      </GridPane.margin>
                   </GridPane>
-                  <HBox minHeight="30.0" minWidth="100.0" spacing="10.0" GridPane.columnIndex="2">
+                  <HBox fx:id="hbFilterProducten" minHeight="30.0" minWidth="100.0" spacing="10.0" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="txfFilterProducten" promptText="fitler product" visible="false" />
-                        <Button fx:id="btnZoekProducten" mnemonicParsing="false" onAction="#filterProducten" styleClass="button-default" stylesheets="@../images/style.css" text="Zoek" visible="false" />
+                        <TextField fx:id="txfFilterProducten" promptText="fitler product" />
+                        <TextField fx:id="txfFilterProduct2" promptText="filter product" />
+                        <Button mnemonicParsing="false" onAction="#filterProducten" styleClass="button-default" stylesheets="@../images/style.css" text="Filter" />
                      </children>
                   </HBox>
-                  <HBox minHeight="30.0" minWidth="100.0" spacing="10.0">
+                  <HBox minHeight="30.0" minWidth="100.0" spacing="5.0" GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="txfFilterBestelling" promptText="filter bestelling">
+                        <DatePicker fx:id="dpFilterBestelling" prefHeight="26.0" prefWidth="118.0" promptText="filter bestelling" />
+                        <ChoiceBox fx:id="cbFilterBestellingen" prefHeight="26.0" prefWidth="90.0" />
+                        <ChoiceBox fx:id="cbFilterBestelling2" prefHeight="26.0" prefWidth="88.0" />
+                        <TextField fx:id="txfFilterBestelling" prefHeight="26.0" prefWidth="112.0" promptText="filter bestelling">
                            <HBox.margin>
-                              <Insets left="10.0" />
+                              <Insets left="5.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button mnemonicParsing="false" onAction="#filterBestelling" styleClass="button-default" stylesheets="@../images/style.css" text="Zoek" />
+                        <Button mnemonicParsing="false" onAction="#filterBestelling" styleClass="button-default" stylesheets="@../images/style.css" text="Filter" />
                      </children>
                   </HBox>
+                  <Label alignment="CENTER" style="-fx-background-color: F0EFEF;" text="Overzicht bestellingen" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lbOverzichtProducten" alignment="CENTER" text="Overzicht producten" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
          </children>

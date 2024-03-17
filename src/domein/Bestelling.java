@@ -206,4 +206,8 @@ public class Bestelling implements Serializable {
 		SortedList<BesteldProduct> sortedProducten = new SortedList<>(filteredProducten);
 		return sortedProducten;
 	}
+	
+	public String toString() {
+		return String.format("%d %s %.2f %s %s", orderId, datumGeplaatst.toString(), berekenTotalBedrag(), orderStatus, betalingStatus);
+	}
 }

@@ -1,5 +1,7 @@
 package domein;
 
+import java.time.LocalDate;
+
 import javafx.collections.ObservableList;
 import service.bestelling.BestellingService;
 import service.bestelling.BestellingServiceDbImpl;
@@ -18,10 +20,10 @@ public class BestellingController {
 		return bestellingBeheerder.getBestellingen();
 	}
 	
-	// getGebruiker() & getNaamGebruiker() : removed -> singleton
-
-	public void getFilterdList(String zoekterm) {
-		bestellingBeheerder.changeFilter(zoekterm);
+	// getGebruiker() & getNaamGebruiker() : removed -> singleton		
+	public void getFilterdList(LocalDate filterDate, OrderStatus filterOrderStatus, 
+			BetalingsStatus filterBetalingsStatus, String filterterm) {
+		bestellingBeheerder.changeFilter(filterDate, filterOrderStatus, filterBetalingsStatus, filterterm);
 	}
 	
 	public void updateBestelling(Bestelling bestelling) {    

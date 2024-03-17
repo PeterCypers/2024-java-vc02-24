@@ -22,11 +22,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 public class BestellingsScherm {
-
-    @FXML
-    private TextField txfFilterBestelling;
 
     @FXML
     private Label lbBestellingDetails;
@@ -107,16 +105,36 @@ public class BestellingsScherm {
     private TextField txfBedrag;
 
     @FXML
+    private HBox hbFilterProducten;
+
+    @FXML
     private TextField txfFilterProducten;
 
     @FXML
-    private Button btnZoekProducten;
+    private TextField txfFilterProduct2;
+
+    @FXML
+    private DatePicker dpFilterBestelling;
+
+    @FXML
+    private ChoiceBox<OrderStatus> cbFilterBestellingen;
+
+    @FXML
+    private ChoiceBox<BetalingsStatus> cbFilterBestelling2;
+
+    @FXML
+    private TextField txfFilterBestelling;
 
     @FXML
     void filterBestelling(ActionEvent event) {
-    	bc.getFilterdList(txfFilterBestelling.getText());
+    	bc.getFilterdList(dpFilterBestelling.getValue(), cbFilterBestellingen.getValue(),
+    			cbFilterBestelling2.getValue(), txfFilterBestelling.getText());
     	toonBestelling(false);	//bij het zoeken dat alleen bestellingen getoont worden
+    	dpFilterBestelling.setValue(null); //te veranderen
+    	cbFilterBestellingen.setValue(null);
+    	cbFilterBestelling2.setValue(null);
     }
+    
     @FXML
     public void initialize() {
         initializeStatusChoiceBoxes();
@@ -125,18 +143,46 @@ public class BestellingsScherm {
     @FXML
     void filterProducten(ActionEvent event) {
     	String keyword = txfFilterProducten.getText();
-    	  if (keyword.equals("")) {
+    	String secondKeyword = txfFilterProduct2.getText();
+    	  if(keyword.equals("") && secondKeyword.equals("")) {
     		  tbvOverzichtProducten.setItems(bc.getBestellingen().get(index).getObservableListProducten());
     	 } else {
-    	     ObservableList<BesteldProduct> filteredData = FXCollections.observableArrayList();
-    	     String lowerCaseValue = keyword.toLowerCase();
-    	     for (BesteldProduct product : bc.getBestellingen().get(index).getObservableListProducten()) {
-    	         if(product.getProduct().getNaam().toLowerCase().contains(lowerCaseValue)	//filter op naam van het product
-    	        		 || Integer.toString(product.getAantal()).equals(lowerCaseValue)	//filter op aantal
-    	        		 || product.getProduct().isInStock().toString().toLowerCase().equals(lowerCaseValue)	//filter op in stock
-    	        		 || Double.toString(product.getProduct().getEenheidsprijs()).contains(lowerCaseValue)	//filter op eenheidsprijs
-    	        		 || Double.toString(product.getTotalePrijs()).contains(lowerCaseValue))	//filter op totale prijs
-    	             filteredData.add(product);
+    	     ObservableList<Product> filteredData = FXCollections.observableArrayList();
+    	     String lowerCaseValue1 = keyword.toLowerCase();
+    	     String lowerCaseValue2 = secondKeyword.toLowerCase();
+    	     for (Product product : bc.getBestellingen().get(index).getObservableListProducten()) {
+    	    	 if(!(keyword.equals("")) && secondKeyword.equals("")) {
+    	    		 //één veld
+    	    		 if(product.getNaam().toLowerCase().contains(lowerCaseValue1)	//filter op naam van het product
+        	        		 || Integer.toString(product.getAantal()).equals(lowerCaseValue1)	//filter op aantal
+        	        		 || product.isInStock().toString().toLowerCase().equals(lowerCaseValue1)	//filter op in stock
+        	        		 || Double.toString(product.getEenheidsprijs()).contains(lowerCaseValue1)	//filter op eenheidsprijs
+        	        		 || Double.toString(product.getTotalePrijs()).contains(lowerCaseValue1))	//filter op totale prijs
+        	             filteredData.add(product);
+    	    	 } else if(!(keyword.equals("")) && !(secondKeyword.equals(""))) {
+    	    		 if((product.getNaam().toLowerCase().contains(lowerCaseValue1) && Integer.toString(product.getAantal()).equals(lowerCaseValue2)) 
+    	    				 || (product.getNaam().toLowerCase().contains(lowerCaseValue1) && product.isInStock().toString().toLowerCase().equals(lowerCaseValue2))
+    	    				 || (product.getNaam().toLowerCase().contains(lowerCaseValue1) && Double.toString(product.getEenheidsprijs()).contains(lowerCaseValue2))
+    	    				 || (product.getNaam().toLowerCase().contains(lowerCaseValue1) && Double.toString(product.getTotalePrijs()).contains(lowerCaseValue2))
+    	    				 || (Integer.toString(product.getAantal()).equals(lowerCaseValue1) && product.isInStock().toString().toLowerCase().equals(lowerCaseValue2))
+    	    				 || (Integer.toString(product.getAantal()).equals(lowerCaseValue1) && Double.toString(product.getEenheidsprijs()).contains(lowerCaseValue2))
+    	    				 || (Integer.toString(product.getAantal()).equals(lowerCaseValue1) && Double.toString(product.getTotalePrijs()).contains(lowerCaseValue2))
+    	    				 || (product.isInStock().toString().toLowerCase().equals(lowerCaseValue1) && Double.toString(product.getEenheidsprijs()).contains(lowerCaseValue2))
+    	    				 || (product.isInStock().toString().toLowerCase().equals(lowerCaseValue1) && Double.toString(product.getTotalePrijs()).contains(lowerCaseValue2))
+    	    				 || (Double.toString(product.getEenheidsprijs()).contains(lowerCaseValue1) && Double.toString(product.getTotalePrijs()).contains(lowerCaseValue2))
+    	    				 || (product.getNaam().toLowerCase().contains(lowerCaseValue2) && Integer.toString(product.getAantal()).equals(lowerCaseValue1)) 
+    	    				 || (product.getNaam().toLowerCase().contains(lowerCaseValue2) && product.isInStock().toString().toLowerCase().equals(lowerCaseValue1))
+    	    				 || (product.getNaam().toLowerCase().contains(lowerCaseValue2) && Double.toString(product.getEenheidsprijs()).contains(lowerCaseValue1))
+    	    				 || (product.getNaam().toLowerCase().contains(lowerCaseValue2) && Double.toString(product.getTotalePrijs()).contains(lowerCaseValue1))
+    	    				 || (Integer.toString(product.getAantal()).equals(lowerCaseValue2) && product.isInStock().toString().toLowerCase().equals(lowerCaseValue1))
+    	    				 || (Integer.toString(product.getAantal()).equals(lowerCaseValue2) && Double.toString(product.getEenheidsprijs()).contains(lowerCaseValue1))
+    	    				 || (Integer.toString(product.getAantal()).equals(lowerCaseValue2) && Double.toString(product.getTotalePrijs()).contains(lowerCaseValue1))
+    	    				 || (product.isInStock().toString().toLowerCase().equals(lowerCaseValue2) && Double.toString(product.getEenheidsprijs()).contains(lowerCaseValue1))
+    	    				 || (product.isInStock().toString().toLowerCase().equals(lowerCaseValue2) && Double.toString(product.getTotalePrijs()).contains(lowerCaseValue1))
+    	    				 || (Double.toString(product.getEenheidsprijs()).contains(lowerCaseValue2) && Double.toString(product.getTotalePrijs()).contains(lowerCaseValue1))
+							)
+    	    			 filteredData.add(product);
+    	    	 }
     	     }
     	     tbvOverzichtProducten.setItems(filteredData);
     	   }
@@ -144,6 +190,9 @@ public class BestellingsScherm {
     private void initializeStatusChoiceBoxes() {
         choiceboxOrderStatus.getItems().setAll(OrderStatus.values());
         choiceboxBestellingsStatus.getItems().setAll(BetalingsStatus.values());
+        //filters
+        cbFilterBestellingen.getItems().setAll(OrderStatus.values());
+        cbFilterBestelling2.getItems().setAll(BetalingsStatus.values());
 
         choiceboxOrderStatus.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             handleOrderStatusChange();
@@ -231,8 +280,7 @@ public class BestellingsScherm {
 		gpDetailsBestelling.setVisible(status);
 		lbOverzichtProducten.setVisible(status);
 		tbvOverzichtProducten.setVisible(status);
-		txfFilterProducten.setVisible(status);
-		btnZoekProducten.setVisible(status);
+		hbFilterProducten.setVisible(status);
 	}
 	
 	private void handleOrderStatusChange() {
