@@ -18,15 +18,14 @@ public class BestellingBeheerder {
 	
 	private BestellingService bestellingService;
 	
-	//sorteren op OrderId gaat nog niet omdat het een int is
 	private final Comparator<Bestelling> bijOrderId = (b1, b2)
-			-> b1.orderIdProperty().toString().compareToIgnoreCase(b2.orderIdProperty().toString());
+			-> Integer.toString(b1.getOrderId()).compareToIgnoreCase(Integer.toString(b2.getOrderId()));
 	
 	private final Comparator<Bestelling> bijDatum = (b1, b2)
 			-> b2.getDatumGeplaats().toString().compareToIgnoreCase(b1.getDatumGeplaats().toString());
 	
 	private final Comparator<Bestelling> bijKlant = (b1, b2)
-	            -> b1.getKlantName().compareToIgnoreCase(b2.getKlantName());
+	        -> b1.getKlantName().compareToIgnoreCase(b2.getKlantName());
 	            
 	private final Comparator<Bestelling> bijOrderStatus = (b1, b2)
 			-> b1.getOrderStatus().toString().compareToIgnoreCase(b2.getOrderStatus().toString());
@@ -36,6 +35,7 @@ public class BestellingBeheerder {
 			
 	private final Comparator<Bestelling> orderSorted = bijDatum.thenComparing(bijOrderId)
 			.thenComparing(bijKlant).thenComparing(bijOrderStatus).thenComparing(bijBetalingStatus);
+	
 	//Mockito-injection
 	public BestellingBeheerder(Gebruiker leverancier, BestellingService bs) {
 		bestellingService = bs;
