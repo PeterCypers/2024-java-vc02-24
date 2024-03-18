@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import domein.Adres;
+import domein.BesteldProduct;
 import domein.Bestelling;
 import domein.BetalingsStatus;
 import domein.OrderStatus;
@@ -41,9 +42,14 @@ class BestellingTest {
 			new Klant(null,"klant2@hotmail.com","1234","Tiemen Deroose", true, new Adres("Land", "Stad", "12345", "Straat", "20"), "+32123456789")
 	);
 	static List<Product> producten = Arrays.asList(
-			new Product("productA", 1000, Stock.STOCK, 500.0),
-			new Product("productB", 50000, Stock.STOCK, 4.99),
-			new Product("productC", 2100, Stock.STOCK, 19.99)
+			new Product("productA", Stock.STOCK, 500.0),
+			new Product("productB", Stock.STOCK, 4.99),
+			new Product("productC", Stock.STOCK, 19.99)
+	);
+	static List<BesteldProduct> besteldeProducten = Arrays.asList(
+			new BesteldProduct(producten.get(0), 1000),
+			new BesteldProduct(producten.get(0), 50000),
+			new BesteldProduct(producten.get(0), 2100)
 	);
 	
 
@@ -79,7 +85,7 @@ class BestellingTest {
 	@ParameterizedTest
 	@MethodSource("geldigeBestellingen")
 	void test_nieuweBestelling_geldigeWaarden(int orderId, LocalDate datum, OrderStatus oStatus, BetalingsStatus bStatus, Klant klant) {
-		this.bestelling = new Bestelling(orderId, datum, oStatus, bStatus, klant, null, producten);
+		this.bestelling = new Bestelling(orderId, datum, oStatus, bStatus, klant, null, besteldeProducten);
 		
 		Assertions.assertEquals(orderId, this.bestelling.getOrderId());
 		Assertions.assertEquals(datum, this.bestelling.getDatumGeplaatst());
@@ -91,7 +97,7 @@ class BestellingTest {
 	@ParameterizedTest
 	@MethodSource("ongeldigeBestellingen")
 	void test_nieuweBestelling_ongeldigeWaarden(int orderId, LocalDate datum, OrderStatus oStatus, BetalingsStatus bStatus, Klant klant) {
-		Assertions.assertThrows(IllegalArgumentException.class, () -> new Bestelling(orderId, datum, oStatus, bStatus, klant, null, producten));
+		Assertions.assertThrows(IllegalArgumentException.class, () -> new Bestelling(orderId, datum, oStatus, bStatus, klant, null, besteldeProducten));
 	}
 	
 	//@ParameterizedTest

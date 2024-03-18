@@ -43,7 +43,7 @@ public class Bestelling implements Serializable {
 	private int orderId;
 	
 	@ManyToMany(cascade=CascadeType.PERSIST)
-	private List<Product> producten;
+	private List<BesteldProduct> producten;
 	
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	private Klant klant;
@@ -76,7 +76,7 @@ public class Bestelling implements Serializable {
 	public Bestelling() {}
 	
 	//constructor
-	public Bestelling(int orderId, LocalDate datumGeplaatst, OrderStatus orderStatus, BetalingsStatus betalingStatus, Klant klant, Leverancier leverancier, List<Product> producten) {
+	public Bestelling(int orderId, LocalDate datumGeplaatst, OrderStatus orderStatus, BetalingsStatus betalingStatus, Klant klant, Leverancier leverancier, List<BesteldProduct> producten) {
 		setOrderId(orderId);
 		setDatumGeplaatst(datumGeplaatst);
 		setOrderStatus(orderStatus);
@@ -117,13 +117,13 @@ public class Bestelling implements Serializable {
 		this.klant = klant;
 	}
 
-	public void setProducten(List<Product> producten) {
+	public void setProducten(List<BesteldProduct> producten) {
 		if (producten.isEmpty())
 			throw new IllegalArgumentException("De bestelling bevat geen producten");
 		this.producten = producten;
 	}
 
-	public List<Product> getProducten(){
+	public List<BesteldProduct> getProducten(){
 		return this.producten;
 	}
 	
@@ -200,10 +200,10 @@ public class Bestelling implements Serializable {
 		return orderbedrag;
 	}
 	
-	public ObservableList<Product> getObservableListProducten(){
-		ObservableList<Product> productenList = FXCollections.observableArrayList(producten);
-		FilteredList<Product> filteredProducten = new FilteredList<>(productenList, p -> true);
-		SortedList<Product> sortedProducten = new SortedList<>(filteredProducten);
+	public ObservableList<BesteldProduct> getObservableListProducten(){
+		ObservableList<BesteldProduct> productenList = FXCollections.observableArrayList(producten);
+		FilteredList<BesteldProduct> filteredProducten = new FilteredList<>(productenList, p -> true);
+		SortedList<BesteldProduct> sortedProducten = new SortedList<>(filteredProducten);
 		return sortedProducten;
 	}
 }

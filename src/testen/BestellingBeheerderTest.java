@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import domein.Adres;
+import domein.BesteldProduct;
 import domein.Bestelling;
 import domein.BestellingBeheerder;
 import domein.BetalingsStatus;
@@ -50,19 +51,28 @@ public class BestellingBeheerderTest {
     			new Klant(null, "michel@outlook.be", "1234", "Michel", true, new Adres("Belgium", "Brussels", "1000", "Kerkstraat", "1"), "+32974178174"),
 				new Klant(null, "jake@gmail.com", "1234", "Jake", true, new Adres("United States",	"New York",  "10001", 	"Broadway",	 				"20"), "(212)912-0384"));
     	
-		List<Bestelling> bestellingen =  List.of(
+    	List<Product> producten = List.of(
+				new Product("Stella Artois Lager, 12 Pack 11.2 fl. oz. Bottles", 			Stock.STOCK, 39.99),
+				new Product("Stella Artois Lager, 24 Pack 11.2 fl. oz. Cans",				Stock.STOCK, 59.99),
+				new Product("Stella Artois Premium Lager Beer, 24-11.2 fl. oz. Bottles", 	Stock.STOCK, 52.49),
+				new Product("Stella Artois Premium Lager Beer, 3 Pack 25 fl. oz. Cans", 	Stock.STOCK, 18.99)
+    	);
+    	
+		List<Bestelling> bestellingen = List.of(
 				new Bestelling(49001, LocalDate.now().minusMonths(3),OrderStatus.GELEVERD, BetalingsStatus.BETAALD, 
 						klanten.get(0), gebruiker,
-						Arrays.asList(new Product("Stella Artois Lager, 12 Pack 11.2 fl. oz. Bottles", 80, Stock.STOCK, 39.99),
-								new Product("Stella Artois Lager, 24 Pack 11.2 fl. oz. Cans", 140, Stock.STOCK, 59.99),
-								new Product("Stella Artois Premium Lager Beer, 24-11.2 fl. oz. Bottles", 20, Stock.STOCK, 52.49),
-								new Product("Stella Artois Premium Lager Beer, 3 Pack 25 fl. oz. Cans", 30, Stock.STOCK, 18.99)
+						Arrays.asList(
+								new BesteldProduct(producten.get(0), 80),
+								new BesteldProduct(producten.get(1), 140),
+								new BesteldProduct(producten.get(2), 20),
+								new BesteldProduct(producten.get(3), 30)
 						)
 				),
 				new Bestelling(49002, LocalDate.now().minusDays(1),OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, 
 						klanten.get(1), gebruiker,
-						Arrays.asList(new Product("Stella Artois Lager, 12 Pack 11.2 fl. oz. Bottles", 100, Stock.STOCK, 39.99),
-								new Product("Stella Artois Lager, 24 Pack 11.2 fl. oz. Cans", 220, Stock.STOCK, 59.99)
+						Arrays.asList(
+								new BesteldProduct(producten.get(0), 100),
+								new BesteldProduct(producten.get(1), 220)
 						)
 				)
 		);

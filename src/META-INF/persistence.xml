@@ -12,6 +12,7 @@
     <class>domein.gebruiker.Administrator</class>
     <class>domein.Bestelling</class>
     <class>domein.Product</class>
+    <class>domein.BesteldProduct</class>
     <properties>
       <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://vichogent.be:40058/SDP2_2324_DB_VC02?serverTimezone=UTC"/>
       <property name="jakarta.persistence.jdbc.user" value="SDP2-2324-VC02"/>

@@ -2,13 +2,12 @@ package gui;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import domein.BesteldProduct;
 import domein.Bestelling;
 import domein.BestellingController;
 import domein.BetalingsStatus;
 import domein.OrderStatus;
-import domein.Product;
 import domein.Stock;
-import domein.gebruiker.GebruikerHolder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,8 +15,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -54,22 +53,22 @@ public class BestellingsScherm {
     private TableColumn<Bestelling, BetalingsStatus> tbcBetalingsstatus;
 
     @FXML
-    private TableView<Product> tbvOverzichtProducten;
+    private TableView<BesteldProduct> tbvOverzichtProducten;
 
     @FXML
-    private TableColumn<Product, String> tbcNaam;
+    private TableColumn<BesteldProduct, String> tbcNaam;
 
     @FXML
-    private TableColumn<Product, Number> tbcAantal;
+    private TableColumn<BesteldProduct, Number> tbcAantal;
 
     @FXML
-    private TableColumn<Product, Stock> tbcInStock;
+    private TableColumn<BesteldProduct, Stock> tbcInStock;
 
     @FXML
-    private TableColumn<Product, Number> tbcEenheidsprijs;
+    private TableColumn<BesteldProduct, Number> tbcEenheidsprijs;
 
     @FXML
-    private TableColumn<Product, Number> tbcPrijs;
+    private TableColumn<BesteldProduct, Number> tbcPrijs;
 
     @FXML
     private GridPane gpDetailsBestelling;
@@ -129,13 +128,13 @@ public class BestellingsScherm {
     	  if (keyword.equals("")) {
     		  tbvOverzichtProducten.setItems(bc.getBestellingen().get(index).getObservableListProducten());
     	 } else {
-    	     ObservableList<Product> filteredData = FXCollections.observableArrayList();
+    	     ObservableList<BesteldProduct> filteredData = FXCollections.observableArrayList();
     	     String lowerCaseValue = keyword.toLowerCase();
-    	     for (Product product : bc.getBestellingen().get(index).getObservableListProducten()) {
-    	         if(product.getNaam().toLowerCase().contains(lowerCaseValue)	//filter op naam van het product
+    	     for (BesteldProduct product : bc.getBestellingen().get(index).getObservableListProducten()) {
+    	         if(product.getProduct().getNaam().toLowerCase().contains(lowerCaseValue)	//filter op naam van het product
     	        		 || Integer.toString(product.getAantal()).equals(lowerCaseValue)	//filter op aantal
-    	        		 || product.isInStock().toString().toLowerCase().equals(lowerCaseValue)	//filter op in stock
-    	        		 || Double.toString(product.getEenheidsprijs()).contains(lowerCaseValue)	//filter op eenheidsprijs
+    	        		 || product.getProduct().isInStock().toString().toLowerCase().equals(lowerCaseValue)	//filter op in stock
+    	        		 || Double.toString(product.getProduct().getEenheidsprijs()).contains(lowerCaseValue)	//filter op eenheidsprijs
     	        		 || Double.toString(product.getTotalePrijs()).contains(lowerCaseValue))	//filter op totale prijs
     	             filteredData.add(product);
     	     }

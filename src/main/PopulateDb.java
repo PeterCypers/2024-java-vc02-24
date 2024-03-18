@@ -1,20 +1,26 @@
 package main;
 
-import java.util.Arrays;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import domein.*;
+import domein.Adres;
+import domein.Bedrijf;
+import domein.BesteldProduct;
+import domein.Bestelling;
+import domein.BetalingsStatus;
+import domein.OrderStatus;
+import domein.Product;
+import domein.Stock;
 import domein.gebruiker.Administrator;
 import domein.gebruiker.Gebruiker;
 import domein.gebruiker.Klant;
 import domein.gebruiker.Leverancier;
-import domein.gebruiker.Rol;
-import service.gebruiker.GebruikerService;
-import service.gebruiker.GebruikerServiceDbImpl;
 import service.bedrijf.BedrijfService;
 import service.bedrijf.BedrijfServiceDbImpl;
+import service.gebruiker.GebruikerService;
+import service.gebruiker.GebruikerServiceDbImpl;
 
 public class PopulateDb {
 	
@@ -118,6 +124,68 @@ public class PopulateDb {
 				new Klant(bedrijven.get(6), "sandra@outlook.com", "1234", "Sandra", true, adressen[6], "+393713432912")
 		);
 		
+		List<List<Product>> producten = Arrays.asList(
+				List.of(
+						new Product("Stella Artois Lager, 12 Pack 11.2 fl. oz. Bottles", 			Stock.STOCK, 39.99),
+						new Product("Stella Artois Lager, 24 Pack 11.2 fl. oz. Cans",				Stock.STOCK, 59.99),
+						new Product("Stella Artois Premium Lager Beer, 24-11.2 fl. oz. Bottles", 	Stock.STOCK, 52.49),
+						new Product("Stella Artois Premium Lager Beer, 3 Pack 25 fl. oz. Cans", 	Stock.STOCK, 18.99)
+				),
+				List.of(
+						new Product("Business Laptop - HP Chrome Enterprise", 	Stock.STOCK, 469.00),
+						new Product("Business Laptop - HP Elite", 				Stock.STOCK, 1379.00),
+						new Product("Business Desktop - HP Z2 Workstation", 	Stock.STOCK, 1669.00)
+				),
+				List.of(
+						new Product("WGG1440KFG Serie 6 Wasmachine 9kg", 					Stock.ORDER, 899.99),
+						new Product("WGB244A4FG Serie 8 Wasmachine 9kg", 					Stock.ORDER, 1239.99),
+						new Product("WTN85205FG Serie 4 Luchtcondensatie droogkast 8kg", 	Stock.ORDER, 659.99)
+				),
+				List.of(
+						new Product("Bronwater | Romy | Niet bruisend | PET 6x2l", Stock.STOCK, 2.35),
+						new Product("Cola | Original taste | Blik | Soda 15x33cl", Stock.STOCK, 12.09),
+						new Product("Cola | Zonder suiker | Blik | Frisdrank 15x33cl", Stock.STOCK, 12.69),
+						new Product("Bruisende Ijsthee | Original | Caloriearm | PET", Stock.STOCK, 5.45),
+						new Product("Limonade | Sinaasappel | Blik | Sleek 8x33cl", Stock.STOCK, 4.99),
+						new Product("Crackers | Original | Toastjes | Zout | 2x75gr", Stock.STOCK, 1.85),
+						new Product("Koekje | Comté 100gr", Stock.STOCK, 3.69),
+						new Product("Soep | Room | Witloof 600gr", Stock.STOCK, 3.99),
+						new Product("Tomatensoep | Bio 250gr", Stock.STOCK, 2.39),
+						new Product("Pompoensoep | Bio 250gr", Stock.STOCK, 2.39),
+						new Product("Naturel Zout | Regular | Chips | 120G", Stock.STOCK, 1.55),
+						new Product("Paprika | Regular | Chips | 120G", Stock.STOCK, 1.65),
+						new Product("Gerookt | Snacks | Chips | 125G", Stock.STOCK, 1.52),
+						new Product("Snack | Droge worst | Gerookt | Snack Pack 60gr", Stock.STOCK, 2.99),
+						new Product("Vierkant brood | Wit 800gr", Stock.STOCK, 2.49),
+						new Product("Brood | Bruin | Vierkant 800gr", Stock.STOCK, 2.49),
+						new Product("Brood | Volkoren | Vierkant 800gr", Stock.STOCK, 3.19),
+						new Product("Gouda | Jong | Sneden", Stock.STOCK, 3.15),
+						new Product("Limonade | Sinaasappel | Blik | Sleek 8x33cl", Stock.STOCK, 4.99),
+						new Product("Crackers | Original | Toastjes | Zout | 2x75gr", Stock.STOCK, 1.85),
+						new Product("Koekje | Comté 100gr", Stock.STOCK, 3.69),
+						new Product("Soep | Room | Witloof 600gr", Stock.STOCK, 3.99),
+						new Product("Tomatensoep | Bio 250gr", Stock.STOCK, 2.39),
+						new Product("Pompoensoep | Bio 250gr", Stock.STOCK, 2.39)
+				),
+				List.of(
+						new Product("New E-208 E-Style Electric 50kWh 136 Agueda Yellow", Stock.ORDER, 32650.00),
+						new Product("New E-208 E-Style Electric 50kWh 136 Nera Black", Stock.ORDER, 32650.00),
+						new Product("Traveller Business VIP Standard Electric 50KWh 136 Cumulus Grey", Stock.ORDER, 49495.00),
+						new Product("408 ALLURE 1.2L PureTech 130 EAT8 S&S Elixir Red", Stock.ORDER, 32805.00),
+						new Product("408 ALLURE PLUG-IN HYBRID 180 e-EAT8 Okenite White", Stock.ORDER, 41100.00)
+				),
+				List.of(
+						new Product("OMAR 1 section shelving unit, 36 1/4x14 1/8x71 1/4 \"", Stock.STOCK, 79.98),
+						new Product("IVAR 2 section shelving unit, 68 1/2x19 5/8x89 \"", Stock.ORDER, 275.00),
+						new Product("BUMERANG Hanger 8 pack", Stock.STOCK, 4.99),
+						new Product("RIGGA Clothes rack", Stock.STOCK, 19.99),
+						new Product("INGO Table, 47 1/4x29 1/2 \"", Stock.STOCK, 99.99)
+				),
+				List.of(
+						
+				)
+		);
+		
 		List<List<Bestelling>> bestellingen = Arrays.asList(
 				List.of(
 						new Bestelling(
@@ -125,10 +193,10 @@ public class PopulateDb {
 								OrderStatus.GELEVERD, BetalingsStatus.BETAALD, 
 								klanten.get(4), leveranciers.get(0), 
 								Arrays.asList(
-										new Product("Stella Artois Lager, 12 Pack 11.2 fl. oz. Bottles", 			80, Stock.STOCK, 39.99),
-										new Product("Stella Artois Lager, 24 Pack 11.2 fl. oz. Cans",				140, Stock.STOCK, 59.99),
-										new Product("Stella Artois Premium Lager Beer, 24-11.2 fl. oz. Bottles", 	20, Stock.STOCK, 52.49),
-										new Product("Stella Artois Premium Lager Beer, 3 Pack 25 fl. oz. Cans", 	30, Stock.STOCK, 18.99)
+										new BesteldProduct(producten.get(0).get(0), 80),
+										new BesteldProduct(producten.get(0).get(1), 140),
+										new BesteldProduct(producten.get(0).get(2), 20),
+										new BesteldProduct(producten.get(0).get(3), 30)
 								)
 						),
 						new Bestelling(
@@ -136,8 +204,8 @@ public class PopulateDb {
 								OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, 
 								klanten.get(4), leveranciers.get(0),
 								Arrays.asList(
-										new Product("Stella Artois Lager, 12 Pack 11.2 fl. oz. Bottles", 	100, Stock.STOCK, 39.99),
-										new Product("Stella Artois Lager, 24 Pack 11.2 fl. oz. Cans",		220, Stock.STOCK, 59.99)
+										new BesteldProduct(producten.get(0).get(0), 100),
+										new BesteldProduct(producten.get(0).get(1), 220)
 								)
 						)
 				),
@@ -147,7 +215,7 @@ public class PopulateDb {
 								OrderStatus.GELEVERD, BetalingsStatus.BETAALD, 
 								klanten.get(2), leveranciers.get(1),
 								Arrays.asList(
-										new Product("Business Laptop - HP Chrome Enterprise", 	300, Stock.STOCK, 469.00)
+										new BesteldProduct(producten.get(1).get(0), 300)
 								)
 						),
 						new Bestelling(
@@ -155,8 +223,8 @@ public class PopulateDb {
 								OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, 
 								klanten.get(3), leveranciers.get(1),
 								Arrays.asList(
-										new Product("Business Laptop - HP Elite", 				2, Stock.STOCK, 1379.00),
-										new Product("Business Desktop - HP Z2 Workstation", 	10, Stock.STOCK, 1669.00)
+										new BesteldProduct(producten.get(1).get(1), 2),
+										new BesteldProduct(producten.get(1).get(2), 10)
 								)
 						),
 						new Bestelling(
@@ -164,7 +232,7 @@ public class PopulateDb {
 								OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD,
 								klanten.get(5), leveranciers.get(1),
 								Arrays.asList(
-										new Product("Business Laptop - HP Chrome Enterprise", 	120, Stock.STOCK, 469.00)
+										new BesteldProduct(producten.get(1).get(0), 120)
 								)
 						)
 				),
@@ -174,8 +242,8 @@ public class PopulateDb {
 								OrderStatus.GELEVERD, BetalingsStatus.BETAALD, 
 								klanten.get(5), leveranciers.get(2),
 								Arrays.asList(
-										new Product("WGG1440KFG Serie 6 Wasmachine 9kg", 10, Stock.ORDER, 899.99),
-										new Product("WGB244A4FG Serie 8 Wasmachine 9kg", 2, Stock.ORDER, 1239.99)
+										new BesteldProduct(producten.get(2).get(0), 10),
+										new BesteldProduct(producten.get(2).get(1), 2)
 								)
 						),
 						new Bestelling(
@@ -183,8 +251,8 @@ public class PopulateDb {
 								OrderStatus.GELEVERD, BetalingsStatus.BETAALD, 
 								klanten.get(6), leveranciers.get(2),
 								Arrays.asList(
-										new Product("WGB244A4FG Serie 8 Wasmachine 9kg", 8, Stock.ORDER, 1239.99),
-										new Product("WTN85205FG Serie 4 Luchtcondensatie droogkast 8kg", 3, Stock.ORDER, 659.99)
+										new BesteldProduct(producten.get(2).get(1), 8),
+										new BesteldProduct(producten.get(2).get(2), 3)
 								)
 						)
 				),
@@ -194,20 +262,20 @@ public class PopulateDb {
 								OrderStatus.GELEVERD, BetalingsStatus.BETAALD,
 								klanten.get(6), leveranciers.get(3),
 								Arrays.asList(
-										new Product("Bronwater | Romy | Niet bruisend | PET 6x2l", 8, Stock.STOCK, 2.35),
-										new Product("Cola | Original taste | Blik | Soda 15x33cl", 10, Stock.STOCK, 12.09),
-										new Product("Cola | Zonder suiker | Blik | Frisdrank 15x33cl", 10, Stock.STOCK, 12.69),
-										new Product("Bruisende Ijsthee | Original | Caloriearm | PET", 4, Stock.STOCK, 5.45),
-										new Product("Limonade | Sinaasappel | Blik | Sleek 8x33cl", 6, Stock.STOCK, 4.99),
-										new Product("Crackers | Original | Toastjes | Zout | 2x75gr", 10, Stock.STOCK, 1.85),
-										new Product("Koekje | Comté 100gr", 10, Stock.STOCK, 3.69),
-										new Product("Soep | Room | Witloof 600gr", 5, Stock.STOCK, 3.99),
-										new Product("Tomatensoep | Bio 250gr", 5, Stock.STOCK, 2.39),
-										new Product("Pompoensoep | Bio 250gr", 5, Stock.STOCK, 2.39),
-										new Product("Naturel Zout | Regular | Chips | 120G", 10, Stock.STOCK, 1.55),
-										new Product("Paprika | Regular | Chips | 120G", 10, Stock.STOCK, 1.65),
-										new Product("Gerookt | Snacks | Chips | 125G", 10, Stock.STOCK, 1.52),
-										new Product("Snack | Droge worst | Gerookt | Snack Pack 60gr", 10, Stock.STOCK, 2.99)
+										new BesteldProduct(producten.get(3).get(0), 8),
+										new BesteldProduct(producten.get(3).get(1), 10),
+										new BesteldProduct(producten.get(3).get(2), 10),
+										new BesteldProduct(producten.get(3).get(3), 4),
+										new BesteldProduct(producten.get(3).get(4), 6),
+										new BesteldProduct(producten.get(3).get(5), 10),
+										new BesteldProduct(producten.get(3).get(6), 10),
+										new BesteldProduct(producten.get(3).get(7), 5),
+										new BesteldProduct(producten.get(3).get(8), 5),
+										new BesteldProduct(producten.get(3).get(9), 5),
+										new BesteldProduct(producten.get(3).get(10), 10),
+										new BesteldProduct(producten.get(3).get(11), 10),
+										new BesteldProduct(producten.get(3).get(12), 10),
+										new BesteldProduct(producten.get(3).get(13), 10)
 								)
 						),
 						new Bestelling(
@@ -215,16 +283,16 @@ public class PopulateDb {
 								OrderStatus.ONDERWEG, BetalingsStatus.BETAALD,
 								klanten.get(4), leveranciers.get(3),
 								Arrays.asList(
-										new Product("Vierkant brood | Wit 800gr", 4, Stock.STOCK, 2.49),
-										new Product("Brood | Bruin | Vierkant 800gr", 4, Stock.STOCK, 2.49),
-										new Product("Brood | Volkoren | Vierkant 800gr", 4, Stock.STOCK, 3.19),
-										new Product("Gouda | Jong | Sneden", 4, Stock.STOCK, 3.15),
-										new Product("Limonade | Sinaasappel | Blik | Sleek 8x33cl", 6, Stock.STOCK, 4.99),
-										new Product("Crackers | Original | Toastjes | Zout | 2x75gr", 10, Stock.STOCK, 1.85),
-										new Product("Koekje | Comté 100gr", 10, Stock.STOCK, 3.69),
-										new Product("Soep | Room | Witloof 600gr", 5, Stock.STOCK, 3.99),
-										new Product("Tomatensoep | Bio 250gr", 5, Stock.STOCK, 2.39),
-										new Product("Pompoensoep | Bio 250gr", 5, Stock.STOCK, 2.39)
+										new BesteldProduct(producten.get(3).get(14), 4),
+										new BesteldProduct(producten.get(3).get(15), 4),
+										new BesteldProduct(producten.get(3).get(16), 4),
+										new BesteldProduct(producten.get(3).get(17), 4),
+										new BesteldProduct(producten.get(3).get(18), 6),
+										new BesteldProduct(producten.get(3).get(19), 10),
+										new BesteldProduct(producten.get(3).get(20), 10),
+										new BesteldProduct(producten.get(3).get(21), 5),
+										new BesteldProduct(producten.get(3).get(22), 5),
+										new BesteldProduct(producten.get(3).get(23), 5)
 								)
 						),
 						new Bestelling(
@@ -232,16 +300,16 @@ public class PopulateDb {
 								OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD,
 								klanten.get(6), leveranciers.get(3),
 								Arrays.asList(
-										new Product("Vierkant brood | Wit 800gr", 4, Stock.STOCK, 2.49),
-										new Product("Brood | Bruin | Vierkant 800gr", 4, Stock.STOCK, 2.49),
-										new Product("Brood | Volkoren | Vierkant 800gr", 4, Stock.STOCK, 3.19),
-										new Product("Gouda | Jong | Sneden", 4, Stock.STOCK, 3.15),
-										new Product("Limonade | Sinaasappel | Blik | Sleek 8x33cl", 6, Stock.STOCK, 4.99),
-										new Product("Crackers | Original | Toastjes | Zout | 2x75gr", 10, Stock.STOCK, 1.85),
-										new Product("Koekje | Comté 100gr", 10, Stock.STOCK, 3.69),
-										new Product("Soep | Room | Witloof 600gr", 5, Stock.STOCK, 3.99),
-										new Product("Tomatensoep | Bio 250gr", 5, Stock.STOCK, 2.39),
-										new Product("Pompoensoep | Bio 250gr", 5, Stock.STOCK, 2.39)
+										new BesteldProduct(producten.get(3).get(14), 4),
+										new BesteldProduct(producten.get(3).get(15), 4),
+										new BesteldProduct(producten.get(3).get(16), 4),
+										new BesteldProduct(producten.get(3).get(17), 4),
+										new BesteldProduct(producten.get(3).get(18), 6),
+										new BesteldProduct(producten.get(3).get(19), 10),
+										new BesteldProduct(producten.get(3).get(20), 10),
+										new BesteldProduct(producten.get(3).get(21), 5),
+										new BesteldProduct(producten.get(3).get(22), 5),
+										new BesteldProduct(producten.get(3).get(23), 5)
 								)
 						)
 				),
@@ -251,8 +319,8 @@ public class PopulateDb {
 								OrderStatus.GELEVERD, BetalingsStatus.BETAALD,
 								klanten.get(2), leveranciers.get(4),
 								Arrays.asList(
-										new Product("New E-208 E-Style Electric 50kWh 136 Agueda Yellow", 1, Stock.ORDER, 32650.00),
-										new Product("New E-208 E-Style Electric 50kWh 136 Nera Black", 1, Stock.ORDER, 32650.00)
+										new BesteldProduct(producten.get(4).get(0), 1),
+										new BesteldProduct(producten.get(4).get(1), 1)
 								)
 						),
 						new Bestelling(
@@ -260,7 +328,7 @@ public class PopulateDb {
 								OrderStatus.ONDERWEG, BetalingsStatus.BETAALD,
 								klanten.get(6), leveranciers.get(4),
 								Arrays.asList(
-										new Product("Traveller Business VIP Standard Electric 50KWh 136 Cumulus Grey", 2, Stock.ORDER, 49495.00)
+										new BesteldProduct(producten.get(4).get(2), 2)
 								)
 						),
 						new Bestelling(
@@ -268,7 +336,7 @@ public class PopulateDb {
 								OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.BETAALD,
 								klanten.get(2), leveranciers.get(4),
 								Arrays.asList(
-										new Product("408 ALLURE 1.2L PureTech 130 EAT8 S&S Elixir Red", 1, Stock.ORDER, 32805.00)
+										new BesteldProduct(producten.get(4).get(3), 1)
 								)
 						),
 						new Bestelling(
@@ -276,7 +344,7 @@ public class PopulateDb {
 								OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD,
 								klanten.get(0), leveranciers.get(4),
 								Arrays.asList(
-										new Product("408 ALLURE PLUG-IN HYBRID 180 e-EAT8 Okenite White", 1, Stock.ORDER, 41100.00)
+										new BesteldProduct(producten.get(4).get(4), 1)
 								)
 						)
 				),
@@ -286,7 +354,7 @@ public class PopulateDb {
 								OrderStatus.GELEVERD, BetalingsStatus.BETAALD,
 								klanten.get(0), leveranciers.get(5),
 								Arrays.asList(
-										new Product("OMAR 1 section shelving unit, 36 1/4x14 1/8x71 1/4 \"", 30, Stock.STOCK, 79.98)
+										new BesteldProduct(producten.get(5).get(0), 30)
 								)
 						),
 						new Bestelling(
@@ -294,9 +362,9 @@ public class PopulateDb {
 								OrderStatus.ONDERWEG, BetalingsStatus.BETAALD,
 								klanten.get(6), leveranciers.get(5),
 								Arrays.asList(
-										new Product("IVAR 2 section shelving unit, 68 1/2x19 5/8x89 \"", 12, Stock.ORDER, 275.00),
-										new Product("BUMERANG Hanger 8 pack", 80, Stock.STOCK, 4.99),
-										new Product("RIGGA Clothes rack", 20, Stock.STOCK, 19.99)
+										new BesteldProduct(producten.get(5).get(1), 12),
+										new BesteldProduct(producten.get(5).get(2), 80),
+										new BesteldProduct(producten.get(5).get(3), 20)
 								)
 						),
 						new Bestelling(
@@ -304,8 +372,8 @@ public class PopulateDb {
 								OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.BETAALD,
 								klanten.get(1), leveranciers.get(5),
 								Arrays.asList(
-										new Product("OMAR 1 section shelving unit, 36 1/4x14 1/8x71 1/4 \"", 8, Stock.STOCK, 79.98),
-										new Product("INGO Table, 47 1/4x29 1/2 \"", 4, Stock.STOCK, 99.99)
+										new BesteldProduct(producten.get(5).get(0), 8),
+										new BesteldProduct(producten.get(5).get(4), 4)
 								)
 						)
 				),
@@ -320,9 +388,10 @@ public class PopulateDb {
 			bedrijven.get(i).setKlant(klanten.get(i));
 		}
 		
-		// leg de link van leverancier naar hun bestellingen
+		// leg de link van leverancier naar hun bestellingen en producten
 		for (int i = 0; i < leveranciers.size(); i++) {
 			leveranciers.get(i).setBestellingen(bestellingen.get(i));
+			leveranciers.get(i).setProducten(producten.get(i));
 		}
 		
 		// leg de link van klant naar hun bestellingen

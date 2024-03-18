@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import domein.Bedrijf;
 import domein.Bestelling;
+import domein.Product;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -23,6 +24,9 @@ public class Leverancier extends Gebruiker {
 	@OneToMany(cascade=CascadeType.PERSIST)
 	private List<Bestelling> bestellingen;
 	
+	@OneToMany(cascade=CascadeType.PERSIST)
+	private List<Product> producten;
+	
 	public Leverancier() {}
 	
 	public Leverancier(Bedrijf bedrijf, String email, String wachtwoord, String naam, boolean isActief) {
@@ -36,6 +40,14 @@ public class Leverancier extends Gebruiker {
 	
 	public void setBestellingen(List<Bestelling> bestellingen) {
 		this.bestellingen = bestellingen;
+	}
+	
+	public List<Product> getProducten() {
+		return producten.stream().collect(Collectors.toUnmodifiableList());
+	}
+	
+	public void setProducten(List<Product> producten) {
+		this.producten = producten;
 	}
 
 }

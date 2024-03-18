@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import domein.Adres;
+import domein.BesteldProduct;
 import domein.Bestelling;
 import domein.BetalingsStatus;
 import domein.OrderStatus;
@@ -44,19 +45,24 @@ class KlantenRaadplegenTest {
 	static Leverancier gebruiker = new Leverancier(null, "jasper.vandenbroucke@hotmail.com", "1234", "Jasper Vandenbroucke", true);
 	
 	static List<Product> producten = Arrays.asList(
-			new Product("productA", 1000, Stock.STOCK, 500.0),
-			new Product("productB", 50000, Stock.STOCK, 4.99),
-			new Product("productC", 2100, Stock.STOCK, 19.99)
+			new Product("productA", Stock.STOCK, 500.0),
+			new Product("productB", Stock.STOCK, 4.99),
+			new Product("productC", Stock.STOCK, 19.99)
+	);
+	static List<BesteldProduct> besteldeProducten = Arrays.asList(
+			new BesteldProduct(producten.get(0), 1000),
+			new BesteldProduct(producten.get(0), 50000),
+			new BesteldProduct(producten.get(0), 2100)
 	);
 	
 	static List<Bestelling> bestellingen = Arrays.asList(
-			new Bestelling(1, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.NIET_BETAALD, klanten.get(0), gebruiker, producten),
-			new Bestelling(2, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.NIET_BETAALD, klanten.get(0), gebruiker, producten),
-			new Bestelling(3, LocalDate.now(), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(1), gebruiker, producten),
-			new Bestelling(4, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.BETAALD, klanten.get(0), gebruiker, producten),
-			new Bestelling(5, LocalDate.now(), OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD, klanten.get(1), gebruiker, producten),
-			new Bestelling(6, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.BETAALD, klanten.get(1), gebruiker, producten),
-			new Bestelling(7, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.BETAALD, klanten.get(0), gebruiker, producten)
+			new Bestelling(1, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.NIET_BETAALD, klanten.get(0), gebruiker, besteldeProducten),
+			new Bestelling(2, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.NIET_BETAALD, klanten.get(0), gebruiker, besteldeProducten),
+			new Bestelling(3, LocalDate.now(), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(1), gebruiker, besteldeProducten),
+			new Bestelling(4, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.BETAALD, klanten.get(0), gebruiker, besteldeProducten),
+			new Bestelling(5, LocalDate.now(), OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD, klanten.get(1), gebruiker, besteldeProducten),
+			new Bestelling(6, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.BETAALD, klanten.get(1), gebruiker, besteldeProducten),
+			new Bestelling(7, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.BETAALD, klanten.get(0), gebruiker, besteldeProducten)
 	);
 	
 	@Test
