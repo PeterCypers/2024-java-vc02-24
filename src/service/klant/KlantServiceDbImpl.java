@@ -2,8 +2,8 @@ package service.klant;
 
 import java.util.List;
 
-import domein.Gebruiker;
-import domein.Klant;
+import domein.gebruiker.Gebruiker;
+import domein.gebruiker.Klant;
 
 public class KlantServiceDbImpl implements KlantService {
 	private KlantDaoJpa klantDao;

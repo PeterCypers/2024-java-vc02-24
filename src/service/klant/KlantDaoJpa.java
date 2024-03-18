@@ -2,8 +2,8 @@ package service.klant;
 
 import java.util.List;
 
-import domein.Gebruiker;
-import domein.Klant;
+import domein.gebruiker.Gebruiker;
+import domein.gebruiker.Klant;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.NoResultException;
 import service.GenericDaoJpa;

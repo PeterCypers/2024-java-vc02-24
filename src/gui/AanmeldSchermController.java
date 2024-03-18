@@ -1,12 +1,10 @@
 package gui;
 
 import java.io.IOException;
-import java.util.NoSuchElementException;
 
 import domein.AanmeldController;
-import domein.BestellingController;
-import domein.Gebruiker;
-import domein.GebruikerHolder;
+import domein.gebruiker.Gebruiker;
+import domein.gebruiker.GebruikerHolder;
 import jakarta.persistence.EntityNotFoundException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -97,21 +95,19 @@ public class AanmeldSchermController extends Pane {
     
     private void toonVolgendScherm() {
     	switch (GebruikerHolder.getInstance().getRol()) {		
-    	case LEVERANCIER -> {
-    		HoofdSchermController hoofdScherm = new HoofdSchermController(); //veranderd als bc gebruiker bij houd
-    		Stage stage = (Stage) this.getScene().getWindow();
-    		stage.setResizable(true);
-    		stage.setScene(new Scene(hoofdScherm));
+	    	case LEVERANCIER -> {
+	    		HoofdSchermController hoofdScherm = new HoofdSchermController(); //veranderd als bc gebruiker bij houd
+	    		Stage stage = (Stage) this.getScene().getWindow();
+	    		stage.setResizable(true);
+	    		stage.setScene(new Scene(hoofdScherm));
+			}
+	    	case ADMINISTRATOR -> {
+	    		AdminSchermController adminScherm = new AdminSchermController();
+	    		Stage stage = (Stage) this.getScene().getWindow();
+	    		stage.setResizable(true);
+	    		stage.setScene(new Scene(adminScherm));
+	    	}
+			default -> throw new IllegalArgumentException("Unexpected value: " + GebruikerHolder.getInstance().getRol());
 		}
-    	case ADMINISTRATOR -> {
-    		AdminSchermController adminScherm = new AdminSchermController();
-    		Stage stage = (Stage) this.getScene().getWindow();
-    		stage.setResizable(true);
-    		stage.setScene(new Scene(adminScherm));
-    	}
-		default -> throw new IllegalArgumentException("Unexpected value: " + GebruikerHolder.getInstance().getRol());
-		}
-    	
     }
-    
 }

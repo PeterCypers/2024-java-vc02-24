@@ -6,9 +6,11 @@
 <persistence-unit name="delawarePersistence" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>domein.Bedrijf</class>
-    <class>domein.Gebruiker</class>
+    <class>domein.gebruiker.Gebruiker</class>
+    <class>domein.gebruiker.Klant</class>
+    <class>domein.gebruiker.Leverancier</class>
+    <class>domein.gebruiker.Administrator</class>
     <class>domein.Bestelling</class>
-    <class>domein.Klant</class>
     <class>domein.Product</class>
     <properties>
       <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://vichogent.be:40058/SDP2_2324_DB_VC02?serverTimezone=UTC"/>

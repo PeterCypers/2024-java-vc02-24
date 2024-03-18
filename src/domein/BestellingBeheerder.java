@@ -2,6 +2,8 @@ package domein;
 
 import java.util.Comparator;
 
+import domein.gebruiker.Gebruiker;
+import domein.gebruiker.GebruikerHolder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

@@ -1,5 +1,8 @@
 package gui;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.function.Consumer;
 
 import domein.Bedrijf;
 import domein.BedrijfBuilder;
@@ -79,11 +82,12 @@ public class BedrijfToevoegenController extends VBox {
     private TextField txfStraatnummer;
     
     private BedrijfController bc;
+    BedrijfBuilder bedrijfBuilder;
     
     @FXML
     void toevoegen(ActionEvent event) {
     	try {
-        	Bedrijf nieuwBedrijf = maakBedrijf();
+        	Bedrijf nieuwBedrijf = bedrijfBuilder.build();
 	    	bc.voegBedrijfToe(nieuwBedrijf);
 	    	
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -94,7 +98,7 @@ public class BedrijfToevoegenController extends VBox {
 			Window window = this.getScene().getWindow();
 			window.fireEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSE_REQUEST));
     	} catch(IllegalArgumentException iae) {
-    		lbError.setText(iae.getMessage());
+    		if (lbError.getText() == "") lbError.setText(iae.getMessage());
     	} catch(Exception e) {
     		lbError.setText("Bedrijfsnaam is al in gebruik");
     		e.printStackTrace();
@@ -103,6 +107,7 @@ public class BedrijfToevoegenController extends VBox {
     
     public BedrijfToevoegenController(BedrijfController bc) {
     	this.bc = bc;
+    	this.bedrijfBuilder = new BedrijfBuilder();
     	buildGui();
     }
     
@@ -120,59 +125,115 @@ public class BedrijfToevoegenController extends VBox {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+        
+        voegFocusListenersToe();
     	
     	stage.setScene(scene);
     	stage.show();
 	}
     
-    private Bedrijf maakBedrijf() {
-    	BedrijfBuilder bedrijfBuilder = new BedrijfBuilder();
+    private void voegFocusListenersToe() {
+    	// bedrijf
+    	txfNaam.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { setVeld(() -> bedrijfBuilder.setNaam(txfNaam.getText())); } 
+    	});
+    	txfLogo.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { setVeld(() -> bedrijfBuilder.setLogo(txfLogo.getText())); } 
+    	});
+    	txfSector.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { setVeld(() -> bedrijfBuilder.setSector(txfSector.getText())); } 
+    	});
+    	txfEmailadres.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { setVeld(() -> bedrijfBuilder.setEmailadres(txfEmailadres.getText())); } 
+    	});
+    	txfBTWNummer.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { setVeld(() -> bedrijfBuilder.setBtwNr(txfBTWNummer.getText())); } 
+    	});
     	
-    	bedrijfBuilder
-    		.setNaam(txfNaam.getText())
-    		.setLogo(txfLogo.getText())
-            .setSector(txfSector.getText())
-            .setLand(txfLand.getText())
-            .setStad(txfStad.getText())
-            .setPostcode(txfPostcode.getText())
-            .setStraat(txfStraat.getText())
-            .setStraatNummer(txfStraatnummer.getText())
-            .setEmailadres(txfEmailadres.getText())
-            .setTelefoonNr(txfTelefoonNr.getText())
-            .setBtwNr(txfBTWNummer.getText());
-            
-        bedrijfBuilder
-            .setLgNaam(txfLeverancierNaam.getText())
-            .setLgEmailadres(txfLeverancierEmailadres.getText())
-            .setLgWachtwoord(txfLeverancierWachtwoord.getText())
-            .setLgLand(txfLand.getText())
-            .setLgStad(txfStad.getText())
-            .setLgPostcode(txfPostcode.getText())
-            .setLgStraat(txfStraat.getText())
-            .setLgStraatNummer(txfStraatnummer.getText());
-            
-        bedrijfBuilder
-            .setKgNaam(txfKlantNaam.getText())
-            .setKgEmailadres(txfKlantEmailadres.getText())
-            .setKgWachtwoord(txfKlantWachtwoord.getText())
-            .setKgLand(txfLand.getText())
-            .setKgStad(txfStad.getText())
-            .setKgPostcode(txfPostcode.getText())
-            .setKgStraat(txfStraat.getText())
-            .setKgStraatNummer(txfStraatnummer.getText());
-        
-        bedrijfBuilder
-        	.setKNaam(txfNaam.getText())
-        	.setKLogoPad(txfLogo.getText())
-        	.setKEmailadres(txfKlantEmailadres.getText())
-        	.setKTelefoonNr(txfTelefoonNr.getText())
-            .setKLand(txfLand.getText())
-            .setKStad(txfStad.getText())
-            .setKPostcode(txfPostcode.getText())
-            .setKStraat(txfStraat.getText())
-            .setKStraatNummer(txfStraatnummer.getText());
+    	// leverancier
+    	txfLeverancierNaam.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { setVeld(() -> bedrijfBuilder.setLNaam(txfLeverancierNaam.getText())); } 
+    	});
+    	txfLeverancierEmailadres.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { setVeld(() -> bedrijfBuilder.setLEmailadres(txfLeverancierEmailadres.getText())); } 
+    	});
+    	txfLeverancierWachtwoord.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { setVeld(() -> bedrijfBuilder.setLWachtwoord(txfLeverancierWachtwoord.getText())); } 
+    	});
     	
-    	return bedrijfBuilder.build();
+    	// klant
+    	txfKlantNaam.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { setVeld(() -> bedrijfBuilder.setKNaam(txfKlantNaam.getText())); } 
+    	});
+    	txfKlantEmailadres.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { setVeld(() -> bedrijfBuilder.setKEmailadres(txfKlantEmailadres.getText())); } 
+    	});
+    	txfKlantWachtwoord.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { setVeld(() -> bedrijfBuilder.setKWachtwoord(txfKlantWachtwoord.getText())); } 
+    	});
+    	
+    	// shared
+    	txfLand.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { 
+    			setVeld(() -> {
+	    			bedrijfBuilder.setLand(txfLand.getText());
+	    			bedrijfBuilder.setKLand(txfLand.getText());
+	    		});
+    		}
+    	});
+    	txfStad.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { 
+    			setVeld(() -> {
+    				bedrijfBuilder.setStad(txfStad.getText());
+        			bedrijfBuilder.setKStad(txfStad.getText());
+	    		});
+    		}
+    	});
+    	txfPostcode.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { 
+    			setVeld(() -> {
+    				bedrijfBuilder.setPostcode(txfPostcode.getText());
+    				bedrijfBuilder.setKPostcode(txfPostcode.getText());
+	    		});
+    		}
+    	});
+    	txfStraat.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { 
+    			setVeld(() -> {
+    				bedrijfBuilder.setStraat(txfStraat.getText());
+    				bedrijfBuilder.setKStraat(txfStraat.getText());
+	    		});
+    		}
+    	});
+    	txfStraatnummer.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { 
+    			setVeld(() -> {
+    				bedrijfBuilder.setStraatNummer(txfStraatnummer.getText());
+    				bedrijfBuilder.setKStraatNummer(txfStraatnummer.getText());
+	    		});
+    		}
+    	});
+    	txfTelefoonNr.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { 
+    			setVeld(() -> {
+        			bedrijfBuilder.setTelefoonNr(txfTelefoonNr.getText());
+        			bedrijfBuilder.setKTelefoonNr(txfTelefoonNr.getText());
+	    		});
+    		}
+    	});
+    	
+    	lbError.setText("");
+    }
+    
+    private void setVeld(Runnable builderSetter) {
+    	try {
+        	builderSetter.run();
+        	lbError.setText("");
+    	} catch(IllegalArgumentException iae) {
+    		lbError.setText(iae.getMessage());
+    	} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 }
 

@@ -3,7 +3,7 @@ package service.bestelling;
 import java.util.List;
 
 import domein.Bestelling;
-import domein.Gebruiker;
+import domein.gebruiker.Gebruiker;
 import jakarta.persistence.EntityNotFoundException;
 import service.GenericDao;
 

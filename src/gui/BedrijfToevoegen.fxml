@@ -124,7 +124,7 @@
          </HBox>
       <HBox>
          <children>
-      	            <Button fx:id="btnToevoegen" alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#toevoegen" text="Toevoegen">
+      	    <Button fx:id="btnToevoegen" alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#toevoegen" text="Toevoegen">
                <font>
                   <Font size="14.0" />
                </font></Button>

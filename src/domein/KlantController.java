@@ -1,5 +1,6 @@
 package domein;
 
+import domein.gebruiker.Klant;
 import javafx.collections.ObservableList;
 
 public class KlantController {

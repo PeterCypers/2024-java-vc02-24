@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 
 import domein.Adres;
-import domein.Klant;
+import domein.gebruiker.Klant;
 
 class KlantTest {
 
@@ -20,8 +20,8 @@ class KlantTest {
 	
 	static Stream<Arguments> geldigeData() {
 		return Stream.of(
-			Arguments.of("Bas Stokmans","logobedrijf.png", "+32123456789","klant1@hotmail.com", new Adres("Land", "Stad", "1234", "Straat", "1")),
-			Arguments.of("Tiemen Deroose","logobedrijf.png", "+32123456789","klant2@hotmail.com", new Adres("Land", "Stad", "12345", "Straat", "20")));
+			Arguments.of("klant1@hotmail.com", "1234", "Bas Stokmans", new Adres("Land", "Stad", "1234", "Straat", "1"), "+32123456789"),
+			Arguments.of("klant2@hotmail.com", "1234", "Tiemen Deroose", new Adres("Land", "Stad", "12345", "Straat", "20"), "+32123456789"));
 	}
 	static Stream<String> naam_fout() {
 		return Stream.of("B4s", "T0 M_n", "=", "5325", "*\u00EB%\u20AC", "P/ter");
@@ -36,41 +36,35 @@ class KlantTest {
 	
 	@ParameterizedTest
 	@MethodSource("geldigeData")
-	void nieuweKlant_allesGeldig(String naam,String logoPad, String telefoonnummer,String contact, Adres adres) {
-		klant = new Klant(naam,logoPad,telefoonnummer, contact, adres);
+	void nieuweKlant_allesGeldig(String email, String wachtwoord, String naam, Adres adres, String telefoonnummer) {
+		klant = new Klant(null, email, wachtwoord, naam, true, adres, telefoonnummer);
 		
 		assertEquals(naam, klant.getNaam());
-		assertEquals(contact, klant.getContactgegevens());
+		assertEquals(email, klant.getEmail());
 		assertEquals(adres, klant.getAdres());
 	}
 	@ParameterizedTest
 	@NullAndEmptySource
 	@MethodSource("naam_fout")
 	void nieuweKlant_naamOngeldig(String naam) {
-		assertThrows(IllegalArgumentException.class, () -> new Klant(naam,"logobedrijf.png", "+32123456789", "klant1@hotmail.com", new Adres("Land", "Stad", "1234", "Straat", "1"))); 
+		assertThrows(IllegalArgumentException.class, () -> new Klant(null, "klant1@hotmail.com", "1234", naam, true, new Adres("Land", "Stad", "1234", "Straat", "1"), "+32123456789")); 
 	}
 	
 	@ParameterizedTest
 	@NullSource
 	void nieuweKlant_adresIsNull(Adres adres) {
-		assertThrows(IllegalArgumentException.class, () -> new Klant("Bas Stokmans","logobedrijf.png", "+32123456789","klant1@hotmail.com", adres)); 
+		assertThrows(IllegalArgumentException.class, () -> new Klant(null, "klant1@hotmail.com", "1234", "Bas Stokmans", true, adres, "+32123456789")); 
 	}
 	@ParameterizedTest
 	//@MethodSource("contact_fout")
 	@NullAndEmptySource
 	void nieuweKlant_contactOngeldig(String contact) {
-	    assertThrows(IllegalArgumentException.class, () -> new Klant("Voorbeeld Klant","logobedrijf.png", "+32123456789", contact, new Adres("Land", "Stad", "12345", "Straat", "20")));
+	    assertThrows(IllegalArgumentException.class, () -> new Klant(null, contact, "1234", "Voorbeeld Klant", true, new Adres("Land", "Stad", "12345", "Straat", "20"), "+32123456789"));
 	}
     @ParameterizedTest
     @MethodSource("telefoonnummer_fout")
     void nieuweKlant_telefoonnummerOngeldig(String telefoonnummer) {
-        assertThrows(IllegalArgumentException.class, () -> new Klant("Voorbeeld Klant", "logobedrijf.png", telefoonnummer, "klant@hotmail.com", new Adres("Land", "Stad", "12345", "Straat", "20")));
-    }
-
-    @ParameterizedTest
-    @NullAndEmptySource
-    void nieuweKlant_logoPadOngeldig(String logoPad) {
-        assertThrows(IllegalArgumentException.class, () -> new Klant("Voorbeeld Klant", logoPad, "+32123456789", "klant@hotmail.com", new Adres("Land", "Stad", "12345", "Straat", "20")));
+        assertThrows(IllegalArgumentException.class, () -> new Klant(null, "klant1@hotmail.com", "1234", "Voorbeeld Klant", true, new Adres("Land", "Stad", "12345", "Straat", "20"), telefoonnummer));
     }
 	
 

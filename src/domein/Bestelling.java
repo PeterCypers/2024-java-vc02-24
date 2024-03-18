@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import domein.gebruiker.Klant;
+import domein.gebruiker.Leverancier;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,7 +15,6 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -48,7 +49,7 @@ public class Bestelling implements Serializable {
 	private Klant klant;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	private Gebruiker leverancier;
+	private Leverancier leverancier;
 	
 	private LocalDate datumGeplaatst;
 	
@@ -75,12 +76,13 @@ public class Bestelling implements Serializable {
 	public Bestelling() {}
 	
 	//constructor
-	public Bestelling(int orderId, LocalDate datumGeplaats, OrderStatus orderStatus, BetalingsStatus betalingStatus, Klant klant, List<Product> producten) {
-		setKlant(klant);
+	public Bestelling(int orderId, LocalDate datumGeplaatst, OrderStatus orderStatus, BetalingsStatus betalingStatus, Klant klant, Leverancier leverancier, List<Product> producten) {
 		setOrderId(orderId);
-		setDatumGeplaats(datumGeplaats);
+		setDatumGeplaatst(datumGeplaatst);
 		setOrderStatus(orderStatus);
 		setBetalingStatus(betalingStatus);
+		setKlant(klant);
+		setLeverancier(leverancier);
 		setProducten(producten);
 	}
 	
@@ -135,7 +137,7 @@ public class Bestelling implements Serializable {
 		return this.orderId;
 	}
 
-	private void setDatumGeplaats(LocalDate date) {
+	private void setDatumGeplaatst(LocalDate date) {
 		datumGeplaatst = date;
 	}
 	
@@ -159,11 +161,11 @@ public class Bestelling implements Serializable {
 		orderStatus = oStatus;
 	}
 	
-	public Gebruiker getLeverancier() {
+	public Leverancier getLeverancier() {
 		return leverancier;
 	}
 	
-	public void setLeverancier(Gebruiker leverancier) {
+	public void setLeverancier(Leverancier leverancier) {
 		this.leverancier = leverancier;
 	}
 	

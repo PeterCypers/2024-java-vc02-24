@@ -6,11 +6,11 @@ import java.time.LocalDate;
 import domein.Bestelling;
 import domein.BestellingController;
 import domein.BetalingsStatus;
-import domein.Gebruiker;
-import domein.GebruikerHolder;
-import domein.Klant;
 import domein.KlantController;
 import domein.OrderStatus;
+import domein.gebruiker.Gebruiker;
+import domein.gebruiker.GebruikerHolder;
+import domein.gebruiker.Klant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -155,7 +155,7 @@ public class KlantenScherm {
 	}
 	
 	private void tableViewKlanten() {
-		tbcNaam.setCellValueFactory(cellData -> cellData.getValue().getName());
+		tbcNaam.setCellValueFactory(cellData -> cellData.getValue().gebruikersnaamProperty());
 		tbcAantalOpenstaand.setCellValueFactory(cellData -> cellData.getValue().openstaandeBestellingenProperty(GebruikerHolder.getInstance()));
 		
 		tbvOverzichtKlanten.setItems(kc.getKlanten());
@@ -163,13 +163,13 @@ public class KlantenScherm {
 	
 	private void toonDetailsKlant(int index) {
 		new Thread(() -> {
-			imgvLogo.setImage(new Image(kc.getKlanten().get(index).getLogoPad()));
+			imgvLogo.setImage(new Image(kc.getKlanten().get(index).getLogo()));
 		}).start();
 		
 		txfNaam.setText(kc.getKlanten().get(index).getNaam());
 		txfAdresLijn1.setText(kc.getKlanten().get(index).getAdres().toStringLijn1());
 		txfAdresLijn2.setText(kc.getKlanten().get(index).getAdres().toStringLijn2());
-		txfEmail.setText(kc.getKlanten().get(index).getContactgegevens());
+		txfEmail.setText(kc.getKlanten().get(index).getEmail());
 		txfTelefoonnummer.setText(kc.getKlanten().get(index).getTelefoonnummer());
 		
 		tableViewBestellingen(index);

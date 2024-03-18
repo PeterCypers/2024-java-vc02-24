@@ -3,21 +3,20 @@ package domein;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import domein.gebruiker.Gebruiker;
+import domein.gebruiker.Klant;
+import domein.gebruiker.Leverancier;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Transient;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -37,8 +36,8 @@ public class Bedrijf implements Serializable {
 	
 	private String sector;
 	
-	@OneToOne(cascade=CascadeType.PERSIST)
-	private Adres adres;
+	@Embedded
+	protected Adres adres;
 	
 	private String betalingsmogelijkhedenEnInfo;
 
@@ -56,10 +55,7 @@ public class Bedrijf implements Serializable {
 	private Klant klant;
 	
 	@OneToOne(cascade=CascadeType.PERSIST)
-	private Gebruiker leverancierGebruiker;
-	
-	@OneToOne(cascade=CascadeType.PERSIST)
-	private Gebruiker klantGebruiker;
+	private Leverancier leverancier;
 
 	
 	// Voor tabelView?
@@ -119,8 +115,8 @@ public class Bedrijf implements Serializable {
 	}
 	
 	private void setBetalingsMogelijkhedenEnInfo(String betalingsmogelijkhedenEnInfo) {
-		if (betalingsmogelijkhedenEnInfo.isBlank())
-			throw new IllegalArgumentException("Betalingsmogelijkheden en -info ongeldig");
+		//if (betalingsmogelijkhedenEnInfo.isBlank())
+		//	throw new IllegalArgumentException("Betalingsmogelijkheden en -info ongeldig");
 		this.betalingsmogelijkhedenEnInfo = betalingsmogelijkhedenEnInfo;
 	}
 	
@@ -140,6 +136,10 @@ public class Bedrijf implements Serializable {
 		if (telefoon == null || telefoon.isBlank())
 			throw new IllegalArgumentException("Telefoonnummer van het bedrijf mag niet leeg zijn");
 		
+		String phoneRegex = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$";
+		if(!telefoon.matches(phoneRegex))
+			throw new IllegalArgumentException("Telefoonnummer van het bedrijf is ongeldig");
+		
 		this.telefoonnummer = telefoon;
 		
 	}
@@ -155,16 +155,12 @@ public class Bedrijf implements Serializable {
 		this.isActief = isActief;
 	}
 	
+	public void setLeverancier(Leverancier leverancier) {
+		this.leverancier = leverancier;
+	}
+	
 	public void setKlant(Klant klant) {
 		this.klant = klant;
-	}
-	
-	public void setLeverancierGebruiker(Gebruiker gebruiker) {
-		this.leverancierGebruiker = gebruiker;
-	}
-	
-	public void setKlantGebruiker(Gebruiker gebruiker) {
-		this.klantGebruiker = gebruiker;
 	}
 
 	public String getNaam() {
@@ -198,17 +194,13 @@ public class Bedrijf implements Serializable {
 	public String getBtwNr() {
 		return this.btwNr;
 	}
-
+	
+	public Leverancier getLeverancier() {
+		return this.leverancier;
+	}
+	
 	public Klant getKlant() {
 		return this.klant;
-	}
-	
-	public Gebruiker getLeverancierGebruiker() {
-		return this.leverancierGebruiker;
-	}
-	
-	public Gebruiker getKlantGebruiker() {
-		return this.klantGebruiker;
 	}
 
 	public boolean getIsActief() {
@@ -249,8 +241,8 @@ public class Bedrijf implements Serializable {
 	
 	public ObservableList<Gebruiker> getGebruikers(){
 		List<Gebruiker> gebruikers = new ArrayList<>();
-		gebruikers.add(klantGebruiker);
-		gebruikers.add(leverancierGebruiker);
+		gebruikers.add(klant);
+		gebruikers.add(leverancier);
 		return FXCollections.observableArrayList(gebruikers);
 	}
 

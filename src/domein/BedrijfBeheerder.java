@@ -62,8 +62,8 @@ public class BedrijfBeheerder {
 	
 	public void deactiveerBedrijf(Bedrijf bedrijf) {
 		bedrijf.setIsActief(false);
-		bedrijf.getKlantGebruiker().setIsActief(false);
-		bedrijf.getLeverancierGebruiker().setIsActief(false);
+		bedrijf.getKlant().setIsActief(false);
+		bedrijf.getLeverancier().setIsActief(false);
 		
 		this.bedrijfService.updateBedrijf(bedrijf);
 	}

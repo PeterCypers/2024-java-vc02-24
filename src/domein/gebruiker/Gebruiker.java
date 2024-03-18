@@ -1,55 +1,54 @@
-package domein;
+package domein.gebruiker;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Embedded;
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(
+	    discriminatorType = DiscriminatorType.STRING,
+	    name = "ROL"
+)
 @NamedQueries({
     @NamedQuery(name = "Gebruiker.meldAan",
                          query = "SELECT g FROM Gebruiker g"
                          		+ " WHERE g.emailadres = :emailadres"
                          		+ " AND g.wachtwoord = :wachtwoord"
-                         		+ " AND (g.rol = domein.Rol.ADMINISTRATOR OR g.rol = domein.Rol.LEVERANCIER)")
+                         		+ " AND (g.rol = domein.gebruiker.Rol.ADMINISTRATOR OR g.rol = domein.gebruiker.Rol.LEVERANCIER)")
 })
-public class Gebruiker implements Serializable {
+public abstract class Gebruiker implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int gebruikerId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int gebruikerId;
 	
-	@OneToMany(cascade=CascadeType.PERSIST)
-	private List<Bestelling> bestellingen;
-	
+	@Column(name = "ROL", nullable = false, insertable = false, updatable = false)
 	@Enumerated(EnumType.STRING)
-	private Rol rol;
+	protected Rol rol;
 	
-	private String emailadres;
-	private String wachtwoord;
-	private String naam;
+	protected String emailadres;
+	protected String wachtwoord;
+	protected String naam;
+
 	private boolean isActief;
-	
-	@Embedded
-	private Adres adres;
 	
 	//Voor tableView
 	@Transient
@@ -61,14 +60,12 @@ public class Gebruiker implements Serializable {
 	
 	public Gebruiker() {}
 
-	public Gebruiker(Rol rol, String email, String wachtwoord, String naam, boolean isActief, Adres adres) {
+	public Gebruiker(String email, String wachtwoord, String naam, boolean isActief, Rol rol) {
 		setNaam(naam);
 		setEmail(email);
-		setRol(rol);
 		setWachtwoord(wachtwoord);
 		setIsActief(isActief);
-		
-		this.adres = adres;
+		this.rol = rol;
 	}
 	
 	public String getNaam() {
@@ -78,6 +75,10 @@ public class Gebruiker implements Serializable {
 	private void setNaam(String naam) {
 		if (naam == null || naam.isBlank()) {
 			throw new IllegalArgumentException("Gebruikersnaam mag niet leeg zijn");
+		}
+		
+		if (!naam.matches("\\b([\\p{L}\\-'.,]+[ ]*)+")) {
+	        throw new IllegalArgumentException("Ongeldige gebruikersnaam");
 		}
 		
 		this.naam = naam;
@@ -120,24 +121,12 @@ public class Gebruiker implements Serializable {
 		return rol;
 	}
 	
-	public void setRol(Rol rol) {
-		this.rol = rol;
-	}
-	
 	public boolean getIsActief() {
 		return isActief;
 	}
 	
 	public void setIsActief(boolean isActief) {
 		this.isActief = isActief;
-	}
-	
-	public List<Bestelling> getBestellingen() {
-		return bestellingen.stream().collect(Collectors.toUnmodifiableList());
-	}
-	
-	public void setBestellingen(List<Bestelling> bestellingen) {
-		this.bestellingen = bestellingen;
 	}
 	
 	//Voor tableView

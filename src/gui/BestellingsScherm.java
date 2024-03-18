@@ -5,10 +5,10 @@ import java.time.LocalDate;
 import domein.Bestelling;
 import domein.BestellingController;
 import domein.BetalingsStatus;
-import domein.GebruikerHolder;
 import domein.OrderStatus;
 import domein.Product;
 import domein.Stock;
+import domein.gebruiker.GebruikerHolder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -201,7 +201,7 @@ public class BestellingsScherm {
 		Bestelling selectedBestelling = tbvOverzichtBestellingen.getItems().get(index);
 		
 		txfNaam.setText(bc.getBestellingen().get(index).getKlantName());
-		txfEmail.setText(bc.getBestellingen().get(index).getKlant().getContactgegevens());
+		txfEmail.setText(bc.getBestellingen().get(index).getKlant().getEmail());
 		txfTelefoon.setText(bc.getBestellingen().get(index).getKlant().getTelefoonnummer());
 		txfOrderID.setText(String.format("%d", bc.getBestellingen().get(index).getOrderId()));
 		txfDatum.setText(String.format("%s-%s-%s",datum.getYear() , datum.getMonthValue(), datum.getDayOfMonth()));

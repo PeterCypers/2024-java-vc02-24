@@ -2,6 +2,7 @@ package domein;
 
 import java.util.NoSuchElementException;
 
+import domein.gebruiker.GebruikerHolder;
 import service.gebruiker.GebruikerService;
 import service.gebruiker.GebruikerServiceDbImpl;
 

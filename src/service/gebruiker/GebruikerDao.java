@@ -1,5 +1,5 @@
 package service.gebruiker;
-import domein.Gebruiker;
+import domein.gebruiker.Gebruiker;
 import jakarta.persistence.EntityNotFoundException;
 import service.GenericDao;
 

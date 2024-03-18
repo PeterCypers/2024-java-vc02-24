@@ -1,4 +1,4 @@
-package domein;
+package domein.gebruiker;
 
 /** SingleTon with setter + getter for the logged-in Leverancier/Admin
  * 
@@ -19,12 +19,5 @@ public class GebruikerHolder {
 		if(aangemeldeGebruiker.getRol().equals(Rol.KLANT))
 			throw new IllegalArgumentException("klant mag niet inloggen");
 		instance = aangemeldeGebruiker;
-	}
-	
-	//optioneel gebruiker-singleton met constructor
-	public static void setWithConstructor(Rol rol, String email, String wachtwoord, String naam, boolean isActief, Adres adres) {
-		if (rol != Rol.KLANT) {
-			instance = new Gebruiker(rol, email, wachtwoord, naam, isActief, adres);
-		}
 	}
 }

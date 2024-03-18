@@ -18,10 +18,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import domein.Adres;
 import domein.Bestelling;
 import domein.BetalingsStatus;
-import domein.Klant;
 import domein.OrderStatus;
 import domein.Product;
 import domein.Stock;
+import domein.gebruiker.Klant;
 import service.bestelling.BestellingDaoJpa;
 import service.bestelling.BestellingServiceDbImpl;
 
@@ -37,8 +37,8 @@ class BestellingTest {
 	private BestellingServiceDbImpl bestellingServiceDbImpl;
 	
 	static List<Klant> klanten = Arrays.asList(
-			new Klant("Bas Stokmans","logobedrijf.png", "+32123456789","klant1@hotmail.com", new Adres("Land", "Stad", "1234", "Straat", "1")),
-			new Klant("Tiemen Deroose","logobedrijf.png", "+32123456789","klant2@hotmail.com", new Adres("Land", "Stad", "12345", "Straat", "20"))
+			new Klant(null,"klant1@hotmail.com","1234","Bas Stokmans", true, new Adres("Land", "Stad", "1234", "Straat", "1"), "+32123456789"),
+			new Klant(null,"klant2@hotmail.com","1234","Tiemen Deroose", true, new Adres("Land", "Stad", "12345", "Straat", "20"), "+32123456789")
 	);
 	static List<Product> producten = Arrays.asList(
 			new Product("productA", 1000, Stock.STOCK, 500.0),
@@ -79,19 +79,19 @@ class BestellingTest {
 	@ParameterizedTest
 	@MethodSource("geldigeBestellingen")
 	void test_nieuweBestelling_geldigeWaarden(int orderId, LocalDate datum, OrderStatus oStatus, BetalingsStatus bStatus, Klant klant) {
-		this.bestelling = new Bestelling(orderId, datum, oStatus, bStatus, klant, producten);
+		this.bestelling = new Bestelling(orderId, datum, oStatus, bStatus, klant, null, producten);
 		
 		Assertions.assertEquals(orderId, this.bestelling.getOrderId());
 		Assertions.assertEquals(datum, this.bestelling.getDatumGeplaatst());
 		Assertions.assertEquals(oStatus, this.bestelling.getOrderStatus());
 		Assertions.assertEquals(bStatus, this.bestelling.getBetalingsStatus());
-		Assertions.assertEquals(klant.getName().get(), this.bestelling.getKlantName());
+		Assertions.assertEquals(klant.getNaam(), this.bestelling.getKlantName());
 	}
 	
 	@ParameterizedTest
 	@MethodSource("ongeldigeBestellingen")
 	void test_nieuweBestelling_ongeldigeWaarden(int orderId, LocalDate datum, OrderStatus oStatus, BetalingsStatus bStatus, Klant klant) {
-		Assertions.assertThrows(IllegalArgumentException.class, () -> new Bestelling(orderId, datum, oStatus, bStatus, klant, producten));
+		Assertions.assertThrows(IllegalArgumentException.class, () -> new Bestelling(orderId, datum, oStatus, bStatus, klant, null, producten));
 	}
 	
 	//@ParameterizedTest

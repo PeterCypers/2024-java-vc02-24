@@ -1,7 +1,11 @@
 package domein;
 
+import domein.gebruiker.Klant;
+import domein.gebruiker.Leverancier;
 import exceptions.BuilderEmailException;
 import exceptions.BuilderEmptyArgumentException;
+import exceptions.BuilderPhoneException;
+import exceptions.BuilderUsernameException;
 
 public class BedrijfBuilder {
 	
@@ -20,36 +24,21 @@ public class BedrijfBuilder {
 	private String telefoonNr;
 	private String btwNr;
 	
-	// leverancierGebruiker
-	private String lgNaam;
-	private String lgEmailadres;
-	private String lgWachtwoord;
-	private String lgLand;
-	private String lgStad;
-	private String lgPostcode;
-	private String lgStraat;
-	private String lgStraatNummer;
-	
-	// klantGebruiker
-	private String kgNaam;
-	private String kgEmailadres;
-	private String kgWachtwoord;
-	private String kgLand;
-	private String kgStad;
-	private String kgPostcode;
-	private String kgStraat;
-	private String kgStraatNummer;
+	// leverancier
+	private String lNaam;
+	private String lEmailadres;
+	private String lWachtwoord;
 	
 	// klant
 	private String kNaam;
-	private String kLogoPad;
 	private String kEmailadres;
-	private String kTelefoonNr;
+	private String kWachtwoord;
 	private String kLand;
 	private String kStad;
 	private String kPostcode;
 	private String kStraat;
 	private String kStraatNummer;
+	private String kTelefoonNr;
 	
 	
 	public BedrijfBuilder() {}
@@ -66,28 +55,21 @@ public class BedrijfBuilder {
 			btwNr,
 			true
 		);
-		bedrijf.setLeverancierGebruiker(new Gebruiker(
-			Rol.LEVERANCIER,
-			lgEmailadres,
-			lgWachtwoord,
-			lgNaam,
-			true,
-			new Adres(lgLand, lgStad, lgPostcode, lgStraat, lgStraatNummer)
-		));
-		bedrijf.setKlantGebruiker(new Gebruiker(
-			Rol.KLANT,
-			kgEmailadres,
-			kgWachtwoord,
-			kgNaam,
-			true,
-			new Adres(kgLand, kgStad, kgPostcode, kgStraat, kgStraatNummer)
+		bedrijf.setLeverancier(new Leverancier(
+			bedrijf,
+			lEmailadres,
+			lWachtwoord,
+			lNaam,
+			true
 		));
 		bedrijf.setKlant(new Klant(
-			kNaam,
-			kLogoPad,
-			kTelefoonNr,
+			bedrijf,
 			kEmailadres,
-			new Adres(kLand, kStad, kPostcode, kStraat, kStraatNummer)
+			kWachtwoord,
+			kNaam,
+			true,
+			new Adres(kLand, kStad, kPostcode, kStraat, kStraatNummer),
+			kTelefoonNr
 		));
 		
 		return bedrijf;
@@ -162,6 +144,7 @@ public class BedrijfBuilder {
 
 	public BedrijfBuilder setTelefoonNr(String telefoonNr) {
 		checkNullAndEmpty("Bedrijf telefoonNr", telefoonNr);
+		checkPhoneFormat(telefoonNr);
 	    this.telefoonNr = telefoonNr;
 	    return this;
 	}
@@ -172,113 +155,30 @@ public class BedrijfBuilder {
 	    return this;
 	}
 
-	public BedrijfBuilder setLgNaam(String lgNaam) {
-		checkNullAndEmpty("Leverancier naam", lgNaam);
-	    this.lgNaam = lgNaam;
+	public BedrijfBuilder setLNaam(String lNaam) {
+		checkNullAndEmpty("Leverancier naam", lNaam);
+		checkUsernameFormat(lNaam);
+	    this.lNaam = lNaam;
 	    return this;
 	}
 
-	public BedrijfBuilder setLgEmailadres(String lgEmailadres) {
-		checkNullAndEmpty("Leverancier email adres", lgEmailadres);
-		checkEmailFormat(lgEmailadres);
-	    this.lgEmailadres = lgEmailadres;
+	public BedrijfBuilder setLEmailadres(String lEmailadres) {
+		checkNullAndEmpty("Leverancier email adres", lEmailadres);
+		checkEmailFormat(lEmailadres);
+	    this.lEmailadres = lEmailadres;
 	    return this;
 	}
 
-	public BedrijfBuilder setLgWachtwoord(String lgWachtwoord) {
-		checkNullAndEmpty("Leverancier wachtwoord", lgWachtwoord);
-	    this.lgWachtwoord = lgWachtwoord;
-	    return this;
-	}
-
-	public BedrijfBuilder setLgLand(String lgLand) {
-		checkNullAndEmpty("Leverancier land", lgLand);
-	    this.lgLand = lgLand;
-	    return this;
-	}
-
-	public BedrijfBuilder setLgStad(String lgStad) {
-		checkNullAndEmpty("Leverancier stad", lgStad);
-	    this.lgStad = lgStad;
-	    return this;
-	}
-
-	public BedrijfBuilder setLgPostcode(String lgPostcode) {
-		checkNullAndEmpty("Leverancier postcode", lgPostcode);
-	    this.lgPostcode = lgPostcode;
-	    return this;
-	}
-
-	public BedrijfBuilder setLgStraat(String lgStraat) {
-		checkNullAndEmpty("Leverancier straat", lgStraat);
-	    this.lgStraat = lgStraat;
-	    return this;
-	}
-
-	public BedrijfBuilder setLgStraatNummer(String lgStraatNummer) {
-		checkNullAndEmpty("Leverancier straat nummer", lgStraatNummer);
-	    this.lgStraatNummer = lgStraatNummer;
-	    return this;
-	}
-
-	public BedrijfBuilder setKgNaam(String kgNaam) {
-		checkNullAndEmpty("Klant-Gebruiker naam", kgNaam);
-	    this.kgNaam = kgNaam;
-	    return this;
-	}
-
-	public BedrijfBuilder setKgEmailadres(String kgEmailadres) {
-		checkNullAndEmpty("Klant-Gebruiker email adres", kgEmailadres);
-		checkEmailFormat(kgEmailadres);
-	    this.kgEmailadres = kgEmailadres;
-	    return this;
-	}
-
-	public BedrijfBuilder setKgWachtwoord(String kgWachtwoord) {
-		checkNullAndEmpty("Klant-Gebruiker wachtwoord", kgWachtwoord);
-	    this.kgWachtwoord = kgWachtwoord;
-	    return this;
-	}
-
-	public BedrijfBuilder setKgLand(String kgLand) {
-		checkNullAndEmpty("Klant-Gebruiker land", kgLand);
-	    this.kgLand = kgLand;
-	    return this;
-	}
-
-	public BedrijfBuilder setKgStad(String kgStad) {
-		checkNullAndEmpty("Klant-Gebruiker stad", kgStad);
-	    this.kgStad = kgStad;
-	    return this;
-	}
-
-	public BedrijfBuilder setKgPostcode(String kgPostcode) {
-		checkNullAndEmpty("Klant-Gebruiker postcode", kgPostcode);
-	    this.kgPostcode = kgPostcode;
-	    return this;
-	}
-
-	public BedrijfBuilder setKgStraat(String kgStraat) {
-		checkNullAndEmpty("Klant-Gebruiker straat", kgStraat);
-	    this.kgStraat = kgStraat;
-	    return this;
-	}
-
-	public BedrijfBuilder setKgStraatNummer(String kgStraatNummer) {
-		checkNullAndEmpty("Klant-Gebruiker straat nummer", kgStraatNummer);
-	    this.kgStraatNummer = kgStraatNummer;
+	public BedrijfBuilder setLWachtwoord(String lWachtwoord) {
+		checkNullAndEmpty("Leverancier wachtwoord", lWachtwoord);
+	    this.lWachtwoord = lWachtwoord;
 	    return this;
 	}
 
 	public BedrijfBuilder setKNaam(String kNaam) {
 		checkNullAndEmpty("Klant naam", kNaam);
+		checkUsernameFormat(kNaam);
 	    this.kNaam = kNaam;
-	    return this;
-	}
-
-	public BedrijfBuilder setKLogoPad(String kLogoPad) {
-		checkNullAndEmpty("Klant logo pad", kLogoPad);
-	    this.kLogoPad = kLogoPad;
 	    return this;
 	}
 
@@ -289,9 +189,9 @@ public class BedrijfBuilder {
 	    return this;
 	}
 
-	public BedrijfBuilder setKTelefoonNr(String kTelefoonNr) {
-		checkNullAndEmpty("Klant telefoonNr", kTelefoonNr);
-	    this.kTelefoonNr = kTelefoonNr;
+	public BedrijfBuilder setKWachtwoord(String kWachtwoord) {
+		checkNullAndEmpty("Klant wachtwoord", kWachtwoord);
+	    this.kWachtwoord = kWachtwoord;
 	    return this;
 	}
 
@@ -325,6 +225,13 @@ public class BedrijfBuilder {
 	    return this;
 	}
 	
+	public BedrijfBuilder setKTelefoonNr(String kTelefoonNr) {
+		checkNullAndEmpty("Klant telefoonNr", kTelefoonNr);
+		checkPhoneFormat(kTelefoonNr);
+	    this.kTelefoonNr = kTelefoonNr;
+	    return this;
+	}
+	
 	private void checkNullAndEmpty(String message, String value) {
 		if (value == null || value.isBlank())
 			throw new BuilderEmptyArgumentException(message);
@@ -332,5 +239,13 @@ public class BedrijfBuilder {
 	private void checkEmailFormat(String email) {
 		if (!email.matches("\\w+@\\w+\\.\\w+"))
 			throw new BuilderEmailException(email);
+	}
+	private void checkUsernameFormat(String username) {
+		if (!username.matches("\\b([\\p{L}\\-'.,]+[ ]*)+"))
+			throw new BuilderUsernameException(username);
+	}
+	private void checkPhoneFormat(String phone) {
+		if(!phone.matches("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$"))
+			throw new BuilderPhoneException(phone);
 	}
 }

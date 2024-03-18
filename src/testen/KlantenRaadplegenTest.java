@@ -17,12 +17,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import domein.Adres;
 import domein.Bestelling;
 import domein.BetalingsStatus;
-import domein.Gebruiker;
-import domein.Klant;
 import domein.OrderStatus;
 import domein.Product;
-import domein.Rol;
 import domein.Stock;
+import domein.gebruiker.Gebruiker;
+import domein.gebruiker.Klant;
+import domein.gebruiker.Leverancier;
+import domein.gebruiker.Rol;
 import service.klant.KlantDaoJpa;
 import service.klant.KlantServiceDbImpl;
 
@@ -36,9 +37,11 @@ class KlantenRaadplegenTest {
 	private KlantServiceDbImpl klantServiceDbImpl;
 	
 	static List<Klant> klanten = Arrays.asList(
-			new Klant("Bas Stokmans","logobedrijf.png", "+32123456789","klant1@hotmail.com", new Adres("Land", "Stad", "1234", "Straat", "1")),
-			new Klant("Tiemen Deroose","logobedrijf.png", "+32123456789","klant2@hotmail.com", new Adres("Land", "Stad", "12345", "Straat", "20"))
+			new Klant(null, "klant1@hotmail.com", "1234", "Bas Stokmans", true, new Adres("Land", "Stad", "1234", "Straat", "1"), "+32123456789"),
+			new Klant(null, "klant2@hotmail.com", "1234", "Tiemen Deroose", true, new Adres("Land", "Stad", "12345", "Straat", "20"), "+32123456789")
 	);
+	
+	static Leverancier gebruiker = new Leverancier(null, "jasper.vandenbroucke@hotmail.com", "1234", "Jasper Vandenbroucke", true);
 	
 	static List<Product> producten = Arrays.asList(
 			new Product("productA", 1000, Stock.STOCK, 500.0),
@@ -47,17 +50,14 @@ class KlantenRaadplegenTest {
 	);
 	
 	static List<Bestelling> bestellingen = Arrays.asList(
-			new Bestelling(1, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.NIET_BETAALD, klanten.get(0), producten),
-			new Bestelling(2, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.NIET_BETAALD, klanten.get(0), producten),
-			new Bestelling(3, LocalDate.now(), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(1), producten),
-			new Bestelling(4, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.BETAALD, klanten.get(0), producten),
-			new Bestelling(5, LocalDate.now(), OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD, klanten.get(1), producten),
-			new Bestelling(6, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.BETAALD, klanten.get(1), producten),
-			new Bestelling(7, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.BETAALD, klanten.get(0), producten)
+			new Bestelling(1, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.NIET_BETAALD, klanten.get(0), gebruiker, producten),
+			new Bestelling(2, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.NIET_BETAALD, klanten.get(0), gebruiker, producten),
+			new Bestelling(3, LocalDate.now(), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(1), gebruiker, producten),
+			new Bestelling(4, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.BETAALD, klanten.get(0), gebruiker, producten),
+			new Bestelling(5, LocalDate.now(), OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD, klanten.get(1), gebruiker, producten),
+			new Bestelling(6, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.BETAALD, klanten.get(1), gebruiker, producten),
+			new Bestelling(7, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.BETAALD, klanten.get(0), gebruiker, producten)
 	);
-	
-	private Gebruiker gebruiker = new Gebruiker(Rol.LEVERANCIER, "jasper.vandenbroucke@hotmail.com", "1234", 
-			"Jasper Vandenbroucke", true, new Adres("België", "Gent", "9000", "Veldstraat", "56"));
 	
 	@Test
 	public void test_raadplegenKlanten() {
@@ -67,8 +67,8 @@ class KlantenRaadplegenTest {
 
 		Assertions.assertTrue(klanten.size() != 0);
 
-		Assertions.assertEquals("Bas Stokmans", klanten.get(0).getName().get());
-		Assertions.assertEquals("Tiemen Deroose", klanten.get(1).getName().get());
+		Assertions.assertEquals("Bas Stokmans", klanten.get(0).gebruikersnaamProperty().get());
+		Assertions.assertEquals("Tiemen Deroose", klanten.get(1).gebruikersnaamProperty().get());
 
 		Mockito.verify(klantDaoJpa).vindPerLeverancier(gebruiker);
 	}

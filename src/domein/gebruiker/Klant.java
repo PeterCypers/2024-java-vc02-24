@@ -1,21 +1,24 @@
-package domein;
+package domein.gebruiker;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import domein.Adres;
+import domein.Bedrijf;
+import domein.Bestelling;
+import domein.OrderStatus;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Transient;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -27,21 +30,18 @@ import javafx.collections.ObservableList;
                         		+ "JOIN k.bestellingen b "
                          		+ "WHERE b.leverancier = :leverancier")
 })
-public class Klant implements Serializable {
+@DiscriminatorValue(value=Rol.Values.KLANT)
+public class Klant extends Gebruiker {
 	
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-	private String naam;
-	
-	private String contact;
-	
+
 	@Embedded
-	private Adres adres;
-	
-	private String logoPad;
+	protected Adres adres;
 	
 	private String telefoonnummer;
+	
+	@OneToOne(cascade=CascadeType.PERSIST)
+	private Bedrijf bedrijf;
 	
 	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<Bestelling> bestellingen;
@@ -55,51 +55,23 @@ public class Klant implements Serializable {
 	public Klant() {}
 	
 	//constructor
-	public Klant(String naam, String logoPad, String telefoonnummer, String contact, Adres adres) {
-		this.naam = naam;
-		setContact(contact);
-		setKlantNaam(naam);
+	public Klant(Bedrijf bedrijf, String email, String wachtwoord, String naam, boolean isActief, Adres adres, String telefoonnummer) {
+		super(email, wachtwoord, naam, isActief, Rol.KLANT);
+		this.bedrijf = bedrijf;
 		setAdres(adres);
-		setLogoPad(logoPad);
 		setTelefoonnummer(telefoonnummer);
-		
 	}
 	
-	public String getNaam() {
-		return naam;
+	public Adres getAdres() {
+		return adres;
 	}
 	
-	private void setKlantNaam(String name) {
-		if(name == null || naam.isBlank())
-	        throw new IllegalArgumentException("Klantnaam mag niet leeg zijn");
+	public void setAdres(Adres adres) {
+		if (adres == null) {
+			throw new IllegalArgumentException("Adres van de klant is ongeldig");
+		}
 		
-		if(name == null || !name.matches("\\b([\\p{L}\\-'.,]+[ ]*)+"))
-	        throw new IllegalArgumentException("Ongeldige klantnaam");
-		
-		this.naam = name;
-	}
-	
-	public String getContactgegevens() {
-		return contact;
-	}
-	
-	public void setContact(String email) {
-		if (email == null || email.isBlank()) {
-	        throw new IllegalArgumentException("Emailadres van de klant mag niet leeg zijn");
-	    }
-		
-	    this.contact = email;
-	}
-
-	public String getLogoPad() {
-		return logoPad;
-	}
-
-	public void setLogoPad(String logoPad) {
-		if (logoPad == null || logoPad.isEmpty())
-			throw new IllegalArgumentException("Bedrijfslogo mag niet leeg zijn");
-		
-		this.logoPad = logoPad;
+		this.adres = adres;
 	}
 
 	public String getTelefoonnummer() {
@@ -110,24 +82,11 @@ public class Klant implements Serializable {
 		if(telefoonnummer == null || telefoonnummer.isBlank())
 			throw new IllegalArgumentException("Telefoonnummer van de klant mag niet leeg zijn");
 		
-		String PhoneRegex = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$";
-
-		if(telefoonnummer == null || !telefoonnummer.matches(PhoneRegex))
+		String phoneRegex = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$";
+		if(telefoonnummer == null || !telefoonnummer.matches(phoneRegex))
 			throw new IllegalArgumentException("Telefoonnummer van de klant is ongeldig");
-			
-		this.telefoonnummer = telefoonnummer;
-		this.telefoonnummer = telefoonnummer;
-	}
-	
-	public Adres getAdres() {
-		return this.adres;
-	}
-	
-	public void setAdres(Adres adres) {
-		if(adres == null)
-			throw new IllegalArgumentException("Adres van de klant is ongeldig");
 		
-		this.adres = adres;
+		this.telefoonnummer = telefoonnummer;
 	}
 	
 	public List<Bestelling> getBestellingen() {
@@ -138,9 +97,8 @@ public class Klant implements Serializable {
 		this.bestellingen = bestellingen;
 	}
 	
-	public StringProperty getName() {
-		naamKlant.set(naam);
-		return naamKlant;
+	public String getLogo() {
+		return this.bedrijf.getLogo();
 	}
 	
 	public IntegerProperty openstaandeBestellingenProperty(Gebruiker leverancier) {
@@ -174,13 +132,13 @@ public class Klant implements Serializable {
 	}
 	
 	public String getAdresString() {
-		return adres.toString();
+		return getAdres().toString();
 	}
 	
 	@Override
 	public String toString() {
 		//TODO: logo dit stuur ik door als herinnering, maar vermoed andere implementatie verwacht
 		return String.format("Naam: %s - Contact: %s - Adres: %s - Logopath: %s - telNr: %s",
-				naam, contact, adres, logoPad, telefoonnummer);
+				naam, emailadres, adres, bedrijf.getLogo(), telefoonnummer);
 	}
 }
