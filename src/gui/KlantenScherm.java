@@ -106,11 +106,11 @@ public class KlantenScherm {
 
     @FXML
     private TextField txfFilterBestelling;
-
     
-    @FXML
-    public void initialize() {
-        initializeStatusChoiceBoxes();
+	@FXML
+    void filterOverzichtKlanten(ActionEvent event) {
+		kc.getFilteredList(txfFilerKlanten.getText());
+		toonDetails(false);
     }
 
     @FXML
@@ -124,73 +124,26 @@ public class KlantenScherm {
     	if(keyword.equals("") && datum == null && orderstatus == null && betalingsstatus == null) {
     		tbvBestellingen.setItems(kc.getKlanten().get(index).getObservableListBestellingen(aangemeldeGebruiker));
     	} else {
-    		ObservableList<Bestelling> filteredData = FXCollections.observableArrayList();
     		String lowerCaseValue = keyword.toLowerCase();
     		
-    		for(Bestelling bestelling: kc.getKlanten().get(index).getObservableListBestellingen(aangemeldeGebruiker)) {
-    			if(orderstatus == null && betalingsstatus != null && datum == null && !(lowerCaseValue.equals(""))) {
-    				//betalingsstatus  en text filter
-    				if((bestelling.getBetalingsStatus().equals(betalingsstatus) && Integer.toString(bestelling.getOrderId()).equals(lowerCaseValue))
-    						|| (bestelling.getBetalingsStatus().equals(betalingsstatus) && Double.toString(bestelling.berekenTotalBedrag()).contains(lowerCaseValue)))
-    					filteredData.add(bestelling);
-    			} else if(orderstatus == null && betalingsstatus == null && datum != null && !(lowerCaseValue.equals(""))) {
-    				//datum en text filter 
-    				if((bestelling.getDatumGeplaats().equals(datum) && Integer.toString(bestelling.getOrderId()).equals(lowerCaseValue))
-    						|| (bestelling.getDatumGeplaats().equals(datum) && Double.toString(bestelling.berekenTotalBedrag()).contains(lowerCaseValue)))
-    					filteredData.add(bestelling);
-    			} else if(orderstatus != null && betalingsstatus == null && datum == null && !(lowerCaseValue.equals(""))) {
-    				//orderstatus en text filter 
-    				if((bestelling.getOrderStatus().equals(orderstatus) && Integer.toString(bestelling.getOrderId()).equals(lowerCaseValue))
-    						|| (bestelling.getOrderStatus().equals(orderstatus) && Double.toString(bestelling.berekenTotalBedrag()).contains(lowerCaseValue)))
-    					filteredData.add(bestelling);
-    			} else if(orderstatus == null && betalingsstatus == null && datum == null && !(lowerCaseValue.equals(""))) {
-    				//text filter
-    				if(Integer.toString(bestelling.getOrderId()).equals(lowerCaseValue)
-    						|| Double.toString(bestelling.berekenTotalBedrag()).contains(lowerCaseValue))
-    					filteredData.add(bestelling);
-    			} else if(orderstatus == null && betalingsstatus != null && datum != null && lowerCaseValue.equals("")) {
-    				// betalingsstatus en datum filter
-    				if((bestelling.getBetalingsStatus().equals(betalingsstatus) && bestelling.getDatumGeplaats().equals(datum)))
-    					filteredData.add(bestelling);
-    			} else if(orderstatus != null && betalingsstatus != null && datum == null && lowerCaseValue.equals("")) {
-    				//betalinsstatus en orderstatus filter
-    				if((bestelling.getBetalingsStatus().equals(betalingsstatus) && bestelling.getOrderStatus().equals(orderstatus)))
-    					filteredData.add(bestelling);
-    			} else if(orderstatus == null && betalingsstatus != null && datum == null && lowerCaseValue.equals("")) {
-    				//betalingsstatus filter
-    				if(bestelling.getBetalingsStatus().equals(betalingsstatus) )
-    					filteredData.add(bestelling);
-    			} else if(orderstatus != null && betalingsstatus == null && datum != null && lowerCaseValue.equals("")) {
-    				//orderstatus en datum filter
-    				if((bestelling.getOrderStatus().equals(orderstatus) && bestelling.getDatumGeplaats().equals(datum)))
-    					filteredData.add(bestelling);
-    			} else if(orderstatus != null && betalingsstatus == null && datum == null && lowerCaseValue.equals("")) {
-    				//orderstatus filter
-    				if(bestelling.getOrderStatus().equals(orderstatus))
-    					filteredData.add(bestelling);
-    			} else if(orderstatus == null && betalingsstatus == null && datum != null && lowerCaseValue.equals("")) {
-    				//datum filter
-    				if(bestelling.getDatumGeplaats().equals(datum))
-    					filteredData.add(bestelling);
-    			}
-    		}
-    		tbvBestellingen.setItems(filteredData);
+    		tbvBestellingen.setItems(kc.getKlanten().get(index).filter(datum, orderstatus, betalingsstatus, lowerCaseValue));
     	}
     	
+    	//nodig om alle bestellingen te zien
     	dpFilterBestelling.setValue(null);
     	cbFilterOrderStatus.setValue(null);
     	cbFilterBetalingsStatus.setValue(null);
     }
     
+    
+    @FXML
+    public void initialize() {
+        initializeStatusChoiceBoxes();
+    }
+    
     private void initializeStatusChoiceBoxes() {
         cbFilterOrderStatus.getItems().setAll(OrderStatus.values());
         cbFilterBetalingsStatus.getItems().setAll(BetalingsStatus.values());
-    }
-    
-	@FXML
-    void filterOverzichtKlanten(ActionEvent event) {
-		kc.getFilteredList(txfFilerKlanten.getText());
-		toonDetails(false);
     }
 	
 	private HoofdSchermController hoofdScherm;
