@@ -21,8 +21,6 @@ public class KlantBeheerder {
 	//sort op String naam (er is ook een SimpleStringProperty naamKlant)
 	private final Comparator<Klant> opNaam = (k1, k2)
 			-> k1.getNaam().compareToIgnoreCase(k2.getNaam());
-
-	//TODO extra sorteringen -> zie BestellingBeheerder
 			
 	public KlantBeheerder() {
 		klantService = new KlantServiceDbImpl();
