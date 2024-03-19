@@ -150,9 +150,10 @@
                   </GridPane>
                   <TableView fx:id="tbvOverzichtAccounts" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <columns>
+                      <TableColumn fx:id="tbcRol" prefWidth="75.0" text="Rol" />
                       <TableColumn fx:id="tbcGebruikersnaam" prefWidth="75.0" text="Gebruikersnaam" />
                       <TableColumn fx:id="tbcWachtwoord" prefWidth="75.0" text="Wachtwoord" />
-                        <TableColumn fx:id="tbcAccountActief" prefWidth="75.0" text="Actief" />
+                      <TableColumn fx:id="tbcAccountActief" prefWidth="75.0" text="Actief" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

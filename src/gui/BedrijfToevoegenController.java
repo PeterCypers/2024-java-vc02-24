@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
@@ -46,7 +47,7 @@ public class BedrijfToevoegenController extends VBox {
     private TextField txfKlantNaam;
 
     @FXML
-    private TextField txfKlantWachtwoord;
+    private PasswordField pwdFieldKlant;
 
     @FXML
     private TextField txfLand;
@@ -58,7 +59,7 @@ public class BedrijfToevoegenController extends VBox {
     private TextField txfLeverancierNaam;
 
     @FXML
-    private TextField txfLeverancierWachtwoord;
+    private PasswordField pwdFieldLeverancier;
 
     @FXML
     private TextField txfLogo;
@@ -157,8 +158,8 @@ public class BedrijfToevoegenController extends VBox {
     	txfLeverancierEmailadres.focusedProperty().addListener((obs, oldVal, newVal) -> { 
     		if (!newVal) { setVeld(() -> bedrijfBuilder.setLEmailadres(txfLeverancierEmailadres.getText())); } 
     	});
-    	txfLeverancierWachtwoord.focusedProperty().addListener((obs, oldVal, newVal) -> { 
-    		if (!newVal) { setVeld(() -> bedrijfBuilder.setLWachtwoord(txfLeverancierWachtwoord.getText())); } 
+    	pwdFieldLeverancier.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { setVeld(() -> bedrijfBuilder.setLWachtwoord(pwdFieldLeverancier.getText())); } 
     	});
     	
     	// klant
@@ -168,8 +169,8 @@ public class BedrijfToevoegenController extends VBox {
     	txfKlantEmailadres.focusedProperty().addListener((obs, oldVal, newVal) -> { 
     		if (!newVal) { setVeld(() -> bedrijfBuilder.setKEmailadres(txfKlantEmailadres.getText())); } 
     	});
-    	txfKlantWachtwoord.focusedProperty().addListener((obs, oldVal, newVal) -> { 
-    		if (!newVal) { setVeld(() -> bedrijfBuilder.setKWachtwoord(txfKlantWachtwoord.getText())); } 
+    	pwdFieldKlant.focusedProperty().addListener((obs, oldVal, newVal) -> { 
+    		if (!newVal) { setVeld(() -> bedrijfBuilder.setKWachtwoord(pwdFieldKlant.getText())); } 
     	});
     	
     	// shared

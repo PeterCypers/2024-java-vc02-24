@@ -52,6 +52,8 @@ public abstract class Gebruiker implements Serializable {
 	
 	//Voor tableView
 	@Transient
+	private final SimpleStringProperty rolProp = new SimpleStringProperty();
+	@Transient
 	private final SimpleStringProperty gebruikersnaam = new SimpleStringProperty();
 	@Transient
 	private final SimpleStringProperty wachtWoord = new SimpleStringProperty();
@@ -130,6 +132,11 @@ public abstract class Gebruiker implements Serializable {
 	}
 	
 	//Voor tableView
+	public StringProperty rolProperty() {
+		rolProp.set(rol.toString());
+		return rolProp;
+	}
+	
 	public StringProperty gebruikersnaamProperty() {
 		gebruikersnaam.set(naam);
 		return gebruikersnaam;

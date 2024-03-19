@@ -8,6 +8,7 @@ import domein.Bedrijf;
 import domein.BedrijfController;
 import domein.gebruiker.Gebruiker;
 import domein.gebruiker.GebruikerHolder;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -95,6 +96,9 @@ public class BedrijvenScherm {
 
 	@FXML
 	private TableView<Gebruiker> tbvOverzichtAccounts;
+	
+	@FXML
+	private TableColumn<Gebruiker, String> tbcRol;
 
 	@FXML
 	private TableColumn<Gebruiker, String> tbcGebruikersnaam;
@@ -213,8 +217,12 @@ public class BedrijvenScherm {
 	}
 	
 	private void tableViewAccounts(int index) {
+		tbcRol.setCellValueFactory(cellData -> cellData.getValue().rolProperty());
 		tbcGebruikersnaam.setCellValueFactory(cellData -> cellData.getValue().gebruikersnaamProperty());
-		tbcWachtwoord.setCellValueFactory(cellData -> cellData.getValue().wachtwoordProperty());
+		tbcWachtwoord.setCellValueFactory(cellData -> {
+			String wachtwoord = cellData.getValue().getWachtwoord().replaceAll(".", "*");
+			return new SimpleStringProperty(wachtwoord);
+		});
 		tbcAccountActief.setCellValueFactory(cellData -> cellData.getValue().actiefProperty());
 		
 		tbvOverzichtAccounts.setItems(bc.getBedrijven().get(index).getGebruikers());
