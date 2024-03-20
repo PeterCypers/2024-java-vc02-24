@@ -63,10 +63,10 @@ public class BestellingsScherm {
     private TableColumn<BesteldProduct, Stock> tbcInStock;
 
     @FXML
-    private TableColumn<BesteldProduct, Number> tbcEenheidsprijs;
+    private TableColumn<BesteldProduct, String> tbcEenheidsprijs;
 
     @FXML
-    private TableColumn<BesteldProduct, Number> tbcPrijs;
+    private TableColumn<BesteldProduct, String> tbcPrijs;
 
     @FXML
     private GridPane gpDetailsBestelling;
@@ -235,7 +235,7 @@ public class BestellingsScherm {
 		tbcAantal.setCellValueFactory(cellData -> cellData.getValue().aantalProperty());
 		tbcInStock.setCellValueFactory(cellData -> cellData.getValue().stockProperty());
 		tbcEenheidsprijs.setCellValueFactory(cellData -> cellData.getValue().eenheidsprijsProperty());
-		tbcPrijs.setCellValueFactory(cellData -> cellData.getValue().totalePrijsProperty());
+		tbcPrijs.setCellValueFactory(cellData -> cellData.getValue().totaalPrijsProperty());
 		
 		tbvOverzichtProducten.setItems(bc.getBestellingen().get(index).getObservableListProducten());
 	}

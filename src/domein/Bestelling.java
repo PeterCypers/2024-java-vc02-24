@@ -1,6 +1,7 @@
 package domein;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class Bestelling implements Serializable {
 	@Transient
 	private final SimpleStringProperty betalingsstatus = new SimpleStringProperty();
 	@Transient
-	private final SimpleDoubleProperty orderbedrag = new SimpleDoubleProperty();
+	private final SimpleStringProperty orderbedrag = new SimpleStringProperty();
 	
 	public Bestelling() {}
 	
@@ -195,8 +196,9 @@ public class Bestelling implements Serializable {
 		return betalingsstatus;
 	}
 	
-	public DoubleProperty orderbedragProperty() {
-		orderbedrag.set(berekenTotalBedrag());
+	public StringProperty orderbedragProperty() {
+		DecimalFormat df = new DecimalFormat("€0.00");
+		orderbedrag.set(df.format(berekenTotalBedrag()));
 		return orderbedrag;
 	}
 	

@@ -84,7 +84,7 @@ public class KlantenScherm {
     private TableColumn<Bestelling, LocalDate> tbcDatum;
 
     @FXML
-    private TableColumn<Bestelling, Number> tbcOrderbedrag;
+    private TableColumn<Bestelling, String> tbcOrderbedrag;
 
     @FXML
     private TableColumn<Bestelling, String> tbcOrderstatus;
