@@ -156,15 +156,7 @@ public class Klant extends Gebruiker {
 		FilteredList<Bestelling> filteredBestellingen = new FilteredList<>(bestellingsList, b -> true);     
 		SortedList<Bestelling> sortedBestellingen = new SortedList<>(filteredBestellingen, bestellingSorted);
 		return sortedBestellingen;
-	}
-	
-	private FilteredList<Bestelling> getObservableListBestelling(Gebruiker leverancier){
-		ObservableList<Bestelling> bestellingsList = FXCollections.observableArrayList(
-				getBestellingenPerLeverancier(leverancier));
-		FilteredList<Bestelling> filteredBestellingen = new FilteredList<>(bestellingsList, b -> true); 
-		return filteredBestellingen;
-	}
-	
+	}	
 
 	public ObservableList<Bestelling> filter(LocalDate datum, OrderStatus orderstatus, BetalingsStatus betalingsstatus,
 			String filterValue) {
