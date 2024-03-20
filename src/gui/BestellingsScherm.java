@@ -223,7 +223,7 @@ public class BestellingsScherm {
 		dpBetalingsherinnering.setPromptText(""); //TODO 
 	    choiceboxOrderStatus.setValue(selectedBestelling.getOrderStatus());
 	    choiceboxBestellingsStatus.setValue(selectedBestelling.getBetalingStatus());
-		txfBedrag.setText(String.format("\\u20AC%.2f", bc.getBestellingen().get(index).berekenTotalBedrag()));
+		txfBedrag.setText(String.format("\u20AC%.2f", bc.getBestellingen().get(index).berekenTotalBedrag()));
 		
 		tableViewProducten(index);
 		

@@ -85,13 +85,13 @@ public class BesteldProduct {
 	
 	
 	public StringProperty eenheidsprijsProperty() {
-		 DecimalFormat df = new DecimalFormat("\\u20AC0.00");
+		 DecimalFormat df = new DecimalFormat("\u20AC0.00");
 		 eenheidsprijs.set(df.format(product.getEenheidsprijs()));
         return eenheidsprijs;
     }
 
     public StringProperty totaalPrijsProperty() {
-    	 DecimalFormat df = new DecimalFormat("\\u20AC0.00");
+    	 DecimalFormat df = new DecimalFormat("\u20AC0.00");
     	 totaalPrijs.set(df.format(getTotalePrijs()));
         return totaalPrijs;
     }
