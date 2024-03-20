@@ -106,6 +106,31 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.2.5</version>
       </plugin>
+            <!--executable start -->
+      <plugin>
+	    <artifactId>maven-assembly-plugin</artifactId>
+	    <version>3.3.0</version>
+	    <configuration>
+	        <archive>
+	            <manifest>
+	                <mainClass>main.StartUp</mainClass> <!-- Vervang dit door je main class -->
+	            </manifest>
+	        </archive>
+	        <descriptorRefs>
+	            <descriptorRef>jar-with-dependencies</descriptorRef>
+	        </descriptorRefs>
+	    </configuration>
+    	<executions>
+        <execution>
+            <id>make-assembly</id> <!-- deze is gebruikt voor binding aan fase 'package' -->
+            <phase>package</phase>
+            <goals>
+                <goal>single</goal>
+            </goals>
+        </execution>
+    </executions>
+	</plugin>
+	<!-- executable end-->
     </plugins>
   </build>
 </project>
