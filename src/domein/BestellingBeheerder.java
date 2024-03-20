@@ -11,11 +11,20 @@ import javafx.collections.transformation.SortedList;
 import service.bestelling.BestellingService;
 import service.bestelling.BestellingServiceDbImpl;
 
+/**
+ * Manager class for Orders containing:<br>
+ * <ul>
+ * <li> An {@link ObservableList} of orders
+ * <li> A {@link FilteredList} of the same orders filtered on a predicate
+ * <li> A {@link SortedList} of the same orders sorted by the<br> specified {@link Comparator}(s)
+ * </ul>
+ */
 public class BestellingBeheerder {
 	private ObservableList<Bestelling> bestellingen;
 	private FilteredList<Bestelling> filteredBestellingen;
 	private SortedList<Bestelling> sortedBestellingen;
 	
+	/** connection to the service layer */
 	private BestellingService bestellingService;
 	
 	//sorteren op OrderId gaat nog niet omdat het een int is
@@ -36,7 +45,14 @@ public class BestellingBeheerder {
 			
 	private final Comparator<Bestelling> orderSorted = bijDatum.thenComparing(bijOrderId)
 			.thenComparing(bijKlant).thenComparing(bijOrderStatus).thenComparing(bijBetalingStatus);
-	//Mockito-injection
+
+	/**
+	 * Extra constructor mainly for Mockito-injection
+	 * 
+	 * @param leverancier Singleton logged-in user
+	 * @param bs a new BestellingServiceDbImpl from default constructor<br>
+	 * facilitates Mockito-injection for testing
+	 */
 	public BestellingBeheerder(Gebruiker leverancier, BestellingService bs) {
 		bestellingService = bs;
 		bestellingen = FXCollections.observableArrayList(bestellingService.getBestellingen(leverancier));
@@ -44,14 +60,34 @@ public class BestellingBeheerder {
         sortedBestellingen = new SortedList<>(filteredBestellingen, orderSorted);
 	}
 	
+	/**
+	 * Constructs a new <strong>BestellingBeheerder</strong><br>
+	 * to manage orders.
+	 * <ul>
+	 * <li>Also initializes the order service class which calls the DB
+	 * <li>and creates/fills the lists with orders.
+	 * </ul>
+	 * This default constructor is the main constructor in use.<br>
+	 */
 	public BestellingBeheerder() {
 		this(GebruikerHolder.getInstance(), new BestellingServiceDbImpl());
 	}
 	
+	/**
+	 * This returns the sorted list of orders sorted by the Comparators.
+	 * 
+	 * @return {@link ObservableList} of sorted orders
+	 */
 	public ObservableList<Bestelling> getBestellingen() {
 		return sortedBestellingen;
 	}
 	
+	/**
+	 * This sets the predicate on which the {@link FilteredList}<br>
+	 * <code>filteredBestellingen</code> will be filtered.
+	 * 
+	 * @param filterValue String determining the new predicate on which to filter
+	 */
 	public void changeFilter(String filterValue) {
         filteredBestellingen.setPredicate(bestelling -> {
             // If filter text is empty, display all orders.

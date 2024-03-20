@@ -29,6 +29,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
+/**
+ * Represents an Order.
+ * <p>This class contains information about an Order.</p>
+ */
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Bestelling.vindPerLeverancier",
@@ -73,9 +77,20 @@ public class Bestelling implements Serializable {
 	@Transient
 	private final SimpleDoubleProperty orderbedrag = new SimpleDoubleProperty();
 	
+	/** <code>entity class</code> JPA-required default constructor */
 	public Bestelling() {}
 	
-	//constructor
+	/**
+	 * Constructs a new <strong>Bestelling</strong> with the specified details.
+	 * 
+	 * @param orderId the id belonging to this order
+	 * @param datumGeplaats the <code>LocalDate</code> when this order was placed
+	 * @param orderStatus <code>enum</code> {@link domein.OrdersStatus} OrderStatus of this order
+	 * @param betalingStatus <code>enum</code> {@link domein.BetalingsStatus} BetalingsStatus of this order
+	 * @param leverancier the supplier of this order
+	 * @param klant customer to which this order belongs
+	 * @param producten a <code>list</code> of products in this order
+	 */
 	public Bestelling(int orderId, LocalDate datumGeplaatst, OrderStatus orderStatus, BetalingsStatus betalingStatus, Klant klant, Leverancier leverancier, List<BesteldProduct> producten) {
 		setOrderId(orderId);
 		setDatumGeplaatst(datumGeplaatst);
@@ -86,6 +101,11 @@ public class Bestelling implements Serializable {
 		setProducten(producten);
 	}
 	
+	/**
+	 * This calculates the sum total cost of products for this Order
+	 * 
+	 * @return sum total cost of products
+	 */
 	public double berekenTotalBedrag() {
 		return producten.stream().mapToDouble(p -> p.getTotalePrijs()).sum();
 	}
@@ -170,36 +190,90 @@ public class Bestelling implements Serializable {
 	}
 	
 	//tableView
+	/**
+	 * JavaFX property implementation
+	 * 
+	 * @return {@link SimpleIntegerProperty} orderID -> the orderID of this order
+	 */
 	public IntegerProperty orderIdProperty() {
 		orderID.set(orderId);
 		return orderID;
 	}
 	
+	/**
+	 * JavaFX property implementation
+	 * 
+	 * @return {@link SimpleObjectProperty} datum -> a simple object of the date <br>
+	 * this order was placed
+	 */
 	public ObjectProperty<LocalDate> datumProperty() {
 		datum.set(datumGeplaatst);
 		return datum;
 	}
 	
+	/**
+	 * JavaFX property implementation
+	 * 
+	 * @return {@link SimpleStringProperty} klantnaam -> the customer name
+	 * to whom this order belongs
+	 */
 	public StringProperty klantNaamProperty() {
 		klantnaam.set(klant.getNaam());
 		return klantnaam;
 	}
 	
+	/**
+	 * JavaFX property implementation
+	 * 
+	 * @return {@link SimpleObjectProperty} orderstatus -> the status(enum) of this order<br>
+	 * 
+	 * options:
+	 * <ul>
+	 * <li>OrderStatus.<strong>GELEVERD</strong>
+	 * <li>OrderStatus.<strong>ONDERWEG</strong>
+	 * <li>OrderStatus.<strong>AAN_HET_VERWERKEN</strong>
+	 * <li>OrderStatus.<strong>GEREGISTREERD</strong>
+	 * </ul>
+	 */
 	public ObjectProperty<OrderStatus> orderstatusProperty() {
 		orderstatus.set(orderStatus);
 		return orderstatus;
 	}
 	
+	/**
+	 * JavaFX property implementation
+	 * 
+	 * @return {@link SimpleObjectProperty} betalingsstatus -> payment status(enum)<br>
+	 * of this order<br>
+	 * options:<br>
+	 * <ul>
+	 * <li>BetalingsStatus.<strong>NIET_BETAALD</strong>
+	 * <li>BetalingsStatus.<strong>BETAALD</strong>
+	 * </ul>
+	 */
 	public ObjectProperty<BetalingsStatus> betalingsstatusProperty() {
 		betalingsstatus.set(betalingStatus);
 		return betalingsstatus;
 	}
 	
+	/**
+	 * JavaFX property implementation
+	 * 
+	 * @return {@link SimpleDoubleProperty} orderbedrag -> the sum total cost 
+	 * of the products in this order
+	 */
 	public DoubleProperty orderbedragProperty() {
 		orderbedrag.set(berekenTotalBedrag());
 		return orderbedrag;
 	}
 	
+	/**
+	 * JavaFX Collections implementation
+	 * 
+	 * @return {@link ObservableList} of Product objects belonging to this order<br>
+	 *
+	 * used in gui.BestellingScherm
+	 */
 	public ObservableList<BesteldProduct> getObservableListProducten(){
 		ObservableList<BesteldProduct> productenList = FXCollections.observableArrayList(producten);
 		FilteredList<BesteldProduct> filteredProducten = new FilteredList<>(productenList, p -> true);

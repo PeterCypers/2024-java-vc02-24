@@ -5,28 +5,33 @@ import java.util.NoSuchElementException;
 import domein.gebruiker.GebruikerHolder;
 import service.gebruiker.GebruikerService;
 import service.gebruiker.GebruikerServiceDbImpl;
-
+/**
+ * Controller for logging in a user
+ */
 public class AanmeldController {
 	
 	private final GebruikerService gs;
 	
+	/**
+	 * <p>Constructs a new <strong>AanmeldController</strong> <br>
+	 * & instantiates <code>gs</code> for interaction with the service-layer.
+	 * </p>
+	 */
 	public AanmeldController() {
 		gs = new GebruikerServiceDbImpl();
 	}
 	
-	//implementatie correct? gebruiker class hashcode+equals om op equality te controlleren -> wacht op vervolg
-	public /*Gebruiker*/void meldGebruikerAan(String emailadres, String wachtwoord) throws NoSuchElementException {
-		/*
-		List<Gebruiker> geldigeGebruikers = ams.getGebruikers();
-		Gebruiker gevondenGebruiker = null;
-		for (Gebruiker g : geldigeGebruikers) {
-			if(g.getEmail().equals(emailadres) && g.getWachtwoord().equals(wachtwoord)) gevondenGebruiker = g;
-		}
-		return gevondenGebruiker;
-		*/
+	/**
+	 * This takes the input from the login screen input fields <br>
+	 * and attempts to find a <strong><code>Gebruiker</code></strong> in the database <br>
+	 * who's values match the given parameter values
+	 * 
+	 * @param emailadres txtField email address input
+	 * @param wachtwoord pwdField password input
+	 * @throws NoSuchElementException if no matching user is found in the database
+	 */
+	public void meldGebruikerAan(String emailadres, String wachtwoord) throws NoSuchElementException {
 		
 		GebruikerHolder.setInstance(gs.meldGebruikerAan(emailadres, wachtwoord));
-		//return gs.meldGebruikerAan(emailadres, wachtwoord);
-		//return GebruikerHolder.getInstance();
 	}
 }

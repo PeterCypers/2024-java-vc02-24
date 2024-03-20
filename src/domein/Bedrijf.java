@@ -22,6 +22,10 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Represents a Company.
+ * <p>This class contains information about a Company.</p>
+ */
 @Entity
 @NamedQueries ({
 	@NamedQuery(name="Bedrijf.geefBedrijven",
@@ -49,6 +53,7 @@ public class Bedrijf implements Serializable {
 	
 	private String btwNr;
 	
+	/** administration can activate/deactivate a company */
 	private boolean isActief;
 	
 	@OneToOne(cascade=CascadeType.PERSIST)
@@ -70,9 +75,24 @@ public class Bedrijf implements Serializable {
 	@Transient
 	private final SimpleStringProperty isActiefProp = new SimpleStringProperty();
 	
+	/** <code>entity class</code> JPA-required default constructor */
 	public Bedrijf() {}
 	
-	// klanten?
+	/**
+	 * Constructs a new <strong>Bedrijf</strong> with the specified details.
+	 * 
+	 * @param naam the name of the company
+	 * @param logo an http link to the company logo
+	 * @param sector the company sector
+	 * @param adres the company address
+	 * @param betalingsmogelijkhedenEnInfo ??? -> TODO
+	 * @param email the company email-address
+	 * @param telefoon the company phone number
+	 * @param btwNr company tax number
+	 * @param isActief whether or not the company has been set active/inactive by the administrator <br>
+	 * 
+	 * klanten?
+	 */
 	public Bedrijf(String naam, String logo, String sector, Adres adres, 
 			String betalingsmogelijkhedenEnInfo, String email, String telefoon,
 			String btwNr, boolean isActief) {
@@ -87,6 +107,21 @@ public class Bedrijf implements Serializable {
 		setIsActief(isActief);
 	}
 
+	/**
+	 * <p>setter for attribute <code>naam</code> <br>
+	 * the company name should match:</p>
+	 * <ul>
+	 * <li> <strong>\\b</strong> == ???
+	 * <li> <strong>(...)+</strong> == capturing group containing 1 or more
+	 * <li> <strong>\\p{L}</strong> == unicode property matching any letter in any language
+	 * <li> <strong>\\-'.,</strong> == literal: any - ' . , character
+	 * <li> <strong>[\\p{L}\\-'.,]+</strong> == see above disambiguation (1 or more)
+	 * <li> <strong>[ ]*</strong> spaces are allowed (0 or more)
+	 * <li> <strong>[a-zA-Z]+$</strong> == Any case letter (1 or more), at the end of the string
+	 * </ul>
+	 * @param naam the company name
+	 * @throws IllegalArgumentException when name is not filled in, null or doesn't match regex
+	 */
 	private void setNaam(String naam) {
 		if (naam == null || naam.isBlank()) 
 			throw new IllegalArgumentException("Bedrijfsnaam mag niet leeg zijn");
@@ -120,6 +155,21 @@ public class Bedrijf implements Serializable {
 		this.betalingsmogelijkhedenEnInfo = betalingsmogelijkhedenEnInfo;
 	}
 	
+	/**
+	 * <p>setter for attribute <code>emailadres</code> <br>
+	 * the company email should match:</p>
+	 * <ul>
+	 * <li> <strong>^[a-zA-Z0-9]+</strong> == Beginning of the string must be any case letter or number (1 or more)
+	 * <li> <strong>\\.?</strong> == 0 or 1 (optional) dot
+	 * <li> <strong>[a-zA-Z0-9]*</strong> == any case letter or number (0 or more)
+	 * <li> <strong>@</strong> == Important, required '@' character
+	 * <li> <strong>[a-zA-Z]+</strong> == Any case letter (1 or more)
+	 * <li> <strong>\\.</strong> Important, required '.' character
+	 * <li> <strong>[a-zA-Z]+$</strong> == Any case letter (1 or more), at the end of the string
+	 * </ul>
+	 * @param email the company email
+	 * @throws IllegalArgumentException when email is not filled in, null or doesn't match regex
+	 */
 	private void setEmail(String email) {
 		if (email == null || email.isBlank())
 			throw new IllegalArgumentException("Emailadres mag niet leeg zijn");
@@ -208,6 +258,11 @@ public class Bedrijf implements Serializable {
 	}
 	
 	//Voor tableView
+	/**
+	 * JavaFX property implementation
+	 * 
+	 * @return {@link SimpleIntegerProperty} aantalKlantenProp -> the amount of customers of this company
+	 */
 	public IntegerProperty getAantalKlantenProp() {
 		int aantalKlanten = getGebruikers().size();
 		
@@ -215,21 +270,42 @@ public class Bedrijf implements Serializable {
 		return aantalKlantenProp;
 	}
 
+	/**
+	 * JavaFX property implementation
+	 * 
+	 * @return {@link SimpleStringProperty} naamProp -> the name of this company
+	 */
 	public StringProperty getNaamProp() {
 		this.naamProp.set(this.naam);
 		return naamProp;
 	}
 
+	/**
+	 * JavaFX property implementation
+	 * 
+	 * @return {@link SimpleStringProperty} sectorProp -> the sector of this company
+	 */
 	public StringProperty getSectorProp() {
 		this.sectorProp.set(this.sector);
 		return sectorProp;
 	}
 
+	/**
+	 * JavaFX property implementation
+	 * 
+	 * @return {@link SimpleStringProperty} adresProp -> the address of this company
+	 */
 	public StringProperty getAdresProp() {
 		this.adresProp.set(this.adres.toString());
 		return adresProp;
 	}
 
+	/**
+	 * JavaFX property implementation
+	 * 
+	 * @return {@link SimpleStringProperty} isActiefProp<br> -> a String representation of
+	 * the <code>isActief</code> <code>boolean</code> status of this company
+	 */
 	public StringProperty getIsActiefProp() {
 		if(isActief == true) {
 			this.isActiefProp.set("ja");
@@ -239,6 +315,12 @@ public class Bedrijf implements Serializable {
 		return isActiefProp;
 	}
 	
+	/**
+	 * JavaFX Collections implementation
+	 * 
+	 * @return {@link ObservableList} of Gebruiker objects<br>
+	 * used in gui.BedrijvenScherm
+	 */
 	public ObservableList<Gebruiker> getGebruikers(){
 		List<Gebruiker> gebruikers = new ArrayList<>();
 		gebruikers.add(klant);

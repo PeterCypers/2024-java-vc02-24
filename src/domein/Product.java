@@ -18,6 +18,10 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Represents a Product.
+ * <p>This class contains information about a Product.</p>
+ */
 @Entity
 public class Product implements Serializable {
 	
@@ -34,9 +38,16 @@ public class Product implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Stock inStock;
 	
+	/** <code>entity class</code> JPA-required default constructor */
 	public Product() {}
 	
-	//constructor
+	/**
+	 * Constructs a new <strong>Product</strong> with the specified details.
+	 * 
+	 * @param naam the productname
+	 * @param inStock <code>enum</code> {@link domein.Stock} inStock status of this product
+	 * @param eenheidsprijs the price per unit of this product
+	 */
 	public Product(String naam, Stock inStock, double eenheidsprijs) {
 		setNaam(naam);
 		setInStock(inStock);

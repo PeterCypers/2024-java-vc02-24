@@ -22,7 +22,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
+/**
+ * Represents an Customer.
+ * <p>This class contains information about a Customer.</p>
+ */
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Klant.vindPerLeverancier",
@@ -52,9 +55,20 @@ public class Klant extends Gebruiker {
 	@Transient
 	private final SimpleIntegerProperty openstaandeBestellingen = new SimpleIntegerProperty();
 	
+	/** <code>entity class</code> JPA-required default constructor */
 	public Klant() {}
 	
-	//constructor
+	/**
+	 * Constructs a new <strong>Klant</strong> with the specified details.
+	 * 
+	 * @param bedrijf the company to which this customer belongs
+	 * @param email the email of this customer
+	 * @param wachtwoord the password of this customer
+	 * @param naam the name of this customer
+	 * @param isActief <code>boolean</code> isActive status of this customer
+	 * @param adres the Adres object representing this customer's address
+	 * @param telefoonnummer the phone number of this customer
+	 */
 	public Klant(Bedrijf bedrijf, String email, String wachtwoord, String naam, boolean isActief, Adres adres, String telefoonnummer) {
 		super(email, wachtwoord, naam, isActief, Rol.KLANT);
 		this.bedrijf = bedrijf;
@@ -78,6 +92,11 @@ public class Klant extends Gebruiker {
 		return telefoonnummer;
 	}
 	
+	/**
+	 * TODO
+	 * 
+	 * @param telefoonnummer
+	 */
 	public void setTelefoonnummer(String telefoonnummer) {
 		if(telefoonnummer == null || telefoonnummer.isBlank())
 			throw new IllegalArgumentException("Telefoonnummer van de klant mag niet leeg zijn");
@@ -101,15 +120,35 @@ public class Klant extends Gebruiker {
 		return this.bedrijf.getLogo();
 	}
 	
+	/**
+	 * JavaFX property implementation
+	 * 
+	 * @return {@link SimpleIntegerProperty} openstaandeBestellingen -> the amount of open orders
+	 * this customer has
+	 */
 	public IntegerProperty openstaandeBestellingenProperty(Gebruiker leverancier) {
 		openstaandeBestellingen.set(getAantalOpenstaandeBestellingen(leverancier));
 		return openstaandeBestellingen;
 	}
 	
+	/**
+	 * This returns a filtered list of orders of this customer <br>
+	 * filtered by supplier == given supplier
+	 * 
+	 * @param leverancier the supplier of orders
+	 * @return all orders this customer has with the given supplier
+	 */
 	public List<Bestelling> getBestellingenPerLeverancier(Gebruiker leverancier) {
 		return bestellingen.stream().filter(b -> b.getLeverancier().equals(leverancier)).collect(Collectors.toUnmodifiableList());
 	}
 	
+	/**
+	 * This returns a filtered list of orders of this customer <br>
+	 * filtering out OrderStatus.<strong>GELEVERD</strong> <code>enum</code>
+	 * 
+	 * @param leverancier the supplier of orders for this customer
+	 * @return the filtered list of orders
+	 */
 	public List<Bestelling> getOpenstaandeBestellingen(Gebruiker leverancier) {
 		List<Bestelling> openstaand = getBestellingenPerLeverancier(leverancier).stream().filter(b -> 
 			!(b.getOrderStatus().equals(OrderStatus.GELEVERD))
@@ -117,6 +156,18 @@ public class Klant extends Gebruiker {
 		return openstaand;
 	}
 	
+	/**
+	 * This returns the amount of orders this customer has with a supplier<br>
+	 * whose OrderStatus is:
+	 * <ul>
+	 * <li>OrderStatus.<strong>ONDERWEG</strong>
+	 * <li>OrderStatus.<strong>AAN_HET_VERWERKEN</strong>
+	 * <li>OrderStatus.<strong>GEREGISTREERD</strong>
+	 * </ul>
+	 *
+	 * @param leverancier the supplier of orders for this customer
+	 * @return the amount of orders for this customer that are still open
+	 */
 	public int getAantalOpenstaandeBestellingen(Gebruiker leverancier) {
 		return getOpenstaandeBestellingen(leverancier).size();
 	}
