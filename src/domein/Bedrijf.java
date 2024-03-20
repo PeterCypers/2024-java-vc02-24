@@ -256,4 +256,8 @@ public class Bedrijf implements Serializable {
 				+ betalingsmogelijkhedenEnInfo + ", contact=" + emailadres + ", btwNr=" + btwNr + ", isActief=" + isActief
 				+ ", klant=" + klant + "]";
 	}
+	
+	public String getAsSearchString() {
+		return String.format("%s %s %s %s %s", naam, sector, adres, getIsActiefProp().getValue(), aantalKlanten()).toLowerCase();
+	}
 }
