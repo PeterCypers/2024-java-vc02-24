@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="1054.0" stylesheets="@../images/style.css" type="javafx.scene.layout.BorderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="1054.0" stylesheets="@../images/style.css" type="javafx.scene.layout.BorderPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <Label fx:id="lbErrors" textFill="RED" BorderPane.alignment="CENTER" />
    </bottom>
@@ -69,6 +69,9 @@
                <font>
                   <Font size="14.0" />
                </font>
+               <graphic>
+                  <Button fx:id="btnlogout" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#logoutAction" text="logout" />
+               </graphic>
             </Label>
          </children>
          <BorderPane.margin>
