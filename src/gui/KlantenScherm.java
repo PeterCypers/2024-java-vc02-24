@@ -18,6 +18,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -26,6 +28,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 public class KlantenScherm {
 
@@ -81,45 +84,66 @@ public class KlantenScherm {
     private TableColumn<Bestelling, LocalDate> tbcDatum;
 
     @FXML
-    private TableColumn<Bestelling, Number> tbcOrderbedrag;
+    private TableColumn<Bestelling, String> tbcOrderbedrag;
 
     @FXML
-    private TableColumn<Bestelling, OrderStatus> tbcOrderstatus;
+    private TableColumn<Bestelling, String> tbcOrderstatus;
 
     @FXML
-    private TableColumn<Bestelling, BetalingsStatus> tbcBetalingsstatus;
+    private TableColumn<Bestelling, String> tbcBetalingsstatus;
     
     @FXML
-    private TextField txfFilterBestellingen;
+    private HBox hbFilterbestelling;
 
     @FXML
-    private Button btnFilterBestellingen;
+    private DatePicker dpFilterBestelling;
 
     @FXML
-    void filterOverzichtBestellingen(ActionEvent event) {
-    	String keyword = txfFilterBestellingen.getText();
-    	Gebruiker aangemeldeGebruiker = GebruikerHolder.getInstance();
-    	if(keyword.equals("")) {
-    		tbvBestellingen.setItems(kc.getKlanten().get(index).getObservableListBestellingen(aangemeldeGebruiker));
-    	} else {
-    		ObservableList<Bestelling> filteredData = FXCollections.observableArrayList();
-    		String lowerCaseValue = keyword.toLowerCase();
-    		for(Bestelling bestelling: kc.getKlanten().get(index).getObservableListBestellingen(aangemeldeGebruiker)) {
-    			if(bestelling.getOrderStatus().toString().toLowerCase().equals(lowerCaseValue)	//filter op orderstatus
-            		|| bestelling.getBetalingStatus().toString().toLowerCase().equals(lowerCaseValue) //filter op betalingsstatus
-            		|| bestelling.getDatumGeplaats().toString().toLowerCase().equals(lowerCaseValue)	//filter op datum
-            		|| Integer.toString(bestelling.getOrderId()).equals(lowerCaseValue)	//filter op order id
-            		|| Double.toString(bestelling.berekenTotalBedrag()).contains(lowerCaseValue)) //filter op orderbedrag
-    				filteredData.add(bestelling);
-    		}
-    		tbvBestellingen.setItems(filteredData);
-    	}
-    }
+    private ChoiceBox<OrderStatus> cbFilterOrderStatus;
 
+    @FXML
+    private ChoiceBox<BetalingsStatus> cbFilterBetalingsStatus;
+
+    @FXML
+    private TextField txfFilterBestelling;
+    
 	@FXML
     void filterOverzichtKlanten(ActionEvent event) {
 		kc.getFilteredList(txfFilerKlanten.getText());
 		toonDetails(false);
+    }
+
+    @FXML
+    void filterOverzichtBestellingen(ActionEvent event) {    	
+    	LocalDate datum = dpFilterBestelling.getValue();
+    	OrderStatus orderstatus = cbFilterOrderStatus.getValue();
+    	BetalingsStatus betalingsstatus = cbFilterBetalingsStatus.getValue();
+    	String keyword = txfFilterBestelling.getText();
+    	Gebruiker aangemeldeGebruiker = GebruikerHolder.getInstance();
+    	
+    	if(keyword.equals("") && datum == null && orderstatus == null && betalingsstatus == null) {
+    		tbvBestellingen.setItems(kc.getKlanten().get(index).getObservableListBestellingen(aangemeldeGebruiker));
+    	} else {
+    		String lowerCaseValue = keyword.toLowerCase();
+    		
+    		tbvBestellingen.setItems(kc.getKlanten().get(index).filter(datum, orderstatus, betalingsstatus, lowerCaseValue));
+    	}
+    	
+    	//nodig om alle bestellingen te zien
+    	dpFilterBestelling.setValue(null);
+    	cbFilterOrderStatus.setValue(null);
+    	cbFilterBetalingsStatus.setValue(null);
+    }
+    
+    
+    @FXML
+    public void initialize() {
+        initializeStatusChoiceBoxes();
+    }
+    
+    private void initializeStatusChoiceBoxes() {
+        cbFilterOrderStatus.getItems().setAll(OrderStatus.values());
+        cbFilterBetalingsStatus.getItems().setAll(BetalingsStatus.values());
     }
 	
 	private HoofdSchermController hoofdScherm;
@@ -184,7 +208,6 @@ public class KlantenScherm {
 		tbcOrderstatus.setCellValueFactory(cellData -> cellData.getValue().orderstatusProperty());
 		tbcBetalingsstatus.setCellValueFactory(cellData -> cellData.getValue().betalingsstatusProperty());
 		
-		//tbvBestellingen.setItems(kc.getKlanten().get(index).getObeservableListBestellingen());
 		tbvBestellingen.setItems(kc.getKlanten().get(index).getObservableListBestellingen(GebruikerHolder.getInstance()));
 	}
 	
@@ -193,8 +216,7 @@ public class KlantenScherm {
 		gpDetailsKlant.setVisible(status);
 		lbBestellingen.setVisible(status);
 		tbvBestellingen.setVisible(status);
-		txfFilterBestellingen.setVisible(status);
-		btnFilterBestellingen.setVisible(status);
+		hbFilterbestelling.setVisible(status);
 	}
 
 	public Node geefNode() {

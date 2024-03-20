@@ -1,11 +1,15 @@
 package domein.gebruiker;
 
+import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import domein.Adres;
 import domein.Bedrijf;
+import domein.BesteldProduct;
 import domein.Bestelling;
+import domein.BetalingsStatus;
 import domein.OrderStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
@@ -21,6 +25,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 /**
  * Represents an Customer.
@@ -177,13 +183,45 @@ public class Klant extends Gebruiker {
 	 */
 	public ObservableList<Bestelling> getObservableListBestellingen(Gebruiker leverancier) {
 		ObservableList<Bestelling> bestellingsList = FXCollections.observableArrayList(
-				getBestellingenPerLeverancier(leverancier)
-		);
-		return bestellingsList;
-	}
-	
-	public String getAdresString() {
-		return getAdres().toString();
+				getBestellingenPerLeverancier(leverancier));
+		
+		//Sortering van Bestellingen
+		Comparator<Bestelling> bijDatum = (b1, b2)
+				-> b2.getDatumGeplaats().toString().compareToIgnoreCase(b1.getDatumGeplaats().toString());
+				
+		Comparator<Bestelling> bijOrderId = (b1, b2)
+				-> Integer.toString(b1.getOrderId()).compareToIgnoreCase(Integer.toString(b2.getOrderId()));
+		
+		Comparator<Bestelling> bijOrderbedrag = (b1, b2)
+				-> Double.toString(b1.berekenTotalBedrag()).compareToIgnoreCase(Double.toString(b2.berekenTotalBedrag()));
+				
+		Comparator<Bestelling> bijOrderstatus = (b1, b2)
+				-> b1.getOrderStatus().toString().compareToIgnoreCase(b2.getOrderStatus().toString());
+				
+		Comparator<Bestelling> bijBetalingsstatus = (b1, b2)
+				-> b1.getBetalingsStatus().toString().compareToIgnoreCase(b2.getBetalingsStatus().toString());
+				
+		Comparator<Bestelling> bestellingSorted = bijDatum.thenComparing(bijOrderId).thenComparing(bijOrderbedrag)
+				.thenComparing(bijOrderstatus).thenComparing(bijBetalingsstatus);
+		
+		FilteredList<Bestelling> filteredBestellingen = new FilteredList<>(bestellingsList, b -> true);     
+		SortedList<Bestelling> sortedBestellingen = new SortedList<>(filteredBestellingen, bestellingSorted);
+		return sortedBestellingen;
+	}	
+
+	public ObservableList<Bestelling> filter(LocalDate datum, OrderStatus orderstatus, BetalingsStatus betalingsstatus,
+			String filterValue) {
+		ObservableList<Bestelling> filteredData = FXCollections.observableArrayList();
+		
+		for (Bestelling bestelling : getObservableListBestellingen(GebruikerHolder.getInstance())) {
+			
+			if((datum == null || bestelling.toSearchString().contains(datum.toString())) &&
+					(filterValue.isBlank() ||  bestelling.toSearchString().toLowerCase().contains(filterValue.toLowerCase())) &&
+					(orderstatus == null || bestelling.getOrderStatus() == orderstatus) &&
+					(betalingsstatus == null ||  bestelling.getBetalingsStatus() == betalingsstatus))
+				filteredData.add(bestelling);
+		}
+		return filteredData;
 	}
 	
 	@Override
@@ -192,4 +230,5 @@ public class Klant extends Gebruiker {
 		return String.format("Naam: %s - Contact: %s - Adres: %s - Logopath: %s - telNr: %s",
 				naam, emailadres, adres, bedrijf.getLogo(), telefoonnummer);
 	}
+
 }

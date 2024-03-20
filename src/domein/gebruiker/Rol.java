@@ -8,4 +8,8 @@ public enum Rol {
 	     public static final String ADMINISTRATOR = "ADMINISTRATOR";
 	     public static final String KLANT = "KLANT";
 	}
+	
+	public String toString() {
+		return String.format("%s%s", this.name().charAt(0), this.name().substring(1).toLowerCase());
+	}
 }

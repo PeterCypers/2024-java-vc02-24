@@ -59,33 +59,18 @@ public class BedrijfBeheerder {
 	public ObservableList<Bedrijf> getBedrijven() {
 		return sortedBedrijven;
 	}
-
-	/**
+    /**
 	 * This sets the predicate on which the {@link FilteredList}<br>
 	 * <code>filteredBedrijven</code> will be filtered.
 	 * 
 	 * @param filterValue String determining the new predicate on which to filter
 	 */
-	public void changeFilter(String filterValue) {
-		filteredBedrijven.setPredicate(bedrijf -> {
-			if(filterValue == null || filterValue.isEmpty()) {
-				return true;
-			}
-			
-			if(filterValue.equals("ja")) {
-				return bedrijf.getIsActief() == true;
-			}
-			
-			if(filterValue.equals("nee")) {
-				return bedrijf.getIsActief() == false;
-			}
-			
-			String lowerCaseValue = filterValue.toLowerCase();
-			return bedrijf.getNaam().toLowerCase().contains(lowerCaseValue) 
-					|| bedrijf.getSector().toLowerCase().contains(lowerCaseValue) 
-					|| bedrijf.getAdres().toString().toLowerCase().contains(lowerCaseValue);
-		});
-		
+	public void changeFilter(String filterValue, String filterValue2) {
+		filteredBedrijven.setPredicate(bedrijf -> 
+	        (filterValue.isBlank() || bedrijf.getAsSearchString().contains(filterValue.toLowerCase())) &&
+	        (filterValue2.isBlank() || bedrijf.getAsSearchString().contains(filterValue2.toLowerCase()))
+	    );
+	
 	}
 	
 	/**

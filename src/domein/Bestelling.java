@@ -1,6 +1,7 @@
 package domein;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -67,15 +68,15 @@ public class Bestelling implements Serializable {
 	@Transient
 	private final SimpleIntegerProperty orderID = new SimpleIntegerProperty();
 	@Transient
-	private final SimpleObjectProperty<LocalDate> datum = new SimpleObjectProperty<LocalDate>(); //(this, "datum");
+	private final SimpleObjectProperty<LocalDate> datum = new SimpleObjectProperty<LocalDate>();
 	@Transient
 	private final SimpleStringProperty klantnaam = new SimpleStringProperty();
 	@Transient
-	private final SimpleObjectProperty<OrderStatus> orderstatus = new SimpleObjectProperty<OrderStatus>();
+	private final SimpleStringProperty orderstatus = new SimpleStringProperty();
 	@Transient
-	private final SimpleObjectProperty<BetalingsStatus> betalingsstatus = new SimpleObjectProperty<BetalingsStatus>();
+	private final SimpleStringProperty betalingsstatus = new SimpleStringProperty();
 	@Transient
-	private final SimpleDoubleProperty orderbedrag = new SimpleDoubleProperty();
+	private final SimpleStringProperty orderbedrag = new SimpleStringProperty();
 	
 	/** <code>entity class</code> JPA-required default constructor */
 	public Bestelling() {}
@@ -262,8 +263,9 @@ public class Bestelling implements Serializable {
 	 * @return {@link SimpleDoubleProperty} orderbedrag -> the sum total cost 
 	 * of the products in this order
 	 */
-	public DoubleProperty orderbedragProperty() {
-		orderbedrag.set(berekenTotalBedrag());
+	public StringProperty orderbedragProperty() {
+		DecimalFormat df = new DecimalFormat("\u20AC0.00");
+		orderbedrag.set(df.format(berekenTotalBedrag()));
 		return orderbedrag;
 	}
 	
@@ -279,5 +281,27 @@ public class Bestelling implements Serializable {
 		FilteredList<BesteldProduct> filteredProducten = new FilteredList<>(productenList, p -> true);
 		SortedList<BesteldProduct> sortedProducten = new SortedList<>(filteredProducten);
 		return sortedProducten;
+	}
+	
+	public ObservableList<BesteldProduct> filter(String filterValue, String filterValue2){
+		ObservableList<BesteldProduct> filteredData = FXCollections.observableArrayList();
+		String lowerCaseValue1 = filterValue.toLowerCase();
+		String lowerCaseValue2 = filterValue2.toLowerCase();
+
+	    for (BesteldProduct product : getObservableListProducten()) {
+
+	    	if((filterValue.isBlank() || product.toSearchString().contains(lowerCaseValue1)) && 
+	    			(filterValue2.isBlank() || product.toSearchString().contains(lowerCaseValue2)))
+	    		filteredData.add(product);
+	    }
+	    return filteredData;
+	}
+	
+	public String toString() {
+		return String.format("%d %s %.2f %s %s", orderId, datumGeplaatst.toString(), berekenTotalBedrag(), orderStatus, betalingStatus);
+	}
+	
+	public String toSearchString() {
+		return String.format("%s %s %s %s %s", orderId, datumGeplaatst.toString(), klant.getNaam(), orderStatus, betalingStatus).toLowerCase();
 	}
 }

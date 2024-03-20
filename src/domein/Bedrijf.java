@@ -257,6 +257,10 @@ public class Bedrijf implements Serializable {
 		return this.isActief;
 	}
 	
+	public int aantalKlanten() {
+		return 0; //TODO
+	}
+	
 	//Voor tableView
 	/**
 	 * JavaFX property implementation
@@ -264,7 +268,7 @@ public class Bedrijf implements Serializable {
 	 * @return {@link SimpleIntegerProperty} aantalKlantenProp -> the amount of customers of this company
 	 */
 	public IntegerProperty getAantalKlantenProp() {
-		int aantalKlanten = getGebruikers().size();
+		int aantalKlanten = 0; //TODO
 		
 		this.aantalKlantenProp.set(aantalKlanten);
 		return aantalKlantenProp;
@@ -333,5 +337,9 @@ public class Bedrijf implements Serializable {
 		return "Bedrijf [naam=" + naam + ", sector=" + sector + ", adres=" + adres + ", betalingsmogelijkhedenEnInfo="
 				+ betalingsmogelijkhedenEnInfo + ", contact=" + emailadres + ", btwNr=" + btwNr + ", isActief=" + isActief
 				+ ", klant=" + klant + "]";
+	}
+	
+	public String getAsSearchString() {
+		return String.format("%s %s %s %s %s", naam, sector, adres, getIsActiefProp().getValue(), aantalKlanten()).toLowerCase();
 	}
 }

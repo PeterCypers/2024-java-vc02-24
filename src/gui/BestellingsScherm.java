@@ -22,11 +22,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 public class BestellingsScherm {
-
-    @FXML
-    private TextField txfFilterBestelling;
 
     @FXML
     private Label lbBestellingDetails;
@@ -47,10 +45,10 @@ public class BestellingsScherm {
     private TableColumn<Bestelling, String> tbcKlant;
 
     @FXML
-    private TableColumn<Bestelling, OrderStatus> tcbOrderstatus;
+    private TableColumn<Bestelling, String> tcbOrderstatus;
 
     @FXML
-    private TableColumn<Bestelling, BetalingsStatus> tbcBetalingsstatus;
+    private TableColumn<Bestelling, String> tbcBetalingsstatus;
 
     @FXML
     private TableView<BesteldProduct> tbvOverzichtProducten;
@@ -65,10 +63,10 @@ public class BestellingsScherm {
     private TableColumn<BesteldProduct, Stock> tbcInStock;
 
     @FXML
-    private TableColumn<BesteldProduct, Number> tbcEenheidsprijs;
+    private TableColumn<BesteldProduct, String> tbcEenheidsprijs;
 
     @FXML
-    private TableColumn<BesteldProduct, Number> tbcPrijs;
+    private TableColumn<BesteldProduct, String> tbcPrijs;
 
     @FXML
     private GridPane gpDetailsBestelling;
@@ -107,43 +105,59 @@ public class BestellingsScherm {
     private TextField txfBedrag;
 
     @FXML
+    private HBox hbFilterProducten;
+
+    @FXML
     private TextField txfFilterProducten;
 
     @FXML
-    private Button btnZoekProducten;
+    private TextField txfFilterProduct2;
+
+    @FXML
+    private DatePicker dpFilterBestelling;
+
+    @FXML
+    private ChoiceBox<OrderStatus> cbFilterBestellingen;
+
+    @FXML
+    private ChoiceBox<BetalingsStatus> cbFilterBestelling2;
+
+    @FXML
+    private TextField txfFilterBestelling;
 
     @FXML
     void filterBestelling(ActionEvent event) {
-    	bc.getFilterdList(txfFilterBestelling.getText());
+    	bc.getFilterdList(dpFilterBestelling.getValue(), cbFilterBestellingen.getValue(),
+    			cbFilterBestelling2.getValue(), txfFilterBestelling.getText());
     	toonBestelling(false);	//bij het zoeken dat alleen bestellingen getoont worden
-    }
-    @FXML
-    public void initialize() {
-        initializeStatusChoiceBoxes();
+    	//nodig om alle bestellingen te zien
+    	dpFilterBestelling.setValue(null);
+    	cbFilterBestellingen.setValue(null);
+    	cbFilterBestelling2.setValue(null);
     }
 
     @FXML
     void filterProducten(ActionEvent event) {
     	String keyword = txfFilterProducten.getText();
-    	  if (keyword.equals("")) {
+    	String secondKeyword = txfFilterProduct2.getText();
+    	  if(keyword.equals("") && secondKeyword.equals("")) {
     		  tbvOverzichtProducten.setItems(bc.getBestellingen().get(index).getObservableListProducten());
     	 } else {
-    	     ObservableList<BesteldProduct> filteredData = FXCollections.observableArrayList();
-    	     String lowerCaseValue = keyword.toLowerCase();
-    	     for (BesteldProduct product : bc.getBestellingen().get(index).getObservableListProducten()) {
-    	         if(product.getProduct().getNaam().toLowerCase().contains(lowerCaseValue)	//filter op naam van het product
-    	        		 || Integer.toString(product.getAantal()).equals(lowerCaseValue)	//filter op aantal
-    	        		 || product.getProduct().isInStock().toString().toLowerCase().equals(lowerCaseValue)	//filter op in stock
-    	        		 || Double.toString(product.getProduct().getEenheidsprijs()).contains(lowerCaseValue)	//filter op eenheidsprijs
-    	        		 || Double.toString(product.getTotalePrijs()).contains(lowerCaseValue))	//filter op totale prijs
-    	             filteredData.add(product);
-    	     }
-    	     tbvOverzichtProducten.setItems(filteredData);
-    	   }
+    	     tbvOverzichtProducten.setItems(bc.getBestellingen().get(index).filter(keyword, secondKeyword));
+    	 }
     }
+    
+    @FXML
+    public void initialize() {
+        initializeStatusChoiceBoxes();
+    }
+    
     private void initializeStatusChoiceBoxes() {
         choiceboxOrderStatus.getItems().setAll(OrderStatus.values());
         choiceboxBestellingsStatus.getItems().setAll(BetalingsStatus.values());
+        //filters
+        cbFilterBestellingen.getItems().setAll(OrderStatus.values());
+        cbFilterBestelling2.getItems().setAll(BetalingsStatus.values());
 
         choiceboxOrderStatus.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             handleOrderStatusChange();
@@ -221,7 +235,7 @@ public class BestellingsScherm {
 		tbcAantal.setCellValueFactory(cellData -> cellData.getValue().aantalProperty());
 		tbcInStock.setCellValueFactory(cellData -> cellData.getValue().stockProperty());
 		tbcEenheidsprijs.setCellValueFactory(cellData -> cellData.getValue().eenheidsprijsProperty());
-		tbcPrijs.setCellValueFactory(cellData -> cellData.getValue().totalePrijsProperty());
+		tbcPrijs.setCellValueFactory(cellData -> cellData.getValue().totaalPrijsProperty());
 		
 		tbvOverzichtProducten.setItems(bc.getBestellingen().get(index).getObservableListProducten());
 	}
@@ -231,8 +245,7 @@ public class BestellingsScherm {
 		gpDetailsBestelling.setVisible(status);
 		lbOverzichtProducten.setVisible(status);
 		tbvOverzichtProducten.setVisible(status);
-		txfFilterProducten.setVisible(status);
-		btnZoekProducten.setVisible(status);
+		hbFilterProducten.setVisible(status);
 	}
 	
 	private void handleOrderStatusChange() {
