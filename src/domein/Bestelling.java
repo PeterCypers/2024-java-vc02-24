@@ -236,8 +236,8 @@ public class Bestelling implements Serializable {
 	 * <li>OrderStatus.<strong>GEREGISTREERD</strong>
 	 * </ul>
 	 */
-	public ObjectProperty<OrderStatus> orderstatusProperty() {
-		orderstatus.set(orderStatus);
+	public StringProperty orderstatusProperty() {
+		orderstatus.set(orderStatus.toString());
 		return orderstatus;
 	}
 	
@@ -252,8 +252,8 @@ public class Bestelling implements Serializable {
 	 * <li>BetalingsStatus.<strong>BETAALD</strong>
 	 * </ul>
 	 */
-	public ObjectProperty<BetalingsStatus> betalingsstatusProperty() {
-		betalingsstatus.set(betalingStatus);
+	public StringProperty betalingsstatusProperty() {
+		betalingsstatus.set(betalingStatus.toString());
 		return betalingsstatus;
 	}
 	
