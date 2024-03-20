@@ -163,58 +163,15 @@ public class Klant extends Gebruiker {
 		ObservableList<Bestelling> filteredData = FXCollections.observableArrayList();
 		
 		for (Bestelling bestelling : getObservableListBestellingen(GebruikerHolder.getInstance())) {
-			if(datum == null && orderstatus == null && betalingsstatus == null){
-				if(filterText(bestelling, filterValue))
-					filteredData.add(bestelling);
-			} 
 			
-			if(orderstatus == null && betalingsstatus == null) {
-				if(filterDate(bestelling, datum, filterValue))
-					filteredData.add(bestelling);
-			}
-			
-			if(betalingsstatus == null) {
-				if(filterOrderStatus(bestelling, orderstatus, datum, filterValue))
-					filteredData.add(bestelling);
-			}
-			
-			if(filterBetalingsStatus(bestelling, betalingsstatus, orderstatus, datum, filterValue))
+			if((datum == null || bestelling.toSearchString().contains(datum.toString())) &&
+					(filterValue.isBlank() ||  bestelling.toSearchString().toLowerCase().contains(filterValue.toLowerCase())) &&
+					(orderstatus == null || bestelling.getOrderStatus() == orderstatus) &&
+					(betalingsstatus == null ||  bestelling.getBetalingsStatus() == betalingsstatus))
 				filteredData.add(bestelling);
 		}
 		return filteredData;
 	}
-	
-	private boolean filterBetalingsStatus(Bestelling bestelling, BetalingsStatus filterBetalingsStatus,
-			OrderStatus filterOrderStatus, LocalDate filterDate, String filterValue) {
-		if((filterValue == null || filterValue.isEmpty()) && filterDate == null && filterOrderStatus == null) {
-			return bestelling.getBetalingsStatus().equals(filterBetalingsStatus);
-		}
-		return (bestelling.getBetalingsStatus().equals(filterBetalingsStatus) && filterDate(bestelling, filterDate, filterValue)) //filter op betalingsstatus en Datum
-				|| (bestelling.getBetalingsStatus().equals(filterBetalingsStatus) && filterOrderStatus(bestelling, filterOrderStatus, filterDate, filterValue)) //filter op Betalingsstatus en Orderstatus
-				|| (bestelling.getBetalingsStatus().equals(filterBetalingsStatus) && filterText(bestelling, filterValue)); //filter op Betalingsstatus en text
-	}
-
-	private boolean filterOrderStatus(Bestelling bestelling, OrderStatus filterOrderStatus, LocalDate filterDate,
-			String filterValue) {
-		if((filterValue == null || filterValue.isEmpty()) && filterDate == null) {
-			return bestelling.getOrderStatus().equals(filterOrderStatus);
-		}
-		return (bestelling.getOrderStatus().equals(filterOrderStatus) && filterDate(bestelling, filterDate, filterValue)) //filter op Orderstatus en datum
-				|| (bestelling.getOrderStatus().equals(filterOrderStatus) && filterText(bestelling, filterValue));//filter op OrderStatus en text
-	}
-
-	private boolean filterDate(Bestelling bestelling, LocalDate filterDate, String filterValue) {
-        if(filterValue == null || filterValue.isEmpty()) {
-        	return bestelling.getDatumGeplaats().equals(filterDate);
-        }
-        
-        return bestelling.getDatumGeplaats().equals(filterDate) && filterText(bestelling, filterValue); //filter op Datum en text
-	}
-	
-	private boolean filterText(Bestelling bestelling, String filterValue) {
-		return Integer.toString(bestelling.getOrderId()).equals(filterValue) //filter op OrderID
-            		|| bestelling.getKlantName().toLowerCase().equals(filterValue); //filter op Klantnaam 
-    }
 	
 	@Override
 	public String toString() {

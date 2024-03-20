@@ -211,85 +211,21 @@ public class Bestelling implements Serializable {
 		ObservableList<BesteldProduct> filteredData = FXCollections.observableArrayList();
 		String lowerCaseValue1 = filterValue.toLowerCase();
 		String lowerCaseValue2 = filterValue2.toLowerCase();
-		
+
 	    for (BesteldProduct product : getObservableListProducten()) {
-	    	//Eén veld is ingevuld
-	    	if(lowerCaseValue2.isEmpty() || lowerCaseValue2 == null) {
-	    		 if(product.getProduct().getNaam().toLowerCase().contains(lowerCaseValue1)	//filter op naam van het product
-   	        		 || Integer.toString(product.getAantal()).equals(lowerCaseValue1)	//filter op aantal
-   	        		 || product.getProduct().isInStock().toString().toLowerCase().equals(lowerCaseValue1)	//TODO: filter op in stock
-   	        		 || Double.toString(product.getProduct().getEenheidsprijs()).contains(lowerCaseValue1)	//filter op eenheidsprijs
-   	        		 || Double.toString(product.getTotalePrijs()).contains(lowerCaseValue1))	//filter op totale prijs
-   	             filteredData.add(product);
-	    	} else {
-	    		//De twee velden zijn ingevuld -> logica twee keer omdat je ook in het tweede veld naam zet en adres in eerst veld;
-	    		if(filterNaamAantal(product, lowerCaseValue1, lowerCaseValue2) 
-	    				 || filterNaamStock(product, lowerCaseValue1, lowerCaseValue2)
-	    				 || filterNaamEenheidsprijs(product, lowerCaseValue1, lowerCaseValue2)
-	    				 || filterNaamPrijs(product, lowerCaseValue1, lowerCaseValue2)
-	    				 || filterAantalStock(product, lowerCaseValue1, lowerCaseValue2)
-	    				 || filterAantalEenheidsprijs(product, lowerCaseValue1, lowerCaseValue2)
-	    				 || filterAantalPrijst(product, lowerCaseValue1, lowerCaseValue2)
-	    				 || filterStockEenheidsprijs(product, lowerCaseValue1, lowerCaseValue2)
-	    				 || filterStockPrijs(product, lowerCaseValue1, lowerCaseValue2)
-	    				 || filterEenheidsprijsPrijs(product, lowerCaseValue1, lowerCaseValue2)
-	    				 || filterNaamAantal(product, lowerCaseValue2, lowerCaseValue1) 
-	    				 || filterNaamStock(product, lowerCaseValue2, lowerCaseValue1)
-	    				 || filterNaamEenheidsprijs(product, lowerCaseValue2, lowerCaseValue1)
-	    				 || filterNaamPrijs(product, lowerCaseValue2, lowerCaseValue1)
-	    				 || filterAantalStock(product, lowerCaseValue2, lowerCaseValue1)
-	    				 || filterAantalEenheidsprijs(product, lowerCaseValue2, lowerCaseValue1)
-	    				 || filterAantalPrijst(product, lowerCaseValue2, lowerCaseValue1)
-	    				 || filterStockEenheidsprijs(product, lowerCaseValue2, lowerCaseValue1)
-	    				 || filterStockPrijs(product, lowerCaseValue2, lowerCaseValue1)
-	    				 || filterEenheidsprijsPrijs(product, lowerCaseValue2, lowerCaseValue1))
-	    			 filteredData.add(product);
-	    	}
+
+	    	if((filterValue.isBlank() || product.toSearchString().contains(lowerCaseValue1)) && 
+	    			(filterValue2.isBlank() || product.toSearchString().contains(lowerCaseValue2)))
+	    		filteredData.add(product);
 	    }
 	    return filteredData;
 	}
 	
-	private boolean filterNaamAantal(BesteldProduct product, String filterValue, String filterValue2) {
-		return product.getProduct().getNaam().toLowerCase().contains(filterValue) && Integer.toString(product.getAantal()).equals(filterValue2);
-	}
-	
-	private boolean filterNaamStock(BesteldProduct product, String filterValue, String filterValue2) {
-		return product.getProduct().getNaam().toLowerCase().contains(filterValue) && product.getProduct().isInStock().toString().toLowerCase().equals(filterValue2);
-	}
-	
-	private boolean filterNaamEenheidsprijs(BesteldProduct product, String filterValue, String filterValue2) {
-		return product.getProduct().getNaam().toLowerCase().contains(filterValue) && Double.toString(product.getProduct().getEenheidsprijs()).contains(filterValue2);
-	}
-	
-	private boolean filterNaamPrijs(BesteldProduct product, String filterValue, String filterValue2) {
-		return product.getProduct().getNaam().toLowerCase().contains(filterValue) && Double.toString(product.getTotalePrijs()).contains(filterValue2);
-	}
-	
-	private boolean filterAantalStock(BesteldProduct product, String filterValue, String filterValue2) {
-		return Integer.toString(product.getAantal()).equals(filterValue) && product.getProduct().isInStock().toString().toLowerCase().equals(filterValue2);
-	}
-	
-	private boolean filterAantalEenheidsprijs(BesteldProduct product, String filterValue, String filterValue2) {
-		return Integer.toString(product.getAantal()).equals(filterValue) && Double.toString(product.getProduct().getEenheidsprijs()).contains(filterValue2);
-	}
-	
-	private boolean filterAantalPrijst(BesteldProduct product, String filterValue, String filterValue2) {
-		return Integer.toString(product.getAantal()).equals(filterValue) && Double.toString(product.getTotalePrijs()).contains(filterValue2);
-	}
-	
-	private boolean filterStockEenheidsprijs(BesteldProduct product, String filterValue, String filterValue2) {
-		return product.getProduct().isInStock().toString().toLowerCase().equals(filterValue) && Double.toString(product.getProduct().getEenheidsprijs()).contains(filterValue2);
-	}
-	
-	private boolean filterStockPrijs(BesteldProduct product, String filterValue, String filterValue2) {
-		return product.getProduct().isInStock().toString().toLowerCase().equals(filterValue) && Double.toString(product.getTotalePrijs()).contains(filterValue2);
-	}
-	
-	private boolean filterEenheidsprijsPrijs(BesteldProduct product, String filterValue, String filterValue2) {
-		return Double.toString(product.getProduct().getEenheidsprijs()).contains(filterValue) && Double.toString(product.getTotalePrijs()).contains(filterValue2);
-	}
-	
 	public String toString() {
 		return String.format("%d %s %.2f %s %s", orderId, datumGeplaatst.toString(), berekenTotalBedrag(), orderStatus, betalingStatus);
+	}
+	
+	public String toSearchString() {
+		return String.format("%s %s %s %s %s", orderId, datumGeplaatst.toString(), klant.getNaam(), orderStatus, betalingStatus).toLowerCase();
 	}
 }

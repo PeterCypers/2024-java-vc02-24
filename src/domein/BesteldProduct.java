@@ -90,4 +90,8 @@ public class BesteldProduct {
 		totaalPrijs.set(getTotalePrijs());
 		return totaalPrijs;
 	}
+	
+	public String toSearchString() {
+		return String.format("%s %s %s %s %s", product.getNaam(), aantal, product.isInStock(), product.getEenheidsprijs(), getTotalePrijs()).toLowerCase();
+	}
 }
