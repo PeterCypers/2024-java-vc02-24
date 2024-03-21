@@ -9,6 +9,7 @@ import domein.Adres;
 import domein.Bedrijf;
 import domein.BesteldProduct;
 import domein.Bestelling;
+import domein.Betaling;
 import domein.BetalingsStatus;
 import domein.OrderStatus;
 import domein.Product;
@@ -21,6 +22,8 @@ import service.bedrijf.BedrijfService;
 import service.bedrijf.BedrijfServiceDbImpl;
 import service.gebruiker.GebruikerService;
 import service.gebruiker.GebruikerServiceDbImpl;
+import service.betaling.BetalingService;
+import service.betaling.BetalingServiceDbImpl;
 
 public class PopulateDb {
 	
@@ -31,6 +34,7 @@ public class PopulateDb {
 	private static void vulDatabase() {
 		List<Bedrijf> bedrijfData = maakBedrijfData();
 		List<Gebruiker> adminData = maakAdministratorData();
+		List<Betaling> betalingData = maakBetalingData();
 		
 		bedrijfData.forEach((b) -> {
 			// Controle op data
@@ -51,6 +55,7 @@ public class PopulateDb {
 		
 		BedrijfService bs = new BedrijfServiceDbImpl();
 		GebruikerService gs = new GebruikerServiceDbImpl();
+		BetalingService bts = new BetalingServiceDbImpl();
 		
 		long startTime = System.currentTimeMillis();
 		
@@ -58,6 +63,7 @@ public class PopulateDb {
 		try {
 			bedrijfData.forEach(b -> bs.voegBedrijfToe(b));
 			adminData.forEach(a -> gs.voegGebruikerToe(a));
+			betalingData.forEach(b -> bts.voegBetalingToe(b));
 			
 			float elapsedTime = (System.currentTimeMillis() - startTime) / 1000F;
 			System.out.printf("Seeding werd succesvol afgerond (%.2f seconden)", elapsedTime);
@@ -402,5 +408,32 @@ public class PopulateDb {
 		});
 		
 		return bedrijven;
+	}
+	
+	private static List<Betaling> maakBetalingData() {
+		return List.of(
+				new Betaling(49001, true),
+				new Betaling(49002, true),
+				
+				new Betaling(50001, true),
+				new Betaling(50002, true),
+				new Betaling(50003, false),
+				
+				new Betaling(51001, true),
+				new Betaling(51002, true),
+				
+				new Betaling(52001, true),
+				new Betaling(52002, true),
+				new Betaling(52003, false),
+				
+				new Betaling(53001, true),
+				new Betaling(53002, true),
+				new Betaling(53003, true),
+				new Betaling(53004, false),
+				
+				new Betaling(54001, true),
+				new Betaling(54002, true),
+				new Betaling(54003, true)
+		);
 	}
 }

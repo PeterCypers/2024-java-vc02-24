@@ -13,11 +13,14 @@
     <class>domein.Bestelling</class>
     <class>domein.Product</class>
     <class>domein.BesteldProduct</class>
+    <!-- NEW -->
+    <class>domein.Betaling</class>
     <properties>
       <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://vichogent.be:40058/SDP2_2324_DB_VC02?serverTimezone=UTC"/>
       <property name="jakarta.persistence.jdbc.user" value="SDP2-2324-VC02"/>
       <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="jakarta.persistence.jdbc.password" value="q4X9eD0u1ze+S7q0D"/>
+      <!-- NEW -->
       <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
