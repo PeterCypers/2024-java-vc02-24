@@ -31,6 +31,11 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
+                  <Button fx:id="btnBetaalmethodes" mnemonicParsing="false" onAction="#betaalmethodesBeheren" text="Betaalmethodes beheren">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
                </children>
             </HBox>
             <BorderPane fx:id="borderpane" minHeight="630.0" minWidth="1054.0" stylesheets="@../images/style.css">

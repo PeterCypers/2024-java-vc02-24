@@ -25,4 +25,8 @@ public class BedrijfController {
 	public void voegBedrijfToe(Bedrijf bedrijf) {
 		bedrijfBeheerder.voegBedrijfToe(bedrijf);
 	}
+	
+	public void updateBedrijf(Bedrijf bedrijf) {
+		bedrijfBeheerder.updateBedrijf(bedrijf);
+	}
 }

@@ -43,7 +43,9 @@ public class Bedrijf implements Serializable {
 	@Embedded
 	protected Adres adres;
 	
-	private String betalingsmogelijkhedenEnInfo;
+	private String betalingsInfo;
+	
+	private List<Betaalmethode> betaalmethodes;
 
 	private String logo;
 	
@@ -93,14 +95,15 @@ public class Bedrijf implements Serializable {
 	 * 
 	 * klanten?
 	 */
-	public Bedrijf(String naam, String logo, String sector, Adres adres, 
-			String betalingsmogelijkhedenEnInfo, String email, String telefoon,
+	public Bedrijf(String naam, String logo, String sector, Adres adres, List<Betaalmethode> betaalmethodes,
+			String betalingsInfo, String email, String telefoon,
 			String btwNr, boolean isActief) {
 		setNaam(naam);
 		setLogo(logo);
 		setSector(sector);
 		setAdres(adres);
-		setBetalingsMogelijkhedenEnInfo(betalingsmogelijkhedenEnInfo);
+		setBetaalmethodes(betaalmethodes);
+		setBetalingsInfo(betalingsInfo);
 		setEmail(email);
 		setTelefoon(telefoon);
 		setBtwNr(btwNr);
@@ -149,10 +152,15 @@ public class Bedrijf implements Serializable {
 		this.adres = adres;
 	}
 	
-	private void setBetalingsMogelijkhedenEnInfo(String betalingsmogelijkhedenEnInfo) {
+	public void setBetaalmethodes(List<Betaalmethode> betaalmethodes) {
+		//misschien een check
+		this.betaalmethodes = betaalmethodes;
+	}
+	
+	private void setBetalingsInfo(String betalingsmogelijkhedenEnInfo) {
 		//if (betalingsmogelijkhedenEnInfo.isBlank())
 		//	throw new IllegalArgumentException("Betalingsmogelijkheden en -info ongeldig");
-		this.betalingsmogelijkhedenEnInfo = betalingsmogelijkhedenEnInfo;
+		this.betalingsInfo = betalingsmogelijkhedenEnInfo;
 	}
 	
 	/**
@@ -228,9 +236,13 @@ public class Bedrijf implements Serializable {
 	public Adres getAdres() {
 		return this.adres;
 	}
+	
+	public List<Betaalmethode> getBetaalmethodes(){
+		return this.betaalmethodes;
+	}
 
-	public String getBetalingsmogelijkhedenEnInfo() {
-		return this.betalingsmogelijkhedenEnInfo;
+	public String getBetalingsInfo() {
+		return this.betalingsInfo;
 	}
 
 	public String getEmail() {
@@ -332,10 +344,11 @@ public class Bedrijf implements Serializable {
 		return FXCollections.observableArrayList(gebruikers);
 	}
 
+	//word dit gebruikt?
 	@Override
 	public String toString() {
 		return "Bedrijf [naam=" + naam + ", sector=" + sector + ", adres=" + adres + ", betalingsmogelijkhedenEnInfo="
-				+ betalingsmogelijkhedenEnInfo + ", contact=" + emailadres + ", btwNr=" + btwNr + ", isActief=" + isActief
+				+ betalingsInfo + ", contact=" + emailadres + ", btwNr=" + btwNr + ", isActief=" + isActief
 				+ ", klant=" + klant + "]";
 	}
 	

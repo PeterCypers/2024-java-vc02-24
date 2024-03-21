@@ -96,4 +96,9 @@ public class BedrijfBeheerder {
 		this.bedrijfService.voegBedrijfToe(bedrijf);
 		haalBedrijvenOp();
 	}
+
+	public void updateBedrijf(Bedrijf bedrijf) {
+		bedrijfService.updateBedrijf(bedrijf);
+	}
+
 }
