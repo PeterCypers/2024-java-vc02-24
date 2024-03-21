@@ -9,6 +9,7 @@ import domein.Adres;
 import domein.Bedrijf;
 import domein.BesteldProduct;
 import domein.Bestelling;
+import domein.Betaalmethode;
 import domein.BetalingsStatus;
 import domein.OrderStatus;
 import domein.Product;
@@ -87,31 +88,90 @@ public class PopulateDb {
 				new Adres("Italy",			"Milan",	 "20121",	"Piazza Luigi di Savoia",   "24"),
 		};
 		
+		List<List<Betaalmethode>> betaalmethodes = Arrays.asList(
+				List.of(
+						Betaalmethode.ACHTERAF_BETALEN, 
+						Betaalmethode.APPLE_PAY,
+						Betaalmethode.BANCONTACT,
+						Betaalmethode.MAESTRO,
+						Betaalmethode.MASTERCARD,
+						Betaalmethode.PAYCONIQ,
+						Betaalmethode.PAYPAL,
+						Betaalmethode.VENMO,
+						Betaalmethode.VISA
+						),
+				List.of(
+						Betaalmethode.BANCONTACT,
+						Betaalmethode.MAESTRO,
+						Betaalmethode.MASTERCARD,
+						Betaalmethode.ACHTERAF_BETALEN,
+						Betaalmethode.VISA
+						),
+				List.of(
+						Betaalmethode.ACHTERAF_BETALEN, 
+						Betaalmethode.APPLE_PAY,
+						Betaalmethode.BANCONTACT,
+						Betaalmethode.MAESTRO,
+						Betaalmethode.MASTERCARD
+						),
+				List.of(
+						Betaalmethode.ACHTERAF_BETALEN, 
+						Betaalmethode.APPLE_PAY,
+						Betaalmethode.BANCONTACT,
+						Betaalmethode.PAYCONIQ,
+						Betaalmethode.PAYPAL,
+						Betaalmethode.VENMO,
+						Betaalmethode.VISA
+						),
+				List.of(
+						Betaalmethode.APPLE_PAY,
+						Betaalmethode.BANCONTACT,
+						Betaalmethode.MAESTRO,
+						Betaalmethode.MASTERCARD,
+						Betaalmethode.PAYCONIQ,
+						Betaalmethode.VENMO
+						),
+				List.of(
+						Betaalmethode.BANCONTACT,
+						Betaalmethode.MAESTRO,
+						Betaalmethode.MASTERCARD,
+						Betaalmethode.VISA
+						),
+				List.of(
+						Betaalmethode.ACHTERAF_BETALEN, 
+						Betaalmethode.APPLE_PAY,
+						Betaalmethode.PAYCONIQ,
+						Betaalmethode.PAYPAL,
+						Betaalmethode.VENMO,
+						Betaalmethode.VISA
+						)
+		);
+		
 		List<Bedrijf> bedrijven = List.of(
 				new Bedrijf("Stella Artois", "https://logodix.com/logo/2066282.png", "Brewers",
-						adressen[0], "", "mark@outlook.be", "+32974178174", "BE197248342B38", true),
+						adressen[0], betaalmethodes.get(0), "", "mark@outlook.be", "+32974178174", "BE197248342B38", true),
 				new Bedrijf("Hewlett-Packard", "https://logodix.com/logo/4934.png", "Technology Hardware, Storage & Peripherals",
-						adressen[1], "", "mike@gmail.com", "(212)912-0384", "749196976", true),
+						adressen[1], betaalmethodes.get(1), "", "mike@gmail.com", "(212)912-0384", "749196976", true),
 				new Bedrijf("Bosch", "https://logodix.com/logo/9541.png", "Household Appliances",
-						adressen[2], "", "julia@web.de", "+496591799946", "DE41280756350", true),
+						adressen[2], betaalmethodes.get(2), "", "julia@web.de", "+496591799946", "DE41280756350", true),
 				new Bedrijf("Ahold Delhaize", "https://logodix.com/logo/420832.png", "Food Retail",
-						adressen[3], "", "kim@gmail.com", "+31659267802", "NL463774784B52", true),
+						adressen[3], betaalmethodes.get(3), "", "kim@gmail.com", "+31659267802", "NL463774784B52", true),
 				new Bedrijf("Peugeot", "https://logodix.com/logo/9436.png", "Automobile Manufacturers",
-						adressen[4], "", "christophe@outlook.com", "+33124311738", "FR4579135426784", true),
+						adressen[4], betaalmethodes.get(4), "", "christophe@outlook.com", "+33124311738", "FR4579135426784", true),
 				new Bedrijf("Ikea", "https://logodix.com/logo/470339.png", "Home Furnishings",
-						adressen[5], "", "matilda@outlook.com", "+462252869831", "SW6544167324132", true),
+						adressen[5], betaalmethodes.get(5), "", "matilda@outlook.com", "+462252869831", "SW6544167324132", true),
 				new Bedrijf("Giorgio Armani", "https://logodix.com/logo/7528.jpg", "Apparel Retail",
-						adressen[6], "", "francesca@outlook.com", "+393713432912", "IT7410491107419", true)
+						adressen[6], betaalmethodes.get(6), "", "francesca@outlook.com", "+393713432912", "IT7410491107419", true)
 		);
 		
 		List<Leverancier> leveranciers = List.of(
-				new Leverancier(bedrijven.get(0), "mark@outlook.be", "1234", "Mark", true),
-				new Leverancier(bedrijven.get(1), "mike@gmail.com", "1234", "Mike", true),
-				new Leverancier(bedrijven.get(2), "julia@web.de", "1234", "Julia", true),
-				new Leverancier(bedrijven.get(3), "kim@gmail.com", "1234", "Kim", true),
-				new Leverancier(bedrijven.get(4), "christophe@outlook.com", "1234", "Christophe", true),
-				new Leverancier(bedrijven.get(5), "matilda@outlook.com", "1234", "Matilda", true),
-				new Leverancier(bedrijven.get(6), "francesca@outlook.com", "1234", "Francesca", true)
+				new Leverancier(bedrijven.get(0), bedrijven.get(0).getBetaalmethodes(), "mark@outlook.be", "1234", "Mark", true),
+				new Leverancier(bedrijven.get(1), bedrijven.get(1).getBetaalmethodes(), "mike@gmail.com", "1234", "Mike", true),
+				new Leverancier(bedrijven.get(2), bedrijven.get(2).getBetaalmethodes(), "julia@web.de", "1234", "Julia", true),
+				new Leverancier(bedrijven.get(3), bedrijven.get(3).getBetaalmethodes(), "kim@gmail.com", "1234", "Kim", true),
+				new Leverancier(bedrijven.get(4), bedrijven.get(4).getBetaalmethodes(), "christophe@outlook.com", "1234", "Christophe", true),
+				new Leverancier(bedrijven.get(5), bedrijven.get(5).getBetaalmethodes(), "matilda@outlook.com", "1234", "Matilda", true),
+				new Leverancier(bedrijven.get(6), bedrijven.get(6).getBetaalmethodes(), "francesca@outlook.com", "1234", "Francesca", true)
 		);
 		
 		List<Klant> klanten = List.of(

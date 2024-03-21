@@ -1,5 +1,7 @@
 package domein;
 
+import java.util.List;
+
 import domein.gebruiker.Klant;
 import domein.gebruiker.Leverancier;
 import exceptions.BuilderEmailException;
@@ -18,7 +20,7 @@ public class BedrijfBuilder {
 	private String postcode;
 	private String straat;
 	private String straatNummer;
-	private String betalingsMogelijkheden;
+	private List<Betaalmethode> betalingsMogelijkheden;
 	private String betalingsInfo;
 	private String emailadres;
 	private String telefoonNr;
@@ -49,6 +51,7 @@ public class BedrijfBuilder {
 			logo,
 			sector,
 			new Adres(land, stad, postcode, straat, straatNummer),
+			betalingsMogelijkheden,
 			"TODO",
 			emailadres,
 			telefoonNr,
@@ -57,6 +60,7 @@ public class BedrijfBuilder {
 		);
 		bedrijf.setLeverancier(new Leverancier(
 			bedrijf,
+			bedrijf.getBetaalmethodes(),
 			lEmailadres,
 			lWachtwoord,
 			lNaam,
@@ -123,8 +127,9 @@ public class BedrijfBuilder {
 	    return this;
 	}
 
-	public BedrijfBuilder setBetalingsMogelijkheden(String betalingsMogelijkheden) {
-		checkNullAndEmpty("Bedrijf betalingsmogelijkheden", betalingsMogelijkheden);
+	public BedrijfBuilder setBetalingsMogelijkheden(List<Betaalmethode> betalingsMogelijkheden) {
+		//TODO: check
+		//checkNullAndEmpty("Bedrijf betalingsmogelijkheden", betalingsMogelijkheden);
 	    this.betalingsMogelijkheden = betalingsMogelijkheden;
 	    return this;
 	}

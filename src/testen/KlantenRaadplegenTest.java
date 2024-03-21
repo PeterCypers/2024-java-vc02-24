@@ -42,7 +42,7 @@ class KlantenRaadplegenTest {
 			new Klant(null, "klant2@hotmail.com", "1234", "Tiemen Deroose", true, new Adres("Land", "Stad", "12345", "Straat", "20"), "+32123456789")
 	);
 	
-	static Leverancier gebruiker = new Leverancier(null, "jasper.vandenbroucke@hotmail.com", "1234", "Jasper Vandenbroucke", true);
+	static Leverancier gebruiker = new Leverancier(null, null, "jasper.vandenbroucke@hotmail.com", "1234", "Jasper Vandenbroucke", true);
 	
 	static List<Product> producten = Arrays.asList(
 			new Product("productA", Stock.STOCK, 500.0),

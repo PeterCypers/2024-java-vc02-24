@@ -33,7 +33,7 @@ public class BestellingBeheerderTest {
 	@BeforeEach
 	void setup() {
 		bestellingServiceMock = mock(BestellingService.class);
-		gebruiker = new Leverancier(null, "mike@gmail.com", "1234", "Mike", true);
+		gebruiker = new Leverancier(null, null, "mike@gmail.com", "1234", "Mike", true);
 		trainMock(); //dit moet gebeuren voor constructie BestellingBeheerder()
 		bestellingBeheerder = new BestellingBeheerder(gebruiker, bestellingServiceMock);
 		
