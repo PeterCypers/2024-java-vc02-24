@@ -5,6 +5,7 @@ import java.util.Comparator;
 
 import domein.gebruiker.Gebruiker;
 import domein.gebruiker.GebruikerHolder;
+import domein.gebruiker.Klant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -89,13 +90,14 @@ public class BestellingBeheerder {
 	 * @param filterValue String determining the new predicate on which to filter
 	 */
 	public void changeFilter(LocalDate filterDate, OrderStatus filterOrderStatus, 
-			BetalingsStatus filterBetalingsStatus, String filterValue) {
+			BetalingsStatus filterBetalingsStatus, String filterValue, Klant klant) {
 		
 		filteredBestellingen.setPredicate(bestelling ->
 	    	(filterDate == null || bestelling.toSearchString().contains(filterDate.toString())) &&
-	    	(filterValue.isBlank() ||  bestelling.toSearchString().toLowerCase().contains(filterValue.toLowerCase())) &&
+	    	(filterValue == null || filterValue.isBlank() || bestelling.toSearchString().toLowerCase().contains(filterValue.toLowerCase())) &&
 	    	(filterOrderStatus == null || bestelling.getOrderStatus() == filterOrderStatus) &&
-	    	(filterBetalingsStatus == null ||  bestelling.getBetalingsStatus() == filterBetalingsStatus)
+	    	(filterBetalingsStatus == null ||  bestelling.getBetalingsStatus() == filterBetalingsStatus) &&
+	    	(klant == null || bestelling.getKlant() == klant)
 		);
 	}
 }

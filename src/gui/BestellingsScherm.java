@@ -128,7 +128,7 @@ public class BestellingsScherm {
     @FXML
     void filterBestelling(ActionEvent event) {
     	bc.getFilterdList(dpFilterBestelling.getValue(), cbFilterBestellingen.getValue(),
-    			cbFilterBestelling2.getValue(), txfFilterBestelling.getText());
+    			cbFilterBestelling2.getValue(), txfFilterBestelling.getText(), null);
     	toonBestelling(false);	//bij het zoeken dat alleen bestellingen getoont worden
     	//nodig om alle bestellingen te zien
     	dpFilterBestelling.setValue(null);

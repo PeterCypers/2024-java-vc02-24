@@ -109,7 +109,7 @@ public class KlantenScherm {
     
 	@FXML
     void filterOverzichtKlanten(ActionEvent event) {
-		kc.getFilteredList(txfFilerKlanten.getText());
+		bc.getFilterdList(null, null, null, null, kc.getKlanten().get(klantIndex));
 		toonDetails(false);
     }
 
@@ -119,15 +119,9 @@ public class KlantenScherm {
     	OrderStatus orderstatus = cbFilterOrderStatus.getValue();
     	BetalingsStatus betalingsstatus = cbFilterBetalingsStatus.getValue();
     	String keyword = txfFilterBestelling.getText();
-    	Gebruiker aangemeldeGebruiker = GebruikerHolder.getInstance();
     	
-    	if(keyword.equals("") && datum == null && orderstatus == null && betalingsstatus == null) {
-    		tbvBestellingen.setItems(kc.getKlanten().get(index).getObservableListBestellingen(aangemeldeGebruiker));
-    	} else {
-    		String lowerCaseValue = keyword.toLowerCase();
-    		
-    		tbvBestellingen.setItems(kc.getKlanten().get(index).filter(datum, orderstatus, betalingsstatus, lowerCaseValue));
-    	}
+    	bc.getFilterdList(datum, orderstatus, betalingsstatus, keyword, kc.getKlanten().get(klantIndex));
+		tbvBestellingen.setItems(bc.getBestellingen());
     	
     	//nodig om alle bestellingen te zien
     	dpFilterBestelling.setValue(null);
@@ -149,11 +143,13 @@ public class KlantenScherm {
 	private HoofdSchermController hoofdScherm;
 	private Node node;
 	private KlantController kc;
-	private int index;
+	private BestellingController bc;
+	private int klantIndex;
 	
 	public KlantenScherm(HoofdSchermController hoofdScherm) {
 		this.hoofdScherm = hoofdScherm;
 		kc  = new KlantController();
+		bc = new BestellingController();
 		buildGui();
 	}
 	
@@ -172,8 +168,8 @@ public class KlantenScherm {
         tbvOverzichtKlanten.getSelectionModel().selectedItemProperty()
         	.addListener((observableValue, oudKlant, nieuwKlant) -> {
         		if(nieuwKlant != null) {
-        			index = tbvOverzichtKlanten.getSelectionModel().getSelectedIndex();
-        			toonDetailsKlant(index);
+        			klantIndex = tbvOverzichtKlanten.getSelectionModel().getSelectedIndex();
+        			toonDetailsKlant(klantIndex);
         		}
         	});
 	}
@@ -208,7 +204,8 @@ public class KlantenScherm {
 		tbcOrderstatus.setCellValueFactory(cellData -> cellData.getValue().orderstatusProperty());
 		tbcBetalingsstatus.setCellValueFactory(cellData -> cellData.getValue().betalingsstatusProperty());
 		
-		tbvBestellingen.setItems(kc.getKlanten().get(index).getObservableListBestellingen(GebruikerHolder.getInstance()));
+		bc.getFilterdList(null, null, null, null, kc.getKlanten().get(klantIndex));
+		tbvBestellingen.setItems(bc.getBestellingen());
 	}
 	
 	private void toonDetails(Boolean status) {

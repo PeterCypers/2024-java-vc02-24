@@ -177,52 +177,6 @@ public class Klant extends Gebruiker {
 	public int getAantalOpenstaandeBestellingen(Gebruiker leverancier) {
 		return getOpenstaandeBestellingen(leverancier).size();
 	}
-	/**
-	 * @param leverancier = singleton aangemeldeGebruiker
-	 * @return ObservableList<Bestelling> van bestellingen van deze leverancier
-	 */
-	public ObservableList<Bestelling> getObservableListBestellingen(Gebruiker leverancier) {
-		ObservableList<Bestelling> bestellingsList = FXCollections.observableArrayList(
-				getBestellingenPerLeverancier(leverancier));
-		
-		//Sortering van Bestellingen
-		Comparator<Bestelling> bijDatum = (b1, b2)
-				-> b2.getDatumGeplaats().toString().compareToIgnoreCase(b1.getDatumGeplaats().toString());
-				
-		Comparator<Bestelling> bijOrderId = (b1, b2)
-				-> Integer.toString(b1.getOrderId()).compareToIgnoreCase(Integer.toString(b2.getOrderId()));
-		
-		Comparator<Bestelling> bijOrderbedrag = (b1, b2)
-				-> Double.toString(b1.berekenTotalBedrag()).compareToIgnoreCase(Double.toString(b2.berekenTotalBedrag()));
-				
-		Comparator<Bestelling> bijOrderstatus = (b1, b2)
-				-> b1.getOrderStatus().toString().compareToIgnoreCase(b2.getOrderStatus().toString());
-				
-		Comparator<Bestelling> bijBetalingsstatus = (b1, b2)
-				-> b1.getBetalingsStatus().toString().compareToIgnoreCase(b2.getBetalingsStatus().toString());
-				
-		Comparator<Bestelling> bestellingSorted = bijDatum.thenComparing(bijOrderId).thenComparing(bijOrderbedrag)
-				.thenComparing(bijOrderstatus).thenComparing(bijBetalingsstatus);
-		
-		FilteredList<Bestelling> filteredBestellingen = new FilteredList<>(bestellingsList, b -> true);     
-		SortedList<Bestelling> sortedBestellingen = new SortedList<>(filteredBestellingen, bestellingSorted);
-		return sortedBestellingen;
-	}	
-
-	public ObservableList<Bestelling> filter(LocalDate datum, OrderStatus orderstatus, BetalingsStatus betalingsstatus,
-			String filterValue) {
-		ObservableList<Bestelling> filteredData = FXCollections.observableArrayList();
-		
-		for (Bestelling bestelling : getObservableListBestellingen(GebruikerHolder.getInstance())) {
-			
-			if((datum == null || bestelling.toSearchString().contains(datum.toString())) &&
-					(filterValue.isBlank() ||  bestelling.toSearchString().toLowerCase().contains(filterValue.toLowerCase())) &&
-					(orderstatus == null || bestelling.getOrderStatus() == orderstatus) &&
-					(betalingsstatus == null ||  bestelling.getBetalingsStatus() == betalingsstatus))
-				filteredData.add(bestelling);
-		}
-		return filteredData;
-	}
 	
 	@Override
 	public String toString() {

@@ -302,6 +302,6 @@ public class Bestelling implements Serializable {
 	}
 	
 	public String toSearchString() {
-		return String.format("%s %s %s %s %s", orderId, datumGeplaatst.toString(), klant.getNaam(), orderStatus, betalingStatus).toLowerCase();
+		return String.format("%s %s %s %s %s %s", orderId, datumGeplaatst.toString(), klant.getNaam(), orderStatus, betalingStatus, orderbedragProperty().getValue()).toLowerCase();
 	}
 }
