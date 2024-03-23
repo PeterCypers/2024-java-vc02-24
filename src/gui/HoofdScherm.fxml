@@ -3,6 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -13,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="1054.0" stylesheets="@../images/style.css" type="javafx.scene.layout.BorderPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="1054.0" stylesheets="@../images/style.css" type="javafx.scene.layout.BorderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <Label fx:id="lbErrors" textFill="RED" BorderPane.alignment="CENTER" />
    </bottom>
@@ -48,7 +51,7 @@
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
@@ -62,17 +65,18 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </ImageView>
-            <Label fx:id="lbNaam" alignment="CENTER_RIGHT" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+            <MenuBar prefHeight="28.0" prefWidth="0.0" style="-fx-background-color: transparent;" styleClass="label-menu-item" stylesheets="@../images/style.css" GridPane.columnIndex="2">
+              <menus>
+                <Menu fx:id="mbName" mnemonicParsing="false">
+                  <items>
+                    <MenuItem fx:id="miLogout" mnemonicParsing="false" onAction="#logoutAction" text="Logout" />
+                  </items>
+                </Menu>
+              </menus>
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="30.0" top="5.0" />
+                  <Insets right="10.0" />
                </GridPane.margin>
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <graphic>
-                  <Button fx:id="btnlogout" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#logoutAction" text="logout" />
-               </graphic>
-            </Label>
+            </MenuBar>
          </children>
          <BorderPane.margin>
             <Insets />

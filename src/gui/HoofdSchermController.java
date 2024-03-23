@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -17,8 +19,8 @@ import javafx.stage.Stage;
 
 public class HoofdSchermController extends BorderPane{
 
-    @FXML
-    private Label lbNaam;
+	@FXML
+    private Menu mbName;
 
     @FXML
     private Button btnOverzichtBestellingen;
@@ -36,7 +38,8 @@ public class HoofdSchermController extends BorderPane{
     private Label lbError;
     
     @FXML
-    private Button btnlogout;
+    private MenuItem miLogout;
+    
     
     @FXML
     void logoutAction(ActionEvent event) {
@@ -48,8 +51,9 @@ public class HoofdSchermController extends BorderPane{
         Scene scene = new Scene(aanmeldSchermController);
 
         
-        Stage stage = (Stage) btnlogout.getScene().getWindow();
+        Stage stage = (Stage) this.getScene().getWindow();
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -81,7 +85,7 @@ public class HoofdSchermController extends BorderPane{
             throw new RuntimeException(ex);
         }
         
-        lbNaam.setText(GebruikerHolder.getInstance().getNaam());
+        mbName.setText(GebruikerHolder.getInstance().getNaam());
 	}
     
 }
