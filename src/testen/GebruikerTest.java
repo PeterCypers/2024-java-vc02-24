@@ -86,7 +86,6 @@ public class GebruikerTest {
 		assertThrows(IllegalArgumentException.class, 
 				() -> new Leverancier(
 						null,
-						null,
 						email, 
 						wachtwoord,
 						naam, 
@@ -132,11 +131,11 @@ public class GebruikerTest {
 	/*********/
 	
 	static List<Gebruiker> gebruikers = Arrays.asList(
-			new Leverancier(null, null, "eerste@hotmail.com", "1234", "Jasper Vandenbroucke", true),
-			new Leverancier(null, null, "tweede@hotmail.com", "1234", "Tiemen Deroose", true),
-			new Leverancier(null, null, "derde@hotmail.com", "1234", "Mohisha Van Damme", true),
-			new Leverancier(null, null, "vierde@hotmail.com", "1234", "Peter Cypers", true),
-			new Leverancier(null, null, "vijfde@hotmail.com", "1234", "Bas Stokmans", true)
+			new Leverancier(null, "eerste@hotmail.com", "1234", "Jasper Vandenbroucke", true),
+			new Leverancier(null, "tweede@hotmail.com", "1234", "Tiemen Deroose", true),
+			new Leverancier(null, "derde@hotmail.com", "1234", "Mohisha Van Damme", true),
+			new Leverancier(null, "vierde@hotmail.com", "1234", "Peter Cypers", true),
+			new Leverancier(null, "vijfde@hotmail.com", "1234", "Bas Stokmans", true)
 	);
 	
 	static Stream<Arguments> onbekendeLogin() {
@@ -161,7 +160,7 @@ public class GebruikerTest {
 	
 	static Stream<Gebruiker> gebruikers(){
 		return Stream.of(
-				new Leverancier(null, null, "test@hotmail.com", "1234", "Test Persoon", true),
+				new Leverancier(null, "test@hotmail.com", "1234", "Test Persoon", true),
 				new Klant(null, "test2@hotmail.com", "1234", "Test Persoon2", true, new Adres("Land", "Stad", "1234", "Straat", "1"), "+32123456789"),
 				new Administrator("test3@gmail.com", "1234", "Test Persoon3")
 		);
@@ -189,7 +188,7 @@ public class GebruikerTest {
 	@MethodSource("inactieveLogin")
 	public void test_meldGebruikerAan_inactieveGebruiker(String email, String wachtwoord, boolean isActief, Rol rol) {
 		Mockito.when(gebruikerDaoJpaMock.meldAan(email, wachtwoord)).thenReturn(
-				new Leverancier(null, null, email, wachtwoord, "Test persoon", isActief)
+				new Leverancier(null, email, wachtwoord, "Test persoon", isActief)
 		);
 		
 		assertThrows(IllegalArgumentException.class, () -> gebruikerServiceDbImpl.meldGebruikerAan(email, wachtwoord));

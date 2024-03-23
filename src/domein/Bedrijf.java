@@ -8,9 +8,14 @@ import domein.gebruiker.Gebruiker;
 import domein.gebruiker.Klant;
 import domein.gebruiker.Leverancier;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToOne;
@@ -45,6 +50,10 @@ public class Bedrijf implements Serializable {
 	
 	private String betalingsInfo;
 	
+	@ElementCollection
+	@JoinTable(name = "BETAALMETHODES")
+	@Column(name = "BETAALMETHODES", nullable = false)
+	@Enumerated(EnumType.STRING)
 	private List<Betaalmethode> betaalmethodes;
 
 	private String logo;
@@ -102,7 +111,7 @@ public class Bedrijf implements Serializable {
 		setLogo(logo);
 		setSector(sector);
 		setAdres(adres);
-		setBetaalmethodes(betaalmethodes);
+		this.betaalmethodes = betaalmethodes;
 		setBetalingsInfo(betalingsInfo);
 		setEmail(email);
 		setTelefoon(telefoon);
@@ -239,6 +248,15 @@ public class Bedrijf implements Serializable {
 	
 	public List<Betaalmethode> getBetaalmethodes(){
 		return this.betaalmethodes;
+	}
+	
+
+	public void addBetaalmethodes(Betaalmethode betaalmethode) {
+		betaalmethodes.add(betaalmethode);
+	}
+	
+	public void removeBetaalmethodes(Betaalmethode betaalmethode) {
+		betaalmethodes.remove(betaalmethode);
 	}
 
 	public String getBetalingsInfo() {

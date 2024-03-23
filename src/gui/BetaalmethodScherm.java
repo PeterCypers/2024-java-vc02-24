@@ -5,13 +5,13 @@ import java.util.List;
 
 import domein.BedrijfController;
 import domein.Betaalmethode;
-import domein.LeverancierController;
+import domein.gebruiker.GebruikerHolder;
+import domein.gebruiker.Leverancier;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
@@ -70,7 +70,6 @@ public class BetaalmethodScherm extends BorderPane{
     @FXML
     void selectAchterAf(ActionEvent event) {
     	changeBetaalmethodes(cbAchterAf, Betaalmethode.ACHTERAF_BETALEN);
-    	
     }
 
     @FXML
@@ -115,20 +114,21 @@ public class BetaalmethodScherm extends BorderPane{
     
     private void changeBetaalmethodes(CheckBox box, Betaalmethode betaalmethode) {
     	if(box.isSelected())
-    		lc.addBetaalmethodes(bc, betaalmethode);
+    		leverancier.getBedrijf().addBetaalmethodes(betaalmethode);
     	else
-    		lc.removeBetaalmethodes(bc, betaalmethode);
+    		leverancier.getBedrijf().removeBetaalmethodes(betaalmethode);
+    	
+    	bc.updateBedrijf(leverancier.getBedrijf());
     }
     
     private HoofdSchermController hoofdScherm;
-    private LeverancierController lc;
     private BedrijfController bc;
     private Node node;
+    private Leverancier leverancier = (Leverancier) GebruikerHolder.getInstance();
 
 	public BetaalmethodScherm(HoofdSchermController hoofdScherm) {
 		this.hoofdScherm = hoofdScherm;
 		bc = new BedrijfController();
-		lc = new LeverancierController();
 		buildGui();
 	}
 	
@@ -144,7 +144,7 @@ public class BetaalmethodScherm extends BorderPane{
 	}
 	
 	private void checktCheckBox() {
-		List<Betaalmethode> betaalmethodes = lc.getBetaalmethodes();
+		List<Betaalmethode> betaalmethodes = leverancier.getBedrijf().getBetaalmethodes();
 		System.out.print(betaalmethodes);
 		for(Betaalmethode betaalmethode : betaalmethodes) {
 			switch (betaalmethode) {

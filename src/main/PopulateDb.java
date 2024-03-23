@@ -89,7 +89,7 @@ public class PopulateDb {
 		};
 		
 		List<List<Betaalmethode>> betaalmethodes = Arrays.asList(
-				List.of(
+				Arrays.asList(
 						Betaalmethode.ACHTERAF_BETALEN, 
 						Betaalmethode.APPLE_PAY,
 						Betaalmethode.BANCONTACT,
@@ -100,21 +100,21 @@ public class PopulateDb {
 						Betaalmethode.VENMO,
 						Betaalmethode.VISA
 						),
-				List.of(
+				Arrays.asList(
 						Betaalmethode.BANCONTACT,
 						Betaalmethode.MAESTRO,
 						Betaalmethode.MASTERCARD,
 						Betaalmethode.ACHTERAF_BETALEN,
 						Betaalmethode.VISA
 						),
-				List.of(
+				Arrays.asList(
 						Betaalmethode.ACHTERAF_BETALEN, 
 						Betaalmethode.APPLE_PAY,
 						Betaalmethode.BANCONTACT,
 						Betaalmethode.MAESTRO,
 						Betaalmethode.MASTERCARD
 						),
-				List.of(
+				Arrays.asList(
 						Betaalmethode.ACHTERAF_BETALEN, 
 						Betaalmethode.APPLE_PAY,
 						Betaalmethode.BANCONTACT,
@@ -123,7 +123,7 @@ public class PopulateDb {
 						Betaalmethode.VENMO,
 						Betaalmethode.VISA
 						),
-				List.of(
+				Arrays.asList(
 						Betaalmethode.APPLE_PAY,
 						Betaalmethode.BANCONTACT,
 						Betaalmethode.MAESTRO,
@@ -131,13 +131,13 @@ public class PopulateDb {
 						Betaalmethode.PAYCONIQ,
 						Betaalmethode.VENMO
 						),
-				List.of(
+				Arrays.asList(
 						Betaalmethode.BANCONTACT,
 						Betaalmethode.MAESTRO,
 						Betaalmethode.MASTERCARD,
 						Betaalmethode.VISA
 						),
-				List.of(
+				Arrays.asList(
 						Betaalmethode.ACHTERAF_BETALEN, 
 						Betaalmethode.APPLE_PAY,
 						Betaalmethode.PAYCONIQ,
@@ -165,13 +165,13 @@ public class PopulateDb {
 		);
 		
 		List<Leverancier> leveranciers = List.of(
-				new Leverancier(bedrijven.get(0), bedrijven.get(0).getBetaalmethodes(), "mark@outlook.be", "1234", "Mark", true),
-				new Leverancier(bedrijven.get(1), bedrijven.get(1).getBetaalmethodes(), "mike@gmail.com", "1234", "Mike", true),
-				new Leverancier(bedrijven.get(2), bedrijven.get(2).getBetaalmethodes(), "julia@web.de", "1234", "Julia", true),
-				new Leverancier(bedrijven.get(3), bedrijven.get(3).getBetaalmethodes(), "kim@gmail.com", "1234", "Kim", true),
-				new Leverancier(bedrijven.get(4), bedrijven.get(4).getBetaalmethodes(), "christophe@outlook.com", "1234", "Christophe", true),
-				new Leverancier(bedrijven.get(5), bedrijven.get(5).getBetaalmethodes(), "matilda@outlook.com", "1234", "Matilda", true),
-				new Leverancier(bedrijven.get(6), bedrijven.get(6).getBetaalmethodes(), "francesca@outlook.com", "1234", "Francesca", true)
+				new Leverancier(bedrijven.get(0), "mark@outlook.be", "1234", "Mark", true),
+				new Leverancier(bedrijven.get(1), "mike@gmail.com", "1234", "Mike", true),
+				new Leverancier(bedrijven.get(2), "julia@web.de", "1234", "Julia", true),
+				new Leverancier(bedrijven.get(3), "kim@gmail.com", "1234", "Kim", true),
+				new Leverancier(bedrijven.get(4), "christophe@outlook.com", "1234", "Christophe", true),
+				new Leverancier(bedrijven.get(5), "matilda@outlook.com", "1234", "Matilda", true),
+				new Leverancier(bedrijven.get(6), "francesca@outlook.com", "1234", "Francesca", true)
 		);
 		
 		List<Klant> klanten = List.of(

@@ -31,15 +31,12 @@ public class Leverancier extends Gebruiker {
 	@OneToMany(cascade=CascadeType.PERSIST)
 	private List<Product> producten;
 	
-	private List<Betaalmethode> betaalmethodes;
-	
 	public Leverancier() {}
 	
-	public Leverancier(Bedrijf bedrijf, List<Betaalmethode> betaalmethodes, String email, String wachtwoord, 
+	public Leverancier(Bedrijf bedrijf, String email, String wachtwoord, 
 			String naam, boolean isActief) {
 		super(email, wachtwoord, naam, isActief, Rol.LEVERANCIER);
 		this.bedrijf = bedrijf; 
-		this.betaalmethodes = betaalmethodes;
 	}
 	
 	public List<Bestelling> getBestellingen() {
@@ -58,20 +55,7 @@ public class Leverancier extends Gebruiker {
 		this.producten = producten;
 	}
 
-	public List<Betaalmethode> getBetaalmethodes() {
-		return betaalmethodes;
+	public Bedrijf getBedrijf() {
+		return bedrijf;
 	}
-
-	public void addBetaalmethodes(BedrijfController bc, Betaalmethode betaalmethode) {
-		betaalmethodes.add(betaalmethode);
-		bedrijf.setBetaalmethodes(betaalmethodes);
-		bc.updateBedrijf(bedrijf);
-	}
-	
-	public void removeBetaalmethodes(BedrijfController bc, Betaalmethode betaalmethode) {
-		betaalmethodes.remove(betaalmethode);
-		bedrijf.setBetaalmethodes(betaalmethodes);
-		bc.updateBedrijf(bedrijf);
-	}
-
 }

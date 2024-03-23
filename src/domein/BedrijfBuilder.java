@@ -60,7 +60,6 @@ public class BedrijfBuilder {
 		);
 		bedrijf.setLeverancier(new Leverancier(
 			bedrijf,
-			bedrijf.getBetaalmethodes(),
 			lEmailadres,
 			lWachtwoord,
 			lNaam,
