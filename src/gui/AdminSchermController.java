@@ -43,6 +43,7 @@ public class AdminSchermController extends BorderPane {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+        stage.setResizable(false);
     }
 
     @FXML

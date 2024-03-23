@@ -52,6 +52,7 @@ public class HoofdSchermController extends BorderPane{
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+        stage.setResizable(false);
     }
 
     @FXML
