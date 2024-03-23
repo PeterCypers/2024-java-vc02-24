@@ -48,6 +48,7 @@ public class AdminSchermController extends BorderPane {
         Stage stage = (Stage) btnlogout.getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+        stage.setResizable(false);
     }
 
     @FXML
