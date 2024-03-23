@@ -109,11 +109,17 @@
                               <Insets left="2.0" />
                            </GridPane.margin></ImageView>
                         <TextField fx:id="txfNaam" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" />
-                        <TextField fx:id="txfAdresLijn1" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="txfAdresLijn1" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding></TextField>
                         <TextField fx:id="txfAdresLijn2" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <TextField fx:id="txfEmail" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <TextField fx:id="txfTelefoonnummer" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                      </children>
+                     <padding>
+                        <Insets left="5.0" right="5.0" />
+                     </padding>
                   </GridPane>
                   <TableView fx:id="tbvBestellingen" style="-fx-background-color: transparent;" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2">
                     <columns>

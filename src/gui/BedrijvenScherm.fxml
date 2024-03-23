@@ -142,6 +142,9 @@
                            </padding>
                         </Label>
                      </children>
+                     <padding>
+                        <Insets left="5.0" right="5.0" />
+                     </padding>
                   </GridPane>
                   <TableView fx:id="tbvOverzichtAccounts" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2">
                     <columns>
