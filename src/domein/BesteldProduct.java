@@ -2,19 +2,14 @@ package domein;
 
 import java.text.DecimalFormat;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Transient;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -79,7 +74,7 @@ public class BesteldProduct {
 	}
 	
 	public StringProperty stockProperty(){
-		String stockString = product.getStock() != 0 ? Integer.toString(product.getStock()) : "Order";
+		String stockString = product.getLeverMethode() == LeverMethode.STOCK ? Integer.toString(product.getStock()) : "Op order";
 		stockProduct.set(stockString);
 		return stockProduct;
 	}

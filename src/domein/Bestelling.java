@@ -17,7 +17,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Transient;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -176,10 +175,11 @@ public class Bestelling implements Serializable {
 		return this.betalingStatus;
 	}
 
-	public void setOrderStatus(OrderStatus oStatus) {
-		if (oStatus == null)
+	private void setOrderStatus(OrderStatus nieuweOrderStatus) {
+		if (nieuweOrderStatus == null)
 			throw new IllegalArgumentException("Orderstatus is niet meegegeven");
-		orderStatus = oStatus;
+		
+		orderStatus = nieuweOrderStatus;
 	}
 	
 	public Leverancier getLeverancier() {
@@ -295,6 +295,30 @@ public class Bestelling implements Serializable {
 	    		filteredData.add(product);
 	    }
 	    return filteredData;
+	}
+	
+	public void veranderOrderStatus(OrderStatus nieuweOrderStatus) {
+		// verwerk stock van producten als de producten het bedrijf verlaten, of als ze teruggebracht worden
+		if ((orderStatus == OrderStatus.GEREGISTREERD || orderStatus == OrderStatus.AAN_HET_VERWERKEN)
+				&& (nieuweOrderStatus == OrderStatus.ONDERWEG || nieuweOrderStatus == OrderStatus.GELEVERD)) {
+			veranderProductenStock(true);
+		} else if ((orderStatus == OrderStatus.ONDERWEG || orderStatus == OrderStatus.GELEVERD)
+				&& (nieuweOrderStatus == OrderStatus.GEREGISTREERD || nieuweOrderStatus == OrderStatus.AAN_HET_VERWERKEN)) {
+			veranderProductenStock(false);
+		}
+		
+		setOrderStatus(nieuweOrderStatus);
+	}
+	
+	private void veranderProductenStock(boolean verlagen) {
+		producten.forEach(p -> {
+			int aantal = p.getAantal();
+			
+			if (verlagen)
+				aantal = -aantal;
+			
+			p.getProduct().bewerkStock(aantal);
+		});
 	}
 	
 	public String toString() {

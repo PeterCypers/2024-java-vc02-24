@@ -8,15 +8,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 /**
  * Represents a Product.
@@ -35,6 +26,9 @@ public class Product implements Serializable {
 	
 	private double eenheidsprijs;
 	
+	@Enumerated(EnumType.STRING)
+	private LeverMethode leverMethode; 
+	
 	private int stock;
 	
 	/** <code>entity class</code> JPA-required default constructor */
@@ -46,11 +40,13 @@ public class Product implements Serializable {
 	 * @param naam the productname
 	 * @param inStock <code>enum</code> {@link domein.Stock} inStock status of this product
 	 * @param eenheidsprijs the price per unit of this product
+	 * @param leverMethode the method of delivery
 	 */
-	public Product(String naam, int stock, double eenheidsprijs) {
+	public Product(String naam, int stock, double eenheidsprijs, LeverMethode leverMethode) {
 		setNaam(naam);
 		setStock(stock);
 		setEenheidsprijs(eenheidsprijs);
+		this.leverMethode = leverMethode;
 	}
 	
 	public String getNaam() {
@@ -80,8 +76,11 @@ public class Product implements Serializable {
 	 * @param aantal
 	 */
 	public void bewerkStock(int aantal) {
+		if (leverMethode == LeverMethode.ORDER)
+			return;
+		
 		if (stock + aantal < 0)
-			throw new IllegalArgumentException("De stock van een product mag niet verlaagd worden onder nul");
+			throw new IllegalArgumentException("De stock van een product mag niet onder nul komen te staan!");
 		
 		this.stock += aantal;
 	}
@@ -94,6 +93,10 @@ public class Product implements Serializable {
 		if (eenheidsprijs <= 0)
 			throw new IllegalArgumentException("Eenheidsprijs van een product moet strikt positief zijn");
 		this.eenheidsprijs = eenheidsprijs;
+	}
+	
+	public LeverMethode getLeverMethode() {
+		return leverMethode;
 	}
 	
 	public String toString() {
