@@ -266,7 +266,7 @@ public class BestellingsScherm {
             tbvOverzichtProducten.refresh();
         } catch (IllegalArgumentException iae) {
         	Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Fout bij het veranderen van de bestellingstatus");
+			alert.setTitle("Fout bij het veranderen van de bestellingsstatus");
 			alert.setHeaderText(iae.getMessage());
 			alert.showAndWait();
         }
