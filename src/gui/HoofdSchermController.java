@@ -43,14 +43,11 @@ public class HoofdSchermController extends BorderPane{
     
     @FXML
     void logoutAction(ActionEvent event) {
-        
         AanmeldController ac = new AanmeldController(); 
         AanmeldSchermController aanmeldSchermController = new AanmeldSchermController(ac);
 
-        
         Scene scene = new Scene(aanmeldSchermController);
 
-        
         Stage stage = (Stage) this.getScene().getWindow();
         stage.setScene(scene);
         stage.setResizable(false);

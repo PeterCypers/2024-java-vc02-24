@@ -3,6 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -13,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="910.0" stylesheets="@../images/style.css" type="BorderPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="910.0" stylesheets="@../images/style.css" type="BorderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <GridPane minHeight="50.0" minWidth="910.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -33,17 +36,18 @@
                   <Insets left="5.0" />
                </GridPane.margin>
             </ImageView>
-            <Label fx:id="lbNaam" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="14.0" />
-               </font>
+            <MenuBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="0.0" style="-fx-background-color: transparent;" styleClass="label-menu-item" stylesheets="@../images/style.css" GridPane.columnIndex="2">
+              <menus>
+                <Menu fx:id="mName" mnemonicParsing="false">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#logoutAction" text="Logout" />
+                  </items>
+                </Menu>
+              </menus>
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="30.0" top="5.0" />
+                  <Insets right="10.0" />
                </GridPane.margin>
-               <graphic>
-                  <Button fx:id="btnlogout" mnemonicParsing="false" onAction="#logoutAction" text="logout" />
-               </graphic>
-            </Label>
+            </MenuBar>
          </children>
       </GridPane>
    </top>

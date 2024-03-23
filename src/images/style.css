@@ -69,11 +69,9 @@
     -fx-text-fill: black;
 }
 
-/*Menubar logout */
+/*Menubar logout Leverancier*/
 .menu-bar{
 	-fx-background: #c32828;
-	-fx-text-alignment: left;
-	-fx-alignment: left;
 }
 .menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
     -fx-background: #c32828 ;
@@ -82,16 +80,36 @@
 }
 
 .menu-bar .label {
-	-fx-text-alignment: left;
     -fx-font-size: 14.0 pt;
     -fx-text-fill: white;
 }
 
 .menu-item {
     -fx-text-fill: white;
-    -fx-text-alignment: left;
     -fx-background: #eeaaaa;
 }
+
+/*Menubar logout Admin*/
+.menu-bar{
+	-fx-background: #c32828;
+}
+.menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
+    -fx-background: #c32828 ;
+    -fx-opacity: 0.5;
+    -fx-text-fill: black;
+}
+
+.menu-bar .label {
+    -fx-font-size: 14.0 pt;
+    -fx-text-fill: black;
+}
+
+.menu-item {
+    -fx-text-fill: black;
+    -fx-background: #eeaaaa;
+}
+
+/*Menubar logout */
 .menu-item .label{
     -fx-font-size: 14.0 pt;
     -fx-text-fill: black;

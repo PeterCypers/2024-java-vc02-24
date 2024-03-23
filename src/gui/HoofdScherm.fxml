@@ -65,7 +65,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </ImageView>
-            <MenuBar prefHeight="28.0" prefWidth="0.0" style="-fx-background-color: transparent;" styleClass="label-menu-item" stylesheets="@../images/style.css" GridPane.columnIndex="2">
+            <MenuBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="0.0" style="-fx-background-color: transparent;" styleClass="label-menu-item" stylesheets="@../images/style.css" GridPane.columnIndex="2">
               <menus>
                 <Menu fx:id="mbName" mnemonicParsing="false">
                   <items>
