@@ -208,8 +208,8 @@ public class BedrijvenScherm {
 		txfSector.setText(bc.getBedrijven().get(index).getSector());
 		txfAdresLijn1.setText(bc.getBedrijven().get(index).getAdres().toStringLijn1());
 		txfAdresLijn2.setText(bc.getBedrijven().get(index).getAdres().toStringLijn2());
-		txfBetalingsmogelijkheid.setText(bc.getBedrijven().get(index).getBetalingsmogelijkhedenEnInfo());
-		txfBetalingsinfo.setText("");
+		txfBetalingsmogelijkheid.setText(bc.getBedrijven().get(index).getBetaalmethodes().toString()); //te check
+		txfBetalingsinfo.setText(bc.getBedrijven().get(index).getBetalingsInfo());
 		txfEmailadres.setText(bc.getBedrijven().get(index).getEmail());
 		txfTelefoonnummer.setText(bc.getBedrijven().get(index).getTelefoon());
 		txfBTWNummer.setText(bc.getBedrijven().get(index).getBtwNr());

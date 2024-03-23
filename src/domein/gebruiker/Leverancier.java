@@ -1,10 +1,14 @@
 package domein.gebruiker;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import domein.Bedrijf;
+import domein.BedrijfController;
 import domein.Bestelling;
+import domein.Betaalmethode;
 import domein.Product;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
@@ -29,9 +33,10 @@ public class Leverancier extends Gebruiker {
 	
 	public Leverancier() {}
 	
-	public Leverancier(Bedrijf bedrijf, String email, String wachtwoord, String naam, boolean isActief) {
+	public Leverancier(Bedrijf bedrijf, String email, String wachtwoord, 
+			String naam, boolean isActief) {
 		super(email, wachtwoord, naam, isActief, Rol.LEVERANCIER);
-		this.bedrijf = bedrijf;
+		this.bedrijf = bedrijf; 
 	}
 	
 	public List<Bestelling> getBestellingen() {
@@ -50,4 +55,7 @@ public class Leverancier extends Gebruiker {
 		this.producten = producten;
 	}
 
+	public Bedrijf getBedrijf() {
+		return bedrijf;
+	}
 }

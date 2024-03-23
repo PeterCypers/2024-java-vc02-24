@@ -22,6 +22,9 @@ public class HoofdSchermController extends BorderPane{
     
     @FXML
     private Button btnOverzichtKlanten;
+    
+    @FXML
+    private Button btnBetaalmethodes;
 
     @FXML
     private BorderPane borderpane;
@@ -35,6 +38,7 @@ public class HoofdSchermController extends BorderPane{
     @FXML
     void overzichtBestellingen(ActionEvent event) {
     	btnOverzichtKlanten.getStyleClass().clear();
+    	btnBetaalmethodes.getStyleClass().clear();
     	btnOverzichtBestellingen.getStyleClass().add("button-selected");
     	vbox.getChildren().clear();
     	BestellingsScherm controller = new BestellingsScherm(this);
@@ -44,9 +48,20 @@ public class HoofdSchermController extends BorderPane{
     @FXML
     void overzichtKlanten(ActionEvent event) {
     	btnOverzichtBestellingen.getStyleClass().clear();
+    	btnBetaalmethodes.getStyleClass().clear();
     	btnOverzichtKlanten.getStyleClass().add("button-selected");
     	vbox.getChildren().clear();
     	KlantenScherm controller = new KlantenScherm(this);
+    	vbox.getChildren().add(controller.geefNode());
+    }
+    
+    @FXML
+    void betaalmethodesBeheren(ActionEvent event) {
+    	btnOverzichtBestellingen.getStyleClass().clear();
+    	btnOverzichtKlanten.getStyleClass().clear();
+    	btnBetaalmethodes.getStyleClass().add("button-selected");
+    	vbox.getChildren().clear();
+    	BetaalmethodScherm controller = new BetaalmethodScherm(this);
     	vbox.getChildren().add(controller.geefNode());
     }
     

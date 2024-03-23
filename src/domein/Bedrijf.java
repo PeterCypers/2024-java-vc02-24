@@ -8,9 +8,14 @@ import domein.gebruiker.Gebruiker;
 import domein.gebruiker.Klant;
 import domein.gebruiker.Leverancier;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToOne;
@@ -43,7 +48,13 @@ public class Bedrijf implements Serializable {
 	@Embedded
 	protected Adres adres;
 	
-	private String betalingsmogelijkhedenEnInfo;
+	private String betalingsInfo;
+	
+	@ElementCollection
+	@JoinTable(name = "BETAALMETHODES")
+	@Column(name = "BETAALMETHODES", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private List<Betaalmethode> betaalmethodes;
 
 	private String logo;
 	
@@ -93,14 +104,15 @@ public class Bedrijf implements Serializable {
 	 * 
 	 * klanten?
 	 */
-	public Bedrijf(String naam, String logo, String sector, Adres adres, 
-			String betalingsmogelijkhedenEnInfo, String email, String telefoon,
+	public Bedrijf(String naam, String logo, String sector, Adres adres, List<Betaalmethode> betaalmethodes,
+			String betalingsInfo, String email, String telefoon,
 			String btwNr, boolean isActief) {
 		setNaam(naam);
 		setLogo(logo);
 		setSector(sector);
 		setAdres(adres);
-		setBetalingsMogelijkhedenEnInfo(betalingsmogelijkhedenEnInfo);
+		this.betaalmethodes = betaalmethodes;
+		setBetalingsInfo(betalingsInfo);
 		setEmail(email);
 		setTelefoon(telefoon);
 		setBtwNr(btwNr);
@@ -149,10 +161,15 @@ public class Bedrijf implements Serializable {
 		this.adres = adres;
 	}
 	
-	private void setBetalingsMogelijkhedenEnInfo(String betalingsmogelijkhedenEnInfo) {
+	public void setBetaalmethodes(List<Betaalmethode> betaalmethodes) {
+		//misschien een check
+		this.betaalmethodes = betaalmethodes;
+	}
+	
+	private void setBetalingsInfo(String betalingsmogelijkhedenEnInfo) {
 		//if (betalingsmogelijkhedenEnInfo.isBlank())
 		//	throw new IllegalArgumentException("Betalingsmogelijkheden en -info ongeldig");
-		this.betalingsmogelijkhedenEnInfo = betalingsmogelijkhedenEnInfo;
+		this.betalingsInfo = betalingsmogelijkhedenEnInfo;
 	}
 	
 	/**
@@ -228,9 +245,22 @@ public class Bedrijf implements Serializable {
 	public Adres getAdres() {
 		return this.adres;
 	}
+	
+	public List<Betaalmethode> getBetaalmethodes(){
+		return this.betaalmethodes;
+	}
+	
 
-	public String getBetalingsmogelijkhedenEnInfo() {
-		return this.betalingsmogelijkhedenEnInfo;
+	public void addBetaalmethodes(Betaalmethode betaalmethode) {
+		betaalmethodes.add(betaalmethode);
+	}
+	
+	public void removeBetaalmethodes(Betaalmethode betaalmethode) {
+		betaalmethodes.remove(betaalmethode);
+	}
+
+	public String getBetalingsInfo() {
+		return this.betalingsInfo;
 	}
 
 	public String getEmail() {
@@ -332,10 +362,11 @@ public class Bedrijf implements Serializable {
 		return FXCollections.observableArrayList(gebruikers);
 	}
 
+	//word dit gebruikt?
 	@Override
 	public String toString() {
 		return "Bedrijf [naam=" + naam + ", sector=" + sector + ", adres=" + adres + ", betalingsmogelijkhedenEnInfo="
-				+ betalingsmogelijkhedenEnInfo + ", contact=" + emailadres + ", btwNr=" + btwNr + ", isActief=" + isActief
+				+ betalingsInfo + ", contact=" + emailadres + ", btwNr=" + btwNr + ", isActief=" + isActief
 				+ ", klant=" + klant + "]";
 	}
 	

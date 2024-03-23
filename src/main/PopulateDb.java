@@ -9,6 +9,7 @@ import domein.Adres;
 import domein.Bedrijf;
 import domein.BesteldProduct;
 import domein.Bestelling;
+import domein.Betaalmethode;
 import domein.BetalingsStatus;
 import domein.LeverMethode;
 import domein.OrderStatus;
@@ -87,21 +88,80 @@ public class PopulateDb {
 				new Adres("Italy",			"Milan",	 "20121",	"Piazza Luigi di Savoia",   "24"),
 		};
 		
+		List<List<Betaalmethode>> betaalmethodes = Arrays.asList(
+				Arrays.asList(
+						Betaalmethode.ACHTERAF_BETALEN, 
+						Betaalmethode.APPLE_PAY,
+						Betaalmethode.BANCONTACT,
+						Betaalmethode.MAESTRO,
+						Betaalmethode.MASTERCARD,
+						Betaalmethode.PAYCONIQ,
+						Betaalmethode.PAYPAL,
+						Betaalmethode.VENMO,
+						Betaalmethode.VISA
+						),
+				Arrays.asList(
+						Betaalmethode.BANCONTACT,
+						Betaalmethode.MAESTRO,
+						Betaalmethode.MASTERCARD,
+						Betaalmethode.ACHTERAF_BETALEN,
+						Betaalmethode.VISA
+						),
+				Arrays.asList(
+						Betaalmethode.ACHTERAF_BETALEN, 
+						Betaalmethode.APPLE_PAY,
+						Betaalmethode.BANCONTACT,
+						Betaalmethode.MAESTRO,
+						Betaalmethode.MASTERCARD
+						),
+				Arrays.asList(
+						Betaalmethode.ACHTERAF_BETALEN, 
+						Betaalmethode.APPLE_PAY,
+						Betaalmethode.BANCONTACT,
+						Betaalmethode.PAYCONIQ,
+						Betaalmethode.PAYPAL,
+						Betaalmethode.VENMO,
+						Betaalmethode.VISA
+						),
+				Arrays.asList(
+						Betaalmethode.APPLE_PAY,
+						Betaalmethode.BANCONTACT,
+						Betaalmethode.MAESTRO,
+						Betaalmethode.MASTERCARD,
+						Betaalmethode.PAYCONIQ,
+						Betaalmethode.VENMO
+						),
+				Arrays.asList(
+						Betaalmethode.BANCONTACT,
+						Betaalmethode.MAESTRO,
+						Betaalmethode.MASTERCARD,
+						Betaalmethode.VISA
+						),
+				Arrays.asList(
+						Betaalmethode.ACHTERAF_BETALEN, 
+						Betaalmethode.APPLE_PAY,
+						Betaalmethode.PAYCONIQ,
+						Betaalmethode.PAYPAL,
+						Betaalmethode.VENMO,
+						Betaalmethode.VISA
+						)
+		);
+		
 		List<Bedrijf> bedrijven = List.of(
 				new Bedrijf("Stella Artois", "https://logodix.com/logo/2066282.png", "Brewers",
-						adressen[0], "", "mark@outlook.be", "+32974178174", "BE197248342B38", true),
+						adressen[0], betaalmethodes.get(0), "", "mark@outlook.be", "+32974178174", "BE197248342B38", true),
 				new Bedrijf("Hewlett-Packard", "https://logodix.com/logo/4934.png", "Technology Hardware, Storage & Peripherals",
-						adressen[1], "", "mike@gmail.com", "(212)912-0384", "749196976", true),
+						adressen[1], betaalmethodes.get(1), "", "mike@gmail.com", "(212)912-0384", "749196976", true),
 				new Bedrijf("Bosch", "https://logodix.com/logo/9541.png", "Household Appliances",
-						adressen[2], "", "julia@web.de", "+496591799946", "DE41280756350", true),
+						adressen[2], betaalmethodes.get(2), "", "julia@web.de", "+496591799946", "DE41280756350", true),
 				new Bedrijf("Ahold Delhaize", "https://logodix.com/logo/420832.png", "Food Retail",
-						adressen[3], "", "kim@gmail.com", "+31659267802", "NL463774784B52", true),
+						adressen[3], betaalmethodes.get(3), "", "kim@gmail.com", "+31659267802", "NL463774784B52", true),
 				new Bedrijf("Peugeot", "https://logodix.com/logo/9436.png", "Automobile Manufacturers",
-						adressen[4], "", "christophe@outlook.com", "+33124311738", "FR4579135426784", true),
+						adressen[4], betaalmethodes.get(4), "", "christophe@outlook.com", "+33124311738", "FR4579135426784", true),
 				new Bedrijf("Ikea", "https://logodix.com/logo/470339.png", "Home Furnishings",
-						adressen[5], "", "matilda@outlook.com", "+462252869831", "SW6544167324132", true),
+						adressen[5], betaalmethodes.get(5), "", "matilda@outlook.com", "+462252869831", "SW6544167324132", true),
 				new Bedrijf("Giorgio Armani", "https://logodix.com/logo/7528.jpg", "Apparel Retail",
-						adressen[6], "", "francesca@outlook.com", "+393713432912", "IT7410491107419", true)
+						adressen[6], betaalmethodes.get(6), "", "francesca@outlook.com", "+393713432912", "IT7410491107419", true)
 		);
 		
 		List<Leverancier> leveranciers = List.of(
