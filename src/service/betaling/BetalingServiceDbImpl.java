@@ -1,14 +1,21 @@
 package service.betaling;
 
+import java.util.List;
+
 import domein.Betaling;
 import service.GenericDaoJpa;
 
 public class BetalingServiceDbImpl implements BetalingService {
 	
-	private BetalingDao betalingDao;
+	private BetalingDaoJpa betalingDao;
 	
 	public BetalingServiceDbImpl() {
 		this.betalingDao = new BetalingDaoJpa();
+	}
+	
+	@Override
+	public List<Betaling> getBetalingen() {
+		return betalingDao.findAll();
 	}
 
 	@Override
@@ -28,4 +35,16 @@ public class BetalingServiceDbImpl implements BetalingService {
 		}
 	}
 
+	@Override
+	public void verwerkBetalingen() {
+		GenericDaoJpa.startTransaction();
+		try {
+			List<Betaling> onverwerkteBetalingen = betalingDao.vindOnverwerkteBetaling();
+			onverwerkteBetalingen.forEach(betaling -> betalingDao.update(betaling));
+			GenericDaoJpa.commitTransaction();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+			GenericDaoJpa.rollbackTransaction();
+		}
+	}
 }

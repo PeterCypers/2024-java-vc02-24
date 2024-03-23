@@ -8,11 +8,10 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 
 @Entity
-//@NamedQueries ({
-//	@NamedQuery(name="Betaling.vindOpId",
-//				query="SELECT b FROM Betaling b"
-//					+ "WHERE b.orderId = :orderId")
-//})
+@NamedQueries ({
+	@NamedQuery(name="Betaling.vindOnverwerkteBetalingen",
+				query="SELECT b FROM Betaling b WHERE b.isAfgehandeld = 0")
+})
 public class Betaling implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -20,14 +19,11 @@ public class Betaling implements Serializable {
 	@Id
 	private int orderId;
 	
-	/*@OneToOne(cascade=CascadeType.PERSIST)
-	Bestelling bestelling;*/
-	
 	private boolean isAfgehandeld;
 	
 	public Betaling() {}
 	
-	public Betaling(/*Bestelling bestelling*/ int orderId, boolean isAfgehandeld) {
+	public Betaling(int orderId, boolean isAfgehandeld) {
 		setOrderId(orderId);
 		setIsAfgehandeld(isAfgehandeld);
 	}
