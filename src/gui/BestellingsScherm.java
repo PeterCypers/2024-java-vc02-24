@@ -7,14 +7,10 @@ import domein.Bestelling;
 import domein.BestellingController;
 import domein.BetalingsStatus;
 import domein.OrderStatus;
-import domein.Stock;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -60,7 +56,7 @@ public class BestellingsScherm {
     private TableColumn<BesteldProduct, Number> tbcAantal;
 
     @FXML
-    private TableColumn<BesteldProduct, Stock> tbcInStock;
+    private TableColumn<BesteldProduct, String> tbcStock;
 
     @FXML
     private TableColumn<BesteldProduct, String> tbcEenheidsprijs;
@@ -233,7 +229,7 @@ public class BestellingsScherm {
 	private void tableViewProducten(int index) {
 		tbcNaam.setCellValueFactory(cellData -> cellData.getValue().naamProperty());
 		tbcAantal.setCellValueFactory(cellData -> cellData.getValue().aantalProperty());
-		tbcInStock.setCellValueFactory(cellData -> cellData.getValue().stockProperty());
+		tbcStock.setCellValueFactory(cellData -> cellData.getValue().stockProperty());
 		tbcEenheidsprijs.setCellValueFactory(cellData -> cellData.getValue().eenheidsprijsProperty());
 		tbcPrijs.setCellValueFactory(cellData -> cellData.getValue().totaalPrijsProperty());
 		

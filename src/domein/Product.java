@@ -35,8 +35,7 @@ public class Product implements Serializable {
 	
 	private double eenheidsprijs;
 	
-	@Enumerated(EnumType.STRING)
-	private Stock inStock;
+	private int stock;
 	
 	/** <code>entity class</code> JPA-required default constructor */
 	public Product() {}
@@ -48,9 +47,9 @@ public class Product implements Serializable {
 	 * @param inStock <code>enum</code> {@link domein.Stock} inStock status of this product
 	 * @param eenheidsprijs the price per unit of this product
 	 */
-	public Product(String naam, Stock inStock, double eenheidsprijs) {
+	public Product(String naam, int stock, double eenheidsprijs) {
 		setNaam(naam);
-		setInStock(inStock);
+		setStock(stock);
 		setEenheidsprijs(eenheidsprijs);
 	}
 	
@@ -65,12 +64,26 @@ public class Product implements Serializable {
 		this.naam = naam;
 	}
 	
-	public Stock isInStock() {
-	    return inStock;
+	public int getStock() {
+	    return stock;
 	}
 	
-	private void setInStock(Stock inStock) {
-		this.inStock = inStock;
+	private void setStock(int stock) {
+		if (stock < 0)
+			throw new IllegalArgumentException("De stock van een product mag niet onder nul liggen");
+		
+		this.stock = stock;
+	}
+	
+	/**
+	 * Geef een positief getal door om de stock te verhogen, of een negatief getal om de stock the verlagen
+	 * @param aantal
+	 */
+	public void bewerkStock(int aantal) {
+		if (stock + aantal < 0)
+			throw new IllegalArgumentException("De stock van een product mag niet verlaagd worden onder nul");
+		
+		this.stock += aantal;
 	}
 	
 	public double getEenheidsprijs() {
@@ -84,7 +97,7 @@ public class Product implements Serializable {
 	}
 	
 	public String toString() {
-		return String.format("%s, %s, %.2f", naam, inStock, eenheidsprijs);
+		return String.format("%s, %d, %.2f", naam, stock, eenheidsprijs);
 	}
 
 }

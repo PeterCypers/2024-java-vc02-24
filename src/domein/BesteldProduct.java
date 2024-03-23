@@ -36,9 +36,9 @@ public class BesteldProduct {
 	@Transient
 	private final SimpleIntegerProperty aantalProduct = new SimpleIntegerProperty();
 	@Transient
-	private final SimpleObjectProperty<Stock> stock = new SimpleObjectProperty<Stock>();
+	private final SimpleStringProperty stockProduct = new SimpleStringProperty();
 	@Transient
-    private final SimpleStringProperty eenheidsprijs = new SimpleStringProperty();
+    private final SimpleStringProperty eenheidsprijsProduct = new SimpleStringProperty();
     @Transient
     private final SimpleStringProperty totaalPrijs = new SimpleStringProperty();
 	
@@ -78,16 +78,16 @@ public class BesteldProduct {
 		return aantalProduct;
 	}
 	
-	public ObjectProperty<Stock> stockProperty(){
-		stock.set(product.isInStock());
-		return stock;
+	public StringProperty stockProperty(){
+		String stockString = product.getStock() != 0 ? Integer.toString(product.getStock()) : "Order";
+		stockProduct.set(stockString);
+		return stockProduct;
 	}
-	
 	
 	public StringProperty eenheidsprijsProperty() {
 		 DecimalFormat df = new DecimalFormat("\u20AC0.00");
-		 eenheidsprijs.set(df.format(product.getEenheidsprijs()));
-        return eenheidsprijs;
+		 eenheidsprijsProduct.set(df.format(product.getEenheidsprijs()));
+        return eenheidsprijsProduct;
     }
 
     public StringProperty totaalPrijsProperty() {
@@ -97,6 +97,6 @@ public class BesteldProduct {
     }
 	
 	public String toSearchString() {
-		return String.format("%s %s %s %s %s", product.getNaam(), aantal, product.isInStock(), product.getEenheidsprijs(), getTotalePrijs()).toLowerCase();
+		return String.format("%s %s %s %s %s", product.getNaam(), aantal, stockProperty().getValue(), product.getEenheidsprijs(), getTotalePrijs()).toLowerCase();
 	}
 }
