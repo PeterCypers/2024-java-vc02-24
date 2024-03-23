@@ -15,13 +15,12 @@ import domein.BesteldProduct;
 import domein.Bestelling;
 import domein.BestellingBeheerder;
 import domein.BetalingsStatus;
+import domein.LeverMethode;
 import domein.OrderStatus;
 import domein.Product;
-import domein.Stock;
 import domein.gebruiker.Gebruiker;
 import domein.gebruiker.Klant;
 import domein.gebruiker.Leverancier;
-import domein.gebruiker.Rol;
 import service.bestelling.BestellingService;
 
 public class BestellingBeheerderTest {
@@ -52,10 +51,10 @@ public class BestellingBeheerderTest {
 				new Klant(null, "jake@gmail.com", "1234", "Jake", true, new Adres("United States",	"New York",  "10001", 	"Broadway",	 				"20"), "(212)912-0384"));
     	
     	List<Product> producten = List.of(
-				new Product("Stella Artois Lager, 12 Pack 11.2 fl. oz. Bottles", 			Stock.STOCK, 39.99),
-				new Product("Stella Artois Lager, 24 Pack 11.2 fl. oz. Cans",				Stock.STOCK, 59.99),
-				new Product("Stella Artois Premium Lager Beer, 24-11.2 fl. oz. Bottles", 	Stock.STOCK, 52.49),
-				new Product("Stella Artois Premium Lager Beer, 3 Pack 25 fl. oz. Cans", 	Stock.STOCK, 18.99)
+				new Product("Stella Artois Lager, 12 Pack 11.2 fl. oz. Bottles", 			1000, 39.99, LeverMethode.STOCK),
+				new Product("Stella Artois Lager, 24 Pack 11.2 fl. oz. Cans",				900, 59.99, LeverMethode.STOCK),
+				new Product("Stella Artois Premium Lager Beer, 24-11.2 fl. oz. Bottles", 	500, 52.49, LeverMethode.STOCK),
+				new Product("Stella Artois Premium Lager Beer, 3 Pack 25 fl. oz. Cans", 	500, 18.99, LeverMethode.STOCK)
     	);
     	
 		List<Bestelling> bestellingen = List.of(

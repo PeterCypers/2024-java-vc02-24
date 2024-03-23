@@ -53,7 +53,7 @@
                     <columns>
                       <TableColumn fx:id="tbcNaam" prefWidth="75.0" text="Naam" />
                       <TableColumn fx:id="tbcAantal" prefWidth="75.0" text="Aantal" />
-                        <TableColumn fx:id="tbcInStock" prefWidth="75.0" text="In stock" />
+                        <TableColumn fx:id="tbcStock" prefWidth="75.0" text="Stock" />
                         <TableColumn fx:id="tbcEenheidsprijs" prefWidth="75.0" text="Eenheidsprijs" />
                         <TableColumn fx:id="tbcPrijs" prefWidth="75.0" text="Totale prijs" />
                     </columns>
@@ -153,7 +153,7 @@
                   </GridPane>
                   <HBox fx:id="hbFilterProducten" minHeight="30.0" minWidth="100.0" spacing="10.0" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="txfFilterProducten" promptText="fitler product" />
+                        <TextField fx:id="txfFilterProducten" promptText="filter product" />
                         <TextField fx:id="txfFilterProduct2" promptText="filter product" />
                         <Button mnemonicParsing="false" onAction="#filterProducten" styleClass="button-default" stylesheets="@../images/style.css" text="Filter" />
                      </children>

@@ -8,15 +8,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 /**
  * Represents a Product.
@@ -36,7 +27,9 @@ public class Product implements Serializable {
 	private double eenheidsprijs;
 	
 	@Enumerated(EnumType.STRING)
-	private Stock inStock;
+	private LeverMethode leverMethode; 
+	
+	private int stock;
 	
 	/** <code>entity class</code> JPA-required default constructor */
 	public Product() {}
@@ -47,11 +40,13 @@ public class Product implements Serializable {
 	 * @param naam the productname
 	 * @param inStock <code>enum</code> {@link domein.Stock} inStock status of this product
 	 * @param eenheidsprijs the price per unit of this product
+	 * @param leverMethode the method of delivery
 	 */
-	public Product(String naam, Stock inStock, double eenheidsprijs) {
+	public Product(String naam, int stock, double eenheidsprijs, LeverMethode leverMethode) {
 		setNaam(naam);
-		setInStock(inStock);
+		setStock(stock);
 		setEenheidsprijs(eenheidsprijs);
+		this.leverMethode = leverMethode;
 	}
 	
 	public String getNaam() {
@@ -65,12 +60,29 @@ public class Product implements Serializable {
 		this.naam = naam;
 	}
 	
-	public Stock isInStock() {
-	    return inStock;
+	public int getStock() {
+	    return stock;
 	}
 	
-	private void setInStock(Stock inStock) {
-		this.inStock = inStock;
+	private void setStock(int stock) {
+		if (stock < 0)
+			throw new IllegalArgumentException("De stock van een product mag niet onder nul liggen");
+		
+		this.stock = stock;
+	}
+	
+	/**
+	 * Geef een positief getal door om de stock te verhogen, of een negatief getal om de stock the verlagen
+	 * @param aantal
+	 */
+	public void bewerkStock(int aantal) {
+		if (leverMethode == LeverMethode.ORDER)
+			return;
+		
+		if (stock + aantal < 0)
+			throw new IllegalArgumentException("De stock van een product mag niet onder nul komen te staan!");
+		
+		this.stock += aantal;
 	}
 	
 	public double getEenheidsprijs() {
@@ -83,8 +95,12 @@ public class Product implements Serializable {
 		this.eenheidsprijs = eenheidsprijs;
 	}
 	
+	public LeverMethode getLeverMethode() {
+		return leverMethode;
+	}
+	
 	public String toString() {
-		return String.format("%s, %s, %.2f", naam, inStock, eenheidsprijs);
+		return String.format("%s, %d, %.2f", naam, stock, eenheidsprijs);
 	}
 
 }

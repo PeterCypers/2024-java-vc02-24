@@ -7,8 +7,6 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -18,13 +16,11 @@ import domein.Adres;
 import domein.BesteldProduct;
 import domein.Bestelling;
 import domein.BetalingsStatus;
+import domein.LeverMethode;
 import domein.OrderStatus;
 import domein.Product;
-import domein.Stock;
-import domein.gebruiker.Gebruiker;
 import domein.gebruiker.Klant;
 import domein.gebruiker.Leverancier;
-import domein.gebruiker.Rol;
 import service.klant.KlantDaoJpa;
 import service.klant.KlantServiceDbImpl;
 
@@ -45,9 +41,9 @@ class KlantenRaadplegenTest {
 	static Leverancier gebruiker = new Leverancier(null, "jasper.vandenbroucke@hotmail.com", "1234", "Jasper Vandenbroucke", true);
 	
 	static List<Product> producten = Arrays.asList(
-			new Product("productA", Stock.STOCK, 500.0),
-			new Product("productB", Stock.STOCK, 4.99),
-			new Product("productC", Stock.STOCK, 19.99)
+			new Product("productA", 3000, 500.0, LeverMethode.STOCK),
+			new Product("productB", 2000, 4.99, LeverMethode.STOCK),
+			new Product("productC", 1000, 19.99, LeverMethode.STOCK)
 	);
 	static List<BesteldProduct> besteldeProducten = Arrays.asList(
 			new BesteldProduct(producten.get(0), 1000),

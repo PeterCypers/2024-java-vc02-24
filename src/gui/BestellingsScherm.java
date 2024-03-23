@@ -7,20 +7,18 @@ import domein.Bestelling;
 import domein.BestellingController;
 import domein.BetalingsStatus;
 import domein.OrderStatus;
-import domein.Stock;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
@@ -60,7 +58,7 @@ public class BestellingsScherm {
     private TableColumn<BesteldProduct, Number> tbcAantal;
 
     @FXML
-    private TableColumn<BesteldProduct, Stock> tbcInStock;
+    private TableColumn<BesteldProduct, String> tbcStock;
 
     @FXML
     private TableColumn<BesteldProduct, String> tbcEenheidsprijs;
@@ -170,6 +168,8 @@ public class BestellingsScherm {
     private BestellingController bc;
     private HoofdSchermController hoofdScherm;
     private int index;
+    private boolean isOrderVeranderen; // flag om bij te houden of de gebruiker hier wel een bestelling aanpast, 
+    							       // en niet gewoon het systeem die een andere bestelling toont in de combobox
     private Node node;
 
 	public BestellingsScherm(HoofdSchermController hoofdScherm) {
@@ -213,6 +213,8 @@ public class BestellingsScherm {
 		LocalDate datum = bc.getBestellingen().get(index).getDatumGeplaats();
 		Bestelling selectedBestelling = tbvOverzichtBestellingen.getItems().get(index);
 		
+		isOrderVeranderen = true;
+		
 		txfNaam.setText(bc.getBestellingen().get(index).getKlantName());
 		txfEmail.setText(bc.getBestellingen().get(index).getKlant().getEmail());
 		txfTelefoon.setText(bc.getBestellingen().get(index).getKlant().getTelefoonnummer());
@@ -225,6 +227,8 @@ public class BestellingsScherm {
 	    choiceboxBestellingsStatus.setValue(selectedBestelling.getBetalingStatus());
 		txfBedrag.setText(String.format("\u20AC%.2f", bc.getBestellingen().get(index).berekenTotalBedrag()));
 		
+		isOrderVeranderen = false;
+		
 		tableViewProducten(index);
 		
 		toonBestelling(true);
@@ -233,7 +237,7 @@ public class BestellingsScherm {
 	private void tableViewProducten(int index) {
 		tbcNaam.setCellValueFactory(cellData -> cellData.getValue().naamProperty());
 		tbcAantal.setCellValueFactory(cellData -> cellData.getValue().aantalProperty());
-		tbcInStock.setCellValueFactory(cellData -> cellData.getValue().stockProperty());
+		tbcStock.setCellValueFactory(cellData -> cellData.getValue().stockProperty());
 		tbcEenheidsprijs.setCellValueFactory(cellData -> cellData.getValue().eenheidsprijsProperty());
 		tbcPrijs.setCellValueFactory(cellData -> cellData.getValue().totaalPrijsProperty());
 		
@@ -250,19 +254,27 @@ public class BestellingsScherm {
 	
 	private void handleOrderStatusChange() {
         Bestelling selectedBestelling = tbvOverzichtBestellingen.getSelectionModel().getSelectedItem();
-        if (selectedBestelling == null || choiceboxOrderStatus.getValue() == null ) {
+        if (isOrderVeranderen || selectedBestelling == null || choiceboxOrderStatus.getValue() == null) {
         	return;
         }
         
-        selectedBestelling.setOrderStatus(choiceboxOrderStatus.getValue());
-    
-        bc.updateBestelling(selectedBestelling); 
-        tbvOverzichtBestellingen.refresh();
+        try {
+        	selectedBestelling.veranderOrderStatus(choiceboxOrderStatus.getValue());
+        	
+            bc.updateBestelling(selectedBestelling); 
+            tbvOverzichtBestellingen.refresh();
+            tbvOverzichtProducten.refresh();
+        } catch (IllegalArgumentException iae) {
+        	Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Fout bij het veranderen van de bestellingsstatus");
+			alert.setHeaderText(iae.getMessage());
+			alert.showAndWait();
+        }
 	}
 	
 	private void handleBetalingStatusChange() {
         Bestelling selectedBestelling = tbvOverzichtBestellingen.getSelectionModel().getSelectedItem();
-        if (selectedBestelling == null || choiceboxBestellingsStatus.getValue() == null ) {
+        if (isOrderVeranderen || selectedBestelling == null || choiceboxBestellingsStatus.getValue() == null ) {
         	return;
         }
         

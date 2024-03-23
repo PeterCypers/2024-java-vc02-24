@@ -2,19 +2,14 @@ package domein;
 
 import java.text.DecimalFormat;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Transient;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -36,9 +31,9 @@ public class BesteldProduct {
 	@Transient
 	private final SimpleIntegerProperty aantalProduct = new SimpleIntegerProperty();
 	@Transient
-	private final SimpleObjectProperty<Stock> stock = new SimpleObjectProperty<Stock>();
+	private final SimpleStringProperty stockProduct = new SimpleStringProperty();
 	@Transient
-    private final SimpleStringProperty eenheidsprijs = new SimpleStringProperty();
+    private final SimpleStringProperty eenheidsprijsProduct = new SimpleStringProperty();
     @Transient
     private final SimpleStringProperty totaalPrijs = new SimpleStringProperty();
 	
@@ -78,16 +73,16 @@ public class BesteldProduct {
 		return aantalProduct;
 	}
 	
-	public ObjectProperty<Stock> stockProperty(){
-		stock.set(product.isInStock());
-		return stock;
+	public StringProperty stockProperty(){
+		String stockString = product.getLeverMethode() == LeverMethode.STOCK ? Integer.toString(product.getStock()) : "Op order";
+		stockProduct.set(stockString);
+		return stockProduct;
 	}
-	
 	
 	public StringProperty eenheidsprijsProperty() {
 		 DecimalFormat df = new DecimalFormat("\u20AC0.00");
-		 eenheidsprijs.set(df.format(product.getEenheidsprijs()));
-        return eenheidsprijs;
+		 eenheidsprijsProduct.set(df.format(product.getEenheidsprijs()));
+        return eenheidsprijsProduct;
     }
 
     public StringProperty totaalPrijsProperty() {
@@ -97,6 +92,6 @@ public class BesteldProduct {
     }
 	
 	public String toSearchString() {
-		return String.format("%s %s %s %s %s", product.getNaam(), aantal, product.isInStock(), product.getEenheidsprijs(), totaalPrijsProperty().getValue()).toLowerCase();
+		return String.format("%s %s %s %s %s", product.getNaam(), aantal, stockProperty().getValue(), product.getEenheidsprijs(), getTotalePrijs()).toLowerCase();
 	}
 }
