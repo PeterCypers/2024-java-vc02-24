@@ -1,6 +1,5 @@
 package testen;
 
-import domein.Adres;
 import domein.BesteldProduct;
 import domein.LeverMethode;
 import domein.Product;
