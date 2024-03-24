@@ -2,6 +2,7 @@ package domein;
 
 import java.util.Comparator;
 
+import domein.gebruiker.Gebruiker;
 import domein.gebruiker.GebruikerHolder;
 import domein.gebruiker.Klant;
 import javafx.collections.FXCollections;
@@ -34,6 +35,20 @@ public class KlantBeheerder {
 	//TODO extra sorteringen -> zie BestellingBeheerder
 	
 	/**
+	 * Extra constructor for Mockito-injection
+	 * 
+	 * @param leverancier Singleton logged-in user
+	 * @param ks a new KlantServiceDbImpl from default constructor<br>
+	 * facilitates Mockito-injection for testing
+	 */
+	public KlantBeheerder(Gebruiker leverancier, KlantService ks) {
+		klantService = ks;
+		klanten = FXCollections.observableArrayList(klantService.getKlanten(leverancier));
+		filteredKlanten = new FilteredList<>(klanten, k -> true);
+		sortedKlanten = new SortedList<>(filteredKlanten, opNaam);
+	}
+	
+	/**
 	 * Constructs a new <strong>KlantBeheerder</strong><br>
 	 * to manage customers.
 	 * <ul>
@@ -42,11 +57,7 @@ public class KlantBeheerder {
 	 * </ul><br>
 	 */
 	public KlantBeheerder() {
-		klantService = new KlantServiceDbImpl();
-		klanten = FXCollections.observableArrayList(klantService.getKlanten(GebruikerHolder.getInstance()));
-		filteredKlanten = new FilteredList<>(klanten, k -> true);
-		sortedKlanten = new SortedList<>(filteredKlanten, opNaam);
-		
+		this(GebruikerHolder.getInstance(), new KlantServiceDbImpl());		
 	}
 	
 	/**
