@@ -3,12 +3,16 @@ package testen;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import domein.Adres;
 import domein.BesteldProduct;
@@ -43,7 +47,46 @@ public class BestellingBeheerderTest {
     	Assertions.assertEquals(2, bestellingBeheerder.getBestellingen().size());
     }
     
-    //TODO: verdere testing mogelijk
+    /**
+     * <ul>
+     * <li>all null : no filtering
+     * <li>not-null value(s) are retaining a list containing matches with the given value(s)
+     * <li>final value == expected list-size
+     * </ul>
+     */
+	static Stream<Arguments> filterCombinaties() {
+		return Stream.of(
+			Arguments.of(null, null, null, null, null, 2), //no-filter -> 2
+			Arguments.of(LocalDate.now().minusMonths(3), null, null, null, null, 1), //date -> 1
+			Arguments.of(LocalDate.now().minusMonths(5), null, null, null, null, 0), //date -> 0
+			Arguments.of(null, OrderStatus.GELEVERD, null, null, null, 1), //OrderStatus
+			Arguments.of(null, OrderStatus.GEREGISTREERD, null, null, null, 1),
+			Arguments.of(null, OrderStatus.ONDERWEG, null, null, null, 0),
+			Arguments.of(null, null, BetalingsStatus.BETAALD, null, null, 2), //BetalingsStatus
+			Arguments.of(null, null, BetalingsStatus.NIET_BETAALD, null, null, 0),
+			Arguments.of(null, OrderStatus.GELEVERD, BetalingsStatus.BETAALD, null, null, 1), //combi OrderStatus + BetalingsStatus
+			Arguments.of(null, OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, null, null, 1),
+			Arguments.of(null, OrderStatus.GELEVERD, BetalingsStatus.NIET_BETAALD, null, null, 0),
+			Arguments.of(LocalDate.now().minusMonths(3),OrderStatus.GELEVERD, BetalingsStatus.BETAALD, null, null, 1), //combi date + OrderStatus + BetalingsStatus
+			Arguments.of(LocalDate.now().minusDays(1),OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, null, null, 1),
+			Arguments.of(LocalDate.now().minusDays(1),OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD, null, null, 0));
+	}
+    
+    /**
+     * the filter can be checked by comparing the size of the returned list
+     * to the amount of matching values in the mock data <code>trainMock</code>
+     * the list of Orders can be size= [0,1,2]
+     */
+	@ParameterizedTest
+	@MethodSource("filterCombinaties")
+    void test_changeFilter_listIsFiltered(LocalDate fd, OrderStatus fos, BetalingsStatus fbs, String fv, Klant klant, int expectedListSize) {
+		helperChangeFilter(fd, fos, fbs, fv, klant);
+		Assertions.assertEquals(expectedListSize, bestellingBeheerder.getBestellingen().size());
+    }
+    
+    private void helperChangeFilter(LocalDate filterDate, OrderStatus filterOrderStatus, BetalingsStatus filterBetalingsStatus, String filterValue, Klant klant) {
+    	bestellingBeheerder.changeFilter(filterDate, filterOrderStatus, filterBetalingsStatus, filterValue, klant);
+    }
     
     private void trainMock() {
     	List<Klant> klanten = Arrays.asList(
@@ -77,4 +120,5 @@ public class BestellingBeheerderTest {
 		);
 		when(bestellingServiceMock.getBestellingen(any(Gebruiker.class))).thenReturn(bestellingen);
     }
+    
 }

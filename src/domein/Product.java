@@ -38,9 +38,9 @@ public class Product implements Serializable {
 	 * Constructs a new <strong>Product</strong> with the specified details.
 	 * 
 	 * @param naam the productname
-	 * @param inStock <code>enum</code> {@link domein.Stock} inStock status of this product
+	 * @param stock amount in stock
 	 * @param eenheidsprijs the price per unit of this product
-	 * @param leverMethode the method of delivery
+	 * @param leverMethode <code>enum</code> {@link domein.LeverMethode} inStock status of this product the method of delivery
 	 */
 	public Product(String naam, int stock, double eenheidsprijs, LeverMethode leverMethode) {
 		setNaam(naam);
