@@ -99,9 +99,25 @@ public class Klant extends Gebruiker {
 	}
 	
 	/**
-	 * TODO
-	 * 
-	 * @param telefoonnummer
+	 * <p>setter for attribute <code>telefoonnummer</code> <br>
+	 * the client telNr should match:</p>
+	 * <ul>
+	 * <li> <strong>^[\\+]?</strong> == Beginning of the string has optional "+" character
+	 * <li> <strong>[(]?</strong> == optional "("
+	 * <li> <strong>[0-9]{3}</strong> == exactly 3 digits
+	 * <li> <strong>[)]?</strong> == optional ")"
+	 * <li> <strong>[-\\s\\.]?</strong> == optional "-" whitespace or "."
+	 * <li> <strong>[0-9]{4,6}$</strong> == 4 to 6 digits at the end of the string
+	 * </ul>
+	 * example matches:
+	 * <ul>
+	 * <li>+123-456-7890
+	 * <li>(123) 456.7890
+	 * <li>123 4567890
+	 * <li>+1(123)456-789012
+	 * </ul>
+	 * @param telefoonnummer the client phone number
+	 * @throws IllegalArgumentException when phone number is not filled in, null or doesn't match regex
 	 */
 	public void setTelefoonnummer(String telefoonnummer) {
 		if(telefoonnummer == null || telefoonnummer.isBlank())

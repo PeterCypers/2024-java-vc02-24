@@ -198,7 +198,28 @@ public class Bedrijf implements Serializable {
 		
 		this.emailadres = email;
 	}
-
+	
+	/**
+	 * <p>setter for attribute <code>telefoonnummer</code> <br>
+	 * the company telNr should match:</p>
+	 * <ul>
+	 * <li> <strong>^[\\+]?</strong> == Beginning of the string has optional "+" character
+	 * <li> <strong>[(]?</strong> == optional "("
+	 * <li> <strong>[0-9]{3}</strong> == exactly 3 digits
+	 * <li> <strong>[)]?</strong> == optional ")"
+	 * <li> <strong>[-\\s\\.]?</strong> == optional "-" whitespace or "."
+	 * <li> <strong>[0-9]{4,6}$</strong> == 4 to 6 digits at the end of the string
+	 * </ul>
+	 * example matches:
+	 * <ul>
+	 * <li>+123-456-7890
+	 * <li>(123) 456.7890
+	 * <li>123 4567890
+	 * <li>+1(123)456-789012
+	 * </ul>
+	 * @param telefoonnummer the company phone number
+	 * @throws IllegalArgumentException when phone number is not filled in, null or doesn't match regex
+	 */
 	private void setTelefoon(String telefoon) {
 		if (telefoon == null || telefoon.isBlank())
 			throw new IllegalArgumentException("Telefoonnummer van het bedrijf mag niet leeg zijn");
