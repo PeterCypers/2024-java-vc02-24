@@ -2,7 +2,9 @@ package domein;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import domein.gebruiker.Gebruiker;
 import domein.gebruiker.Klant;
@@ -54,7 +56,7 @@ public class Bedrijf implements Serializable {
 	@JoinTable(name = "BETAALMETHODES")
 	@Column(name = "BETAALMETHODES", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private List<Betaalmethode> betaalmethodes;
+	private Set<Betaalmethode> betaalmethodes;
 
 	private String logo;
 	
@@ -111,7 +113,7 @@ public class Bedrijf implements Serializable {
 		setLogo(logo);
 		setSector(sector);
 		setAdres(adres);
-		this.betaalmethodes = betaalmethodes;
+		setBetaalmethodes(betaalmethodes);
 		setBetalingsInfo(betalingsInfo);
 		setEmail(email);
 		setTelefoon(telefoon);
@@ -162,8 +164,9 @@ public class Bedrijf implements Serializable {
 	}
 	
 	public void setBetaalmethodes(List<Betaalmethode> betaalmethodes) {
-		//misschien een check
-		this.betaalmethodes = betaalmethodes;
+		if (betaalmethodes == null)
+			throw new IllegalArgumentException("betaalmethodes is null");
+		this.betaalmethodes = new HashSet<>(betaalmethodes);
 	}
 	
 	private void setBetalingsInfo(String betalingsmogelijkhedenEnInfo) {
@@ -268,11 +271,13 @@ public class Bedrijf implements Serializable {
 	}
 	
 	public List<Betaalmethode> getBetaalmethodes(){
-		return this.betaalmethodes;
+		return new ArrayList<>(this.betaalmethodes);
 	}
 	
 
 	public void addBetaalmethodes(Betaalmethode betaalmethode) {
+		if (betaalmethode == null)
+			throw new IllegalArgumentException("betaalmethode is null");
 		betaalmethodes.add(betaalmethode);
 	}
 	

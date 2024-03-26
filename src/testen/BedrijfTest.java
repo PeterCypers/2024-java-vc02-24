@@ -30,6 +30,7 @@ public class BedrijfTest {
 	
 	@BeforeEach
 	void before() {
+		GELDIGE_BETHAALMETHODES_LIJST.clear();
 		bedrijf = new Bedrijf(GELDIGE_NAAM, GELDIGE_LOGO, GELDIGE_SECTOR, GELDIGE_ADRES, GELDIGE_BETHAALMETHODES_LIJST,
 				GELDIGE_BETALINGSINFO, GELDIGE_EMAIL, GELDIGE_TELNR, GELDIGE_BTW, IS_ACTIEF);
 	}
@@ -54,7 +55,8 @@ public class BedrijfTest {
 				Arguments.of(GELDIGE_NAAM, GELDIGE_LOGO, GELDIGE_SECTOR, GELDIGE_ADRES, GELDIGE_BETHAALMETHODES_LIJST,GELDIGE_BETALINGSINFO, GELDIGE_EMAIL, GELDIGE_TELNR, null, IS_ACTIEF),
 				Arguments.of(GELDIGE_NAAM, "", GELDIGE_SECTOR, GELDIGE_ADRES, GELDIGE_BETHAALMETHODES_LIJST,GELDIGE_BETALINGSINFO, GELDIGE_EMAIL, GELDIGE_TELNR, GELDIGE_BTW, IS_ACTIEF),
 				Arguments.of(GELDIGE_NAAM, GELDIGE_LOGO, null, GELDIGE_ADRES, GELDIGE_BETHAALMETHODES_LIJST,GELDIGE_BETALINGSINFO, GELDIGE_EMAIL, GELDIGE_TELNR, GELDIGE_BTW, IS_ACTIEF),
-				Arguments.of("", GELDIGE_LOGO, GELDIGE_SECTOR, GELDIGE_ADRES, GELDIGE_BETHAALMETHODES_LIJST,GELDIGE_BETALINGSINFO, GELDIGE_EMAIL, GELDIGE_TELNR, GELDIGE_BTW, IS_ACTIEF));
+				Arguments.of("", GELDIGE_LOGO, GELDIGE_SECTOR, GELDIGE_ADRES, GELDIGE_BETHAALMETHODES_LIJST,GELDIGE_BETALINGSINFO, GELDIGE_EMAIL, GELDIGE_TELNR, GELDIGE_BTW, IS_ACTIEF),
+				Arguments.of(GELDIGE_NAAM, GELDIGE_LOGO, GELDIGE_SECTOR, GELDIGE_ADRES, null,GELDIGE_BETALINGSINFO, GELDIGE_EMAIL, GELDIGE_TELNR, GELDIGE_BTW, IS_ACTIEF));
 	}
 	
 	@ParameterizedTest
@@ -80,13 +82,32 @@ public class BedrijfTest {
 				GELDIGE_BETALINGSINFO, ongeldigeEmail, GELDIGE_TELNR, GELDIGE_BTW, IS_ACTIEF));
 	}
 	
-	//TODO: check 1st pattern: is it allowed to pass?
 	@ParameterizedTest
 	@NullAndEmptySource
 	@ValueSource(strings = {/*"+1234567890",*/"(123) 456-789","123-456-7890 ext. 1234","123.45.6789","1234567","123-456-789"})
 	void maakBedrijf_ongeldigeTelnr_throwsException(String ongeldigeTelNr) {
 		assertThrows(IllegalArgumentException.class, () -> new Bedrijf(GELDIGE_NAAM, GELDIGE_LOGO, GELDIGE_SECTOR, GELDIGE_ADRES, GELDIGE_BETHAALMETHODES_LIJST,
 				GELDIGE_BETALINGSINFO, GELDIGE_EMAIL, ongeldigeTelNr, GELDIGE_BTW, IS_ACTIEF));
+	}
+	
+	@Test
+	void testAddBetaalMethodes_duplicateMethode_doesNothing() {
+		bedrijf.addBetaalmethodes(Betaalmethode.APPLE_PAY);
+		bedrijf.addBetaalmethodes(Betaalmethode.APPLE_PAY);
+		assertEquals(1, bedrijf.getBetaalmethodes().size());
+	}
+	
+	@Test
+	void testAddBetaalMethodes_null_throwsException() {
+		assertThrows(IllegalArgumentException.class, () -> bedrijf.addBetaalmethodes(null));
+	}
+	
+	@Test
+	void testAddBetaalMethodes_betaalMethodesAdded() {
+		bedrijf.addBetaalmethodes(Betaalmethode.values()[0]);
+		bedrijf.addBetaalmethodes(Betaalmethode.values()[1]);
+		bedrijf.addBetaalmethodes(Betaalmethode.values()[2]);
+		assertEquals(3, bedrijf.getBetaalmethodes().size());
 	}
 
 }

@@ -3,6 +3,7 @@ package testen;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
@@ -40,5 +41,20 @@ class ProductTest {
 	    assertThrows(IllegalArgumentException.class, () -> new Product("GeneriekProduct", 1, eenheidsPrijs, LeverMethode.STOCK));
 	}
 	
+	@ParameterizedTest
+	@CsvSource({"-100, 0", "-2, 98", "-50, 50", "50, 150", "350, 450"})
+	void bewerkStock_geldigeWaarden_vermindertStock(int stockVerandering, int newStock) {
+		int aantalInStock = 100;
+		Product product = new Product("GeneriekProduct", aantalInStock, 2.5, LeverMethode.STOCK);
+		product.bewerkStock(stockVerandering);
+		assertEquals(newStock, product.getStock());
+	}
+	
+	@Test
+	void bewerkStock_stockOnde0_werptException() {
+		int aantalInStock = 0;
+		Product product = new Product("GeneriekProduct", aantalInStock, 2.5, LeverMethode.STOCK);
+		assertThrows(IllegalArgumentException.class, () -> product.bewerkStock(-1));
+	}
 
 }
