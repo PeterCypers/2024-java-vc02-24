@@ -52,6 +52,7 @@ public class HoofdSchermController extends BorderPane{
         Scene scene = new Scene(aanmeldSchermController);
 
         Stage stage = (Stage) this.getScene().getWindow();
+        stage.setMaximized(false);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();

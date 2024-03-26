@@ -83,6 +83,7 @@ public class AanmeldSchermController extends Pane {
 			System.out.println("Het scherm kan niet getoond worden");
 		}
     }
+    
     /** method: ac.meldGebruikerAan(x,y) instantiates singleton GebruikerHolder
      * 
      * @param emailadres = testfield input
