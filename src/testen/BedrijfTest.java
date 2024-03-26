@@ -30,6 +30,8 @@ public class BedrijfTest {
 	
 	@BeforeEach
 	void before() {
+		//TODO(extra)
+		GELDIGE_BETHAALMETHODES_LIJST.clear();
 		bedrijf = new Bedrijf(GELDIGE_NAAM, GELDIGE_LOGO, GELDIGE_SECTOR, GELDIGE_ADRES, GELDIGE_BETHAALMETHODES_LIJST,
 				GELDIGE_BETALINGSINFO, GELDIGE_EMAIL, GELDIGE_TELNR, GELDIGE_BTW, IS_ACTIEF);
 	}
@@ -54,7 +56,8 @@ public class BedrijfTest {
 				Arguments.of(GELDIGE_NAAM, GELDIGE_LOGO, GELDIGE_SECTOR, GELDIGE_ADRES, GELDIGE_BETHAALMETHODES_LIJST,GELDIGE_BETALINGSINFO, GELDIGE_EMAIL, GELDIGE_TELNR, null, IS_ACTIEF),
 				Arguments.of(GELDIGE_NAAM, "", GELDIGE_SECTOR, GELDIGE_ADRES, GELDIGE_BETHAALMETHODES_LIJST,GELDIGE_BETALINGSINFO, GELDIGE_EMAIL, GELDIGE_TELNR, GELDIGE_BTW, IS_ACTIEF),
 				Arguments.of(GELDIGE_NAAM, GELDIGE_LOGO, null, GELDIGE_ADRES, GELDIGE_BETHAALMETHODES_LIJST,GELDIGE_BETALINGSINFO, GELDIGE_EMAIL, GELDIGE_TELNR, GELDIGE_BTW, IS_ACTIEF),
-				Arguments.of("", GELDIGE_LOGO, GELDIGE_SECTOR, GELDIGE_ADRES, GELDIGE_BETHAALMETHODES_LIJST,GELDIGE_BETALINGSINFO, GELDIGE_EMAIL, GELDIGE_TELNR, GELDIGE_BTW, IS_ACTIEF));
+				Arguments.of("", GELDIGE_LOGO, GELDIGE_SECTOR, GELDIGE_ADRES, GELDIGE_BETHAALMETHODES_LIJST,GELDIGE_BETALINGSINFO, GELDIGE_EMAIL, GELDIGE_TELNR, GELDIGE_BTW, IS_ACTIEF),
+				Arguments.of(GELDIGE_NAAM, GELDIGE_LOGO, GELDIGE_SECTOR, GELDIGE_ADRES, null,GELDIGE_BETALINGSINFO, GELDIGE_EMAIL, GELDIGE_TELNR, GELDIGE_BTW, IS_ACTIEF));
 	}
 	
 	@ParameterizedTest
@@ -87,6 +90,26 @@ public class BedrijfTest {
 	void maakBedrijf_ongeldigeTelnr_throwsException(String ongeldigeTelNr) {
 		assertThrows(IllegalArgumentException.class, () -> new Bedrijf(GELDIGE_NAAM, GELDIGE_LOGO, GELDIGE_SECTOR, GELDIGE_ADRES, GELDIGE_BETHAALMETHODES_LIJST,
 				GELDIGE_BETALINGSINFO, GELDIGE_EMAIL, ongeldigeTelNr, GELDIGE_BTW, IS_ACTIEF));
+	}
+	//TODO(extra)
+	@Test
+	void testAddBetaalMethodes_duplicateMethode_doesNothing() {
+		bedrijf.addBetaalmethodes(Betaalmethode.APPLE_PAY);
+		bedrijf.addBetaalmethodes(Betaalmethode.APPLE_PAY);
+		assertEquals(1, bedrijf.getBetaalmethodes().size());
+	}
+	
+	@Test
+	void testAddBetaalMethodes_null_throwsException() {
+		assertThrows(IllegalArgumentException.class, () -> bedrijf.addBetaalmethodes(null));
+	}
+	
+	@Test
+	void testAddBetaalMethodes_betaalMethodesAdded() {
+		bedrijf.addBetaalmethodes(Betaalmethode.values()[0]);
+		bedrijf.addBetaalmethodes(Betaalmethode.values()[1]);
+		bedrijf.addBetaalmethodes(Betaalmethode.values()[2]);
+		assertEquals(3, bedrijf.getBetaalmethodes().size());
 	}
 
 }
