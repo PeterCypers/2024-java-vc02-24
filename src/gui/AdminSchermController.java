@@ -2,20 +2,23 @@ package gui;
 
 import java.io.IOException;
 
-import domein.gebruiker.Gebruiker;
+import domein.AanmeldController;
 import domein.gebruiker.GebruikerHolder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class AdminSchermController extends BorderPane {
 
-    @FXML
-    private Label lbNaam;
+	@FXML
+	private Menu mName;
 
     @FXML
     private Label lbBeheerbedrijf;
@@ -28,6 +31,20 @@ public class AdminSchermController extends BorderPane {
 
     @FXML
     private Label lbError;
+    
+    @FXML
+    void logoutAction(ActionEvent event) {
+        AanmeldController ac = new AanmeldController(); 
+        AanmeldSchermController aanmeldSchermController = new AanmeldSchermController(ac);
+
+        Scene scene = new Scene(aanmeldSchermController);
+
+        Stage stage = (Stage) this.getScene().getWindow();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+        stage.setResizable(false);
+    }
 
     @FXML
     void beheerBedrijf(ActionEvent event) {
@@ -47,7 +64,7 @@ public class AdminSchermController extends BorderPane {
             throw new RuntimeException(ex);
         }
         
-        lbNaam.setText(GebruikerHolder.getInstance().getNaam());
+        mName.setText(GebruikerHolder.getInstance().getNaam());
 	}
 
 }

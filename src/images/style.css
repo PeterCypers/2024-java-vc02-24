@@ -84,3 +84,54 @@
 	-fx-background-color: #d42b2b;
 	-fx-border-color: #d42b2b;
 }
+
+/*Menubar logout Leverancier*/
+.menu-bar{
+	-fx-background: #c32828;
+}
+.menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
+    -fx-background: #c32828 ;
+    -fx-opacity: 0.5;
+    -fx-text-fill: white;
+}
+
+.menu-bar .label {
+    -fx-font-size: 14.0 pt;
+    -fx-text-fill: white;
+}
+
+.menu-item {
+    -fx-text-fill: white;
+    -fx-background: #eeaaaa;
+}
+
+/*Menubar logout Admin*/
+.menu-bar-admin{
+	-fx-background: #d9d9d9;
+}
+.menu-bar-admin .menu-button:hover, .menu-bar-admin .menu-button:focused, .menu-bar-admin .menu-button:showing {
+    -fx-background: #d9d9d9;
+    -fx-opacity: 0.5;
+    -fx-text-fill: black;
+}
+
+.menu-bar-admin .label {
+    -fx-font-size: 14.0 pt;
+    -fx-text-fill: black;
+}
+
+.menu-item-admin {
+    -fx-text-fill: black;
+    -fx-background: #d9d9d9;
+}
+
+/*Menubar logout */
+.menu-item .label{
+    -fx-font-size: 14.0 pt;
+    -fx-text-fill: black;
+}
+
+.context-menu {
+    -fx-background-color:white ;
+    -fx-border-color: black;
+}
