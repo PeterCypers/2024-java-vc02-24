@@ -37,7 +37,9 @@ import javafx.collections.transformation.SortedList;
 @NamedQueries({
     @NamedQuery(name = "Bestelling.vindPerLeverancier",
                          query = "SELECT b FROM Bestelling b"
-                         		+ " WHERE b.leverancier = :leverancier")
+                         		+ " WHERE b.leverancier = :leverancier"),
+    @NamedQuery(name = "Bestelling.vindNietBetaaldeBestellingen",
+    				query = "SELECT b FROM Bestelling b WHERE b.betalingStatus = domein.BetalingsStatus.NIET_BETAALD")
 })      
 public class Bestelling implements Serializable {
 	
