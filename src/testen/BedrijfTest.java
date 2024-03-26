@@ -30,7 +30,6 @@ public class BedrijfTest {
 	
 	@BeforeEach
 	void before() {
-		//TODO(extra)
 		GELDIGE_BETHAALMETHODES_LIJST.clear();
 		bedrijf = new Bedrijf(GELDIGE_NAAM, GELDIGE_LOGO, GELDIGE_SECTOR, GELDIGE_ADRES, GELDIGE_BETHAALMETHODES_LIJST,
 				GELDIGE_BETALINGSINFO, GELDIGE_EMAIL, GELDIGE_TELNR, GELDIGE_BTW, IS_ACTIEF);
@@ -83,7 +82,6 @@ public class BedrijfTest {
 				GELDIGE_BETALINGSINFO, ongeldigeEmail, GELDIGE_TELNR, GELDIGE_BTW, IS_ACTIEF));
 	}
 	
-	//TODO: check 1st pattern: is it allowed to pass?
 	@ParameterizedTest
 	@NullAndEmptySource
 	@ValueSource(strings = {/*"+1234567890",*/"(123) 456-789","123-456-7890 ext. 1234","123.45.6789","1234567","123-456-789"})
@@ -91,7 +89,7 @@ public class BedrijfTest {
 		assertThrows(IllegalArgumentException.class, () -> new Bedrijf(GELDIGE_NAAM, GELDIGE_LOGO, GELDIGE_SECTOR, GELDIGE_ADRES, GELDIGE_BETHAALMETHODES_LIJST,
 				GELDIGE_BETALINGSINFO, GELDIGE_EMAIL, ongeldigeTelNr, GELDIGE_BTW, IS_ACTIEF));
 	}
-	//TODO(extra)
+	
 	@Test
 	void testAddBetaalMethodes_duplicateMethode_doesNothing() {
 		bedrijf.addBetaalmethodes(Betaalmethode.APPLE_PAY);

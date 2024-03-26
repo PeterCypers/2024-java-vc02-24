@@ -41,7 +41,6 @@ class ProductTest {
 	    assertThrows(IllegalArgumentException.class, () -> new Product("GeneriekProduct", 1, eenheidsPrijs, LeverMethode.STOCK));
 	}
 	
-	//TODO(extra)
 	@ParameterizedTest
 	@CsvSource({"-100, 0", "-2, 98", "-50, 50", "50, 150", "350, 450"})
 	void bewerkStock_geldigeWaarden_vermindertStock(int stockVerandering, int newStock) {
