@@ -1,6 +1,8 @@
 package service.betaling;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import domein.Bestelling;
 import domein.Betaling;
@@ -52,10 +54,17 @@ public class BetalingServiceDbImpl implements BetalingService {
 				betalingDao.update(betaling);
 			});
 			
+			List<Integer> orderIds = onverwerkteBetalingen
+			.stream()
+			.map(Betaling::getOrderId)
+			.collect(Collectors.toList());
+			
 			List<Bestelling> nietBetaaldeBestellingen = bestellingDao.vindNietBetaaldeBestellingen();
 			nietBetaaldeBestellingen.forEach(bestelling -> {
-				bestelling.setBetalingStatus(BetalingsStatus.BETAALD);
-				bestellingDao.update(bestelling);
+				if(orderIds.contains(bestelling.getOrderId())) {
+					bestelling.setBetalingStatus(BetalingsStatus.BETAALD);
+					bestellingDao.update(bestelling);
+				}
 			});
 			GenericDaoJpa.commitTransaction();
 			/*NEW*/
