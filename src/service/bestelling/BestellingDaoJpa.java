@@ -35,4 +35,14 @@ public class BestellingDaoJpa extends GenericDaoJpa<Bestelling> implements Beste
 	        GenericDaoJpa.rollbackTransaction();
 	    }
 	}
+
+	@Override
+	public List<Bestelling> vindNietBetaaldeBestellingen() {
+		try {
+			return em.createNamedQuery("Bestelling.vindNietBetaaldeBestellingen", Bestelling.class)
+					.getResultList();
+		} catch (NoResultException nre) {
+			throw new EntityNotFoundException();
+		}
+	}
 }

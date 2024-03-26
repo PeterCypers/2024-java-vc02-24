@@ -1,6 +1,7 @@
 package main;
 
 import domein.AanmeldController;
+import domein.BetalingController;
 import gui.AanmeldSchermController;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -13,11 +14,17 @@ public class StartUpGui extends Application {
 		try {
 			AanmeldController ac = new AanmeldController();
 			
+			/*NEW*/
+			BetalingController bc = new BetalingController();
+			
 			Scene scene = new Scene(new AanmeldSchermController(ac));
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("B2B Portal");
 			primaryStage.setResizable(false);
 			primaryStage.show();
+			/*NEW*/
+			System.out.println("Verwerken betalingen (StartUpGUI)");
+			bc.verwerkBetalingen();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

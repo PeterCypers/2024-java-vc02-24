@@ -20,6 +20,8 @@ public class BetalingController {
 	}
 	
 	public void verwerkBetalingen() {
+		/*NEW*/
+		System.out.println("Verwerken betalingen (Controller)");
 		betalingBeheerder.verwerkBetalingen();
 	}
 

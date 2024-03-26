@@ -17,6 +17,8 @@ public class BetalingBeheerder {
 	}
 	
 	public void verwerkBetalingen() {
+		/*NEW*/
+		System.out.println("Verwerken betalingen (Beheerder)");
 		betalingService.verwerkBetalingen();
 	}
 
