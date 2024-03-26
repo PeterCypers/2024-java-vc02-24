@@ -36,7 +36,7 @@
                   <Insets left="5.0" />
                </GridPane.margin>
             </ImageView>
-            <MenuBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="0.0" style="-fx-background-color: transparent;" styleClass="label-menu-item" stylesheets="@../images/style.css" GridPane.columnIndex="2">
+            <MenuBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="0.0" style="-fx-background-color: transparent;" styleClass="menu-bar-admin" stylesheets="@../images/style.css" GridPane.columnIndex="2">
               <menus>
                 <Menu fx:id="mName" mnemonicParsing="false">
                   <items>
