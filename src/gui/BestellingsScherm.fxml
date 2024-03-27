@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="630.0" minWidth="1054.0" style="-fx-background-color: F0EFEF;" stylesheets="@../images/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane minHeight="630.0" minWidth="1054.0" style="-fx-background-color: F0EFEF;" stylesheets="@../images/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <VBox minHeight="560.0" minWidth="1054.0" spacing="5.0" styleClass="background-Leverancier" stylesheets="@../images/style.css">
          <children>
@@ -146,6 +146,8 @@
                         <ChoiceBox fx:id="choiceboxBestellingsStatus" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: AAA9A9;" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <DatePicker fx:id="dpBetalingsherinnering" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                         <TextField fx:id="txfBedrag" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                        <Label text="Betaal Datum" GridPane.rowIndex="11" />
+                        <TextField fx:id="txfBetaalDatum" prefHeight="25.0" prefWidth="157.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                      </children>
                      <GridPane.margin>
                         <Insets left="5.0" right="5.0" />

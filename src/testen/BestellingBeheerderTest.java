@@ -108,14 +108,18 @@ public class BestellingBeheerderTest {
 								new BesteldProduct(producten.get(1), 140),
 								new BesteldProduct(producten.get(2), 20),
 								new BesteldProduct(producten.get(3), 30)
-						)
+						),
+						LocalDate.now().plusDays(29),
+                        LocalDate.now().plusDays(26)
 				),
 				new Bestelling(49002, LocalDate.now().minusDays(1),OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, 
 						klanten.get(1), gebruiker,
 						Arrays.asList(
 								new BesteldProduct(producten.get(0), 100),
 								new BesteldProduct(producten.get(1), 220)
-						)
+						),
+						LocalDate.now().plusDays(10),
+                        LocalDate.now().plusDays(7)
 				)
 		);
 		when(bestellingServiceMock.getBestellingen(any(Gebruiker.class))).thenReturn(bestellingen);

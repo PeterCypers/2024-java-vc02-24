@@ -84,8 +84,8 @@ class BestellingTest {
 	
 	@ParameterizedTest
 	@MethodSource("geldigeBestellingen")
-	void test_nieuweBestelling_geldigeWaarden(int orderId, LocalDate datum, OrderStatus oStatus, BetalingsStatus bStatus, Klant klant) {
-		this.bestelling = new Bestelling(orderId, datum, oStatus, bStatus, klant, null, besteldeProducten);
+	void test_nieuweBestelling_geldigeWaarden(int orderId, LocalDate datum, OrderStatus oStatus, BetalingsStatus bStatus, Klant klant,LocalDate betalingsDatum,LocalDate herinneringsdatum) {
+		this.bestelling = new Bestelling(orderId, datum, oStatus, bStatus, klant, null, besteldeProducten,LocalDate.now().plusDays(10),LocalDate.now().plusDays(7));
 		
 		Assertions.assertEquals(orderId, this.bestelling.getOrderId());
 		Assertions.assertEquals(datum, this.bestelling.getDatumGeplaatst());
@@ -96,8 +96,8 @@ class BestellingTest {
 	
 	@ParameterizedTest
 	@MethodSource("ongeldigeBestellingen")
-	void test_nieuweBestelling_ongeldigeWaarden(int orderId, LocalDate datum, OrderStatus oStatus, BetalingsStatus bStatus, Klant klant) {
-		Assertions.assertThrows(IllegalArgumentException.class, () -> new Bestelling(orderId, datum, oStatus, bStatus, klant, null, besteldeProducten));
+	void test_nieuweBestelling_ongeldigeWaarden(int orderId, LocalDate datum, OrderStatus oStatus, BetalingsStatus bStatus, Klant klant,LocalDate betalingsDatum,LocalDate herinneringsdatum) {
+		Assertions.assertThrows(IllegalArgumentException.class, () -> new Bestelling(orderId, datum, oStatus, bStatus, klant, null, besteldeProducten,LocalDate.now().plusDays(10),LocalDate.now().plusDays(7)));
 	}
 	
 	//@ParameterizedTest

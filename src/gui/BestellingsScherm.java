@@ -2,6 +2,8 @@ package gui;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import javax.swing.text.DateFormatter;
+
 import domein.BesteldProduct;
 import domein.Bestelling;
 import domein.BestellingController;
@@ -122,6 +124,8 @@ public class BestellingsScherm {
 
     @FXML
     private TextField txfFilterBestelling;
+    @FXML
+    private TextField txfBetaalDatum;
 
     @FXML
     void filterBestelling(ActionEvent event) {
@@ -148,6 +152,9 @@ public class BestellingsScherm {
     @FXML
     public void initialize() {
         initializeStatusChoiceBoxes();
+        dpBetalingsherinnering.valueProperty().addListener((obs, oudeDatum, nieuweDatum) -> {
+            handleHerinneringsDatumWijziging(nieuweDatum);
+        });
     }
     
     private void initializeStatusChoiceBoxes() {
@@ -211,7 +218,10 @@ public class BestellingsScherm {
 	
 	private void toonDetailsBestelling(int index) {
 		LocalDate datum = bc.getBestellingen().get(index).getDatumGeplaats();
+		LocalDate Betaaldatum = bc.getBestellingen().get(index).getBetalingsDatum();
 		Bestelling selectedBestelling = tbvOverzichtBestellingen.getItems().get(index);
+		Bestelling geselecteerdeBestelling = tbvOverzichtBestellingen.getItems().get(index);
+
 		
 		isOrderVeranderen = true;
 		
@@ -226,6 +236,9 @@ public class BestellingsScherm {
 	    choiceboxOrderStatus.setValue(selectedBestelling.getOrderStatus());
 	    choiceboxBestellingsStatus.setValue(selectedBestelling.getBetalingStatus());
 		txfBedrag.setText(String.format("\u20AC%.2f", bc.getBestellingen().get(index).berekenTotalBedrag()));
+	    txfBetaalDatum.setText(String.format("%s", Betaaldatum));
+		
+		dpBetalingsherinnering.setValue(geselecteerdeBestelling.getHerinneringsDatum());
 		
 		isOrderVeranderen = false;
 		
@@ -272,6 +285,7 @@ public class BestellingsScherm {
         }
 	}
 	
+	
 	private void handleBetalingStatusChange() {
         Bestelling selectedBestelling = tbvOverzichtBestellingen.getSelectionModel().getSelectedItem();
         if (isOrderVeranderen || selectedBestelling == null || choiceboxBestellingsStatus.getValue() == null ) {
@@ -279,10 +293,40 @@ public class BestellingsScherm {
         }
         
         selectedBestelling.setBetalingStatus(choiceboxBestellingsStatus.getValue());
+        
+        dpBetalingsherinnering.setDisable(choiceboxBestellingsStatus.getValue() == BetalingsStatus.BETAALD);
     
         bc.updateBestelling(selectedBestelling); 
         tbvOverzichtBestellingen.refresh();
+        
     }
+	private void handleHerinneringsDatumWijziging(LocalDate nieuweDatum) {
+	    Bestelling geselecteerdeBestelling = tbvOverzichtBestellingen.getSelectionModel().getSelectedItem();
+	    
+	    LocalDate vandaag = LocalDate.now();
+	    LocalDate betalingsDatum = geselecteerdeBestelling.getBetalingsDatum();    	
+	    
+	    try {
+	    if (geselecteerdeBestelling != null && geselecteerdeBestelling.getBetalingStatus() != BetalingsStatus.BETAALD || !nieuweDatum.isBefore(vandaag) || !nieuweDatum.isAfter(betalingsDatum)) {
+	    	dpBetalingsherinnering.setDisable(false);
+	        geselecteerdeBestelling.setHerinneringsDatum(nieuweDatum);
+	        bc.updateBestelling(geselecteerdeBestelling); 
+	        tbvOverzichtBestellingen.refresh();
+	    }else {
+	    	dpBetalingsherinnering.setDisable(true);
+	    }
+	    }catch(IllegalArgumentException iae){
+	    	Alert alert = new Alert(Alert.AlertType.ERROR);
+	        alert.setTitle("Ongeldige Datum");
+	        alert.setHeaderText("Fout bij het instellen van de herinneringsdatum");
+	        alert.setContentText(iae.getMessage());
+	        alert.showAndWait();
+	    }
+	}
+	    
+	
+	
+	
     
 	public Node geefNode() {
 	    return node;

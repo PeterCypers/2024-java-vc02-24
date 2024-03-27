@@ -52,13 +52,13 @@ class KlantenRaadplegenTest {
 	);
 	
 	static List<Bestelling> bestellingen = Arrays.asList(
-			new Bestelling(1, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.NIET_BETAALD, klanten.get(0), gebruiker, besteldeProducten),
-			new Bestelling(2, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.NIET_BETAALD, klanten.get(0), gebruiker, besteldeProducten),
-			new Bestelling(3, LocalDate.now(), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(1), gebruiker, besteldeProducten),
-			new Bestelling(4, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.BETAALD, klanten.get(0), gebruiker, besteldeProducten),
-			new Bestelling(5, LocalDate.now(), OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD, klanten.get(1), gebruiker, besteldeProducten),
-			new Bestelling(6, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.BETAALD, klanten.get(1), gebruiker, besteldeProducten),
-			new Bestelling(7, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.BETAALD, klanten.get(0), gebruiker, besteldeProducten)
+		    new Bestelling(1, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.NIET_BETAALD, klanten.get(0), gebruiker, besteldeProducten, LocalDate.now().plusDays(30), LocalDate.now().plusDays(27)),
+		    new Bestelling(2, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.NIET_BETAALD, klanten.get(0), gebruiker, besteldeProducten, LocalDate.now().plusDays(30), LocalDate.now().plusDays(27)),
+		    new Bestelling(3, LocalDate.now(), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(1), gebruiker, besteldeProducten, LocalDate.now().plusDays(30), LocalDate.now().plusDays(27)),
+		    new Bestelling(4, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.BETAALD, klanten.get(0), gebruiker, besteldeProducten, LocalDate.now().plusDays(30), LocalDate.now().plusDays(27)),
+		    new Bestelling(5, LocalDate.now(), OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD, klanten.get(1), gebruiker, besteldeProducten, LocalDate.now().plusDays(30), LocalDate.now().plusDays(27)),
+		    new Bestelling(6, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.BETAALD, klanten.get(1), gebruiker, besteldeProducten, LocalDate.now().plusDays(30), LocalDate.now().plusDays(27)),
+		    new Bestelling(7, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.BETAALD, klanten.get(0), gebruiker, besteldeProducten, LocalDate.now().plusDays(30), LocalDate.now().plusDays(27))
 	);
 	
 	@Test

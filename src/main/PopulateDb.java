@@ -251,7 +251,10 @@ public class PopulateDb {
 										new BesteldProduct(producten.get(0).get(1), 140),
 										new BesteldProduct(producten.get(0).get(2), 20),
 										new BesteldProduct(producten.get(0).get(3), 30)
-								)
+								),
+								LocalDate.now().minusMonths(2),
+	                            LocalDate.now().minusMonths(2).minusDays(3)
+								
 						),
 						new Bestelling(
 								49002, LocalDate.now().minusDays(1), 
@@ -260,7 +263,9 @@ public class PopulateDb {
 								Arrays.asList(
 										new BesteldProduct(producten.get(0).get(0), 100),
 										new BesteldProduct(producten.get(0).get(1), 220)
-								)
+								),
+								LocalDate.now().plusDays(29),
+	                            LocalDate.now().plusDays(26)
 						)
 				),
 				List.of(
@@ -270,7 +275,9 @@ public class PopulateDb {
 								klanten.get(2), leveranciers.get(1),
 								Arrays.asList(
 										new BesteldProduct(producten.get(1).get(0), 300)
-								)
+								),
+								LocalDate.now().plusDays(10),
+	                            LocalDate.now().plusDays(7)
 						),
 						new Bestelling(
 								50002, LocalDate.now().minusDays(12), 
@@ -279,7 +286,9 @@ public class PopulateDb {
 								Arrays.asList(
 										new BesteldProduct(producten.get(1).get(1), 2),
 										new BesteldProduct(producten.get(1).get(2), 10)
-								)
+								),
+								LocalDate.now().plusDays(100),
+	                            LocalDate.now().plusDays(97)
 						),
 						new Bestelling(
 								50003, LocalDate.now(),
@@ -287,7 +296,9 @@ public class PopulateDb {
 								klanten.get(5), leveranciers.get(1),
 								Arrays.asList(
 										new BesteldProduct(producten.get(1).get(0), 120)
-								)
+								),
+								LocalDate.now().plusDays(30),
+	                            LocalDate.now().plusDays(27)
 						)
 				),
 				List.of(
@@ -298,7 +309,9 @@ public class PopulateDb {
 								Arrays.asList(
 										new BesteldProduct(producten.get(2).get(0), 10),
 										new BesteldProduct(producten.get(2).get(1), 2)
-								)
+								),
+								LocalDate.now().plusDays(6),
+	                            LocalDate.now().plusDays(3)
 						),
 						new Bestelling(
 								51002, LocalDate.now().minusDays(25), 
@@ -307,7 +320,9 @@ public class PopulateDb {
 								Arrays.asList(
 										new BesteldProduct(producten.get(2).get(1), 8),
 										new BesteldProduct(producten.get(2).get(2), 3)
-								)
+								),
+								LocalDate.now().plusDays(79),
+	                            LocalDate.now().plusDays(74)
 						)
 				),
 				List.of(
@@ -330,7 +345,9 @@ public class PopulateDb {
 										new BesteldProduct(producten.get(3).get(11), 10),
 										new BesteldProduct(producten.get(3).get(12), 10),
 										new BesteldProduct(producten.get(3).get(13), 10)
-								)
+								),
+								LocalDate.now().plusDays(66),
+	                            LocalDate.now().plusDays(63)
 						),
 						new Bestelling(
 								52002, LocalDate.now().minusDays(3),
@@ -347,7 +364,11 @@ public class PopulateDb {
 										new BesteldProduct(producten.get(3).get(7), 5),
 										new BesteldProduct(producten.get(3).get(8), 5),
 										new BesteldProduct(producten.get(3).get(9), 5)
-								)
+								),
+								LocalDate.now().plusDays(94),
+	                            LocalDate.now().plusDays(91)
+								
+								
 						),
 						new Bestelling(
 								52003, LocalDate.now().minusDays(1),
@@ -364,7 +385,9 @@ public class PopulateDb {
 										new BesteldProduct(producten.get(3).get(7), 5),
 										new BesteldProduct(producten.get(3).get(8), 5),
 										new BesteldProduct(producten.get(3).get(9), 5)
-								)
+								),
+								LocalDate.now().plusDays(31),
+	                            LocalDate.now().plusDays(28)
 						)
 				),
 				List.of(
@@ -375,7 +398,9 @@ public class PopulateDb {
 								Arrays.asList(
 										new BesteldProduct(producten.get(4).get(0), 1),
 										new BesteldProduct(producten.get(4).get(1), 1)
-								)
+								),
+								LocalDate.now().plusDays(31),
+	                            LocalDate.now().plusDays(28)
 						),
 						new Bestelling(
 								53002, LocalDate.now().minusMonths(1),
@@ -383,7 +408,9 @@ public class PopulateDb {
 								klanten.get(6), leveranciers.get(4),
 								Arrays.asList(
 										new BesteldProduct(producten.get(4).get(2), 2)
-								)
+								),
+								LocalDate.now().plusDays(33),
+	                            LocalDate.now().plusDays(30)
 						),
 						new Bestelling(
 								53003, LocalDate.now().minusDays(10),
@@ -391,7 +418,9 @@ public class PopulateDb {
 								klanten.get(2), leveranciers.get(4),
 								Arrays.asList(
 										new BesteldProduct(producten.get(4).get(3), 1)
-								)
+								),
+								LocalDate.now().plusDays(64),
+	                            LocalDate.now().plusDays(61)
 						),
 						new Bestelling(
 								53004, LocalDate.now(),
@@ -399,7 +428,9 @@ public class PopulateDb {
 								klanten.get(0), leveranciers.get(4),
 								Arrays.asList(
 										new BesteldProduct(producten.get(4).get(4), 1)
-								)
+								),
+								LocalDate.now().plusDays(31),
+	                            LocalDate.now().plusDays(2)
 						)
 				),
 				List.of(
@@ -409,7 +440,9 @@ public class PopulateDb {
 								klanten.get(0), leveranciers.get(5),
 								Arrays.asList(
 										new BesteldProduct(producten.get(5).get(0), 30)
-								)
+								),
+								LocalDate.now().plusDays(7),
+	                            LocalDate.now().plusDays(4)
 						),
 						new Bestelling(
 								54002, LocalDate.now().minusDays(5),
@@ -419,7 +452,9 @@ public class PopulateDb {
 										new BesteldProduct(producten.get(5).get(1), 12),
 										new BesteldProduct(producten.get(5).get(2), 80),
 										new BesteldProduct(producten.get(5).get(3), 20)
-								)
+								),
+								LocalDate.now().plusDays(43),
+	                            LocalDate.now().plusDays(40)
 						),
 						new Bestelling(
 								54003, LocalDate.now().minusDays(1),
@@ -428,7 +463,9 @@ public class PopulateDb {
 								Arrays.asList(
 										new BesteldProduct(producten.get(5).get(0), 8),
 										new BesteldProduct(producten.get(5).get(4), 4)
-								)
+								),
+								LocalDate.now().plusDays(49),
+	                            LocalDate.now().plusDays(46)
 						)
 				),
 				List.of(
