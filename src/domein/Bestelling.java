@@ -98,7 +98,7 @@ public class Bestelling implements Serializable {
 	 * @param klant customer to which this order belongs
 	 * @param producten a <code>list</code> of products in this order
 	 */
-	public Bestelling(int orderId, LocalDate datumGeplaatst, OrderStatus orderStatus, BetalingsStatus betalingStatus, Klant klant, Leverancier leverancier, List<BesteldProduct> producten,LocalDate betalingsDatum,LocalDate herinneringsdatum) {
+	public Bestelling(int orderId, LocalDate datumGeplaatst, OrderStatus orderStatus, BetalingsStatus betalingStatus, Klant klant, Leverancier leverancier, List<BesteldProduct> producten, LocalDate betalingsDatum) {
 		setOrderId(orderId);
 		setDatumGeplaatst(datumGeplaatst);
 		setOrderStatus(orderStatus);
@@ -106,8 +106,6 @@ public class Bestelling implements Serializable {
 		setKlant(klant);
 		setLeverancier(leverancier);
 		setProducten(producten);
-		setBetalingsDatum(betalingsDatum);
-		setHerinneringsDatum(betalingsDatum);
 		setBetalingsDatum(betalingsDatum);
 		this.herinneringsDatum = betalingsDatum.minusDays(3);
 	}
@@ -128,7 +126,6 @@ public class Bestelling implements Serializable {
     }
 	public void setBetalingsDatum(LocalDate betalingsDatum) {
 	    this.betalingsDatum = betalingsDatum;
-	    
 	}
 	public void setHerinneringsDatum(LocalDate herinneringsDatum) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
