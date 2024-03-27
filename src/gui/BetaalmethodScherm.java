@@ -121,13 +121,11 @@ public class BetaalmethodScherm extends BorderPane{
     	bc.updateBedrijf(leverancier.getBedrijf());
     }
     
-    private HoofdSchermController hoofdScherm;
     private BedrijfController bc;
     private Node node;
     private Leverancier leverancier = (Leverancier) GebruikerHolder.getInstance();
 
-	public BetaalmethodScherm(HoofdSchermController hoofdScherm) {
-		this.hoofdScherm = hoofdScherm;
+	public BetaalmethodScherm() {
 		bc = new BedrijfController();
 		buildGui();
 	}
