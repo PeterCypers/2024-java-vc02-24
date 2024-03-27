@@ -32,7 +32,7 @@ public class BestellingBeheerderTest {
 	private BestellingService bestellingServiceMock;
     private BestellingBeheerder bestellingBeheerder;
     private Leverancier gebruiker;
-		
+		 
 	@BeforeEach
 	void setup() {
 		bestellingServiceMock = mock(BestellingService.class);
