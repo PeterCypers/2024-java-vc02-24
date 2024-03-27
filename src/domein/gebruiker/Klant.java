@@ -19,6 +19,7 @@ import jakarta.persistence.Transient;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * Represents an Customer.
@@ -49,7 +50,7 @@ public class Klant extends Gebruiker {
 	
 	//voor tableView
 	@Transient
-	private final SimpleStringProperty naamKlant = new SimpleStringProperty();
+	private final SimpleStringProperty bedrijfsnaam = new SimpleStringProperty();
 	@Transient
 	private final SimpleIntegerProperty openstaandeBestellingen = new SimpleIntegerProperty();
 	
@@ -122,6 +123,10 @@ public class Klant extends Gebruiker {
 		this.telefoonnummer = telefoonnummer;
 	}
 	
+	public String getBedrijfsnaam() {
+		return bedrijf.getNaam();
+	}
+	
 	public List<Bestelling> getBestellingen() {
 		return bestellingen;
 	}
@@ -132,6 +137,11 @@ public class Klant extends Gebruiker {
 	
 	public String getLogo() {
 		return this.bedrijf.getLogo();
+	}
+	
+	public StringProperty bedrijfsnaamProperty() {
+		bedrijfsnaam.set(getBedrijfsnaam());
+		return bedrijfsnaam;
 	}
 	
 	/**

@@ -36,7 +36,7 @@ public class BestellingBeheerder {
 			-> b2.getDatumGeplaats().toString().compareToIgnoreCase(b1.getDatumGeplaats().toString());
 	
 	private final Comparator<Bestelling> bijKlant = (b1, b2)
-	        -> b1.getKlantName().compareToIgnoreCase(b2.getKlantName());
+	        -> b1.getBedrijfsnaam().compareToIgnoreCase(b2.getBedrijfsnaam());
 	            
 	private final Comparator<Bestelling> bijOrderStatus = (b1, b2)
 			-> b1.getOrderStatus().toString().compareToIgnoreCase(b2.getOrderStatus().toString());

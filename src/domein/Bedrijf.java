@@ -313,8 +313,13 @@ public class Bedrijf implements Serializable {
 		return this.isActief;
 	}
 	
-	public int aantalKlanten() {
-		return 0; //TODO
+	public int getAantalKlanten() {
+		return this
+				.getLeverancier().getBestellingen()
+				.stream()
+				.map(b -> b.getKlant())
+				.collect(Collectors.toUnmodifiableSet())
+				.size();
 	}
 	
 	//Voor tableView
@@ -324,9 +329,7 @@ public class Bedrijf implements Serializable {
 	 * @return {@link SimpleIntegerProperty} aantalKlantenProp -> the amount of customers of this company
 	 */
 	public IntegerProperty getAantalKlantenProp() {
-		int aantalKlanten = 0; //TODO
-		
-		this.aantalKlantenProp.set(aantalKlanten);
+		this.aantalKlantenProp.set(getAantalKlanten());
 		return aantalKlantenProp;
 	}
 
@@ -397,7 +400,7 @@ public class Bedrijf implements Serializable {
 	}
 	
 	public String getAsSearchString() {
-		return String.format("%s %s %s %s %s", naam, sector, adres, getIsActiefProp().getValue(), aantalKlanten()).toLowerCase();
+		return String.format("%s %s %s %s %s", naam, sector, adres, getIsActiefProp().getValue(), getAantalKlanten()).toLowerCase();
 	}
 
 	public String getBetaalmethodesAsString() {
