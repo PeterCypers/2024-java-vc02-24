@@ -16,6 +16,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -79,9 +82,12 @@ public class BedrijvenScherm {
 
 	@FXML
 	private TextField txfAdresLijn2;
+	
+	@FXML
+    private ScrollPane scrollpane;
 
 	@FXML
-	private TextField txfBetalingsmogelijkheid;
+	private Label txfBetalingsmogelijkheid;
 
 	@FXML
 	private TextField txfRekeningnummer;
@@ -109,6 +115,9 @@ public class BedrijvenScherm {
 
 	@FXML
 	private TableColumn<Gebruiker, String> tbcAccountActief;
+	
+	@FXML
+	private ScrollBar sbBetalingsmethodes;
 
 	@FXML
 	void bedrijfDeactiveren(ActionEvent event) {
@@ -161,6 +170,7 @@ public class BedrijvenScherm {
 	}
 	
 	private void buildGui() {
+		scrollpane = new ScrollPane(txfBetalingsmogelijkheid);
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("BedrijvenScherm.fxml"));
     	loader.setController(this);
         try {

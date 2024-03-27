@@ -19,11 +19,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBoxBase;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -125,8 +127,8 @@ public class KlantenScherm {
     	
     	//nodig om alle bestellingen te zien
     	dpFilterBestelling.setValue(null);
-    	cbFilterOrderStatus.setValue(null);
-    	cbFilterBetalingsStatus.setValue(null);
+    	cbFilterOrderStatus.setValue(OrderStatus.filter);
+    	cbFilterBetalingsStatus.setValue(BetalingsStatus.filter);
     }
     
     
@@ -138,6 +140,9 @@ public class KlantenScherm {
     private void initializeStatusChoiceBoxes() {
         cbFilterOrderStatus.getItems().setAll(OrderStatus.values());
         cbFilterBetalingsStatus.getItems().setAll(BetalingsStatus.values());
+        
+        cbFilterBetalingsStatus.setValue(BetalingsStatus.filter);
+        cbFilterOrderStatus.setValue(OrderStatus.filter);
     }
 	
 	private HoofdSchermController hoofdScherm;
@@ -156,6 +161,7 @@ public class KlantenScherm {
 	private void buildGui() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("KlantenScherm.fxml"));
     	loader.setController(this);
+    	
         try {
             node = loader.load();
         } catch (IOException ex) {
@@ -181,6 +187,10 @@ public class KlantenScherm {
 		tbvOverzichtKlanten.setItems(kc.getKlanten());
 	}
 	
+	public final void setPlaceholder(Node value) {
+		
+	}
+	
 	private void toonDetailsKlant(int index) {
 		new Thread(() -> {
 			imgvLogo.setImage(new Image(kc.getKlanten().get(index).getLogo()));
@@ -204,7 +214,7 @@ public class KlantenScherm {
 		tbcOrderstatus.setCellValueFactory(cellData -> cellData.getValue().orderstatusProperty());
 		tbcBetalingsstatus.setCellValueFactory(cellData -> cellData.getValue().betalingsstatusProperty());
 		
-		bc.getFilterdList(null, null, null, null, kc.getKlanten().get(klantIndex));
+		bc.getFilterdList(null, OrderStatus.filter, BetalingsStatus.filter, null, kc.getKlanten().get(klantIndex));
 		tbvBestellingen.setItems(bc.getBestellingen());
 	}
 	

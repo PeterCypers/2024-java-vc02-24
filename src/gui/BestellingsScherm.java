@@ -134,8 +134,8 @@ public class BestellingsScherm {
     	toonBestelling(false);	//bij het zoeken dat alleen bestellingen getoont worden
     	//nodig om alle bestellingen te zien
     	dpFilterBestelling.setValue(null);
-    	cbFilterBestellingen.setValue(null);
-    	cbFilterBestelling2.setValue(null);
+    	cbFilterBestellingen.setValue(OrderStatus.filter);
+    	cbFilterBestelling2.setValue(BetalingsStatus.filter);
     }
 
     @FXML
@@ -158,11 +158,14 @@ public class BestellingsScherm {
     }
     
     private void initializeStatusChoiceBoxes() {
-        choiceboxOrderStatus.getItems().setAll(OrderStatus.values());
-        choiceboxBestellingsStatus.getItems().setAll(BetalingsStatus.values());
+        choiceboxOrderStatus.getItems().setAll(OrderStatus.AAN_HET_VERWERKEN, OrderStatus.GELEVERD, OrderStatus.GEREGISTREERD, OrderStatus.ONDERWEG);
+        choiceboxBestellingsStatus.getItems().setAll(BetalingsStatus.BETAALD, BetalingsStatus.NIET_BETAALD);
         //filters
         cbFilterBestellingen.getItems().setAll(OrderStatus.values());
         cbFilterBestelling2.getItems().setAll(BetalingsStatus.values());
+        
+        cbFilterBestellingen.setValue(OrderStatus.filter);
+        cbFilterBestelling2.setValue(BetalingsStatus.filter);
 
         choiceboxOrderStatus.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             handleOrderStatusChange();

@@ -16,9 +16,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="910.0" stylesheets="@../images/style.css" type="BorderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="710.0" minWidth="1060.0" stylesheets="@../images/style.css" type="BorderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <GridPane minHeight="50.0" minWidth="910.0" BorderPane.alignment="CENTER">
+      <GridPane minHeight="50.0" minWidth="1060.0" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -52,9 +52,9 @@
       </GridPane>
    </top>
    <center>
-      <VBox minHeight="660.0" minWidth="910.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <VBox minHeight="660.0" minWidth="1060.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox minWidth="28.0" spacing="10.0" stylesheets="@../images/style.css">
+            <HBox spacing="10.0" stylesheets="@../images/style.css">
                <children>
                   <Button fx:id="btnBeheerBedrijf" mnemonicParsing="false" onAction="#beheerBedrijf" text="Bedrijven beheren">
                      <font>
@@ -62,8 +62,11 @@
                      </font>
                   </Button>
                </children>
+               <VBox.margin>
+                  <Insets left="5.0" />
+               </VBox.margin>
             </HBox>
-            <BorderPane minHeight="630.0" minWidth="910.0">
+            <BorderPane minHeight="630.0" minWidth="1060.0">
                <center>
                   <VBox fx:id="vbox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
                </center>

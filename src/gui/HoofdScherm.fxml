@@ -16,12 +16,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="1054.0" stylesheets="@../images/style.css" type="javafx.scene.layout.BorderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="1060.0" stylesheets="@../images/style.css" type="javafx.scene.layout.BorderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <Label fx:id="lbErrors" textFill="RED" BorderPane.alignment="CENTER" />
    </bottom>
    <center>
-      <VBox minHeight="660.0" minWidth="1054.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <VBox minHeight="660.0" minWidth="1060.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
             <HBox minHeight="37.0" prefHeight="39.0" spacing="10.0" stylesheets="@../images/style.css">
                <children>
@@ -41,7 +41,7 @@
                   </Button>
                </children>
             </HBox>
-            <BorderPane fx:id="borderpane" minHeight="630.0" minWidth="1054.0" stylesheets="@../images/style.css">
+            <BorderPane fx:id="borderpane" minHeight="630.0" minWidth="1060.0" stylesheets="@../images/style.css">
                <center>
                   <VBox fx:id="vbox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
                </center></BorderPane>

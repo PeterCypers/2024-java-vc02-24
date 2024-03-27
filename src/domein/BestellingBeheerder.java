@@ -95,8 +95,8 @@ public class BestellingBeheerder {
 		filteredBestellingen.setPredicate(bestelling ->
 	    	(filterDate == null || bestelling.toSearchString().contains(filterDate.toString())) &&
 	    	(filterValue == null || filterValue.isBlank() || bestelling.toSearchString().toLowerCase().contains(filterValue.toLowerCase())) &&
-	    	(filterOrderStatus == null || bestelling.getOrderStatus() == filterOrderStatus) &&
-	    	(filterBetalingsStatus == null ||  bestelling.getBetalingsStatus() == filterBetalingsStatus) &&
+	    	(filterOrderStatus == OrderStatus.filter || bestelling.getOrderStatus() == filterOrderStatus) &&
+	    	(filterBetalingsStatus == BetalingsStatus.filter ||  bestelling.getBetalingsStatus() == filterBetalingsStatus) &&
 	    	(klant == null || bestelling.getKlant() == klant)
 		);
 	}
