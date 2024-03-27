@@ -1,5 +1,6 @@
 package domein;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import domein.gebruiker.Klant;
@@ -20,7 +21,6 @@ public class BedrijfBuilder {
 	private String postcode;
 	private String straat;
 	private String straatNummer;
-	private List<Betaalmethode> betalingsMogelijkheden;
 	private String rekeningNummer;
 	private String emailadres;
 	private String telefoonNr;
@@ -51,7 +51,7 @@ public class BedrijfBuilder {
 			logo,
 			sector,
 			new Adres(land, stad, postcode, straat, straatNummer),
-			betalingsMogelijkheden,
+			new ArrayList<Betaalmethode>(),
 			rekeningNummer,
 			emailadres,
 			telefoonNr,
@@ -123,11 +123,6 @@ public class BedrijfBuilder {
 	public BedrijfBuilder setStraatNummer(String straatNummer) {
 		checkNullAndEmpty("Bedrijf straat nummer", straatNummer);
 	    this.straatNummer = straatNummer;
-	    return this;
-	}
-
-	public BedrijfBuilder setBetalingsMogelijkheden(List<Betaalmethode> betalingsMogelijkheden) {
-	    this.betalingsMogelijkheden = betalingsMogelijkheden;
 	    return this;
 	}
 

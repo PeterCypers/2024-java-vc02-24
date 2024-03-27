@@ -385,7 +385,7 @@ public class Bedrijf implements Serializable {
 	}
 
 	public String getAsSearchString() {
-		return String.format("%s %s %s %s %s", naam, sector, adres, getIsActiefProp().getValue(), getAantalKlanten()).toLowerCase();
+		return String.format("%s %s %s %s %d", naam, sector, adres, getIsActiefProp().getValue(), getAantalKlanten()).toLowerCase();
 	}
 
 	public String getBetaalmethodesAsString() {
