@@ -1,6 +1,5 @@
 package service.betaling;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,8 +43,6 @@ public class BetalingServiceDbImpl implements BetalingService {
 
 	@Override
 	public void verwerkBetalingen() {
-		/*NEW*/
-		System.out.println("Verwerken betalingen (DBImpl)");
 		GenericDaoJpa.startTransaction();
 		try {
 			List<Betaling> onverwerkteBetalingen = betalingDao.vindOnverwerkteBetaling();
@@ -67,8 +64,6 @@ public class BetalingServiceDbImpl implements BetalingService {
 				}
 			});
 			GenericDaoJpa.commitTransaction();
-			/*NEW*/
-			System.out.println("VOLTOOID! (DbImpl)");
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 			GenericDaoJpa.rollbackTransaction();

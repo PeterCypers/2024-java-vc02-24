@@ -5,11 +5,12 @@ public enum OrderStatus {
 	ONDERWEG,
 	AAN_HET_VERWERKEN,
 	GEREGISTREERD;
-	
+
+	@Override
 	public String toString() {
-		switch (this) {
-		case AAN_HET_VERWERKEN: return "Aan het verwerken";
-		default: return String.format("%s%s", this.name().charAt(0), this.name().substring(1).toLowerCase());
-		}
+		return switch (this) {
+			case AAN_HET_VERWERKEN -> "Aan het verwerken";
+			default -> String.format("%s%s", this.name().charAt(0), this.name().substring(1).toLowerCase());
+		};
 	}
 }

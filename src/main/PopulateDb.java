@@ -9,8 +9,8 @@ import domein.Adres;
 import domein.Bedrijf;
 import domein.BesteldProduct;
 import domein.Bestelling;
-import domein.Betaling;
 import domein.Betaalmethode;
+import domein.Betaling;
 import domein.BetalingsStatus;
 import domein.LeverMethode;
 import domein.OrderStatus;
@@ -21,10 +21,10 @@ import domein.gebruiker.Klant;
 import domein.gebruiker.Leverancier;
 import service.bedrijf.BedrijfService;
 import service.bedrijf.BedrijfServiceDbImpl;
-import service.gebruiker.GebruikerService;
-import service.gebruiker.GebruikerServiceDbImpl;
 import service.betaling.BetalingService;
 import service.betaling.BetalingServiceDbImpl;
+import service.gebruiker.GebruikerService;
+import service.gebruiker.GebruikerServiceDbImpl;
 
 public class PopulateDb {
 	

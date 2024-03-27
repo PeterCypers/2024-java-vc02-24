@@ -7,5 +7,5 @@ import domein.gebruiker.Gebruiker;
 
 public interface BestellingService {
 	public abstract List<Bestelling> getBestellingen(Gebruiker leverancier);
-	void updateBestelling(Bestelling bestelling); 
+	public void updateBestelling(Bestelling bestelling); 
 }

@@ -195,12 +195,4 @@ public class Klant extends Gebruiker {
 	public int getAantalOpenstaandeBestellingen(Gebruiker leverancier) {
 		return getOpenstaandeBestellingen(leverancier).size();
 	}
-	
-	@Override
-	public String toString() {
-		//TODO: logo dit stuur ik door als herinnering, maar vermoed andere implementatie verwacht
-		return String.format("Naam: %s - Contact: %s - Adres: %s - Logopath: %s - telNr: %s",
-				naam, emailadres, adres, bedrijf.getLogo(), telefoonnummer);
-	}
-
 }

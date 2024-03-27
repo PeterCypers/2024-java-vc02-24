@@ -27,5 +27,4 @@ public class Administrator extends Gebruiker {
 	public Administrator(String email, String wachtwoord, String naam) {
 		super(email, wachtwoord, naam, true, Rol.ADMINISTRATOR);
 	}
-
 }

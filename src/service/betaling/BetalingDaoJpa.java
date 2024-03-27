@@ -32,5 +32,4 @@ public class BetalingDaoJpa extends GenericDaoJpa<Betaling> implements BetalingD
 			throw new EntityNotFoundException();
 		}
 	}
-
 }

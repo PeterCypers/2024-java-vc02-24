@@ -11,7 +11,6 @@ public class BestellingServiceDbImpl implements BestellingService {
 	private BestellingDaoJpa bestellingDao;
 	
 	public BestellingServiceDbImpl() {
-		// bestellingDao = new BestellingDaoJpa();
 		setBestellingDaoJpa(new BestellingDaoJpa());
 	}
 	
@@ -26,7 +25,6 @@ public class BestellingServiceDbImpl implements BestellingService {
 	
 	@Override
     public void updateBestelling(Bestelling bestelling) {
-        
         GenericDaoJpa.startTransaction();
         bestellingDao.update(bestelling); 
         GenericDaoJpa.commitTransaction();

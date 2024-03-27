@@ -15,8 +15,6 @@ public class KlantDaoJpa extends GenericDaoJpa<Klant> implements KlantDao {
 	
 	@Override 
 	public List<Klant> vindPerLeverancier(Gebruiker leverancier) throws EntityNotFoundException {
-		//TODO query is juist? + query toevoegen in Klantklasse? 
-		//Leverancier ->* lijst v Bestelling ->1 Klant
 		try {
 			return em.createNamedQuery("Klant.vindPerLeverancier", Klant.class)
 					.setParameter("leverancier", leverancier)

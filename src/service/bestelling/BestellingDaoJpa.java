@@ -9,6 +9,7 @@ import jakarta.persistence.NoResultException;
 import service.GenericDaoJpa;
 
 public class BestellingDaoJpa extends GenericDaoJpa<Bestelling> implements BestellingDao {
+	
     public BestellingDaoJpa() {
         super(Bestelling.class);
     }
@@ -22,9 +23,8 @@ public class BestellingDaoJpa extends GenericDaoJpa<Bestelling> implements Beste
 		} catch (NoResultException nre) {
 			throw new EntityNotFoundException();
 		}
-		
-		
 	}
+	
 	public void updateBestelling(Bestelling bestelling) {
 	    GenericDaoJpa.startTransaction();
 	    try {

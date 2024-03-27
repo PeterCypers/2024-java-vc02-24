@@ -10,7 +10,7 @@ import exceptions.BuilderPhoneException;
 import exceptions.BuilderUsernameException;
 
 public class BedrijfBuilder {
-	
+
 	// bedrijfinfo
 	private String naam;
 	private String logo;
@@ -25,12 +25,12 @@ public class BedrijfBuilder {
 	private String emailadres;
 	private String telefoonNr;
 	private String btwNr;
-	
+
 	// leverancier
 	private String lNaam;
 	private String lEmailadres;
 	private String lWachtwoord;
-	
+
 	// klant
 	private String kNaam;
 	private String kEmailadres;
@@ -41,10 +41,10 @@ public class BedrijfBuilder {
 	private String kStraat;
 	private String kStraatNummer;
 	private String kTelefoonNr;
-	
-	
+
+
 	public BedrijfBuilder() {}
-	
+
 	public Bedrijf build() throws IllegalArgumentException {
 		Bedrijf bedrijf = new Bedrijf(
 			naam,
@@ -74,10 +74,10 @@ public class BedrijfBuilder {
 			new Adres(kLand, kStad, kPostcode, kStraat, kStraatNummer),
 			kTelefoonNr
 		));
-		
+
 		return bedrijf;
 	}
-	
+
 	public BedrijfBuilder setNaam(String naam) {
 		checkNullAndEmpty("Bedrijfsnaam", naam);
 	    this.naam = naam;
@@ -130,7 +130,7 @@ public class BedrijfBuilder {
 	    this.betalingsMogelijkheden = betalingsMogelijkheden;
 	    return this;
 	}
-	
+
 	public BedrijfBuilder setRekeningnummer(String rekeningNummer) {
 		checkNullAndEmpty("Bedrijf rekeningnummer", rekeningNummer);
 	    this.rekeningNummer = rekeningNummer;
@@ -226,14 +226,14 @@ public class BedrijfBuilder {
 	    this.kStraatNummer = kStraatNummer;
 	    return this;
 	}
-	
+
 	public BedrijfBuilder setKTelefoonNr(String kTelefoonNr) {
 		checkNullAndEmpty("Klant telefoonNr", kTelefoonNr);
 		checkPhoneFormat(kTelefoonNr);
 	    this.kTelefoonNr = kTelefoonNr;
 	    return this;
 	}
-	
+
 	private void checkNullAndEmpty(String message, String value) {
 		if (value == null || value.isBlank())
 			throw new BuilderEmptyArgumentException(message);

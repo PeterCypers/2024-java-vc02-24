@@ -11,5 +11,4 @@ public class BuilderEmailException extends IllegalArgumentException {
 	public BuilderEmailException() {
 		super("Er ging iets mis in de builder");
 	}
-
 }

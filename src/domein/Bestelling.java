@@ -41,36 +41,36 @@ import javafx.collections.transformation.SortedList;
                          		+ " WHERE b.leverancier = :leverancier"),
     @NamedQuery(name = "Bestelling.vindNietBetaaldeBestellingen",
     				query = "SELECT b FROM Bestelling b WHERE b.betalingStatus = domein.BetalingsStatus.NIET_BETAALD")
-})      
+})
 public class Bestelling implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private int orderId;
-	
+
 	@ManyToMany(cascade=CascadeType.PERSIST)
 	private List<BesteldProduct> producten;
-	
+
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	private Klant klant;
-	
+
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Leverancier leverancier;
-	
+
 	private LocalDate datumGeplaatst;
-	
+
 	@Enumerated(EnumType.STRING)
 	private OrderStatus orderStatus;
-	
+
 	@Enumerated(EnumType.STRING)
 	private BetalingsStatus betalingStatus;
-	
+
 	//Voor tabelView
 	@Transient
 	private final SimpleIntegerProperty orderID = new SimpleIntegerProperty();
 	@Transient
-	private final SimpleObjectProperty<LocalDate> datum = new SimpleObjectProperty<LocalDate>();
+	private final SimpleObjectProperty<LocalDate> datum = new SimpleObjectProperty<>();
 	@Transient
 	private final SimpleStringProperty bedrijfsnaam = new SimpleStringProperty();
 	@Transient
@@ -79,17 +79,17 @@ public class Bestelling implements Serializable {
 	private final SimpleStringProperty betalingsstatus = new SimpleStringProperty();
 	@Transient
 	private final SimpleStringProperty orderbedrag = new SimpleStringProperty();
-	
+
     private LocalDate betalingsDatum;
     private LocalDate herinneringsDatum;
-	
-	
+
+
 	/** <code>entity class</code> JPA-required default constructor */
 	public Bestelling() {}
-	
+
 	/**
 	 * Constructs a new <strong>Bestelling</strong> with the specified details.
-	 * 
+	 *
 	 * @param orderId the id belonging to this order
 	 * @param datumGeplaats the <code>LocalDate</code> when this order was placed
 	 * @param orderStatus <code>enum</code> {@link domein.OrdersStatus} OrderStatus of this order
@@ -109,24 +109,19 @@ public class Bestelling implements Serializable {
 		setBetalingsDatum(betalingsDatum);
 		this.herinneringsDatum = betalingsDatum.minusDays(3);
 	}
-	
-	/**
-	 * This calculates the sum total cost of products for this Order
-	 * 
-	 * @return sum total cost of products
-	 */
-	public double berekenTotalBedrag() {
-		return producten.stream().mapToDouble(p -> p.getTotalePrijs()).sum();
-	}
+
 	public LocalDate getBetalingsDatum() {
         return betalingsDatum;
     }
+
 	public LocalDate getHerinneringsDatum() {
         return herinneringsDatum;
     }
+
 	public void setBetalingsDatum(LocalDate betalingsDatum) {
 	    this.betalingsDatum = betalingsDatum;
 	}
+
 	public void setHerinneringsDatum(LocalDate herinneringsDatum) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		String formattedDate = betalingsDatum.format(formatter);
@@ -135,10 +130,10 @@ public class Bestelling implements Serializable {
 	        throw new IllegalArgumentException(error);
 	    }else if(herinneringsDatum.isBefore(LocalDate.now()))
 	    	throw new IllegalArgumentException("Herinneringsdatum kan niet voor vandaag zijn");
-	    
+
 	    this.herinneringsDatum = herinneringsDatum;
 	}
-	
+
 
 	public String getBedrijfsnaam() {
 		return klant.getBedrijfsnaam();
@@ -155,7 +150,7 @@ public class Bestelling implements Serializable {
 	public BetalingsStatus getBetalingStatus() {
 		return betalingStatus;
 	}
-	
+
 	public Klant getKlant() {
 		return klant;
 	}
@@ -176,13 +171,13 @@ public class Bestelling implements Serializable {
 	public List<BesteldProduct> getProducten(){
 		return this.producten;
 	}
-	
+
 	private void setOrderId(int oId) {
 		if (oId <= 0)
 			throw new IllegalArgumentException("OrderId moet strikt positief zijn");
 		orderId = oId;
 	}
-	
+
 	public int getOrderId() {
 		return this.orderId;
 	}
@@ -190,7 +185,7 @@ public class Bestelling implements Serializable {
 	private void setDatumGeplaatst(LocalDate date) {
 		datumGeplaatst = date;
 	}
-	
+
 	public LocalDate getDatumGeplaatst() {
 		return this.datumGeplaatst;
 	}
@@ -200,7 +195,7 @@ public class Bestelling implements Serializable {
 			throw new IllegalArgumentException("Betalingsstatus is niet meegegeven");
 		betalingStatus = bStatus;
 	}
-	
+
 	public BetalingsStatus getBetalingsStatus() {
 		return this.betalingStatus;
 	}
@@ -208,32 +203,32 @@ public class Bestelling implements Serializable {
 	private void setOrderStatus(OrderStatus nieuweOrderStatus) {
 		if (nieuweOrderStatus == null)
 			throw new IllegalArgumentException("Orderstatus is niet meegegeven");
-		
+
 		orderStatus = nieuweOrderStatus;
 	}
-	
+
 	public Leverancier getLeverancier() {
 		return leverancier;
 	}
-	
+
 	public void setLeverancier(Leverancier leverancier) {
 		this.leverancier = leverancier;
 	}
-	
+
 	//tableView
 	/**
 	 * JavaFX property implementation
-	 * 
+	 *
 	 * @return {@link SimpleIntegerProperty} orderID -> the orderID of this order
 	 */
 	public IntegerProperty orderIdProperty() {
 		orderID.set(orderId);
 		return orderID;
 	}
-	
+
 	/**
 	 * JavaFX property implementation
-	 * 
+	 *
 	 * @return {@link SimpleObjectProperty} datum -> a simple object of the date <br>
 	 * this order was placed
 	 */
@@ -241,10 +236,10 @@ public class Bestelling implements Serializable {
 		datum.set(datumGeplaatst);
 		return datum;
 	}
-	
+
 	/**
 	 * JavaFX property implementation
-	 * 
+	 *
 	 * @return {@link SimpleStringProperty} klantnaam -> the customer name
 	 * to whom this order belongs
 	 */
@@ -252,12 +247,12 @@ public class Bestelling implements Serializable {
 		bedrijfsnaam.set(getBedrijfsnaam());
 		return bedrijfsnaam;
 	}
-	
+
 	/**
 	 * JavaFX property implementation
-	 * 
+	 *
 	 * @return {@link SimpleObjectProperty} orderstatus -> the status(enum) of this order<br>
-	 * 
+	 *
 	 * options:
 	 * <ul>
 	 * <li>OrderStatus.<strong>GELEVERD</strong>
@@ -270,10 +265,10 @@ public class Bestelling implements Serializable {
 		orderstatus.set(orderStatus.toString());
 		return orderstatus;
 	}
-	
+
 	/**
 	 * JavaFX property implementation
-	 * 
+	 *
 	 * @return {@link SimpleObjectProperty} betalingsstatus -> payment status(enum)<br>
 	 * of this order<br>
 	 * options:<br>
@@ -286,11 +281,11 @@ public class Bestelling implements Serializable {
 		betalingsstatus.set(betalingStatus.toString());
 		return betalingsstatus;
 	}
-	
+
 	/**
 	 * JavaFX property implementation
-	 * 
-	 * @return {@link SimpleDoubleProperty} orderbedrag -> the sum total cost 
+	 *
+	 * @return {@link SimpleDoubleProperty} orderbedrag -> the sum total cost
 	 * of the products in this order
 	 */
 	public StringProperty orderbedragProperty() {
@@ -298,10 +293,10 @@ public class Bestelling implements Serializable {
 		orderbedrag.set(df.format(berekenTotalBedrag()));
 		return orderbedrag;
 	}
-	
+
 	/**
 	 * JavaFX Collections implementation
-	 * 
+	 *
 	 * @return {@link ObservableList} of Product objects belonging to this order<br>
 	 *
 	 * used in gui.BestellingScherm
@@ -312,7 +307,7 @@ public class Bestelling implements Serializable {
 		SortedList<BesteldProduct> sortedProducten = new SortedList<>(filteredProducten);
 		return sortedProducten;
 	}
-	
+
 	public ObservableList<BesteldProduct> filter(String filterValue, String filterValue2){
 		ObservableList<BesteldProduct> filteredData = FXCollections.observableArrayList();
 		String lowerCaseValue1 = filterValue.toLowerCase();
@@ -320,13 +315,13 @@ public class Bestelling implements Serializable {
 
 	    for (BesteldProduct product : getObservableListProducten()) {
 
-	    	if((filterValue.isBlank() || product.toSearchString().contains(lowerCaseValue1)) && 
+	    	if((filterValue.isBlank() || product.toSearchString().contains(lowerCaseValue1)) &&
 	    			(filterValue2.isBlank() || product.toSearchString().contains(lowerCaseValue2)))
 	    		filteredData.add(product);
 	    }
 	    return filteredData;
 	}
-	
+
 	public void veranderOrderStatus(OrderStatus nieuweOrderStatus) {
 		// verwerk stock van producten als de producten het bedrijf verlaten, of als ze teruggebracht worden
 		if ((orderStatus == OrderStatus.GEREGISTREERD || orderStatus == OrderStatus.AAN_HET_VERWERKEN)
@@ -336,25 +331,35 @@ public class Bestelling implements Serializable {
 				&& (nieuweOrderStatus == OrderStatus.GEREGISTREERD || nieuweOrderStatus == OrderStatus.AAN_HET_VERWERKEN)) {
 			veranderProductenStock(false);
 		}
-		
+
 		setOrderStatus(nieuweOrderStatus);
 	}
-	
+
 	private void veranderProductenStock(boolean verlagen) {
 		producten.forEach(p -> {
 			int aantal = p.getAantal();
-			
+
 			if (verlagen)
 				aantal = -aantal;
-			
+
 			p.getProduct().bewerkStock(aantal);
 		});
 	}
-	
+
+	/**
+	 * This calculates the sum total cost of products for this Order
+	 *
+	 * @return sum total cost of products
+	 */
+	public double berekenTotalBedrag() {
+		return producten.stream().mapToDouble(p -> p.getTotalePrijs()).sum();
+	}
+
+	@Override
 	public String toString() {
 		return String.format("%d %s %.2f %s %s", orderId, datumGeplaatst.toString(), berekenTotalBedrag(), orderStatus, betalingStatus);
 	}
-	
+
 	public String toSearchString() {
 		return String.format("%s %s %s %s %s %s", orderId, datumGeplaatst.toString(), klant.getNaam(), orderStatus, betalingStatus, orderbedragProperty().getValue()).toLowerCase();
 	}

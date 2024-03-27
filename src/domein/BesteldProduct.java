@@ -19,17 +19,16 @@ import javafx.beans.property.StringProperty;
  */
 @Entity
 public class BesteldProduct {
-	
+
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int besteldProductId;
-	
+
 	@ManyToOne
 	Product product;
-	
+
 	int aantal;
-	
-	//Voor tableView
+
 	@Transient
 	private final SimpleStringProperty naamProduct = new SimpleStringProperty();
 	@Transient
@@ -40,13 +39,13 @@ public class BesteldProduct {
     private final SimpleStringProperty eenheidsprijsProduct = new SimpleStringProperty();
     @Transient
     private final SimpleStringProperty totaalPrijs = new SimpleStringProperty();
-	
+
     /** <code>entity class</code> JPA-required default constructor */
 	public BesteldProduct() {}
-	
+
 	/**
 	 * Constructs a new <strong>BesteldProduct</strong> with the specified details.
-	 * 
+	 *
 	 * @param product the product this ordered Product is based on
 	 * @param aantal amount ordered
 	 */
@@ -54,49 +53,49 @@ public class BesteldProduct {
 		this.product = product;
 		setAantal(aantal);
 	}
-	
+
 	public Product getProduct() {
 		return product;
 	}
-	
+
 	public int getAantal() {
 		return aantal;
 	}
-	
+
 	private void setAantal(int aantal) {
 		if (aantal < 0)
 			throw new IllegalArgumentException("Aantal van een product moet positief zijn");
 		this.aantal = aantal;
 	}
-	
+
 	public double getTotalePrijs(){
 		return aantal * product.getEenheidsprijs();
 	}
-	
+
 	//Voor tableView
 	/**
 	 * JavaFX property implementation
-	 * 
+	 *
 	 * @return {@link SimpleStringProperty} naamProduct -> the name of this product
 	 */
 	public StringProperty naamProperty() {
 		naamProduct.set(product.getNaam());
 		return naamProduct;
 	}
-	
+
 	/**
 	 * JavaFX property implementation
-	 * 
+	 *
 	 * @return {@link SimpleIntegerProperty} aantalProduct -> the amount this product that is ordered
 	 */
 	public IntegerProperty aantalProperty() {
 		aantalProduct.set(aantal);
 		return aantalProduct;
 	}
-	
+
 	/**
 	 * JavaFX property implementation
-	 * 
+	 *
 	 * @return {@link SimpleStringProperty} stockProduct -> returns either the amount of this product still in stock<br>
 	 * or a descriptor that it is needs to be ordered
 	 */
@@ -105,10 +104,10 @@ public class BesteldProduct {
 		stockProduct.set(stockString);
 		return stockProduct;
 	}
-	
+
 	/**
 	 * JavaFX property implementation
-	 * 
+	 *
 	 * @return {@link SimpleStringProperty} eenheidsprijsProduct -> the unit price of this Product<br>
 	 * displaying the specified {@link DecimalFormat} (\u20AC)
 	 */
@@ -120,7 +119,7 @@ public class BesteldProduct {
 
 	/**
 	 * JavaFX property implementation
-	 * 
+	 *
 	 * @return {@link SimpleStringProperty} totaalPrijs -> the calculated total price of this Ordered Product<br>
 	 * based on the amount of Products in this O.P. and the unit price of the Product<br>
 	 * displaying the specified {@link DecimalFormat} (\u20AC)
@@ -130,7 +129,7 @@ public class BesteldProduct {
     	 totaalPrijs.set(df.format(getTotalePrijs()));
         return totaalPrijs;
     }
-	
+
 	public String toSearchString() {
 		return String.format("%s %s %s %s %s", product.getNaam(), aantal, stockProperty().getValue(), product.getEenheidsprijs(), getTotalePrijs()).toLowerCase();
 	}

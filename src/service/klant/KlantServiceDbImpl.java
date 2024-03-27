@@ -6,10 +6,10 @@ import domein.gebruiker.Gebruiker;
 import domein.gebruiker.Klant;
 
 public class KlantServiceDbImpl implements KlantService {
+	
 	private KlantDaoJpa klantDao;
 	
 	public KlantServiceDbImpl() {
-		// klantDao = new KlantDaoJpa();
 		setKlantDaoJpa(new KlantDaoJpa());
 	}
 	
@@ -22,4 +22,3 @@ public class KlantServiceDbImpl implements KlantService {
 		return klantDao.vindPerLeverancier(leverancier);
 	}
 }
- 

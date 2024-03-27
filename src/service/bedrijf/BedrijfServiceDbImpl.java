@@ -1,6 +1,7 @@
 package service.bedrijf;
 
 import java.util.List;
+
 import domein.Bedrijf;
 import service.GenericDaoJpa;
 
@@ -40,5 +41,4 @@ public class BedrijfServiceDbImpl implements BedrijfService {
 			GenericDaoJpa.rollbackTransaction();
 		}
 	}
-
 }

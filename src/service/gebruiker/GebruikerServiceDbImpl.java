@@ -1,7 +1,6 @@
 package service.gebruiker;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import domein.gebruiker.Gebruiker;
 import domein.gebruiker.Rol;
@@ -13,7 +12,6 @@ public class GebruikerServiceDbImpl implements GebruikerService {
 	private GebruikerDaoJpa gebruikerDao;
 	
 	public GebruikerServiceDbImpl() {
-		//gebruikerDao = new GebruikerDaoJpa();
 		setGebruikerDaoJpa(new GebruikerDaoJpa());
 	}
 	
@@ -50,5 +48,4 @@ public class GebruikerServiceDbImpl implements GebruikerService {
 			GenericDaoJpa.rollbackTransaction();
 		}
 	}
-
 }

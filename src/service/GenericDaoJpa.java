@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -10,7 +11,7 @@ public class GenericDaoJpa<T> implements GenericDao<T> {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory(PU_NAME);
     protected static final EntityManager em = emf.createEntityManager();
     private final Class<T> type;
-    
+
     public GenericDaoJpa(Class<T> type) {
         this.type = type;
     }
@@ -59,6 +60,5 @@ public class GenericDaoJpa<T> implements GenericDao<T> {
     public <U> boolean exists(U id) {
         T entity = em.find(type, id);
         return entity != null;
-    } 
-    
+    }
 }
