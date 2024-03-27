@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
 public class BetaalmethodScherm extends BorderPane{
+	
 	@FXML
     private CheckBox cbBancontact;
 

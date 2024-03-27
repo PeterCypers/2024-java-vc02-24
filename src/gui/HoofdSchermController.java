@@ -43,7 +43,6 @@ public class HoofdSchermController extends BorderPane{
     @FXML
     private MenuItem miLogout;
     
-    
     @FXML
     void logoutAction(ActionEvent event) {
         AanmeldController ac = new AanmeldController(); 

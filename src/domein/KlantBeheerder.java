@@ -81,7 +81,7 @@ public class KlantBeheerder {
 
 			//filter text
 			String lowerCaseValue = filterValue.toLowerCase();
-			return klant.getNaam().toLowerCase().equals(lowerCaseValue)
+			return klant.getBedrijfsnaam().toLowerCase().contains(lowerCaseValue)
 					|| Integer.toString(klant.getAantalOpenstaandeBestellingen(GebruikerHolder.getInstance())).equals(filterValue);
 		});
 	}

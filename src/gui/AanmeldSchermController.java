@@ -97,7 +97,7 @@ public class AanmeldSchermController extends Pane {
     private void toonVolgendScherm() {
     	switch (GebruikerHolder.getInstance().getRol()) {		
 	    	case LEVERANCIER -> {
-	    		HoofdSchermController hoofdScherm = new HoofdSchermController(); //veranderd als bc gebruiker bij houd
+	    		HoofdSchermController hoofdScherm = new HoofdSchermController();
 	    		Stage stage = (Stage) this.getScene().getWindow();
 	    		stage.setResizable(true);
 	    		stage.setScene(new Scene(hoofdScherm));

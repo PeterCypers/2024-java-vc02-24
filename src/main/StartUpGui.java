@@ -14,7 +14,6 @@ public class StartUpGui extends Application {
 		try {
 			AanmeldController ac = new AanmeldController();
 			
-			/*NEW*/
 			BetalingController bc = new BetalingController();
 			
 			Scene scene = new Scene(new AanmeldSchermController(ac));
@@ -22,7 +21,7 @@ public class StartUpGui extends Application {
 			primaryStage.setTitle("B2B Portal");
 			primaryStage.setResizable(false);
 			primaryStage.show();
-			/*NEW*/
+
 			System.out.println("Verwerken betalingen (StartUpGUI)");
 			bc.verwerkBetalingen();
 			

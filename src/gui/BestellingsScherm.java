@@ -1,8 +1,7 @@
 package gui;
+
 import java.io.IOException;
 import java.time.LocalDate;
-
-import javax.swing.text.DateFormatter;
 
 import domein.BesteldProduct;
 import domein.Bestelling;
@@ -14,13 +13,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
@@ -124,6 +123,7 @@ public class BestellingsScherm {
 
     @FXML
     private TextField txfFilterBestelling;
+    
     @FXML
     private TextField txfBetaalDatum;
 
@@ -131,7 +131,7 @@ public class BestellingsScherm {
     void filterBestelling(ActionEvent event) {
     	bc.getFilterdList(dpFilterBestelling.getValue(), cbFilterBestellingen.getValue(),
     			cbFilterBestelling2.getValue(), txfFilterBestelling.getText(), null);
-    	toonBestelling(false);	//bij het zoeken dat alleen bestellingen getoont worden
+    	toonBestelling(false);
     	//nodig om alle bestellingen te zien
     	dpFilterBestelling.setValue(null);
     	cbFilterBestellingen.setValue(OrderStatus.filter);
@@ -160,6 +160,7 @@ public class BestellingsScherm {
     private void initializeStatusChoiceBoxes() {
         choiceboxOrderStatus.getItems().setAll(OrderStatus.AAN_HET_VERWERKEN, OrderStatus.GELEVERD, OrderStatus.GEREGISTREERD, OrderStatus.ONDERWEG);
         choiceboxBestellingsStatus.getItems().setAll(BetalingsStatus.BETAALD, BetalingsStatus.NIET_BETAALD);
+        
         //filters
         cbFilterBestellingen.getItems().setAll(OrderStatus.values());
         cbFilterBestelling2.getItems().setAll(BetalingsStatus.values());
@@ -300,6 +301,7 @@ public class BestellingsScherm {
         tbvOverzichtBestellingen.refresh();
         
     }
+	
 	private void handleHerinneringsDatumWijziging(LocalDate nieuweDatum) {
 	    Bestelling geselecteerdeBestelling = tbvOverzichtBestellingen.getSelectionModel().getSelectedItem();
 	    
@@ -323,11 +325,7 @@ public class BestellingsScherm {
 	        alert.showAndWait();
 	    }
 	}
-	    
-	
-	
-	
-    
+
 	public Node geefNode() {
 	    return node;
 	}

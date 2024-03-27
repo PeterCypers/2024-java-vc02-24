@@ -31,7 +31,6 @@ public class GenericDaoJpa<T> implements GenericDao<T> {
 
     @Override
     public List<T> findAll() {
-        //return em.createNamedQuery(type.getName()+".findAll", type).getResultList();
         return em.createQuery("select entity from " + type.getName() + " entity", type).getResultList();
     }
 

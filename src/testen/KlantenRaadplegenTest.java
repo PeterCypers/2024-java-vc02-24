@@ -1,6 +1,5 @@
 package testen;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,12 +12,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import domein.Adres;
-import domein.BesteldProduct;
-import domein.Bestelling;
-import domein.BetalingsStatus;
-import domein.LeverMethode;
-import domein.OrderStatus;
-import domein.Product;
 import domein.gebruiker.Klant;
 import domein.gebruiker.Leverancier;
 import service.klant.KlantDaoJpa;

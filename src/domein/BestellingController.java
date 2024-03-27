@@ -4,8 +4,6 @@ import java.time.LocalDate;
 
 import domein.gebruiker.Klant;
 import javafx.collections.ObservableList;
-import service.bestelling.BestellingService;
-import service.bestelling.BestellingServiceDbImpl;
 
 public class BestellingController {
 
