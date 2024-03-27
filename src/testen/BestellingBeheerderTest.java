@@ -56,14 +56,14 @@ public class BestellingBeheerderTest {
      */
 	static Stream<Arguments> filterCombinaties() {
 		return Stream.of(
-			Arguments.of(null, null, null, null, null, 2), //no-filter -> 2
-			Arguments.of(LocalDate.now().minusMonths(3), null, null, null, null, 1), //date -> 1
-			Arguments.of(LocalDate.now().minusMonths(5), null, null, null, null, 0), //date -> 0
-			Arguments.of(null, OrderStatus.GELEVERD, null, null, null, 1), //OrderStatus
-			Arguments.of(null, OrderStatus.GEREGISTREERD, null, null, null, 1),
-			Arguments.of(null, OrderStatus.ONDERWEG, null, null, null, 0),
-			Arguments.of(null, null, BetalingsStatus.BETAALD, null, null, 2), //BetalingsStatus
-			Arguments.of(null, null, BetalingsStatus.NIET_BETAALD, null, null, 0),
+			Arguments.of(null, OrderStatus.filter, BetalingsStatus.filter, null, null, 2), //no-filter -> 2
+			Arguments.of(LocalDate.now().minusMonths(3), OrderStatus.filter, BetalingsStatus.filter, null, null, 1), //date -> 1
+			Arguments.of(LocalDate.now().minusMonths(5), OrderStatus.filter, BetalingsStatus.filter, null, null, 0), //date -> 0
+			Arguments.of(null, OrderStatus.GELEVERD, BetalingsStatus.filter, null, null, 1), //OrderStatus
+			Arguments.of(null, OrderStatus.GEREGISTREERD, BetalingsStatus.filter, null, null, 1),
+			Arguments.of(null, OrderStatus.ONDERWEG, BetalingsStatus.filter, null, null, 0),
+			Arguments.of(null, OrderStatus.filter, BetalingsStatus.BETAALD, null, null, 2), //BetalingsStatus
+			Arguments.of(null, OrderStatus.filter, BetalingsStatus.NIET_BETAALD, null, null, 0),
 			Arguments.of(null, OrderStatus.GELEVERD, BetalingsStatus.BETAALD, null, null, 1), //combi OrderStatus + BetalingsStatus
 			Arguments.of(null, OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, null, null, 1),
 			Arguments.of(null, OrderStatus.GELEVERD, BetalingsStatus.NIET_BETAALD, null, null, 0),

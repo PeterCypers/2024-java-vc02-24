@@ -176,14 +176,12 @@ public class BestellingsScherm {
     }
 
     private BestellingController bc;
-    private HoofdSchermController hoofdScherm;
     private int index;
     private boolean isOrderVeranderen; // flag om bij te houden of de gebruiker hier wel een bestelling aanpast, 
     							       // en niet gewoon het systeem die een andere bestelling toont in de combobox
     private Node node;
 
-	public BestellingsScherm(HoofdSchermController hoofdScherm) {
-		this.hoofdScherm = hoofdScherm;
+	public BestellingsScherm() {
 		bc = new BestellingController();
 		buildGui();
 	}

@@ -1,6 +1,7 @@
 package gui;
 
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 
 import domein.Bestelling;
@@ -145,15 +146,13 @@ public class KlantenScherm {
         cbFilterOrderStatus.setValue(OrderStatus.filter);
     }
 	
-	private HoofdSchermController hoofdScherm;
 	private Node node;
 	private KlantController kc;
 	private BestellingController bc;
 	private int klantIndex;
 	
-	public KlantenScherm(HoofdSchermController hoofdScherm) {
-		this.hoofdScherm = hoofdScherm;
-		kc  = new KlantController();
+	public KlantenScherm() {
+		kc = new KlantController();
 		bc = new BestellingController();
 		buildGui();
 	}
@@ -187,15 +186,8 @@ public class KlantenScherm {
 		tbvOverzichtKlanten.setItems(kc.getKlanten());
 	}
 	
-	public final void setPlaceholder(Node value) {
-		
-	}
-	
 	private void toonDetailsKlant(int index) {
-		new Thread(() -> {
-			imgvLogo.setImage(new Image(kc.getKlanten().get(index).getLogo()));
-		}).start();
-		
+		toonLogo(index);
 		txfNaam.setText(kc.getKlanten().get(index).getBedrijfsnaam());
 		txfAdresLijn1.setText(kc.getKlanten().get(index).getAdres().toStringLijn1());
 		txfAdresLijn2.setText(kc.getKlanten().get(index).getAdres().toStringLijn2());
@@ -205,6 +197,18 @@ public class KlantenScherm {
 		tableViewBestellingen(index);
 		
 		toonDetails(true);
+	}
+	
+	private void toonLogo(int index) {
+		// laad spinner
+		URL imageUrl = this.getClass().getResource("/images/loading_spinner.gif");
+		Image image = new Image(imageUrl.toExternalForm());
+		imgvLogo.setImage(image);
+        
+		// laad image van bedrijf async
+		new Thread(() -> {
+			imgvLogo.setImage(new Image(kc.getKlanten().get(index).getLogo())); 
+		}).start();
 	}
 	
 	private void tableViewBestellingen(int index) {

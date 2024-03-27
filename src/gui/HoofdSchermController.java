@@ -65,7 +65,7 @@ public class HoofdSchermController extends BorderPane{
     	btnBetaalmethodes.getStyleClass().clear();
     	btnOverzichtBestellingen.getStyleClass().add("button-selected");
     	vbox.getChildren().clear();
-    	BestellingsScherm controller = new BestellingsScherm(this);
+    	BestellingsScherm controller = new BestellingsScherm();
     	vbox.getChildren().add(controller.geefNode());
     }
 
@@ -75,7 +75,7 @@ public class HoofdSchermController extends BorderPane{
     	btnBetaalmethodes.getStyleClass().clear();
     	btnOverzichtKlanten.getStyleClass().add("button-selected");
     	vbox.getChildren().clear();
-    	KlantenScherm controller = new KlantenScherm(this);
+    	KlantenScherm controller = new KlantenScherm();
     	vbox.getChildren().add(controller.geefNode());
     }
     
@@ -85,7 +85,7 @@ public class HoofdSchermController extends BorderPane{
     	btnOverzichtKlanten.getStyleClass().clear();
     	btnBetaalmethodes.getStyleClass().add("button-selected");
     	vbox.getChildren().clear();
-    	BetaalmethodScherm controller = new BetaalmethodScherm(this);
+    	BetaalmethodScherm controller = new BetaalmethodScherm();
     	vbox.getChildren().add(controller.geefNode());
     }
     

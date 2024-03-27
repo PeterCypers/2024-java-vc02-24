@@ -1,7 +1,11 @@
 package gui;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Optional;
+
+import javax.imageio.ImageIO;
 
 import domein.Bedrijf;
 import domein.BedrijfController;
@@ -207,11 +211,7 @@ public class BedrijvenScherm {
 	}
 	
 	private void toonDetailsBedrijf(int index) {
-		// image laden async
-		new Thread(() -> { 
-			imvLogo.setImage(new Image(bc.getBedrijven().get(index).getLogo())); 
-		}).start();
-		
+        toonLogo(index);
 		txfNaam.setText(bc.getBedrijven().get(index).getNaam());
 		txfSector.setText(bc.getBedrijven().get(index).getSector());
 		txfAdresLijn1.setText(bc.getBedrijven().get(index).getAdres().toStringLijn1());
@@ -225,6 +225,18 @@ public class BedrijvenScherm {
 		tableViewAccounts(index);
 		
 		toonBedrijf(true);
+	}
+	
+	private void toonLogo(int index) {
+		// laad spinner
+		URL imageUrl = this.getClass().getResource("/images/loading_spinner.gif");
+		Image image = new Image(imageUrl.toExternalForm());
+		imvLogo.setImage(image);
+        
+		// laad image van bedrijf async
+		new Thread(() -> { 
+			imvLogo.setImage(new Image(bc.getBedrijven().get(index).getLogo())); 
+		}).start();
 	}
 	
 	private void tableViewAccounts(int index) {
