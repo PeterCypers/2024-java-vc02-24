@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="630.0" minWidth="1054.0" style="-fx-background-color: F0EFEF; -fx-background-image: url=(@../images/backgroundLeveransier.png)" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane minHeight="630.0" minWidth="1060.0" style="-fx-background-color: F0EFEF; -fx-background-image: url=(@../images/backgroundLeveransier.png)" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <Label text="Klanten raadplegen" BorderPane.alignment="CENTER_LEFT">
          <font>
@@ -29,9 +29,9 @@
       </Label>
    </top>
    <center>
-      <VBox minHeight="600.0" minWidth="1054.0" spacing="5.0" styleClass="background-Leverancier" stylesheets="@../images/style.css" BorderPane.alignment="CENTER">
+      <VBox minHeight="600.0" minWidth="1060.0" spacing="5.0" styleClass="background-Leverancier" stylesheets="@../images/style.css" BorderPane.alignment="CENTER">
          <children>
-            <GridPane hgap="10.0" minHeight="600.0" minWidth="1054.0" vgap="5.0">
+            <GridPane hgap="10.0" minHeight="600.0" minWidth="1060.0" vgap="5.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" />
@@ -61,7 +61,7 @@
                   <GridPane fx:id="gpDetailsKlant" style="-fx-border-color: AAA9A9;" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="108.0" prefWidth="110.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="166.0" prefWidth="168.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="166.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="30.0" minHeight="25.0" prefHeight="28.0" vgrow="SOMETIMES" />

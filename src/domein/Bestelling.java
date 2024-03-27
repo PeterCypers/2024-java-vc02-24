@@ -107,7 +107,7 @@ public class Bestelling implements Serializable {
 		setLeverancier(leverancier);
 		setProducten(producten);
 		setBetalingsDatum(betalingsDatum);
-		setHerinneringsDatum(betalingsDatum);
+		setHerinneringsDatum(herinneringsdatum);
 		setBetalingsDatum(betalingsDatum);
 		this.herinneringsDatum = betalingsDatum.minusDays(3);
 	}
