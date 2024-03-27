@@ -21,33 +21,30 @@ import service.klant.KlantServiceDbImpl;
  * </ul>
  */
 public class KlantBeheerder {
-	private ObservableList<Klant> klanten;
+
 	private FilteredList<Klant> filteredKlanten;
 	private SortedList<Klant> sortedKlanten;
-	
+
 	/** connection to the service layer */
 	private KlantService klantService;
-	
-	//sort op String naam (er is ook een SimpleStringProperty naamKlant)
+
 	private final Comparator<Klant> opNaam = (k1, k2)
 			-> k1.getNaam().compareToIgnoreCase(k2.getNaam());
 
-	//TODO extra sorteringen -> zie BestellingBeheerder
-	
 	/**
 	 * Extra constructor for Mockito-injection
-	 * 
+	 *
 	 * @param leverancier Singleton logged-in user
 	 * @param ks a new KlantServiceDbImpl from default constructor<br>
 	 * facilitates Mockito-injection for testing
 	 */
 	public KlantBeheerder(Gebruiker leverancier, KlantService ks) {
-		klantService = ks;
-		klanten = FXCollections.observableArrayList(klantService.getKlanten(leverancier));
+		this.klantService = ks;
+		ObservableList<Klant> klanten = FXCollections.observableArrayList(klantService.getKlanten(leverancier));
 		filteredKlanten = new FilteredList<>(klanten, k -> true);
 		sortedKlanten = new SortedList<>(filteredKlanten, opNaam);
 	}
-	
+
 	/**
 	 * Constructs a new <strong>KlantBeheerder</strong><br>
 	 * to manage customers.
@@ -57,22 +54,22 @@ public class KlantBeheerder {
 	 * </ul><br>
 	 */
 	public KlantBeheerder() {
-		this(GebruikerHolder.getInstance(), new KlantServiceDbImpl());		
+		this(GebruikerHolder.getInstance(), new KlantServiceDbImpl());
 	}
-	
+
 	/**
 	 * This returns the sorted list of customers sorted by the Comparators.
-	 * 
+	 *
 	 * @return {@link ObservableList} of sorted customers
 	 */
 	public ObservableList<Klant> getKlanten() {
 		return sortedKlanten;
 	}
-	
+
 	/**
 	 * This sets the predicate on which the {@link FilteredList}<br>
 	 * <code>filteredKlanten</code> will be filtered.
-	 * 
+	 *
 	 * @param filterValue String determining the new predicate on which to filter
 	 */
 	public void changeFilter(String filterValue) {
@@ -81,13 +78,11 @@ public class KlantBeheerder {
 			if (filterValue == null || filterValue.isBlank()) {
 				return true;
 			}
-			
+
 			//filter text
 			String lowerCaseValue = filterValue.toLowerCase();
-			return klant.getNaam().toLowerCase().equals(lowerCaseValue) 
+			return klant.getNaam().toLowerCase().equals(lowerCaseValue)
 					|| Integer.toString(klant.getAantalOpenstaandeBestellingen(GebruikerHolder.getInstance())).equals(filterValue);
-			
 		});
 	}
-	
 }

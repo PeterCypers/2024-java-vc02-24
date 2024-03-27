@@ -22,5 +22,4 @@ public class BedrijfDaoJpa extends GenericDaoJpa<Bedrijf> implements BedrijfDao 
 			throw new EntityNotFoundException();
 		}
 	}
-
 }

@@ -1,7 +1,6 @@
 package service.gebruiker;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import domein.gebruiker.Gebruiker;
 import jakarta.persistence.EntityNotFoundException;

@@ -18,20 +18,19 @@ import service.bedrijf.BedrijfServiceDbImpl;
  * </ul>
  */
 public class BedrijfBeheerder {
-	
-	private ObservableList<Bedrijf> bedrijven;
-	private FilteredList<Bedrijf> filteredBedrijven;
-	private SortedList<Bedrijf> sortedBedrijven;
-	
+
 	/** connection to the service layer */
 	private BedrijfService bedrijfService;
-	
-	private final Comparator<Bedrijf> bijNaam = (b1, b2) 
+
+	private FilteredList<Bedrijf> filteredBedrijven;
+	private SortedList<Bedrijf> sortedBedrijven;
+
+	private final Comparator<Bedrijf> bijNaam = (b1, b2)
 			-> b1.getNaamProp().toString().compareToIgnoreCase(b2.getNaamProp().toString());
 	private final Comparator<Bedrijf> bijSector = (b1, b2)
 			-> b1.getSectorProp().toString().compareToIgnoreCase(b2.getSectorProp().toString());
 	private final Comparator<Bedrijf> sortOrder = bijNaam.thenComparing(bijSector);
-	
+
 	/**
 	 * Constructs a new <strong>BedrijfBeheerder</strong><br>
 	 * to manage companies.
@@ -44,16 +43,16 @@ public class BedrijfBeheerder {
 		this.bedrijfService = new BedrijfServiceDbImpl();
 		haalBedrijvenOp();
 	}
-	
+
 	private void haalBedrijvenOp() {
-		this.bedrijven = FXCollections.observableArrayList(bedrijfService.getBedrijven());
-		this.filteredBedrijven = new FilteredList<>(this.bedrijven, b -> true);
-		this.sortedBedrijven = new SortedList<Bedrijf>(filteredBedrijven, sortOrder);
+		ObservableList<Bedrijf> bedrijven = FXCollections.observableArrayList(bedrijfService.getBedrijven());
+		this.filteredBedrijven = new FilteredList<>(bedrijven, b -> true);
+		this.sortedBedrijven = new SortedList<>(filteredBedrijven, sortOrder);
 	}
-	
+
 	/**
 	 * This returns the sorted list of companies sorted by the Comparators.
-	 * 
+	 *
 	 * @return {@link ObservableList} of sorted companies
 	 */
 	public ObservableList<Bedrijf> getBedrijven() {
@@ -62,33 +61,32 @@ public class BedrijfBeheerder {
     /**
 	 * This sets the predicate on which the {@link FilteredList}<br>
 	 * <code>filteredBedrijven</code> will be filtered.
-	 * 
+	 *
 	 * @param filterValue String determining the new predicate on which to filter
 	 */
 	public void changeFilter(String filterValue, String filterValue2) {
-		filteredBedrijven.setPredicate(bedrijf -> 
+		filteredBedrijven.setPredicate(bedrijf ->
 	        (filterValue.isBlank() || bedrijf.getAsSearchString().contains(filterValue.toLowerCase())) &&
 	        (filterValue2.isBlank() || bedrijf.getAsSearchString().contains(filterValue2.toLowerCase()))
 	    );
-	
 	}
-	
+
 	/**
 	 * A user with Rol.ADMINISTRATOR can set a company as inactive
-	 * 
+	 *
 	 * @param bedrijf The company to set as inactive
 	 */
 	public void deactiveerBedrijf(Bedrijf bedrijf) {
 		bedrijf.setIsActief(false);
 		bedrijf.getKlant().setIsActief(false);
 		bedrijf.getLeverancier().setIsActief(false);
-		
+
 		this.bedrijfService.updateBedrijf(bedrijf);
 	}
 
 	/**
 	 * A user with Rol.ADMIN can add a company
-	 * 
+	 *
 	 * @param bedrijf The company to add <br>
 	 * calls <code>haalBedrijvenOp</code> -> updates GUI with added company
 	 */
@@ -100,5 +98,4 @@ public class BedrijfBeheerder {
 	public void updateBedrijf(Bedrijf bedrijf) {
 		bedrijfService.updateBedrijf(bedrijf);
 	}
-
 }
