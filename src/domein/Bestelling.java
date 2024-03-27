@@ -3,6 +3,7 @@ package domein;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import domein.gebruiker.Klant;
@@ -79,6 +80,10 @@ public class Bestelling implements Serializable {
 	@Transient
 	private final SimpleStringProperty orderbedrag = new SimpleStringProperty();
 	
+    private LocalDate betalingsDatum;
+    private LocalDate herinneringsDatum;
+	
+	
 	/** <code>entity class</code> JPA-required default constructor */
 	public Bestelling() {}
 	
@@ -93,7 +98,7 @@ public class Bestelling implements Serializable {
 	 * @param klant customer to which this order belongs
 	 * @param producten a <code>list</code> of products in this order
 	 */
-	public Bestelling(int orderId, LocalDate datumGeplaatst, OrderStatus orderStatus, BetalingsStatus betalingStatus, Klant klant, Leverancier leverancier, List<BesteldProduct> producten) {
+	public Bestelling(int orderId, LocalDate datumGeplaatst, OrderStatus orderStatus, BetalingsStatus betalingStatus, Klant klant, Leverancier leverancier, List<BesteldProduct> producten,LocalDate betalingsDatum,LocalDate herinneringsdatum) {
 		setOrderId(orderId);
 		setDatumGeplaatst(datumGeplaatst);
 		setOrderStatus(orderStatus);
@@ -101,6 +106,10 @@ public class Bestelling implements Serializable {
 		setKlant(klant);
 		setLeverancier(leverancier);
 		setProducten(producten);
+		setBetalingsDatum(betalingsDatum);
+		setHerinneringsDatum(betalingsDatum);
+		setBetalingsDatum(betalingsDatum);
+		this.herinneringsDatum = betalingsDatum.minusDays(3);
 	}
 	
 	/**
@@ -111,6 +120,28 @@ public class Bestelling implements Serializable {
 	public double berekenTotalBedrag() {
 		return producten.stream().mapToDouble(p -> p.getTotalePrijs()).sum();
 	}
+	public LocalDate getBetalingsDatum() {
+        return betalingsDatum;
+    }
+	public LocalDate getHerinneringsDatum() {
+        return herinneringsDatum;
+    }
+	public void setBetalingsDatum(LocalDate betalingsDatum) {
+	    this.betalingsDatum = betalingsDatum;
+	    
+	}
+	public void setHerinneringsDatum(LocalDate herinneringsDatum) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		String formattedDate = betalingsDatum.format(formatter);
+	    if (herinneringsDatum.isAfter(this.betalingsDatum)) {
+	    	String error = String.format("Herinneringsdatum moet voor de betalingsdatum zijn (%s)", formattedDate);
+	        throw new IllegalArgumentException(error);
+	    }else if(herinneringsDatum.isBefore(LocalDate.now()))
+	    	throw new IllegalArgumentException("Herinneringsdatum kan niet voor vandaag zijn");
+	    
+	    this.herinneringsDatum = herinneringsDatum;
+	}
+	
 
 	public String getBedrijfsnaam() {
 		return klant.getBedrijfsnaam();
