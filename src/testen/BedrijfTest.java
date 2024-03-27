@@ -95,19 +95,19 @@ public class BedrijfTest {
 	}
 	
 	@Test
-	void testAddBetaalMethodes_duplicateMethode_doesNothing() {
+	void addBetaalMethodes_duplicateMethode_doesNothing() {
 		bedrijf.addBetaalmethodes(Betaalmethode.APPLE_PAY);
 		bedrijf.addBetaalmethodes(Betaalmethode.APPLE_PAY);
 		assertEquals(1, bedrijf.getBetaalmethodes().size());
 	}
 	
 	@Test
-	void testAddBetaalMethodes_null_throwsException() {
+	void addBetaalMethodes_null_throwsException() {
 		assertThrows(IllegalArgumentException.class, () -> bedrijf.addBetaalmethodes(null));
 	}
 	
 	@Test
-	void testAddBetaalMethodes_betaalMethodesAdded() {
+	void addBetaalMethodes_betaalMethodesAdded() {
 		bedrijf.addBetaalmethodes(Betaalmethode.values()[0]);
 		bedrijf.addBetaalmethodes(Betaalmethode.values()[1]);
 		bedrijf.addBetaalmethodes(Betaalmethode.values()[2]);

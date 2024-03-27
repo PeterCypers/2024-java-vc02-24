@@ -17,7 +17,6 @@ class BesteldProductTest {
 	
 	private BesteldProduct bp;
 	private static final Product geldigProduct = new Product("soep", 200, 1.5, LeverMethode.STOCK);
-	//String naam, int stock, double eenheidsprijs, LeverMethode leverMethode
 	
 	static Stream<Arguments> geldigeData() {
 		return Stream.of(
@@ -31,13 +30,7 @@ class BesteldProductTest {
 	void maakBesteldProduct_ongeldigAantal_throwsException() {
 		assertThrows(IllegalArgumentException.class, () -> bp = new BesteldProduct(geldigProduct, -1));
 	}
-	
-	//mag het product null zijn?
-//	@Test
-//	void maakBesteldProduct_nullProduct_throwsException() {
-//		assertThrows(IllegalArgumentException.class, () -> bp = new BesteldProduct(null, 100));
-//	}
-	
+		
 	@ParameterizedTest
 	@MethodSource("geldigeData")
 	void maakBesteldProduct_geldigeWaarden(Product geldigProduct, int aantalInOrder, double nvt, String naam) {
