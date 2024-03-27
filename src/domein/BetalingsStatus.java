@@ -1,7 +1,7 @@
 package domein;
 
 public enum BetalingsStatus {
-	NIET_BETAALD, BETAALD;
+	NIET_BETAALD, BETAALD, filter;
 	
 	public String toString() {
 		switch (this) {

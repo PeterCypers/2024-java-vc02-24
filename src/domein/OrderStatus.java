@@ -4,7 +4,8 @@ public enum OrderStatus {
 	GELEVERD,
 	ONDERWEG,
 	AAN_HET_VERWERKEN,
-	GEREGISTREERD;
+	GEREGISTREERD,
+	filter;
 	
 	public String toString() {
 		switch (this) {
