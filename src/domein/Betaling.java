@@ -35,4 +35,8 @@ public class Betaling implements Serializable {
 	public void setIsAfgehandeld(boolean isAfgehandeld) {
 		this.isAfgehandeld = isAfgehandeld;
 	}
+	
+	public int getOrderId() {
+		return this.orderId;
+	}
 }
