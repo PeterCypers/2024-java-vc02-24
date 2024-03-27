@@ -202,7 +202,7 @@ public class BestellingsScherm {
 	private void tableView() {
 		tbcOrderId.setCellValueFactory(cellData -> cellData.getValue().orderIdProperty());
         tbcDatum.setCellValueFactory(cellData -> cellData.getValue().datumProperty());
-        tbcKlant.setCellValueFactory(cellData -> cellData.getValue().klantNaamProperty());
+        tbcKlant.setCellValueFactory(cellData -> cellData.getValue().bedrijfsnaamProperty());
         tcbOrderstatus.setCellValueFactory(cellData -> cellData.getValue().orderstatusProperty());
         tbcBetalingsstatus.setCellValueFactory(cellData -> cellData.getValue().betalingsstatusProperty());
         
@@ -215,7 +215,7 @@ public class BestellingsScherm {
 		
 		isOrderVeranderen = true;
 		
-		txfNaam.setText(bc.getBestellingen().get(index).getKlantName());
+		txfNaam.setText(bc.getBestellingen().get(index).getBedrijfsnaam());
 		txfEmail.setText(bc.getBestellingen().get(index).getKlant().getEmail());
 		txfTelefoon.setText(bc.getBestellingen().get(index).getKlant().getTelefoonnummer());
 		txfOrderID.setText(String.format("%d", bc.getBestellingen().get(index).getOrderId()));

@@ -71,7 +71,7 @@ public class Bestelling implements Serializable {
 	@Transient
 	private final SimpleObjectProperty<LocalDate> datum = new SimpleObjectProperty<LocalDate>();
 	@Transient
-	private final SimpleStringProperty klantnaam = new SimpleStringProperty();
+	private final SimpleStringProperty bedrijfsnaam = new SimpleStringProperty();
 	@Transient
 	private final SimpleStringProperty orderstatus = new SimpleStringProperty();
 	@Transient
@@ -112,8 +112,8 @@ public class Bestelling implements Serializable {
 		return producten.stream().mapToDouble(p -> p.getTotalePrijs()).sum();
 	}
 
-	public String getKlantName() {
-		return klant.getNaam();
+	public String getBedrijfsnaam() {
+		return klant.getBedrijfsnaam();
 	}
 
 	public LocalDate getDatumGeplaats() {
@@ -220,9 +220,9 @@ public class Bestelling implements Serializable {
 	 * @return {@link SimpleStringProperty} klantnaam -> the customer name
 	 * to whom this order belongs
 	 */
-	public StringProperty klantNaamProperty() {
-		klantnaam.set(klant.getNaam());
-		return klantnaam;
+	public StringProperty bedrijfsnaamProperty() {
+		bedrijfsnaam.set(getBedrijfsnaam());
+		return bedrijfsnaam;
 	}
 	
 	/**

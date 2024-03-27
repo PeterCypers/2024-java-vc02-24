@@ -91,7 +91,7 @@ class BestellingTest {
 		Assertions.assertEquals(datum, this.bestelling.getDatumGeplaatst());
 		Assertions.assertEquals(oStatus, this.bestelling.getOrderStatus());
 		Assertions.assertEquals(bStatus, this.bestelling.getBetalingsStatus());
-		Assertions.assertEquals(klant.getNaam(), this.bestelling.getKlantName());
+		Assertions.assertEquals(klant.getNaam(), this.bestelling.getBedrijfsnaam());
 	}
 	
 	@ParameterizedTest
