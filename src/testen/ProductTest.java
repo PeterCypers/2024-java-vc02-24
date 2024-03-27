@@ -24,6 +24,7 @@ class ProductTest {
 	    assertEquals(besteldProduct.getProduct().getStock(), stock);
 	    assertEquals(besteldProduct.getProduct().getEenheidsprijs(), eenheidsprijs);
 	}
+	
 	@ParameterizedTest
 	@NullAndEmptySource
 	void nieuwProduct_naamLeeg(String naam) {
@@ -35,6 +36,7 @@ class ProductTest {
 	void nieuwProduct_aantalOngeldig(int aantal) {
 	    assertThrows(IllegalArgumentException.class, () -> new BesteldProduct(new Product("Product", 1, 2.5, LeverMethode.STOCK), aantal));
 	}
+	
 	@ParameterizedTest
 	@CsvSource({"0.0", "-5.52", "-200.3", "-0.01"})
 	void nieuwProduct_eenheidsPrijsOngeldig(double eenheidsPrijs) {

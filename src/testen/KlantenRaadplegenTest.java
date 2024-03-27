@@ -40,27 +40,6 @@ class KlantenRaadplegenTest {
 	
 	static Leverancier gebruiker = new Leverancier(null, "jasper.vandenbroucke@hotmail.com", "1234", "Jasper Vandenbroucke", true);
 	
-	static List<Product> producten = Arrays.asList(
-			new Product("productA", 3000, 500.0, LeverMethode.STOCK),
-			new Product("productB", 2000, 4.99, LeverMethode.STOCK),
-			new Product("productC", 1000, 19.99, LeverMethode.STOCK)
-	);
-	static List<BesteldProduct> besteldeProducten = Arrays.asList(
-			new BesteldProduct(producten.get(0), 1000),
-			new BesteldProduct(producten.get(0), 50000),
-			new BesteldProduct(producten.get(0), 2100)
-	);
-	
-	static List<Bestelling> bestellingen = Arrays.asList(
-		    new Bestelling(1, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.NIET_BETAALD, klanten.get(0), gebruiker, besteldeProducten, LocalDate.now().plusDays(30), LocalDate.now().plusDays(27)),
-		    new Bestelling(2, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.NIET_BETAALD, klanten.get(0), gebruiker, besteldeProducten, LocalDate.now().plusDays(30), LocalDate.now().plusDays(27)),
-		    new Bestelling(3, LocalDate.now(), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(1), gebruiker, besteldeProducten, LocalDate.now().plusDays(30), LocalDate.now().plusDays(27)),
-		    new Bestelling(4, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.BETAALD, klanten.get(0), gebruiker, besteldeProducten, LocalDate.now().plusDays(30), LocalDate.now().plusDays(27)),
-		    new Bestelling(5, LocalDate.now(), OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD, klanten.get(1), gebruiker, besteldeProducten, LocalDate.now().plusDays(30), LocalDate.now().plusDays(27)),
-		    new Bestelling(6, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.BETAALD, klanten.get(1), gebruiker, besteldeProducten, LocalDate.now().plusDays(30), LocalDate.now().plusDays(27)),
-		    new Bestelling(7, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.BETAALD, klanten.get(0), gebruiker, besteldeProducten, LocalDate.now().plusDays(30), LocalDate.now().plusDays(27))
-	);
-	
 	@Test
 	public void test_raadplegenKlanten() {
 		Mockito.when(klantDaoJpa.vindPerLeverancier(gebruiker)).thenReturn(klanten);

@@ -204,11 +204,5 @@ public class GebruikerTest {
 		assertThrows(IllegalArgumentException.class, () -> gebruikerServiceDbImpl.meldGebruikerAan(email, wachtwoord));
 	}
 	
-//	@ParameterizedTest
-//	@MethodSource("gebruikers")
-//	public void test_gebruikerToevoegen(String email, String wachtwoord, boolean isActief, Rol rol) {
-//		Mockito.when(gebruikerDaoJpaMock.insert(null));
-//	}
-	
 }
 
