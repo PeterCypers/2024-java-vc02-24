@@ -32,7 +32,7 @@ public class BestellingBeheerderTest {
 	private BestellingService bestellingServiceMock;
     private BestellingBeheerder bestellingBeheerder;
     private Leverancier gebruiker;
-		
+		 
 	@BeforeEach
 	void setup() {
 		bestellingServiceMock = mock(BestellingService.class);
@@ -79,7 +79,7 @@ public class BestellingBeheerderTest {
      */
 	@ParameterizedTest
 	@MethodSource("filterCombinaties")
-    void test_changeFilter_listIsFiltered(LocalDate fd, OrderStatus fos, BetalingsStatus fbs, String fv, Klant klant, int expectedListSize) {
+    void changeFilter_listIsFiltered(LocalDate fd, OrderStatus fos, BetalingsStatus fbs, String fv, Klant klant, int expectedListSize) {
 		helperChangeFilter(fd, fos, fbs, fv, klant);
 		Assertions.assertEquals(expectedListSize, bestellingBeheerder.getBestellingen().size());
     }
@@ -109,8 +109,7 @@ public class BestellingBeheerderTest {
 								new BesteldProduct(producten.get(2), 20),
 								new BesteldProduct(producten.get(3), 30)
 						),
-						LocalDate.now().plusDays(29),
-                        LocalDate.now().plusDays(26)
+						LocalDate.now().plusDays(29)
 				),
 				new Bestelling(49002, LocalDate.now().minusDays(1),OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, 
 						klanten.get(1), gebruiker,
@@ -118,8 +117,7 @@ public class BestellingBeheerderTest {
 								new BesteldProduct(producten.get(0), 100),
 								new BesteldProduct(producten.get(1), 220)
 						),
-						LocalDate.now().plusDays(10),
-                        LocalDate.now().plusDays(7)
+						LocalDate.now().plusDays(10)
 				)
 		);
 		when(bestellingServiceMock.getBestellingen(any(Gebruiker.class))).thenReturn(bestellingen);
