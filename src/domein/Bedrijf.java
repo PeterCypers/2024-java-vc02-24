@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import domein.gebruiker.Gebruiker;
 import domein.gebruiker.Klant;
@@ -50,7 +51,7 @@ public class Bedrijf implements Serializable {
 	@Embedded
 	protected Adres adres;
 	
-	private String betalingsInfo;
+	private String rekeningNummer;
 	
 	@ElementCollection
 	@JoinTable(name = "BETAALMETHODES")
@@ -107,14 +108,14 @@ public class Bedrijf implements Serializable {
 	 * klanten?
 	 */
 	public Bedrijf(String naam, String logo, String sector, Adres adres, List<Betaalmethode> betaalmethodes,
-			String betalingsInfo, String email, String telefoon,
+			String rekeningNummer, String email, String telefoon,
 			String btwNr, boolean isActief) {
 		setNaam(naam);
 		setLogo(logo);
 		setSector(sector);
 		setAdres(adres);
 		setBetaalmethodes(betaalmethodes);
-		setBetalingsInfo(betalingsInfo);
+		setRekeningnummer(rekeningNummer);
 		setEmail(email);
 		setTelefoon(telefoon);
 		setBtwNr(btwNr);
@@ -169,10 +170,10 @@ public class Bedrijf implements Serializable {
 		this.betaalmethodes = new HashSet<>(betaalmethodes);
 	}
 	
-	private void setBetalingsInfo(String betalingsmogelijkhedenEnInfo) {
-		//if (betalingsmogelijkhedenEnInfo.isBlank())
-		//	throw new IllegalArgumentException("Betalingsmogelijkheden en -info ongeldig");
-		this.betalingsInfo = betalingsmogelijkhedenEnInfo;
+	private void setRekeningnummer(String rekeningNummer) {
+		if (rekeningNummer == null || rekeningNummer.isBlank())
+			throw new IllegalArgumentException("Rekeningnummer is ongeldig");
+		this.rekeningNummer = rekeningNummer;
 	}
 	
 	/**
@@ -273,7 +274,6 @@ public class Bedrijf implements Serializable {
 	public List<Betaalmethode> getBetaalmethodes(){
 		return new ArrayList<>(this.betaalmethodes);
 	}
-	
 
 	public void addBetaalmethodes(Betaalmethode betaalmethode) {
 		if (betaalmethode == null)
@@ -285,8 +285,8 @@ public class Bedrijf implements Serializable {
 		betaalmethodes.remove(betaalmethode);
 	}
 
-	public String getBetalingsInfo() {
-		return this.betalingsInfo;
+	public String getRekeningnummer() {
+		return this.rekeningNummer;
 	}
 
 	public String getEmail() {
@@ -392,11 +392,15 @@ public class Bedrijf implements Serializable {
 	@Override
 	public String toString() {
 		return "Bedrijf [naam=" + naam + ", sector=" + sector + ", adres=" + adres + ", betalingsmogelijkhedenEnInfo="
-				+ betalingsInfo + ", contact=" + emailadres + ", btwNr=" + btwNr + ", isActief=" + isActief
+				+ rekeningNummer + ", contact=" + emailadres + ", btwNr=" + btwNr + ", isActief=" + isActief
 				+ ", klant=" + klant + "]";
 	}
 	
 	public String getAsSearchString() {
 		return String.format("%s %s %s %s %s", naam, sector, adres, getIsActiefProp().getValue(), aantalKlanten()).toLowerCase();
+	}
+
+	public String getBetaalmethodesAsString() {
+		return String.join(", ", getBetaalmethodes().stream().map(Betaalmethode::toString).collect(Collectors.toList()));
 	}
 }

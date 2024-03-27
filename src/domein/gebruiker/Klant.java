@@ -1,15 +1,11 @@
 package domein.gebruiker;
 
-import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import domein.Adres;
 import domein.Bedrijf;
-import domein.BesteldProduct;
 import domein.Bestelling;
-import domein.BetalingsStatus;
 import domein.OrderStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
@@ -23,10 +19,6 @@ import jakarta.persistence.Transient;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 
 /**
  * Represents an Customer.
