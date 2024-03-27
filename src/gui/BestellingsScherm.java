@@ -232,13 +232,12 @@ public class BestellingsScherm {
 		txfDatum.setText(String.format("%s-%s-%s",datum.getYear() , datum.getMonthValue(), datum.getDayOfMonth()));
 		txfAdresLijn1.setText(bc.getBestellingen().get(index).getKlant().getAdres().toStringLijn1());
 		txfAdresLijn2.setText(bc.getBestellingen().get(index).getKlant().getAdres().toStringLijn2());
-		dpBetalingsherinnering.setPromptText(""); //TODO 
+		dpBetalingsherinnering.setValue(geselecteerdeBestelling.getHerinneringsDatum());
+		dpBetalingsherinnering.setDisable(bc.getBestellingen().get(index).getBetalingStatus() == BetalingsStatus.BETAALD);
 	    choiceboxOrderStatus.setValue(selectedBestelling.getOrderStatus());
 	    choiceboxBestellingsStatus.setValue(selectedBestelling.getBetalingStatus());
 		txfBedrag.setText(String.format("\u20AC%.2f", bc.getBestellingen().get(index).berekenTotalBedrag()));
 	    txfBetaalDatum.setText(String.format("%s", Betaaldatum));
-		
-		dpBetalingsherinnering.setValue(geselecteerdeBestelling.getHerinneringsDatum());
 		
 		isOrderVeranderen = false;
 		
