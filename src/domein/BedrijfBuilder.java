@@ -21,7 +21,7 @@ public class BedrijfBuilder {
 	private String straat;
 	private String straatNummer;
 	private List<Betaalmethode> betalingsMogelijkheden;
-	private String betalingsInfo;
+	private String rekeningNummer;
 	private String emailadres;
 	private String telefoonNr;
 	private String btwNr;
@@ -52,7 +52,7 @@ public class BedrijfBuilder {
 			sector,
 			new Adres(land, stad, postcode, straat, straatNummer),
 			betalingsMogelijkheden,
-			"TODO",
+			rekeningNummer,
 			emailadres,
 			telefoonNr,
 			btwNr,
@@ -127,15 +127,13 @@ public class BedrijfBuilder {
 	}
 
 	public BedrijfBuilder setBetalingsMogelijkheden(List<Betaalmethode> betalingsMogelijkheden) {
-		//TODO: check
-		//checkNullAndEmpty("Bedrijf betalingsmogelijkheden", betalingsMogelijkheden);
 	    this.betalingsMogelijkheden = betalingsMogelijkheden;
 	    return this;
 	}
 	
-	public BedrijfBuilder setBetalingsInfo(String betalingsInfo) {
-		checkNullAndEmpty("Bedrijf betalingsinfo", betalingsInfo);
-	    this.betalingsInfo = betalingsInfo;
+	public BedrijfBuilder setRekeningnummer(String rekeningNummer) {
+		checkNullAndEmpty("Bedrijf rekeningnummer", rekeningNummer);
+	    this.rekeningNummer = rekeningNummer;
 	    return this;
 	}
 

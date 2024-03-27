@@ -3,15 +3,14 @@ package gui;
 import java.io.IOException;
 import java.util.Optional;
 
-import domein.Adres;
 import domein.Bedrijf;
 import domein.BedrijfController;
 import domein.gebruiker.Gebruiker;
-import domein.gebruiker.GebruikerHolder;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -24,7 +23,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.WindowEvent;
-import javafx.scene.Node;
 
 public class BedrijvenScherm {
 	
@@ -86,7 +84,7 @@ public class BedrijvenScherm {
 	private TextField txfBetalingsmogelijkheid;
 
 	@FXML
-	private TextField txfBetalingsinfo;
+	private TextField txfRekeningnummer;
 
 	@FXML
 	private TextField txfEmailadres;
@@ -208,8 +206,8 @@ public class BedrijvenScherm {
 		txfSector.setText(bc.getBedrijven().get(index).getSector());
 		txfAdresLijn1.setText(bc.getBedrijven().get(index).getAdres().toStringLijn1());
 		txfAdresLijn2.setText(bc.getBedrijven().get(index).getAdres().toStringLijn2());
-		txfBetalingsmogelijkheid.setText(bc.getBedrijven().get(index).getBetaalmethodes().toString()); //te check
-		txfBetalingsinfo.setText(bc.getBedrijven().get(index).getBetalingsInfo());
+		txfBetalingsmogelijkheid.setText(bc.getBedrijven().get(index).getBetaalmethodesAsString());
+		txfRekeningnummer.setText(bc.getBedrijven().get(index).getRekeningnummer());
 		txfEmailadres.setText(bc.getBedrijven().get(index).getEmail());
 		txfTelefoonnummer.setText(bc.getBedrijven().get(index).getTelefoon());
 		txfBTWNummer.setText(bc.getBedrijven().get(index).getBtwNr());

@@ -104,7 +104,7 @@
                            <GridPane.margin>
                               <Insets left="2.0" />
                            </GridPane.margin></Label>
-                        <Label text="Betalingsinfo:" GridPane.rowIndex="8">
+                        <Label text="Rekeningnummer:" GridPane.rowIndex="8">
                            <GridPane.margin>
                               <Insets left="2.0" />
                            </GridPane.margin></Label>
@@ -121,7 +121,7 @@
                         <TextField fx:id="txfAdresLijn1" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <TextField fx:id="txfAdresLijn2" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <TextField fx:id="txfBetalingsmogelijkheid" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <TextField fx:id="txfBetalingsinfo" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TextField fx:id="txfRekeningnummer" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <TextField fx:id="txfEmailadres" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                         <TextField fx:id="txfTelefoonnummer" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                         <TextField fx:id="txfBTWNummer" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="12" />

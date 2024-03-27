@@ -1,8 +1,5 @@
 package gui;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.function.Consumer;
 
 import domein.Bedrijf;
 import domein.BedrijfBuilder;
@@ -12,11 +9,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -81,6 +78,9 @@ public class BedrijfToevoegenController extends VBox {
 
     @FXML
     private TextField txfStraatnummer;
+    
+    @FXML
+    private TextField txfRekeningnummer;
     
     private BedrijfController bc;
     BedrijfBuilder bedrijfBuilder;
@@ -149,6 +149,9 @@ public class BedrijfToevoegenController extends VBox {
     	});
     	txfBTWNummer.focusedProperty().addListener((obs, oldVal, newVal) -> { 
     		if (!newVal) { setVeld(() -> bedrijfBuilder.setBtwNr(txfBTWNummer.getText())); } 
+    	});
+    	txfRekeningnummer.focusedProperty().addListener((obs, oldVal, newVal) -> {
+    		if (!newVal) { setVeld(() -> bedrijfBuilder.setRekeningnummer(txfRekeningnummer.getText())); }
     	});
     	
     	// leverancier

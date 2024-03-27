@@ -1,14 +1,10 @@
 package domein.gebruiker;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import domein.Bedrijf;
-import domein.BedrijfController;
 import domein.Bestelling;
-import domein.Betaalmethode;
 import domein.Product;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
