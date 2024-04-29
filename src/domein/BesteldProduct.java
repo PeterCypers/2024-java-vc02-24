@@ -25,9 +25,11 @@ public class BesteldProduct {
     private int besteldProductId;
 
 	@ManyToOne
-	Product product;
+	private Product product;
 
-	int aantal;
+	private int aantal;
+	
+	private double eenheidsprijs;
 
 	@Transient
 	private final SimpleStringProperty naamProduct = new SimpleStringProperty();
@@ -51,6 +53,7 @@ public class BesteldProduct {
 	 */
 	public BesteldProduct(Product product, int aantal) {
 		this.product = product;
+		this.eenheidsprijs = product.getEenheidsprijs();
 		setAantal(aantal);
 	}
 
@@ -69,7 +72,7 @@ public class BesteldProduct {
 	}
 
 	public double getTotalePrijs(){
-		return aantal * product.getEenheidsprijs();
+		return aantal * eenheidsprijs;
 	}
 
 	//Voor tableView
@@ -113,7 +116,7 @@ public class BesteldProduct {
 	 */
 	public StringProperty eenheidsprijsProperty() {
 		 DecimalFormat df = new DecimalFormat("\u20AC0.00");
-		 eenheidsprijsProduct.set(df.format(product.getEenheidsprijs()));
+		 eenheidsprijsProduct.set(df.format(eenheidsprijs));
         return eenheidsprijsProduct;
     }
 
@@ -131,6 +134,6 @@ public class BesteldProduct {
     }
 
 	public String toSearchString() {
-		return String.format("%s %s %s %s %s", product.getNaam(), aantal, stockProperty().getValue(), product.getEenheidsprijs(), getTotalePrijs()).toLowerCase();
+		return String.format("%s %s %s %s %s", product.getNaam(), aantal, stockProperty().getValue(), eenheidsprijs, getTotalePrijs()).toLowerCase();
 	}
 }
