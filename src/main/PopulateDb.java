@@ -192,54 +192,54 @@ public class PopulateDb {
 		
 		List<List<Product>> producten = Arrays.asList(
 				List.of(
-						new Product("Stella Artois Lager, 12 Pack 11.2 fl. oz. Bottles", 			1000, 39.99, LeverMethode.STOCK),
-						new Product("Stella Artois Lager, 24 Pack 11.2 fl. oz. Cans",				900, 59.99, LeverMethode.STOCK),
-						new Product("Stella Artois Premium Lager Beer, 24-11.2 fl. oz. Bottles", 	500, 52.49, LeverMethode.STOCK),
-						new Product("Stella Artois Premium Lager Beer, 3 Pack 25 fl. oz. Cans", 	500, 18.99, LeverMethode.STOCK)
+						new Product("Stella Artois Lager, 12 Pack 11.2 fl. oz. Bottles", 			1000, 39.99, LeverMethode.STOCK, "https://i5.walmartimages.com/asr/477b14e6-00f3-4a53-8005-cfffabd29493.9803909dee8b1a605d94d752aecb93da.jpeg?odnWidth=1000&odnHeight=1000&odnBg=ffffff"),
+						new Product("Stella Artois Lager, 24 Pack 11.2 fl. oz. Cans",				900, 59.99, LeverMethode.STOCK, "https://www.pikfly.com/images/products/171/43062.jpg"),
+						new Product("Stella Artois Premium Lager Beer, 24-11.2 fl. oz. Bottles", 	500, 52.49, LeverMethode.STOCK, "https://www.kroger.com/product/images/large/front/0078615000038"),
+						new Product("Stella Artois Premium Lager Beer, 3 Pack 25 fl. oz. Cans", 	500, 18.99, LeverMethode.STOCK, "https://beerhunter.co.uk/wp-content/uploads/2021/05/Stella-Artois-Premium-Belgian-Lager-Pint-Can-Gift-Set-with-Official-Pint-Glass-3-Pack-tiny-1.jpg")
 				),
 				List.of(
-						new Product("Business Laptop - HP Chrome Enterprise", 	500, 469.00, LeverMethode.STOCK),
-						new Product("Business Laptop - HP Elite", 				50, 1379.00, LeverMethode.STOCK),
-						new Product("Business Desktop - HP Z2 Workstation", 	20, 1669.00, LeverMethode.STOCK)
+						new Product("Business Laptop - HP Chrome Enterprise", 	500, 469.00, LeverMethode.STOCK, "https://media.krefel.be/sys-master/products/9308772040734/768x768.41008662_01.webp"),
+						new Product("Business Laptop - HP Elite", 				50, 1379.00, LeverMethode.STOCK, "https://www.hp.com/be-nl/shop/media/catalog/product/c/0/c08473310.png?store=be-nl&image-type=image&auto=webp&format=png&width=1280&height=1600&fit=bounds&dpr=1.25"),
+						new Product("Business Desktop - HP Z2 Workstation", 	20, 1669.00, LeverMethode.STOCK, "https://cdn.centralpoint.be/objects/high_pic/3/3b7/3465438_pcs-werkstations-hp-z2-small-form-factor-g9-workstation-5f0l7eaabb.jpg")
 				),
 				List.of(
-						new Product("WGG1440KFG Serie 6 Wasmachine 9kg", 					8, 899.99, LeverMethode.STOCK),
-						new Product("WGB244A4FG Serie 8 Wasmachine 9kg", 					7, 1239.99, LeverMethode.STOCK),
-						new Product("WTN85205FG Serie 4 Luchtcondensatie droogkast 8kg", 	4, 659.99, LeverMethode.STOCK)
+						new Product("WGG1440KFG Serie 6 Wasmachine 9kg", 					8, 899.99, LeverMethode.STOCK, "https://auctions.hilcoapac.com/images/lot/1325/132574_0.jpg?1604285164"),
+						new Product("WGB244A4FG Serie 8 Wasmachine 9kg", 					7, 1239.99, LeverMethode.STOCK, "https://media3.bosch-home.com/Product_Shots/900x506/21352757_WGB2440MFG_STP_def.webp"),
+						new Product("WTN85205FG Serie 4 Luchtcondensatie droogkast 8kg", 	4, 659.99, LeverMethode.STOCK, "https://media.s-bol.com/3JDJpXL783P4/p20ypQ/858x1200.jpg")
 				),
 				List.of(
-						new Product("Bronwater | Romy | Niet bruisend | PET 6x2l", 100, 2.35, LeverMethode.STOCK),
-						new Product("Cola | Original taste | Blik | Soda 15x33cl", 210, 12.09, LeverMethode.STOCK),
-						new Product("Cola | Zonder suiker | Blik | Frisdrank 15x33cl", 180, 12.69, LeverMethode.STOCK),
-						new Product("Bruisende Ijsthee | Original | Caloriearm | PET", 80, 5.45, LeverMethode.STOCK),
-						new Product("Limonade | Sinaasappel | Blik | Sleek 8x33cl", 80, 4.99, LeverMethode.STOCK),
-						new Product("Crackers | Original | Toastjes | Zout | 2x75gr", 80, 1.85, LeverMethode.STOCK),
-						new Product("Koekje | Comté 100gr", 160, 3.69, LeverMethode.STOCK),
-						new Product("Soep | Room | Witloof 600gr", 40, 3.99, LeverMethode.STOCK),
-						new Product("Tomatensoep | Bio 250gr", 40, 2.39, LeverMethode.STOCK),
-						new Product("Pompoensoep | Bio 250gr", 40, 2.39, LeverMethode.STOCK),
-						new Product("Naturel Zout | Regular | Chips | 120G", 80, 1.55, LeverMethode.STOCK),
-						new Product("Paprika | Regular | Chips | 120G", 80, 1.65, LeverMethode.STOCK),
-						new Product("Gerookt | Snacks | Chips | 125G", 60, 1.52, LeverMethode.STOCK),
-						new Product("Snack | Droge worst | Gerookt | Snack Pack 60gr", 100, 2.99, LeverMethode.STOCK),
-						new Product("Vierkant brood | Wit 800gr", 80, 2.49, LeverMethode.STOCK),
-						new Product("Brood | Bruin | Vierkant 800gr", 80, 2.49, LeverMethode.STOCK),
-						new Product("Brood | Volkoren | Vierkant 800gr", 80, 3.19, LeverMethode.STOCK),
-						new Product("Gouda | Jong | Sneden", 120, 3.15, LeverMethode.STOCK)
+						new Product("Bronwater | Romy | Niet bruisend | PET 6x2l", 100, 2.35, LeverMethode.STOCK, "https://static.delhaize.be/medias/sys_master/hc4/hea/11706880426014.jpg?buildNumber=82174e95e8034dc2242aadaed51c35b2e76a4bb2908eb0fb223ce572e154b418&imwidth=320"),
+						new Product("Cola | Original taste | Blik | Soda 15x33cl", 210, 12.09, LeverMethode.STOCK, "https://static.delhaize.be/medias/sys_master/h34/hb2/11171019980830.jpg?buildNumber=82174e95e8034dc2242aadaed51c35b2e76a4bb2908eb0fb223ce572e154b418&imwidth=320"),
+						new Product("Cola | Zonder suiker | Blik | Frisdrank 15x33cl", 180, 12.69, LeverMethode.STOCK, "https://static.delhaize.be/medias/sys_master/hfd/hd3/11811610132510.jpg?buildNumber=82174e95e8034dc2242aadaed51c35b2e76a4bb2908eb0fb223ce572e154b418&imwidth=320"),
+						new Product("Bruisende Ijsthee | Original | Caloriearm | PET", 80, 5.45, LeverMethode.STOCK, "https://static.delhaize.be/medias/sys_master/hcf/hca/11692300959774.jpg?buildNumber=82174e95e8034dc2242aadaed51c35b2e76a4bb2908eb0fb223ce572e154b418&imwidth=320"),
+						new Product("Limonade | Sinaasappel | Blik | Sleek 8x33cl", 80, 4.99, LeverMethode.STOCK, "https://assets.iceland.co.uk/i/iceland/Fanta_8x33_Orange_72978.jpg?$pdpzoom$"),
+						new Product("Crackers | Original | Toastjes | Zout | 2x75gr", 80, 1.85, LeverMethode.STOCK, "https://static.delhaize.be/medias/sys_master/h6d/h8f/12008484765726.jpg?buildNumber=82174e95e8034dc2242aadaed51c35b2e76a4bb2908eb0fb223ce572e154b418&imwidth=320"),
+						new Product("Koekje | Comté 100gr", 160, 3.69, LeverMethode.STOCK, "https://static.delhaize.be/medias/sys_master/h02/h00/11735135059998.jpg?buildNumber=82174e95e8034dc2242aadaed51c35b2e76a4bb2908eb0fb223ce572e154b418&imwidth=320"),
+						new Product("Soep | Room | Witloof 600gr", 40, 3.99, LeverMethode.STOCK, "https://static.delhaize.be/medias/sys_master/h8a/h7e/11574169567262.jpg?buildNumber=82174e95e8034dc2242aadaed51c35b2e76a4bb2908eb0fb223ce572e154b418&imwidth=320"),
+						new Product("Tomatensoep | Bio 250gr", 40, 2.39, LeverMethode.STOCK, "https://static.delhaize.be/medias/sys_master/hae/had/10627189538846.jpg?buildNumber=82174e95e8034dc2242aadaed51c35b2e76a4bb2908eb0fb223ce572e154b418&imwidth=320"),
+						new Product("Pompoensoep | Bio 250gr", 40, 2.39, LeverMethode.STOCK, "https://static.delhaize.be/medias/sys_master/hd7/h4d/11235038920734.jpg?buildNumber=82174e95e8034dc2242aadaed51c35b2e76a4bb2908eb0fb223ce572e154b418&imwidth=320"),
+						new Product("Naturel Zout | Regular | Chips | 120G", 80, 1.55, LeverMethode.STOCK, "https://static.delhaize.be/medias/sys_master/hc4/ha7/11709955702814.jpg?buildNumber=3007325bb863b192eb062003dbb494f1a7838987990a03b9fd021377e8c47da1"),
+						new Product("Paprika | Regular | Chips | 120G", 80, 1.65, LeverMethode.STOCK, "https://static.delhaize.be/medias/sys_master/h16/h1a/11707147354142.jpg?buildNumber=82174e95e8034dc2242aadaed51c35b2e76a4bb2908eb0fb223ce572e154b418&imwidth=320"),
+						new Product("Gerookt | Snacks | Chips | 125G", 60, 1.52, LeverMethode.STOCK, "https://static.delhaize.be/medias/sys_master/hf4/h0b/12420329537566.jpg?buildNumber=82174e95e8034dc2242aadaed51c35b2e76a4bb2908eb0fb223ce572e154b418&imwidth=320"),
+						new Product("Snack | Droge worst | Gerookt | Snack Pack 60gr", 100, 2.99, LeverMethode.STOCK, "https://static.delhaize.be/medias/sys_master/hd9/h6b/12326871171102.jpg?buildNumber=82174e95e8034dc2242aadaed51c35b2e76a4bb2908eb0fb223ce572e154b418&imwidth=320"),
+						new Product("Vierkant brood | Wit 800gr", 80, 2.49, LeverMethode.STOCK, "https://static.delhaize.be/medias/sys_master/hde/h2a/11211812929566.jpg?buildNumber=82174e95e8034dc2242aadaed51c35b2e76a4bb2908eb0fb223ce572e154b418&imwidth=320"),
+						new Product("Brood | Bruin | Vierkant 800gr", 80, 2.49, LeverMethode.STOCK, "https://static.delhaize.be/medias/sys_master/h27/h2f/11211773607966.jpg?buildNumber=82174e95e8034dc2242aadaed51c35b2e76a4bb2908eb0fb223ce572e154b418&imwidth=320"),
+						new Product("Brood | Volkoren | Vierkant 800gr", 80, 3.19, LeverMethode.STOCK, "https://static.delhaize.be/medias/sys_master/h64/h19/11088435511326.jpg?buildNumber=82174e95e8034dc2242aadaed51c35b2e76a4bb2908eb0fb223ce572e154b418&imwidth=320"),
+						new Product("Gouda | Jong | Sneden", 120, 3.15, LeverMethode.STOCK, "https://static.delhaize.be/medias/sys_master/h5e/hfb/12097500119070.jpg?buildNumber=82174e95e8034dc2242aadaed51c35b2e76a4bb2908eb0fb223ce572e154b418&imwidth=320")
 				),
 				List.of(
-						new Product("New E-208 E-Style Electric 50kWh 136 Agueda Yellow", 0, 32650.00, LeverMethode.ORDER),
-						new Product("New E-208 E-Style Electric 50kWh 136 Nera Black", 0, 32650.00, LeverMethode.ORDER),
-						new Product("Traveller Business VIP Standard Electric 50KWh 136 Cumulus Grey", 0, 49495.00, LeverMethode.ORDER),
-						new Product("408 ALLURE 1.2L PureTech 130 EAT8 S&S Elixir Red", 0, 32805.00, LeverMethode.ORDER),
-						new Product("408 ALLURE PLUG-IN HYBRID 180 e-EAT8 Okenite White", 0, 41100.00, LeverMethode.ORDER)
+						new Product("New E-208 E-Style Electric 50kWh 136 Agueda Yellow", 0, 32650.00, LeverMethode.ORDER, "https://ukcar.ma/wp-content/uploads/2023/02/208.jpg"),
+						new Product("New E-208 E-Style Electric 50kWh 136 Nera Black", 0, 32650.00, LeverMethode.ORDER, "https://th.bing.com/th/id/OIP.4sa4iMeFLhQYc9YK3HJ-2AHaDb?rs=1&pid=ImgDetMain"),
+						new Product("Traveller Business VIP Standard Electric 50KWh 136 Cumulus Grey", 0, 49495.00, LeverMethode.ORDER, "https://th.bing.com/th/id/R.ed23a9eca9fa2a390153f86a571910d4?rik=wfUqWGNMLeUqhw&pid=ImgRaw&r=0"),
+						new Product("408 ALLURE 1.2L PureTech 130 EAT8 S&S Elixir Red", 0, 32805.00, LeverMethode.ORDER, "https://www.rental-center-crete.com/gallery/cars/2019/g-peugeot-2008.webp"),
+						new Product("408 ALLURE PLUG-IN HYBRID 180 e-EAT8 Okenite White", 0, 41100.00, LeverMethode.ORDER, "https://www.peugeot.be/content/dam/peugeot/master/b2c/our-range/showroom/new-408/2023/desktop/408_Blanc_Okenite_1920_1080.jpg")
 				),
 				List.of(
-						new Product("OMAR 1 section shelving unit, 36 1/4x14 1/8x71 1/4 \"", 40, 79.98, LeverMethode.STOCK),
-						new Product("IVAR 2 section shelving unit, 68 1/2x19 5/8x89 \"", 0, 275.00, LeverMethode.ORDER),
-						new Product("BUMERANG Hanger 8 pack", 500, 4.99, LeverMethode.STOCK),
-						new Product("RIGGA Clothes rack", 60, 19.99, LeverMethode.STOCK),
-						new Product("INGO Table, 47 1/4x29 1/2 \"", 10, 99.99, LeverMethode.STOCK)
+						new Product("OMAR 1 section shelving unit, 36 1/4x14 1/8x71 1/4 \"", 40, 79.98, LeverMethode.STOCK, "https://www.ikea.com/us/en/images/products/omar-1-section-shelving-unit__0626066_pe692566_s5.jpg?f=xl"),
+						new Product("IVAR 2 section shelving unit, 68 1/2x19 5/8x89 \"", 0, 275.00, LeverMethode.ORDER, "https://www.ikea.com/us/en/images/products/ivar-2-section-shelving-unit-pine__0138387_pe297655_s5.jpg?f=xl"),
+						new Product("BUMERANG Hanger 8 pack", 500, 4.99, LeverMethode.STOCK, "https://www.ikea.com/be/en/images/products/bumerang-hanger-natural__0710666_pe727700_s5.jpg?f=xl"),
+						new Product("RIGGA Clothes rack", 60, 19.99, LeverMethode.STOCK, "https://www.ikea.com/be/nl/images/products/rigga-kledingrek-wit__0710721_pe727742_s5.jpg?f=xl"),
+						new Product("INGO Table, 47 1/4x29 1/2 \"", 10, 99.99, LeverMethode.STOCK, "https://www.ikea.com/us/en/images/products/ingo-table-pine__0737092_pe740877_s5.jpg?f=xl")
 				),
 				List.of(
 						
