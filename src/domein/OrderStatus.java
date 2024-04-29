@@ -1,16 +1,18 @@
 package domein;
 
 public enum OrderStatus {
+	GEPLAATST,
+	VERWERKT,
+	VERZONDEN,
+	UIT_VOOR_LEVERING,
 	GELEVERD,
-	ONDERWEG,
-	AAN_HET_VERWERKEN,
-	GEREGISTREERD,
+	VOLTOOID,
 	filter;
 	
 	@Override
 	public String toString() {
 		return switch (this) {
-			case AAN_HET_VERWERKEN -> "Aan het verwerken";
+			case UIT_VOOR_LEVERING -> "Uit voor levering";
 			default -> String.format("%s%s", this.name().charAt(0), this.name().substring(1).toLowerCase());
 		};
 	}
