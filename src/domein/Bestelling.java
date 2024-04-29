@@ -40,7 +40,9 @@ import javafx.collections.transformation.SortedList;
                          query = "SELECT b FROM Bestelling b"
                          		+ " WHERE b.leverancier = :leverancier"),
     @NamedQuery(name = "Bestelling.vindNietBetaaldeBestellingen",
-    				query = "SELECT b FROM Bestelling b WHERE b.betalingStatus = domein.BetalingsStatus.NIET_BETAALD")
+    				query = "SELECT b FROM Bestelling b "
+    						+ "WHERE b.betalingStatus = domein.BetalingsStatus.FACTUUR_VERZONDEN "
+    						+ "OR b.betalingStatus = domein.BetalingsStatus.ONVERWERKT")
 })
 public class Bestelling implements Serializable {
 
@@ -324,12 +326,28 @@ public class Bestelling implements Serializable {
 
 	public void veranderOrderStatus(OrderStatus nieuweOrderStatus) {
 		// verwerk stock van producten als de producten het bedrijf verlaten, of als ze teruggebracht worden
-		if ((orderStatus == OrderStatus.GEREGISTREERD || orderStatus == OrderStatus.AAN_HET_VERWERKEN)
-				&& (nieuweOrderStatus == OrderStatus.ONDERWEG || nieuweOrderStatus == OrderStatus.GELEVERD)) {
-			veranderProductenStock(true);
-		} else if ((orderStatus == OrderStatus.ONDERWEG || orderStatus == OrderStatus.GELEVERD)
-				&& (nieuweOrderStatus == OrderStatus.GEREGISTREERD || nieuweOrderStatus == OrderStatus.AAN_HET_VERWERKEN)) {
-			veranderProductenStock(false);
+		boolean productenBedrijfVerlaten = (
+			orderStatus == OrderStatus.GEPLAATST || 
+        	orderStatus == OrderStatus.VERWERKT
+        ) && (
+        	nieuweOrderStatus == OrderStatus.UIT_VOOR_LEVERING || 
+        	nieuweOrderStatus == OrderStatus.VERZONDEN || 
+        	nieuweOrderStatus == OrderStatus.GELEVERD || 
+        	nieuweOrderStatus == OrderStatus.VOLTOOID
+        );
+
+		boolean productenBedrijfBinnengekomen = (
+			orderStatus == OrderStatus.UIT_VOOR_LEVERING || 
+			orderStatus == OrderStatus.VERZONDEN || 
+			orderStatus == OrderStatus.GELEVERD || 
+			orderStatus == OrderStatus.VOLTOOID
+		) && (
+			nieuweOrderStatus == OrderStatus.GEPLAATST || 
+			nieuweOrderStatus == OrderStatus.VERWERKT
+		);
+		
+		if (productenBedrijfVerlaten || productenBedrijfBinnengekomen) {
+			veranderProductenStock(productenBedrijfVerlaten);
 		}
 
 		setOrderStatus(nieuweOrderStatus);
