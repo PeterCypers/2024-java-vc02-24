@@ -30,6 +30,8 @@ public class Product implements Serializable {
 	private LeverMethode leverMethode;
 
 	private int stock;
+	
+	private String imageUrl;
 
 	/** <code>entity class</code> JPA-required default constructor */
 	public Product() {}
@@ -42,11 +44,12 @@ public class Product implements Serializable {
 	 * @param eenheidsprijs the price per unit of this product
 	 * @param leverMethode <code>enum</code> {@link domein.LeverMethode} inStock status of this product the method of delivery
 	 */
-	public Product(String naam, int stock, double eenheidsprijs, LeverMethode leverMethode) {
+	public Product(String naam, int stock, double eenheidsprijs, LeverMethode leverMethode, String imageUrl) {
 		setNaam(naam);
 		setStock(stock);
 		setEenheidsprijs(eenheidsprijs);
 		this.leverMethode = leverMethode;
+		this.imageUrl = imageUrl;
 	}
 
 	public String getNaam() {
