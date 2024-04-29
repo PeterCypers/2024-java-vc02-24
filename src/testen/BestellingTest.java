@@ -36,7 +36,7 @@ class BestellingTest {
 	
 	@BeforeEach
 	void before() {
-		this.bestelling = new Bestelling(1, LocalDate.now(), OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD, klanten.get(0), null, besteldeProducten,LocalDate.now().plusDays(10));
+		this.bestelling = new Bestelling(1, LocalDate.now(), OrderStatus.VERWERKT, BetalingsStatus.FACTUUR_VERZONDEN, klanten.get(0), null, besteldeProducten,LocalDate.now().plusDays(10));
 	}
 	
 	
@@ -71,10 +71,10 @@ class BestellingTest {
 
 	static Stream<Arguments> geldigeBestellingen(){
 		return Stream.of(
-			Arguments.of(1, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.NIET_BETAALD, klanten.get(0), "Bas Stokmans", "Stella Artois"),
-			Arguments.of(2, LocalDate.now(), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(1), "Tiemen Deroose", "Hewlett-Packard"),
-			Arguments.of(3, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.NIET_BETAALD, klanten.get(0), "Bas Stokmans", "Stella Artois"),
-			Arguments.of(4, LocalDate.now(), OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, klanten.get(1), "Tiemen Deroose", "Hewlett-Packard")
+			Arguments.of(1, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.ONVERWERKT, klanten.get(0), "Bas Stokmans", "Stella Artois"),
+			Arguments.of(2, LocalDate.now(), OrderStatus.VERZONDEN, BetalingsStatus.BETAALD, klanten.get(1), "Tiemen Deroose", "Hewlett-Packard"),
+			Arguments.of(3, LocalDate.now(), OrderStatus.VERWERKT, BetalingsStatus.FACTUUR_VERZONDEN, klanten.get(0), "Bas Stokmans", "Stella Artois"),
+			Arguments.of(4, LocalDate.now(), OrderStatus.GEPLAATST, BetalingsStatus.BETAALD, klanten.get(1), "Tiemen Deroose", "Hewlett-Packard")
 		);
 	}
 	
@@ -82,18 +82,18 @@ class BestellingTest {
 	static Stream<Arguments> ongeldigeBestellingen(){
 		return Stream.of(
 			//Ongeldig orderId
-			Arguments.of(0, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
-			Arguments.of(-1, LocalDate.now(), OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, klanten.get(1)),
-			Arguments.of(-97, LocalDate.now(), OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
+			Arguments.of(0, LocalDate.now(), OrderStatus.GELEVERD, BetalingsStatus.ONVERWERKT, klanten.get(0)),
+			Arguments.of(-1, LocalDate.now(), OrderStatus.UIT_VOOR_LEVERING, BetalingsStatus.BETAALD, klanten.get(1)),
+			Arguments.of(-97, LocalDate.now(), OrderStatus.VERWERKT, BetalingsStatus.FACTUUR_VERZONDEN, klanten.get(0)),
 			
 			//Ongeldige orderstatus
-			Arguments.of(1, LocalDate.now(), null, BetalingsStatus.NIET_BETAALD, klanten.get(0)),
+			Arguments.of(1, LocalDate.now(), null, BetalingsStatus.FACTUUR_VERZONDEN, klanten.get(0)),
 			
 			//Ongeldige betalingsstatus
 			Arguments.of(1, LocalDate.now(), OrderStatus.GELEVERD, null, klanten.get(0)),
 			
 			//Ongeldige klant
-			Arguments.of(1, LocalDate.now(), OrderStatus.ONDERWEG, BetalingsStatus.NIET_BETAALD, null)
+			Arguments.of(1, LocalDate.now(), OrderStatus.VERZONDEN, BetalingsStatus.FACTUUR_VERZONDEN, null)
 		);
 	}
 	
@@ -118,8 +118,8 @@ class BestellingTest {
 	
 	@Test
 	public void veranderOrderStatus() {
-		this.bestelling.veranderOrderStatus(OrderStatus.AAN_HET_VERWERKEN);
-		Assertions.assertEquals(OrderStatus.AAN_HET_VERWERKEN,this.bestelling.getOrderStatus());
+		this.bestelling.veranderOrderStatus(OrderStatus.VERWERKT);
+		Assertions.assertEquals(OrderStatus.VERWERKT,this.bestelling.getOrderStatus());
 	}
 
 	@Test
