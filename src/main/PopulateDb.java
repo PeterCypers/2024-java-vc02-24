@@ -263,7 +263,7 @@ public class PopulateDb {
 						),
 						new Bestelling(
 								49002, LocalDate.now().minusDays(1), 
-								OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, 
+								OrderStatus.GEPLAATST, BetalingsStatus.BETAALD, 
 								klanten.get(4), leveranciers.get(0),
 								Arrays.asList(
 										new BesteldProduct(producten.get(0).get(0), 100),
@@ -284,7 +284,7 @@ public class PopulateDb {
 						),
 						new Bestelling(
 								50002, LocalDate.now().minusDays(12), 
-								OrderStatus.ONDERWEG, BetalingsStatus.BETAALD, 
+								OrderStatus.UIT_VOOR_LEVERING, BetalingsStatus.BETAALD, 
 								klanten.get(3), leveranciers.get(1),
 								Arrays.asList(
 										new BesteldProduct(producten.get(1).get(1), 2),
@@ -294,7 +294,7 @@ public class PopulateDb {
 						),
 						new Bestelling(
 								50003, LocalDate.now(),
-								OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD,
+								OrderStatus.VERWERKT, BetalingsStatus.FACTUUR_VERZONDEN,
 								klanten.get(5), leveranciers.get(1),
 								Arrays.asList(
 										new BesteldProduct(producten.get(1).get(0), 120)
@@ -349,7 +349,7 @@ public class PopulateDb {
 						),
 						new Bestelling(
 								52002, LocalDate.now().minusDays(3),
-								OrderStatus.ONDERWEG, BetalingsStatus.BETAALD,
+								OrderStatus.VERZONDEN, BetalingsStatus.BETAALD,
 								klanten.get(4), leveranciers.get(3),
 								Arrays.asList(
 										new BesteldProduct(producten.get(3).get(14), 4),
@@ -367,7 +367,7 @@ public class PopulateDb {
 						),
 						new Bestelling(
 								52003, LocalDate.now().minusDays(1),
-								OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD,
+								OrderStatus.VERWERKT, BetalingsStatus.FACTUUR_VERZONDEN,
 								klanten.get(6), leveranciers.get(3),
 								Arrays.asList(
 										new BesteldProduct(producten.get(3).get(14), 4),
@@ -397,7 +397,7 @@ public class PopulateDb {
 						),
 						new Bestelling(
 								53002, LocalDate.now().minusMonths(1),
-								OrderStatus.ONDERWEG, BetalingsStatus.BETAALD,
+								OrderStatus.GELEVERD, BetalingsStatus.BETAALD,
 								klanten.get(6), leveranciers.get(4),
 								Arrays.asList(
 										new BesteldProduct(producten.get(4).get(2), 2)
@@ -406,7 +406,7 @@ public class PopulateDb {
 						),
 						new Bestelling(
 								53003, LocalDate.now().minusDays(10),
-								OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.BETAALD,
+								OrderStatus.VERWERKT, BetalingsStatus.BETAALD,
 								klanten.get(2), leveranciers.get(4),
 								Arrays.asList(
 										new BesteldProduct(producten.get(4).get(3), 1)
@@ -415,7 +415,7 @@ public class PopulateDb {
 						),
 						new Bestelling(
 								53004, LocalDate.now(),
-								OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD,
+								OrderStatus.GEPLAATST, BetalingsStatus.ONVERWERKT,
 								klanten.get(0), leveranciers.get(4),
 								Arrays.asList(
 										new BesteldProduct(producten.get(4).get(4), 1)
@@ -435,7 +435,7 @@ public class PopulateDb {
 						),
 						new Bestelling(
 								54002, LocalDate.now().minusDays(5),
-								OrderStatus.ONDERWEG, BetalingsStatus.BETAALD,
+								OrderStatus.VERZONDEN, BetalingsStatus.BETAALD,
 								klanten.get(6), leveranciers.get(5),
 								Arrays.asList(
 										new BesteldProduct(producten.get(5).get(1), 12),
@@ -446,7 +446,7 @@ public class PopulateDb {
 						),
 						new Bestelling(
 								54003, LocalDate.now().minusDays(1),
-								OrderStatus.AAN_HET_VERWERKEN, BetalingsStatus.BETAALD,
+								OrderStatus.VERWERKT, BetalingsStatus.BETAALD,
 								klanten.get(1), leveranciers.get(5),
 								Arrays.asList(
 										new BesteldProduct(producten.get(5).get(0), 8),

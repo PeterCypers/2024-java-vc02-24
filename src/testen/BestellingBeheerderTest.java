@@ -60,16 +60,16 @@ public class BestellingBeheerderTest {
 			Arguments.of(LocalDate.now().minusMonths(3), OrderStatus.filter, BetalingsStatus.filter, null, null, 1), //date -> 1
 			Arguments.of(LocalDate.now().minusMonths(5), OrderStatus.filter, BetalingsStatus.filter, null, null, 0), //date -> 0
 			Arguments.of(null, OrderStatus.GELEVERD, BetalingsStatus.filter, null, null, 1), //OrderStatus
-			Arguments.of(null, OrderStatus.GEREGISTREERD, BetalingsStatus.filter, null, null, 1),
-			Arguments.of(null, OrderStatus.ONDERWEG, BetalingsStatus.filter, null, null, 0),
+			Arguments.of(null, OrderStatus.GEPLAATST, BetalingsStatus.filter, null, null, 1),
+			Arguments.of(null, OrderStatus.VERZONDEN, BetalingsStatus.filter, null, null, 0),
 			Arguments.of(null, OrderStatus.filter, BetalingsStatus.BETAALD, null, null, 2), //BetalingsStatus
-			Arguments.of(null, OrderStatus.filter, BetalingsStatus.NIET_BETAALD, null, null, 0),
+			Arguments.of(null, OrderStatus.filter, BetalingsStatus.FACTUUR_VERZONDEN, null, null, 0),
 			Arguments.of(null, OrderStatus.GELEVERD, BetalingsStatus.BETAALD, null, null, 1), //combi OrderStatus + BetalingsStatus
-			Arguments.of(null, OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, null, null, 1),
-			Arguments.of(null, OrderStatus.GELEVERD, BetalingsStatus.NIET_BETAALD, null, null, 0),
+			Arguments.of(null, OrderStatus.VERWERKT, BetalingsStatus.BETAALD, null, null, 1),
+			Arguments.of(null, OrderStatus.GELEVERD, BetalingsStatus.ONVERWERKT, null, null, 0),
 			Arguments.of(LocalDate.now().minusMonths(3),OrderStatus.GELEVERD, BetalingsStatus.BETAALD, null, null, 1), //combi date + OrderStatus + BetalingsStatus
-			Arguments.of(LocalDate.now().minusDays(1),OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, null, null, 1),
-			Arguments.of(LocalDate.now().minusDays(1),OrderStatus.GEREGISTREERD, BetalingsStatus.NIET_BETAALD, null, null, 0));
+			Arguments.of(LocalDate.now().minusDays(1),OrderStatus.GEPLAATST, BetalingsStatus.BETAALD, null, null, 1),
+			Arguments.of(LocalDate.now().minusDays(1),OrderStatus.VERWERKT, BetalingsStatus.FACTUUR_VERZONDEN, null, null, 0));
 	}
     
     /**
@@ -111,7 +111,7 @@ public class BestellingBeheerderTest {
 						),
 						LocalDate.now().plusDays(29)
 				),
-				new Bestelling(49002, LocalDate.now().minusDays(1),OrderStatus.GEREGISTREERD, BetalingsStatus.BETAALD, 
+				new Bestelling(49002, LocalDate.now().minusDays(1),OrderStatus.GEPLAATST, BetalingsStatus.BETAALD, 
 						klanten.get(1), gebruiker,
 						Arrays.asList(
 								new BesteldProduct(producten.get(0), 100),

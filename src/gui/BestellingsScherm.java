@@ -158,8 +158,8 @@ public class BestellingsScherm {
     }
     
     private void initializeStatusChoiceBoxes() {
-        choiceboxOrderStatus.getItems().setAll(OrderStatus.AAN_HET_VERWERKEN, OrderStatus.GELEVERD, OrderStatus.GEREGISTREERD, OrderStatus.ONDERWEG);
-        choiceboxBestellingsStatus.getItems().setAll(BetalingsStatus.BETAALD, BetalingsStatus.NIET_BETAALD);
+        choiceboxOrderStatus.getItems().setAll(OrderStatus.GEPLAATST, OrderStatus.VERWERKT, OrderStatus.UIT_VOOR_LEVERING, OrderStatus.VERZONDEN, OrderStatus.GELEVERD, OrderStatus.VOLTOOID);
+        choiceboxBestellingsStatus.getItems().setAll(BetalingsStatus.BETAALD, BetalingsStatus.FACTUUR_VERZONDEN, BetalingsStatus.ONVERWERKT);
         
         //filters
         cbFilterBestellingen.getItems().setAll(OrderStatus.values());
