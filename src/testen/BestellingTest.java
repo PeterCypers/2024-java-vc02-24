@@ -58,9 +58,9 @@ class BestellingTest {
 			new Klant(bedrijven.get(1),"klant2@hotmail.com","1234","Tiemen Deroose", true, new Adres("Land", "Stad", "12345", "Straat", "20"), "+32123456789")
 	);
 	static List<Product> producten = Arrays.asList(
-			new Product("productA", 3000, 500.0, LeverMethode.STOCK),
-			new Product("productB", 2000, 4.99, LeverMethode.STOCK),
-			new Product("productC", 1000, 19.99, LeverMethode.STOCK)
+			new Product("productA", 3000, 500.0, LeverMethode.STOCK, ""),
+			new Product("productB", 2000, 4.99, LeverMethode.STOCK, ""),
+			new Product("productC", 1000, 19.99, LeverMethode.STOCK, "")
 	);
 	static List<BesteldProduct> besteldeProducten = Arrays.asList(
 			new BesteldProduct(producten.get(0), 1000),

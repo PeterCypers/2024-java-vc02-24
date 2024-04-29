@@ -16,14 +16,14 @@ import org.junit.jupiter.params.provider.MethodSource;
 class BesteldProductTest {
 	
 	private BesteldProduct bp;
-	private static final Product geldigProduct = new Product("soep", 200, 1.5, LeverMethode.STOCK);
+	private static final Product geldigProduct = new Product("soep", 200, 1.5, LeverMethode.STOCK, "");
 	
 	static Stream<Arguments> geldigeData() {
 		return Stream.of(
-			Arguments.of(new Product("sla", 100, 1.5, LeverMethode.ORDER), 50, 75, "sla"),
-			Arguments.of(new Product("tomaat", 200, 2.0, LeverMethode.ORDER), 100, 200, "tomaat"),
-			Arguments.of(new Product("appel", 30, 1.0, LeverMethode.STOCK), 125, 125, "appel"),
-			Arguments.of(new Product("wortel", 50, 0.5, LeverMethode.STOCK), 75, 37.5, "wortel"));
+			Arguments.of(new Product("sla", 100, 1.5, LeverMethode.ORDER, ""), 50, 75, "sla"),
+			Arguments.of(new Product("tomaat", 200, 2.0, LeverMethode.ORDER, ""), 100, 200, "tomaat"),
+			Arguments.of(new Product("appel", 30, 1.0, LeverMethode.STOCK, ""), 125, 125, "appel"),
+			Arguments.of(new Product("wortel", 50, 0.5, LeverMethode.STOCK, ""), 75, 37.5, "wortel"));
 	}
 	
 	@Test
@@ -53,10 +53,10 @@ class BesteldProductTest {
 	 */
 	static Stream<Arguments> geldigeDataStockEnPrijs() {
 		return Stream.of(
-			Arguments.of(new Product("sla", 100, 1.5, LeverMethode.ORDER), 1, "Op order", String.format("%s1,50", "\u20AC")),
-			Arguments.of(new Product("tomaat", 200, 2.0, LeverMethode.ORDER), 1, "Op order", String.format("%s2,00", "\u20AC")),
-			Arguments.of(new Product("appel", 30, 1.0, LeverMethode.STOCK), 1, "30", String.format("%s1,00", "\u20AC")),
-			Arguments.of(new Product("wortel", 50, 0.5, LeverMethode.STOCK), 1, "50", String.format("%s0,50", "\u20AC")));
+			Arguments.of(new Product("sla", 100, 1.5, LeverMethode.ORDER, ""), 1, "Op order", String.format("%s1,50", "\u20AC")),
+			Arguments.of(new Product("tomaat", 200, 2.0, LeverMethode.ORDER, ""), 1, "Op order", String.format("%s2,00", "\u20AC")),
+			Arguments.of(new Product("appel", 30, 1.0, LeverMethode.STOCK, ""), 1, "30", String.format("%s1,00", "\u20AC")),
+			Arguments.of(new Product("wortel", 50, 0.5, LeverMethode.STOCK, ""), 1, "50", String.format("%s0,50", "\u20AC")));
 	}
 	
 	@ParameterizedTest
