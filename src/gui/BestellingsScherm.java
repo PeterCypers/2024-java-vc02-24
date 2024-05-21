@@ -25,239 +25,241 @@ import javafx.scene.layout.HBox;
 
 public class BestellingsScherm {
 
-    @FXML
-    private Label lbBestellingDetails;
+	@FXML
+	private Label lbBestellingDetails;
 
-    @FXML
-    private Label lbOverzichtProducten;
+	@FXML
+	private Label lbOverzichtProducten;
 
-    @FXML
-    private TableView<Bestelling> tbvOverzichtBestellingen;
+	@FXML
+	private TableView<Bestelling> tbvOverzichtBestellingen;
 
-    @FXML
-    private TableColumn<Bestelling, Number> tbcOrderId;
+	@FXML
+	private TableColumn<Bestelling, Number> tbcOrderId;
 
-    @FXML
-    private TableColumn<Bestelling, LocalDate> tbcDatum;
+	@FXML
+	private TableColumn<Bestelling, LocalDate> tbcDatum;
 
-    @FXML
-    private TableColumn<Bestelling, String> tbcKlant;
+	@FXML
+	private TableColumn<Bestelling, String> tbcKlant;
 
-    @FXML
-    private TableColumn<Bestelling, String> tcbOrderstatus;
+	@FXML
+	private TableColumn<Bestelling, String> tcbOrderstatus;
 
-    @FXML
-    private TableColumn<Bestelling, String> tbcBetalingsstatus;
+	@FXML
+	private TableColumn<Bestelling, String> tbcBetalingsstatus;
 
-    @FXML
-    private TableView<BesteldProduct> tbvOverzichtProducten;
+	@FXML
+	private TableView<BesteldProduct> tbvOverzichtProducten;
 
-    @FXML
-    private TableColumn<BesteldProduct, String> tbcNaam;
+	@FXML
+	private TableColumn<BesteldProduct, String> tbcNaam;
 
-    @FXML
-    private TableColumn<BesteldProduct, Number> tbcAantal;
+	@FXML
+	private TableColumn<BesteldProduct, Number> tbcAantal;
 
-    @FXML
-    private TableColumn<BesteldProduct, String> tbcStock;
+	@FXML
+	private TableColumn<BesteldProduct, String> tbcStock;
 
-    @FXML
-    private TableColumn<BesteldProduct, String> tbcEenheidsprijs;
+	@FXML
+	private TableColumn<BesteldProduct, String> tbcEenheidsprijs;
 
-    @FXML
-    private TableColumn<BesteldProduct, String> tbcPrijs;
+	@FXML
+	private TableColumn<BesteldProduct, String> tbcPrijs;
 
-    @FXML
-    private GridPane gpDetailsBestelling;
+	@FXML
+	private GridPane gpDetailsBestelling;
 
-    @FXML
-    private TextField txfNaam;
+	@FXML
+	private TextField txfNaam;
 
-    @FXML
-    private TextField txfEmail;
+	@FXML
+	private TextField txfEmail;
 
-    @FXML
-    private TextField txfTelefoon;
+	@FXML
+	private TextField txfTelefoon;
 
-    @FXML
-    private TextField txfOrderID;
+	@FXML
+	private TextField txfOrderID;
 
-    @FXML
-    private TextField txfDatum;
+	@FXML
+	private TextField txfDatum;
 
-    @FXML
-    private TextField txfAdresLijn1;
+	@FXML
+	private TextField txfAdresLijn1;
 
-    @FXML
-    private TextField txfAdresLijn2;
-    
-    @FXML
-    private ChoiceBox<OrderStatus> choiceboxOrderStatus;
-    
-    @FXML
-    private ChoiceBox<BetalingsStatus> choiceboxBestellingsStatus;
+	@FXML
+	private TextField txfAdresLijn2;
 
-    @FXML
-    private DatePicker dpBetalingsherinnering;
+	@FXML
+	private ChoiceBox<OrderStatus> choiceboxOrderStatus;
 
-    @FXML
-    private TextField txfBedrag;
+	@FXML
+	private ChoiceBox<BetalingsStatus> choiceboxBestellingsStatus;
 
-    @FXML
-    private HBox hbFilterProducten;
+	@FXML
+	private DatePicker dpBetalingsherinnering;
 
-    @FXML
-    private TextField txfFilterProducten;
+	@FXML
+	private TextField txfBedrag;
 
-    @FXML
-    private TextField txfFilterProduct2;
+	@FXML
+	private HBox hbFilterProducten;
 
-    @FXML
-    private DatePicker dpFilterBestelling;
+	@FXML
+	private TextField txfFilterProducten;
 
-    @FXML
-    private ChoiceBox<OrderStatus> cbFilterBestellingen;
+	@FXML
+	private TextField txfFilterProduct2;
 
-    @FXML
-    private ChoiceBox<BetalingsStatus> cbFilterBestelling2;
+	@FXML
+	private DatePicker dpFilterBestelling;
 
-    @FXML
-    private TextField txfFilterBestelling;
-    
-    @FXML
-    private TextField txfBetaalDatum;
+	@FXML
+	private ChoiceBox<OrderStatus> cbFilterBestellingen;
 
-    @FXML
-    void filterBestelling(ActionEvent event) {
-    	bc.getFilterdList(dpFilterBestelling.getValue(), cbFilterBestellingen.getValue(),
-    			cbFilterBestelling2.getValue(), txfFilterBestelling.getText(), null);
-    	toonBestelling(false);
-    	//nodig om alle bestellingen te zien
-    	dpFilterBestelling.setValue(null);
-    	cbFilterBestellingen.setValue(OrderStatus.filter);
-    	cbFilterBestelling2.setValue(BetalingsStatus.filter);
-    }
+	@FXML
+	private ChoiceBox<BetalingsStatus> cbFilterBestelling2;
 
-    @FXML
-    void filterProducten(ActionEvent event) {
-    	String keyword = txfFilterProducten.getText();
-    	String secondKeyword = txfFilterProduct2.getText();
-    	  if(keyword.equals("") && secondKeyword.equals("")) {
-    		  tbvOverzichtProducten.setItems(bc.getBestellingen().get(index).getObservableListProducten());
-    	 } else {
-    	     tbvOverzichtProducten.setItems(bc.getBestellingen().get(index).filter(keyword, secondKeyword));
-    	 }
-    }
-    
-    @FXML
-    public void initialize() {
-        initializeStatusChoiceBoxes();
-        dpBetalingsherinnering.valueProperty().addListener((obs, oudeDatum, nieuweDatum) -> {
-            handleHerinneringsDatumWijziging(nieuweDatum);
-        });
-    }
-    
-    private void initializeStatusChoiceBoxes() {
-        choiceboxOrderStatus.getItems().setAll(OrderStatus.GEPLAATST, OrderStatus.VERWERKT, OrderStatus.UIT_VOOR_LEVERING, OrderStatus.VERZONDEN, OrderStatus.GELEVERD, OrderStatus.VOLTOOID);
-        choiceboxBestellingsStatus.getItems().setAll(BetalingsStatus.BETAALD, BetalingsStatus.FACTUUR_VERZONDEN, BetalingsStatus.ONVERWERKT);
-        
-        //filters
-        cbFilterBestellingen.getItems().setAll(OrderStatus.values());
-        cbFilterBestelling2.getItems().setAll(BetalingsStatus.values());
-        
-        cbFilterBestellingen.setValue(OrderStatus.filter);
-        cbFilterBestelling2.setValue(BetalingsStatus.filter);
+	@FXML
+	private TextField txfFilterBestelling;
 
-        choiceboxOrderStatus.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            handleOrderStatusChange();
-        });
-        choiceboxBestellingsStatus.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            handleBetalingStatusChange();
-        });
-    }
+	@FXML
+	private TextField txfBetaalDatum;
 
-    private BestellingController bc;
-    private int index;
-    private boolean isOrderVeranderen; // flag om bij te houden of de gebruiker hier wel een bestelling aanpast, 
-    							       // en niet gewoon het systeem die een andere bestelling toont in de combobox
-    private Node node;
+	@FXML
+	void filterBestelling(ActionEvent event) {
+		bc.getFilterdList(dpFilterBestelling.getValue(), cbFilterBestellingen.getValue(),
+				cbFilterBestelling2.getValue(), txfFilterBestelling.getText(), null);
+		toonBestelling(false);
+		// nodig om alle bestellingen te zien
+		dpFilterBestelling.setValue(null);
+		cbFilterBestellingen.setValue(OrderStatus.filter);
+		cbFilterBestelling2.setValue(BetalingsStatus.filter);
+	}
+
+	@FXML
+	void filterProducten(ActionEvent event) {
+		String keyword = txfFilterProducten.getText();
+		String secondKeyword = txfFilterProduct2.getText();
+		if (keyword.equals("") && secondKeyword.equals("")) {
+			tbvOverzichtProducten.setItems(bc.getBestellingen().get(index).getObservableListProducten());
+		} else {
+			tbvOverzichtProducten.setItems(bc.getBestellingen().get(index).filter(keyword, secondKeyword));
+		}
+	}
+
+	@FXML
+	public void initialize() {
+		initializeStatusChoiceBoxes();
+		dpBetalingsherinnering.valueProperty().addListener((obs, oudeDatum, nieuweDatum) -> {
+			handleHerinneringsDatumWijziging(nieuweDatum, oudeDatum);
+		});
+	}
+
+	private void initializeStatusChoiceBoxes() {
+		choiceboxOrderStatus.getItems().setAll(OrderStatus.GEPLAATST, OrderStatus.VERWERKT,
+				OrderStatus.UIT_VOOR_LEVERING, OrderStatus.VERZONDEN, OrderStatus.GELEVERD, OrderStatus.VOLTOOID);
+		choiceboxBestellingsStatus.getItems().setAll(BetalingsStatus.BETAALD, BetalingsStatus.FACTUUR_VERZONDEN,
+				BetalingsStatus.ONVERWERKT);
+
+		// filters
+		cbFilterBestellingen.getItems().setAll(OrderStatus.values());
+		cbFilterBestelling2.getItems().setAll(BetalingsStatus.values());
+
+		cbFilterBestellingen.setValue(OrderStatus.filter);
+		cbFilterBestelling2.setValue(BetalingsStatus.filter);
+
+		choiceboxOrderStatus.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+			handleOrderStatusChange();
+		});
+		choiceboxBestellingsStatus.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+			handleBetalingStatusChange();
+		});
+	}
+
+	private BestellingController bc;
+	private int index;
+	private boolean systeemVerandertOrder; // flag om bij te houden of de gebruiker hier wel een bestelling aanpast,
+										// en niet gewoon het systeem die een andere bestelling toont in de combobox
+	private Node node;
 
 	public BestellingsScherm() {
 		bc = new BestellingController();
 		buildGui();
 	}
-	
+
 	private void buildGui() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("BestellingsScherm.fxml"));
-    	loader.setController(this);
-        try {
-            node = loader.load();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-        
-        tableView();
-        
-        //Geselecteerde bestelling tonen
-        tbvOverzichtBestellingen.getSelectionModel().selectedItemProperty().
-        addListener((observableValue, oudBestelling, nieuwBestelling) -> {
-            if (nieuwBestelling != null) {
-                index = tbvOverzichtBestellingen.getSelectionModel().getSelectedIndex();
-                toonDetailsBestelling(index);	//toon de details van de gekozen bestelling op deze index
-            }
-        });
+		loader.setController(this);
+		try {
+			node = loader.load();
+		} catch (IOException ex) {
+			throw new RuntimeException(ex);
+		}
+
+		tableView();
+
+		// Geselecteerde bestelling tonen
+		tbvOverzichtBestellingen.getSelectionModel().selectedItemProperty()
+				.addListener((observableValue, oudBestelling, nieuwBestelling) -> {
+					if (nieuwBestelling != null) {
+						index = tbvOverzichtBestellingen.getSelectionModel().getSelectedIndex();
+						toonDetailsBestelling(index); // toon de details van de gekozen bestelling op deze index
+					}
+				});
 	}
-	
+
 	private void tableView() {
 		tbcOrderId.setCellValueFactory(cellData -> cellData.getValue().orderIdProperty());
-        tbcDatum.setCellValueFactory(cellData -> cellData.getValue().datumProperty());
-        tbcKlant.setCellValueFactory(cellData -> cellData.getValue().bedrijfsnaamProperty());
-        tcbOrderstatus.setCellValueFactory(cellData -> cellData.getValue().orderstatusProperty());
-        tbcBetalingsstatus.setCellValueFactory(cellData -> cellData.getValue().betalingsstatusProperty());
-        
-        tbvOverzichtBestellingen.setItems(bc.getBestellingen());
+		tbcDatum.setCellValueFactory(cellData -> cellData.getValue().datumProperty());
+		tbcKlant.setCellValueFactory(cellData -> cellData.getValue().bedrijfsnaamProperty());
+		tcbOrderstatus.setCellValueFactory(cellData -> cellData.getValue().orderstatusProperty());
+		tbcBetalingsstatus.setCellValueFactory(cellData -> cellData.getValue().betalingsstatusProperty());
+
+		tbvOverzichtBestellingen.setItems(bc.getBestellingen());
 	}
-	
+
 	private void toonDetailsBestelling(int index) {
 		LocalDate datum = bc.getBestellingen().get(index).getDatumGeplaats();
 		LocalDate Betaaldatum = bc.getBestellingen().get(index).getBetalingsDatum();
 		Bestelling selectedBestelling = tbvOverzichtBestellingen.getItems().get(index);
 		Bestelling geselecteerdeBestelling = tbvOverzichtBestellingen.getItems().get(index);
 
-		
-		isOrderVeranderen = true;
-		
+		systeemVerandertOrder = true;
+
 		txfNaam.setText(bc.getBestellingen().get(index).getBedrijfsnaam());
 		txfEmail.setText(bc.getBestellingen().get(index).getKlant().getEmail());
 		txfTelefoon.setText(bc.getBestellingen().get(index).getKlant().getTelefoonnummer());
 		txfOrderID.setText(String.format("%d", bc.getBestellingen().get(index).getOrderId()));
-		txfDatum.setText(String.format("%s-%s-%s",datum.getYear() , datum.getMonthValue(), datum.getDayOfMonth()));
+		txfDatum.setText(String.format("%s-%s-%s", datum.getYear(), datum.getMonthValue(), datum.getDayOfMonth()));
 		txfAdresLijn1.setText(bc.getBestellingen().get(index).getKlant().getAdres().toStringLijn1());
 		txfAdresLijn2.setText(bc.getBestellingen().get(index).getKlant().getAdres().toStringLijn2());
 		dpBetalingsherinnering.setValue(geselecteerdeBestelling.getHerinneringsDatum());
-		dpBetalingsherinnering.setDisable(bc.getBestellingen().get(index).getBetalingStatus() == BetalingsStatus.BETAALD);
-	    choiceboxOrderStatus.setValue(selectedBestelling.getOrderStatus());
-	    choiceboxBestellingsStatus.setValue(selectedBestelling.getBetalingStatus());
+		dpBetalingsherinnering
+				.setDisable(bc.getBestellingen().get(index).getBetalingStatus() == BetalingsStatus.BETAALD);
+		choiceboxOrderStatus.setValue(selectedBestelling.getOrderStatus());
+		choiceboxBestellingsStatus.setValue(selectedBestelling.getBetalingStatus());
 		txfBedrag.setText(String.format("\u20AC%.2f", bc.getBestellingen().get(index).berekenTotalBedrag()));
-	    txfBetaalDatum.setText(String.format("%s", Betaaldatum));
-		
-		isOrderVeranderen = false;
-		
+		txfBetaalDatum.setText(String.format("%s", Betaaldatum));
+
+		systeemVerandertOrder = false;
+
 		tableViewProducten(index);
-		
+
 		toonBestelling(true);
 	}
-	
+
 	private void tableViewProducten(int index) {
 		tbcNaam.setCellValueFactory(cellData -> cellData.getValue().naamProperty());
 		tbcAantal.setCellValueFactory(cellData -> cellData.getValue().aantalProperty());
 		tbcStock.setCellValueFactory(cellData -> cellData.getValue().stockProperty());
 		tbcEenheidsprijs.setCellValueFactory(cellData -> cellData.getValue().eenheidsprijsProperty());
 		tbcPrijs.setCellValueFactory(cellData -> cellData.getValue().totaalPrijsProperty());
-		
+
 		tbvOverzichtProducten.setItems(bc.getBestellingen().get(index).getObservableListProducten());
 	}
-	
+
 	private void toonBestelling(Boolean status) {
 		lbBestellingDetails.setVisible(status);
 		gpDetailsBestelling.setVisible(status);
@@ -265,69 +267,74 @@ public class BestellingsScherm {
 		tbvOverzichtProducten.setVisible(status);
 		hbFilterProducten.setVisible(status);
 	}
-	
+
 	private void handleOrderStatusChange() {
-        Bestelling selectedBestelling = tbvOverzichtBestellingen.getSelectionModel().getSelectedItem();
-        if (isOrderVeranderen || selectedBestelling == null || choiceboxOrderStatus.getValue() == null) {
-        	return;
-        }
-        
-        try {
-        	selectedBestelling.veranderOrderStatus(choiceboxOrderStatus.getValue());
-        	
-            bc.updateBestelling(selectedBestelling); 
-            tbvOverzichtBestellingen.refresh();
-            tbvOverzichtProducten.refresh();
-        } catch (IllegalArgumentException iae) {
-        	Alert alert = new Alert(AlertType.ERROR);
+		Bestelling selectedBestelling = tbvOverzichtBestellingen.getSelectionModel().getSelectedItem();
+		if (systeemVerandertOrder || selectedBestelling == null || choiceboxOrderStatus.getValue() == null) {
+			return;
+		}
+
+		try {
+			selectedBestelling.veranderOrderStatus(choiceboxOrderStatus.getValue());
+
+			bc.updateBestelling(selectedBestelling);
+			tbvOverzichtBestellingen.refresh();
+			tbvOverzichtProducten.refresh();
+		} catch (IllegalArgumentException iae) {
+			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Fout bij het veranderen van de bestellingsstatus");
 			alert.setHeaderText(iae.getMessage());
 			alert.showAndWait();
-        }
+		}
 	}
-	
-	
+
 	private void handleBetalingStatusChange() {
-        Bestelling selectedBestelling = tbvOverzichtBestellingen.getSelectionModel().getSelectedItem();
-        if (isOrderVeranderen || selectedBestelling == null || choiceboxBestellingsStatus.getValue() == null ) {
-        	return;
-        }
-        
-        selectedBestelling.setBetalingStatus(choiceboxBestellingsStatus.getValue());
-        
-        dpBetalingsherinnering.setDisable(choiceboxBestellingsStatus.getValue() == BetalingsStatus.BETAALD);
-    
-        bc.updateBestelling(selectedBestelling); 
-        tbvOverzichtBestellingen.refresh();
-        
-    }
-	
-	private void handleHerinneringsDatumWijziging(LocalDate nieuweDatum) {
-	    Bestelling geselecteerdeBestelling = tbvOverzichtBestellingen.getSelectionModel().getSelectedItem();
-	    
-	    LocalDate vandaag = LocalDate.now();
-	    LocalDate betalingsDatum = geselecteerdeBestelling.getBetalingsDatum();    	
-	    
-	    try {
-	    if (geselecteerdeBestelling != null && geselecteerdeBestelling.getBetalingStatus() != BetalingsStatus.BETAALD || !nieuweDatum.isBefore(vandaag) || !nieuweDatum.isAfter(betalingsDatum)) {
-	    	dpBetalingsherinnering.setDisable(false);
-	        geselecteerdeBestelling.setHerinneringsDatum(nieuweDatum);
-	        bc.updateBestelling(geselecteerdeBestelling); 
-	        tbvOverzichtBestellingen.refresh();
-	    }else {
-	    	dpBetalingsherinnering.setDisable(true);
-	    }
-	    }catch(IllegalArgumentException iae){
-	    	Alert alert = new Alert(Alert.AlertType.ERROR);
-	        alert.setTitle("Ongeldige Datum");
-	        alert.setHeaderText("Fout bij het instellen van de herinneringsdatum");
-	        alert.setContentText(iae.getMessage());
-	        alert.showAndWait();
-	    }
+		Bestelling selectedBestelling = tbvOverzichtBestellingen.getSelectionModel().getSelectedItem();
+		if (systeemVerandertOrder || selectedBestelling == null || choiceboxBestellingsStatus.getValue() == null) {
+			return;
+		}
+
+		selectedBestelling.setBetalingStatus(choiceboxBestellingsStatus.getValue());
+
+		dpBetalingsherinnering.setDisable(choiceboxBestellingsStatus.getValue() == BetalingsStatus.BETAALD);
+
+		bc.updateBestelling(selectedBestelling);
+		tbvOverzichtBestellingen.refresh();
+
+	}
+
+	private void handleHerinneringsDatumWijziging(LocalDate nieuweDatum, LocalDate oudeDatum) {
+		if (systeemVerandertOrder) {
+			return;
+		}
+		
+		Bestelling geselecteerdeBestelling = tbvOverzichtBestellingen.getSelectionModel().getSelectedItem();
+
+		LocalDate vandaag = LocalDate.now();
+		LocalDate betalingsDatum = geselecteerdeBestelling.getBetalingsDatum();
+
+		try {
+			if (geselecteerdeBestelling != null
+					&& geselecteerdeBestelling.getBetalingStatus() != BetalingsStatus.BETAALD
+					|| !nieuweDatum.isBefore(vandaag) || !nieuweDatum.isAfter(betalingsDatum)) {
+				dpBetalingsherinnering.setDisable(false);
+				geselecteerdeBestelling.setHerinneringsDatum(nieuweDatum);
+				bc.updateBestelling(geselecteerdeBestelling);
+				tbvOverzichtBestellingen.refresh();
+			} else {
+				dpBetalingsherinnering.setDisable(true);
+			}
+		} catch (IllegalArgumentException iae) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Ongeldige Datum");
+			alert.setHeaderText("Fout bij het instellen van de herinneringsdatum");
+			alert.setContentText(iae.getMessage());
+			alert.showAndWait();
+		}
 	}
 
 	public Node geefNode() {
-	    return node;
+		return node;
 	}
 
 }
