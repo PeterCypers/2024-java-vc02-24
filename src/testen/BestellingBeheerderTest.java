@@ -65,7 +65,7 @@ public class BestellingBeheerderTest {
 			Arguments.of(null, OrderStatus.filter, BetalingsStatus.BETAALD, null, null, 2), //BetalingsStatus
 			Arguments.of(null, OrderStatus.filter, BetalingsStatus.FACTUUR_VERZONDEN, null, null, 0),
 			Arguments.of(null, OrderStatus.GELEVERD, BetalingsStatus.BETAALD, null, null, 1), //combi OrderStatus + BetalingsStatus
-			Arguments.of(null, OrderStatus.VERWERKT, BetalingsStatus.BETAALD, null, null, 1),
+			Arguments.of(null, OrderStatus.VERWERKT, BetalingsStatus.BETAALD, null, null, 0),
 			Arguments.of(null, OrderStatus.GELEVERD, BetalingsStatus.ONVERWERKT, null, null, 0),
 			Arguments.of(LocalDate.now().minusMonths(3),OrderStatus.GELEVERD, BetalingsStatus.BETAALD, null, null, 1), //combi date + OrderStatus + BetalingsStatus
 			Arguments.of(LocalDate.now().minusDays(1),OrderStatus.GEPLAATST, BetalingsStatus.BETAALD, null, null, 1),
